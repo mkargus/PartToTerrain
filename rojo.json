@@ -1,0 +1,10 @@
+{
+  "name": "PartToTerrain",
+  "servePort": 8000,
+  "partitions": {
+  	"src": {
+  		"path": "src",
+  		"target": "ServerScriptService.PartToTerrain"
+  	}
+  }
+}

@@ -11,6 +11,11 @@
 
 Part to Terrain is a Roblox plugin that allows users to convert parts into terrain.
 
+## Tools used
+The plugin uses some third-party tools:
+- [Rojo](https://github.com/LPGhatguy/rojo)
+- [Luacheck](https://github.com/mpeterv/luacheck) - Syntax checking and linter
+
 ## Credits
 * [TigerCaptain](https://roblox.com/users/19053090/profile) - Original concept
 * [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Function to draw terrain for wedges
