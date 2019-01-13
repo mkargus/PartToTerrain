@@ -14,10 +14,10 @@ local uiBuilder = require(sp.uiBuilder)
 
 -- Settings
 for _, settings in pairs(settingsList) do
-	if plugin:GetSetting(settings.id) == nil then
-		print(settings.id ..'No value')
-		plugin:SetSetting(settings.id, settings.defaultValue)
-	end
+  if plugin:GetSetting(settings.id) == nil then
+    print(settings.id ..'No value')
+    plugin:SetSetting(settings.id, settings.defaultValue)
+  end
 end
 
 local enabled = false
@@ -33,77 +33,77 @@ ui.Title = 'Part to Terrain '..version
 ui.Name = 'PartToTerrain'
 
 local mainFrame = uiBuilder:createElement('Frame',{
-	Parent = ui,
-	Size = UDim2.new(1,0,1,0),
-	BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground
+  Parent = ui,
+  Size = UDim2.new(1,0,1,0),
+  BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground
 })
 
 -- Bottom Bar Frame
 local bottomBar = uiBuilder:createElement('Frame',{
-	Parent = mainFrame,
-	Size = UDim2.new(1,0,0,30),
-	Position = UDim2.new(0,0,1,-30),
-	BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
+  Parent = mainFrame,
+  Size = UDim2.new(1,0,0,30),
+  Position = UDim2.new(0,0,1,-30),
+  BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
 })
 
 local bottomMaterial = uiBuilder:createElement('TextButton',{
-	Parent = bottomBar,
-	BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
-	Position = UDim2.new(0,5,0,5),
-	Size = UDim2.new(0.5,-10,0,20),
-	Font = 'SourceSans',
-	Text = 'Materials',
-	TextColor3 = Enum.StudioStyleGuideColor.MainText,
-	TextSize = 14
+  Parent = bottomBar,
+  BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
+  Position = UDim2.new(0,5,0,5),
+  Size = UDim2.new(0.5,-10,0,20),
+  Font = 'SourceSans',
+  Text = 'Materials',
+  TextColor3 = Enum.StudioStyleGuideColor.MainText,
+  TextSize = 14
 })
 
 local bottomSettings = uiBuilder:createElement('TextButton',{
-	Parent = bottomBar,
-	BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
-	Position = UDim2.new(0.5,5,0,5),
-	Size = UDim2.new(0.5,-10,0,20),
-	Font = 'SourceSans',
-	Text = 'Settings',
-	TextColor3 = Enum.StudioStyleGuideColor.MainText,
-	TextSize = 14
+  Parent = bottomBar,
+  BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
+  Position = UDim2.new(0.5,5,0,5),
+  Size = UDim2.new(0.5,-10,0,20),
+  Font = 'SourceSans',
+  Text = 'Settings',
+  TextColor3 = Enum.StudioStyleGuideColor.MainText,
+  TextSize = 14
 })
 
 -- Material Selection Frame
 local materialFrame = uiBuilder:createElement('ScrollingFrame',{
-	BackgroundTransparency = 1,
-	Parent = mainFrame,
-	Position = UDim2.new(0,5,0,5),
-	ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
-	ScrollBarThickness = 7, Size = UDim2.new(1,-10,1,-40)
+  BackgroundTransparency = 1,
+  Parent = mainFrame,
+  Position = UDim2.new(0,5,0,5),
+  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+  ScrollBarThickness = 7, Size = UDim2.new(1,-10,1,-40)
 })
 
 uiBuilder:CreateGrid('UIGridLayout', {CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame})
 local selectionHover = uiBuilder:createElement('TextLabel',{
-	BackgroundTransparency = .4,
-	BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
-	Size = UDim2.new(1,0,1,0),
-	Font = 'SourceSans',
-	TextColor3 = Enum.StudioStyleGuideColor.MainText,
-	TextSize = 14,
-	TextWrapped = true
+  BackgroundTransparency = .4,
+  BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
+  Size = UDim2.new(1,0,1,0),
+  Font = 'SourceSans',
+  TextColor3 = Enum.StudioStyleGuideColor.MainText,
+  TextSize = 14,
+  TextWrapped = true
 })
 
 local selectionImage = uiBuilder:createElement('ImageLabel',{
-	BackgroundTransparency = 1,
-	Position = UDim2.new(.5,0,0,0),
-	Size = UDim2.new(.5,0,.5,0),
-	Image = 'rbxasset://textures/AvatarEditorImages/Portrait/gr-selection-corner-phone@3x.png'
+  BackgroundTransparency = 1,
+  Position = UDim2.new(.5,0,0,0),
+  Size = UDim2.new(.5,0,.5,0),
+  Image = 'rbxasset://textures/AvatarEditorImages/Portrait/gr-selection-corner-phone@3x.png'
 })
 
 -- Settings Frame
 local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
-	BackgroundTransparency = 1,
-	Parent = mainFrame,
-	Position = UDim2.new(0,5,0,5),
-	ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
-	ScrollBarThickness = 7,
-	Size = UDim2.new(1,-10,1,-40),
-	Visible = false
+  BackgroundTransparency = 1,
+  Parent = mainFrame,
+  Position = UDim2.new(0,5,0,5),
+  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+  ScrollBarThickness = 7,
+  Size = UDim2.new(1,-10,1,-40),
+  Visible = false
 })
 uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,3), Parent = settingsFrame})
 
@@ -113,116 +113,116 @@ uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,3), Parent = settings
 
 -- Material
 for _, material in pairs(materialList) do
-	local materialBtn = uiBuilder:createElement('ImageButton', {Parent = materialFrame, Image = material.img, Active = true})
-	materialBtn.MouseButton1Click:connect(function()
-		materialSelected = material.enum
-		selectionImage.Parent = materialBtn
-	end)
-	materialBtn.MouseEnter:connect(function()
-		selectionHover.Visible = true
-		selectionHover.Parent = materialBtn
-		selectionHover.Text = material.text
-	end)
-	materialBtn.MouseLeave:connect(function()
-		selectionHover.Visible = false
-	end)
+  local materialBtn = uiBuilder:createElement('ImageButton', {Parent = materialFrame, Image = material.img, Active = true})
+  materialBtn.MouseButton1Click:connect(function()
+    materialSelected = material.enum
+    selectionImage.Parent = materialBtn
+  end)
+  materialBtn.MouseEnter:connect(function()
+    selectionHover.Visible = true
+    selectionHover.Parent = materialBtn
+    selectionHover.Text = material.text
+  end)
+  materialBtn.MouseLeave:connect(function()
+    selectionHover.Visible = false
+  end)
 end
 
 if plugin:GetSetting('CheckUpdates') and marketplaceService:GetProductInfo(2673110695).Description ~= version then
-	uiBuilder:createElement('TextLabel',{Parent = ui, BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText, Size = UDim2.new(1,0,0,20), Font = 'SourceSans', Text = 'A new update is available!', TextColor3 = Enum.StudioStyleGuideColor.Light, TextSize = 16})
-	mainFrame.Position = UDim2.new(0,0,0,20)
-	mainFrame.Size = UDim2.new(1,0,1,-20)
+  uiBuilder:createElement('TextLabel',{Parent = ui, BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText, Size = UDim2.new(1,0,0,20), Font = 'SourceSans', Text = 'A new update is available!', TextColor3 = Enum.StudioStyleGuideColor.Light, TextSize = 16})
+  mainFrame.Position = UDim2.new(0,0,0,20)
+  mainFrame.Size = UDim2.new(1,0,1,-20)
 end
 
 ------------------------
 -- UI input
 ------------------------
 local function ActiveFrame(frame)
-	materialFrame.Visible = false
-	settingsFrame.Visible = false
-	frame.Visible = true
+  materialFrame.Visible = false
+  settingsFrame.Visible = false
+  frame.Visible = true
 end
 
 local function changeSettings(settingId, ui)
-	local value = not plugin:GetSetting(settingId)
-	plugin:SetSetting(settingId, value)
-	if plugin:GetSetting(settingId) then
-		ui.ImageButton.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
-	else
-		ui.ImageButton.Image = ''
-	end
+  local value = not plugin:GetSetting(settingId)
+  plugin:SetSetting(settingId, value)
+  if plugin:GetSetting(settingId) then
+    ui.ImageButton.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
+  else
+    ui.ImageButton.Image = ''
+  end
 
 end
 
 bottomMaterial.MouseButton1Click:connect(function()
-	ActiveFrame(materialFrame)
+  ActiveFrame(materialFrame)
 end)
 
 bottomSettings.MouseButton1Click:connect(function()
-	ActiveFrame(settingsFrame)
+  ActiveFrame(settingsFrame)
 end)
 
 -- Settings
 for _, settings in pairs(settingsList) do
-	local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id))
-	settingBtn.ImageButton.MouseButton1Click:connect(function()
-		changeSettings(settings.id, settingBtn)
-	end)
+  local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id))
+  settingBtn.ImageButton.MouseButton1Click:connect(function()
+    changeSettings(settings.id, settingBtn)
+  end)
 end
 
 ------------------------
 -- Inputs
 ------------------------
 local function activate(bool)
-	enabled = bool
-	button:SetActive(bool)
-	plugin:Activate(bool)
-	ui.Enabled = bool
-	if not bool then
-		outlineManager:Hide()
-	end
+  enabled = bool
+  button:SetActive(bool)
+  plugin:Activate(bool)
+  ui.Enabled = bool
+  if not bool then
+    outlineManager:Hide()
+  end
 end
 
 ui:BindToClose(function()
-	activate(false)
+  activate(false)
 end)
 
 plugin.Deactivation:connect(function()
-	if enabled and ui.Enabled then
-		activate(false)
-	end
+  if enabled and ui.Enabled then
+    activate(false)
+  end
 end)
 
 if runService:IsStudio() and not runService:IsRunning() then
-	button.Click:connect(function()
-		activate(not enabled)
-	end)
+  button.Click:connect(function()
+    activate(not enabled)
+  end)
 else
-	button.Enabled = false
+  button.Enabled = false
 end
 
 --MOUSE
 mouse.Button1Down:connect(function()
-	if enabled and mouse.Target then
-		local success, err = pcall(function() terrainConverter:Convert(mouse.Target, materialSelected, plugin:GetSetting('DeletePart')) end)
-		if not success then
-			local message = uiBuilder:createElement('TextLabel',{
-				Parent = ui,
-				BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
-				Size = UDim2.new(1,0,0,20),
-				Font = 'SourceSans',
-				Text = err,
-				TextColor3 = Enum.StudioStyleGuideColor.Light,
-				TextSize = 16
-			})
-			game.Debris:AddItem(message, 5)
-		end
-	end
+  if enabled and mouse.Target then
+    local success, err = pcall(function() terrainConverter:Convert(mouse.Target, materialSelected, plugin:GetSetting('DeletePart')) end)
+    if not success then
+      local message = uiBuilder:createElement('TextLabel',{
+        Parent = ui,
+        BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
+        Size = UDim2.new(1,0,0,20),
+        Font = 'SourceSans',
+        Text = err,
+        TextColor3 = Enum.StudioStyleGuideColor.Light,
+        TextSize = 16
+      })
+      game.Debris:AddItem(message, 5)
+    end
+  end
 end)
 
 mouse.Move:connect(function()
-	local part = mouse.Target
-	if enabled and part then
-		outlineManager:Set(part)
-	end
+  local part = mouse.Target
+  if enabled and part then
+    outlineManager:Set(part)
+  end
 end)
