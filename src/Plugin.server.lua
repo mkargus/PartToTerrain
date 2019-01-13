@@ -1,5 +1,5 @@
 -- Made By Fastcar48
-local version = '1.0.0'
+local version = '1.1.0-dev'
 local sp = script.Parent
 
 -- Services
@@ -8,16 +8,16 @@ local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
 local materialList = require(sp.materialList)
 local outlineManager = require(sp.outlineManager)
+local settingsList = require(sp.settingsList)
 local terrainConverter = require(sp.terrainConverter)
 local uiBuilder = require(sp.uiBuilder)
 
 -- Settings
-if plugin:GetSetting('CheckUpdates') == nil then
-	plugin:SetSetting('CheckUpdates', true)
-end
-
-if plugin:GetSetting('DeletePart') == nil then
-	plugin:SetSetting('DeletePart', true)
+for _, settings in pairs(settingsList) do
+	if plugin:GetSetting(settings.id) == nil then
+		print(settings.id ..'No value')
+		plugin:SetSetting(settings.id, settings.defaultValue)
+	end
 end
 
 local enabled = false
@@ -106,12 +106,12 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
 	Visible = false
 })
 uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,3), Parent = settingsFrame})
-local checkUpdateBtn = uiBuilder:CreateSettingBtn(settingsFrame, 'Check for updates', plugin:GetSetting('CheckUpdates'))
-local deletePartBtn = uiBuilder:CreateSettingBtn(settingsFrame, 'Delete part when converted', plugin:GetSetting('DeletePart'))
 
 ------------------------
 -- Fill UI
 ------------------------
+
+-- Material
 for _, material in pairs(materialList) do
 	local materialBtn = uiBuilder:createElement('ImageButton', {Parent = materialFrame, Image = material.img, Active = true})
 	materialBtn.MouseButton1Click:connect(function()
@@ -162,13 +162,13 @@ bottomSettings.MouseButton1Click:connect(function()
 	ActiveFrame(settingsFrame)
 end)
 
-checkUpdateBtn.ImageButton.MouseButton1Click:connect(function()
-	changeSettings('CheckUpdates', checkUpdateBtn)
-end)
-
-deletePartBtn.ImageButton.MouseButton1Click:connect(function()
-	changeSettings('DeletePart', deletePartBtn)
-end)
+-- Settings
+for _, settings in pairs(settingsList) do
+	local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id))
+	settingBtn.ImageButton.MouseButton1Click:connect(function()
+		changeSettings(settings.id, settingBtn)
+	end)
+end
 
 ------------------------
 -- Inputs
