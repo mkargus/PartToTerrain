@@ -15,7 +15,6 @@ local uiBuilder = require(sp.uiBuilder)
 -- Settings
 for _, settings in pairs(settingsList) do
   if plugin:GetSetting(settings.id) == nil then
-    print(settings.id ..'No value')
     plugin:SetSetting(settings.id, settings.defaultValue)
   end
 end
@@ -73,8 +72,10 @@ local materialFrame = uiBuilder:createElement('ScrollingFrame',{
   BackgroundTransparency = 1,
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,5),
+  CanvasSize = UDim2.new(0,0,0,295),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
-  ScrollBarThickness = 7, Size = UDim2.new(1,-10,1,-40)
+  ScrollBarThickness = 7,
+  Size = UDim2.new(1,-10,1,-40)
 })
 
 uiBuilder:CreateGrid('UIGridLayout', {CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame})
@@ -98,6 +99,7 @@ local selectionImage = uiBuilder:createElement('ImageLabel',{
 -- Settings Frame
 local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
   BackgroundTransparency = 1,
+  CanvasSize = UDim2.new(0,0,0,51),
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,5),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
@@ -105,7 +107,7 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
   Size = UDim2.new(1,-10,1,-40),
   Visible = false
 })
-uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,3), Parent = settingsFrame})
+uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,1), Parent = settingsFrame})
 
 ------------------------
 -- Fill UI
@@ -164,7 +166,7 @@ end)
 
 -- Settings
 for _, settings in pairs(settingsList) do
-  local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id))
+  local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id), settings.description)
   settingBtn.ImageButton.MouseButton1Click:connect(function()
     changeSettings(settings.id, settingBtn)
   end)

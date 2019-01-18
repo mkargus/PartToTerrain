@@ -18,11 +18,11 @@ function module:createElement(class, input)
   return element
 end
 
-function module:CreateSettingBtn(parent, text, value)
+function module:CreateSettingBtn(parent, text, value, desc)
   local txt = module:createElement('TextLabel', {
     Parent = parent,
-    BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
-    Size = UDim2.new(1,-7,0,30),
+    BackgroundColor3 = Enum.StudioStyleGuideColor.Shadow,
+    Size = UDim2.new(1,-12,0,25),
     Font = 'SourceSans',
     -- Text needs a padding on the side hence why the space is there.
     Text = ' '..text,
@@ -35,9 +35,33 @@ function module:CreateSettingBtn(parent, text, value)
     Parent = txt,
     BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
     ImageColor3 = Enum.StudioStyleGuideColor.MainText,
-    Position = UDim2.new(1,-25,0,5),
+    Position = UDim2.new(1,-25,0.1,0),
     Size = UDim2.new(0,20,0,20)
   })
+
+  local descLabel = module:createElement('TextLabel', {
+    Parent = txt,
+    BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+    BackgroundTransparency = .2,
+    Font = 'SourceSans',
+    Position = UDim2.new(0,5,1,0),
+    Size = UDim2.new(1,-7,0,80),
+    ZIndex = 5000,
+    Visible = false,
+    Text = ' '..desc,
+    TextColor3 = Enum.StudioStyleGuideColor.MainText,
+    TextSize = 14,
+    TextWrapped = true,
+    TextXAlignment = 'Left'
+  })
+
+  txt.MouseEnter:connect(function()
+    descLabel.Visible = true
+  end)
+
+  txt.MouseLeave:connect(function()
+    descLabel.Visible = false
+  end)
 
   if value then
     btn.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'

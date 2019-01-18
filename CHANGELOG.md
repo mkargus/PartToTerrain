@@ -1,3 +1,11 @@
+## 1.1.0 (dev)
+* Material and Setting tab frame will no longer show the scrollbar if all the items are already shown without needing to scroll.
+
+* Various changes for Settings tab:
+  - Added a description for each setting item when hovered over.
+  - Smaller list layout padding (3px -> 1px)
+  - Changed color style
+
 ## 1.0.0 - January 10, 2019  (current)
 *This is being compared to the last update (3.1) on Part to Terrain Classic.*
 * Now the plugin uses ModuleScripts rather than one whole script to do everything. 
