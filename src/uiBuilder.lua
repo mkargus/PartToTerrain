@@ -1,12 +1,18 @@
 local Studio = settings().Studio
 local module = {}
 
+local studioThemeWhitelist = {
+  ['BackgroundColor3'] = true,
+  ['TextColor3'] = true,
+  ['ImageColor3'] = true,
+  ['ScrollBarImageColor3'] = true
+}
+
 function module:createElement(class, input)
   local element = Instance.new(class)
   element.BorderSizePixel = 0
   for key, value in pairs(input) do
-    -- For now, use Enums only for Studio Color Styles.
-    if typeof(value) == 'EnumItem' then
+    if studioThemeWhitelist[key] then
       element[key] = Studio.Theme:GetColor(value)
       Studio.ThemeChanged:connect(function()
         element[key] = Studio.Theme:GetColor(value)
@@ -31,7 +37,7 @@ function module:CreateSettingBtn(parent, text, value, desc)
     TextXAlignment = 'Left'
   })
 
-  local btn = module:createElement('ImageButton',{
+  local btn = module:createElement('ImageButton', {
     Parent = txt,
     BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
     ImageColor3 = Enum.StudioStyleGuideColor.MainText,

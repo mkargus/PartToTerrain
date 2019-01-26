@@ -31,21 +31,21 @@ local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetPluginGui
 ui.Title = 'Part to Terrain '..version
 ui.Name = 'PartToTerrain'
 
-local mainFrame = uiBuilder:createElement('Frame',{
+local mainFrame = uiBuilder:createElement('Frame', {
   Parent = ui,
   Size = UDim2.new(1,0,1,0),
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground
 })
 
 -- Bottom Bar Frame
-local bottomBar = uiBuilder:createElement('Frame',{
+local bottomBar = uiBuilder:createElement('Frame', {
   Parent = mainFrame,
   Size = UDim2.new(1,0,0,30),
   Position = UDim2.new(0,0,1,-30),
   BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
 })
 
-local bottomMaterial = uiBuilder:createElement('TextButton',{
+local bottomMaterial = uiBuilder:createElement('TextButton', {
   Parent = bottomBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
   Position = UDim2.new(0,5,0,5),
@@ -56,7 +56,7 @@ local bottomMaterial = uiBuilder:createElement('TextButton',{
   TextSize = 14
 })
 
-local bottomSettings = uiBuilder:createElement('TextButton',{
+local bottomSettings = uiBuilder:createElement('TextButton', {
   Parent = bottomBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
   Position = UDim2.new(0.5,5,0,5),
@@ -68,7 +68,7 @@ local bottomSettings = uiBuilder:createElement('TextButton',{
 })
 
 -- Material Selection Frame
-local materialFrame = uiBuilder:createElement('ScrollingFrame',{
+local materialFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,5),
@@ -78,8 +78,8 @@ local materialFrame = uiBuilder:createElement('ScrollingFrame',{
   Size = UDim2.new(1,-10,1,-40)
 })
 
-uiBuilder:CreateGrid('UIGridLayout', {CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame})
-local selectionHover = uiBuilder:createElement('TextLabel',{
+uiBuilder:CreateGrid('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
+local selectionHover = uiBuilder:createElement('TextLabel', {
   BackgroundTransparency = .4,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Size = UDim2.new(1,0,1,0),
@@ -89,7 +89,7 @@ local selectionHover = uiBuilder:createElement('TextLabel',{
   TextWrapped = true
 })
 
-local selectionImage = uiBuilder:createElement('ImageLabel',{
+local selectionImage = uiBuilder:createElement('ImageLabel', {
   BackgroundTransparency = 1,
   Position = UDim2.new(.5,0,0,0),
   Size = UDim2.new(.5,0,.5,0),
@@ -97,7 +97,7 @@ local selectionImage = uiBuilder:createElement('ImageLabel',{
 })
 
 -- Settings Frame
-local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
+local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   CanvasSize = UDim2.new(0,0,0,51),
   Parent = mainFrame,
@@ -107,7 +107,7 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame',{
   Size = UDim2.new(1,-10,1,-40),
   Visible = false
 })
-uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,1), Parent = settingsFrame})
+uiBuilder:CreateGrid('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
 
 ------------------------
 -- Fill UI
@@ -115,7 +115,7 @@ uiBuilder:CreateGrid('UIListLayout', {Padding = UDim.new(0,1), Parent = settings
 
 -- Material
 for _, material in pairs(materialList) do
-  local materialBtn = uiBuilder:createElement('ImageButton', {Parent = materialFrame, Image = material.img, Active = true})
+  local materialBtn = uiBuilder:createElement('ImageButton', { Parent = materialFrame, Image = material.img, Active = true })
   materialBtn.MouseButton1Click:connect(function()
     materialSelected = material.enum
     selectionImage.Parent = materialBtn
@@ -131,7 +131,15 @@ for _, material in pairs(materialList) do
 end
 
 if plugin:GetSetting('CheckUpdates') and marketplaceService:GetProductInfo(2673110695).Description ~= version then
-  uiBuilder:createElement('TextLabel',{Parent = ui, BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText, Size = UDim2.new(1,0,0,20), Font = 'SourceSans', Text = 'A new update is available!', TextColor3 = Enum.StudioStyleGuideColor.Light, TextSize = 16})
+  uiBuilder:createElement('TextLabel', {
+    Parent = ui,
+    BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
+    Size = UDim2.new(1,0,0,20),
+    Font = 'SourceSans',
+    Text = 'A new update is available!',
+    TextColor3 = Enum.StudioStyleGuideColor.Light,
+    TextSize = 16
+  })
   mainFrame.Position = UDim2.new(0,0,0,20)
   mainFrame.Size = UDim2.new(1,0,1,-20)
 end
@@ -208,7 +216,7 @@ mouse.Button1Down:connect(function()
   if enabled and mouse.Target then
     local success, err = pcall(function() terrainConverter:Convert(mouse.Target, materialSelected, plugin:GetSetting('DeletePart')) end)
     if not success then
-      local message = uiBuilder:createElement('TextLabel',{
+      local message = uiBuilder:createElement('TextLabel', {
         Parent = ui,
         BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
         Size = UDim2.new(1,0,0,20),
