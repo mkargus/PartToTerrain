@@ -130,18 +130,21 @@ for _, material in pairs(materialList) do
   end)
 end
 
-if plugin:GetSetting('CheckUpdates') and marketplaceService:GetProductInfo(2673110695).Description ~= version then
-  uiBuilder:createElement('TextLabel', {
-    Parent = ui,
-    BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
-    Size = UDim2.new(1,0,0,20),
-    Font = 'SourceSans',
-    Text = 'A new update is available!',
-    TextColor3 = Enum.StudioStyleGuideColor.Light,
-    TextSize = 16
-  })
-  mainFrame.Position = UDim2.new(0,0,0,20)
-  mainFrame.Size = UDim2.new(1,0,1,-20)
+if plugin:GetSetting('CheckUpdates') then
+  local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
+  if success and info.Description ~= version then
+    uiBuilder:createElement('TextLabel', {
+      Parent = ui,
+      BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
+      Size = UDim2.new(1,0,0,20),
+      Font = 'SourceSans',
+      Text = info.Description..' is now available to download!',
+      TextColor3 = Enum.StudioStyleGuideColor.Light,
+      TextSize = 14
+    })
+    mainFrame.Position = UDim2.new(0,0,0,20)
+    mainFrame.Size = UDim2.new(1,0,1,-20)
+  end
 end
 
 ------------------------
