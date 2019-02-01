@@ -10,5 +10,11 @@ return {
     defaultValue = true,
     label = 'Delete part when converted',
     description = 'If checked, the part used to be converted will be delete. If unchecked, it will stay in the Workspace when converted.'
+  },
+  {
+    id = 'EnabledSelectionBox',
+    defaultValue = true,
+    label = 'Enable SelectionBox when hovered',
+    description = 'Allow a SelectionBox overlay when the mouse is hovering over a part.'
   }
 }

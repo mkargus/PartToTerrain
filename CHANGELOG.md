@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.1.0 (dev)
+* Added the ability to disable or enable the SelectionBox overlay when hovering over a part.
 * Material and Setting tab frame will no longer show the scrollbar if all the items are already shown without needing to scroll.
 * Fixed a bug when plugins get reloaded, Part to terrain would stay active and made a second SelectionBox.
 * Various changes on update checker & notice:

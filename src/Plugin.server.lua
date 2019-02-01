@@ -240,7 +240,7 @@ end)
 
 mouse.Move:connect(function()
   local part = mouse.Target
-  if enabled and part then
+  if enabled and plugin:GetSetting('EnabledSelectionBox') and part then
     outlineManager:Set(part)
   end
 end)
