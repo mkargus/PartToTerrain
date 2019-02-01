@@ -200,6 +200,11 @@ ui:BindToClose(function()
   activate(false)
 end)
 
+plugin.Unloading:connect(function()
+  activate(false)
+  outlineManager:Destroy()
+end)
+
 plugin.Deactivation:connect(function()
   if enabled and ui.Enabled then
     activate(false)

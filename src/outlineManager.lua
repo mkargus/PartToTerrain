@@ -13,6 +13,10 @@ end
 
 local module = {}
 
+function module:Destroy()
+  outline:Destroy()
+end
+
 function module:Hide()
   outline.Adornee = nil
 end
