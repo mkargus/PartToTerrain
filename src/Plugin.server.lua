@@ -1,5 +1,5 @@
 -- Made By Fastcar48
-local version = '1.1.0-dev'
+local version = '1.1.0'
 local sp = script.Parent
 
 -- Services
