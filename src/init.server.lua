@@ -155,17 +155,6 @@ local function ActiveFrame(frame)
   frame.Visible = true
 end
 
-local function changeSettings(settingId, ui)
-  local value = not plugin:GetSetting(settingId)
-  plugin:SetSetting(settingId, value)
-  if plugin:GetSetting(settingId) then
-    ui.ImageButton.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
-  else
-    ui.ImageButton.Image = ''
-  end
-
-end
-
 bottomMaterial.MouseButton1Click:connect(function()
   ActiveFrame(materialFrame)
 end)
@@ -178,7 +167,13 @@ end)
 for _, settings in pairs(settingsList) do
   local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id), settings.description)
   settingBtn.ImageButton.MouseButton1Click:connect(function()
-    changeSettings(settings.id, settingBtn)
+    local value = not plugin:GetSetting(settings.id)
+    plugin:SetSetting(settings.id, value)
+    if plugin:GetSetting(settings.id) then
+      settingBtn.ImageButton.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
+    else
+      settingBtn.ImageButton.Image = ''
+    end
   end)
 end
 
