@@ -1,16 +1,15 @@
 -- Made By Fastcar48
 local version = '1.1.0'
-local sp = script.Parent
 
 -- Services
 local mouse = plugin:GetMouse()
 local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
-local materialList = require(sp.materialList)
-local outlineManager = require(sp.outlineManager)
-local settingsList = require(sp.settingsList)
-local terrainConverter = require(sp.terrainConverter)
-local uiBuilder = require(sp.uiBuilder)
+local materialList = require(script.materialList)
+local outlineManager = require(script.outlineManager)
+local settingsList = require(script.settingsList)
+local terrainConverter = require(script.terrainConverter)
+local uiBuilder = require(script.uiBuilder)
 
 -- Settings
 for _, settings in pairs(settingsList) do
