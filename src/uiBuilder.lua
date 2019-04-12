@@ -8,11 +8,14 @@ local studioThemeWhitelist = {
   ['ScrollBarImageColor3'] = true
 }
 
+
 function module:createElement(class, input)
   local element = Instance.new(class)
-  element.BorderSizePixel = 0
+
+  if element:IsA('GuiObject') then element.BorderSizePixel = 0 end
+
   for key, value in pairs(input) do
-    if studioThemeWhitelist[key] then
+    if element:IsA('GuiObject') and studioThemeWhitelist[key] then
       element[key] = Studio.Theme:GetColor(value)
       Studio.ThemeChanged:connect(function()
         element[key] = Studio.Theme:GetColor(value)
@@ -21,6 +24,7 @@ function module:createElement(class, input)
       element[key] = value
     end
   end
+
   return element
 end
 
@@ -73,14 +77,6 @@ function module:CreateSettingBtn(parent, text, value, desc)
     btn.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
   end
   return txt
-end
-
-function module:CreateGrid(class, input)
-  local grid = Instance.new(class)
-  for key, value in pairs(input) do
-    grid[key] = value
-  end
-  return grid
 end
 
 return module

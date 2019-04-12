@@ -40,14 +40,12 @@ local mainFrame = uiBuilder:createElement('Frame', {
 local bottomBar = uiBuilder:createElement('Frame', {
   Parent = mainFrame,
   Size = UDim2.new(1,0,0,25),
-  --Position = UDim2.new(0,0,0,0),
   BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
 })
 
 local bottomMaterial = uiBuilder:createElement('TextButton', {
   Parent = bottomBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
-  --Position = UDim2.new(0,0,0,0),
   Size = UDim2.new(0.5,0,1,0),
   Font = 'SourceSans',
   Text = 'Materials',
@@ -81,7 +79,7 @@ local materialFrame = uiBuilder:createElement('ScrollingFrame', {
   Size = UDim2.new(1,-10,1,-35)
 })
 
-uiBuilder:CreateGrid('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
+uiBuilder:createElement('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
 local selectionHover = uiBuilder:createElement('TextLabel', {
   BackgroundTransparency = .4,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
@@ -110,7 +108,7 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   Size = UDim2.new(1,-10,1,-45),
   Visible = false
 })
-uiBuilder:CreateGrid('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
+uiBuilder:createElement('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
 
 ------------------------
 -- Fill UI
@@ -123,7 +121,7 @@ for _, material in pairs(materialList) do
     BackgroundTransparency = 1,
     Name = material.enum.Name,
     Image = material.img,
-    Active = true 
+    Active = true
   })
   materialBtn.MouseButton1Click:connect(function()
     materialSelected = material.enum
@@ -142,7 +140,7 @@ end
 if plugin:GetSetting('CheckUpdates') then
   local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
   if success and info.Description ~= version then
-    local notice = uiBuilder:createElement('TextLabel', {
+    uiBuilder:createElement('TextLabel', {
       Parent = ui,
       BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
       Position = UDim2.new(0,0,1,-20),
