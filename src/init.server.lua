@@ -1,5 +1,5 @@
 -- Made By Fastcar48
-local version = '1.1.0'
+local version = '1.2.0'
 
 -- Services
 local mouse = plugin:GetMouse()
@@ -39,16 +39,16 @@ local mainFrame = uiBuilder:createElement('Frame', {
 -- Bottom Bar Frame
 local bottomBar = uiBuilder:createElement('Frame', {
   Parent = mainFrame,
-  Size = UDim2.new(1,0,0,30),
-  Position = UDim2.new(0,0,1,-30),
+  Size = UDim2.new(1,0,0,25),
+  --Position = UDim2.new(0,0,0,0),
   BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
 })
 
 local bottomMaterial = uiBuilder:createElement('TextButton', {
   Parent = bottomBar,
-  BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
-  Position = UDim2.new(0,5,0,5),
-  Size = UDim2.new(0.5,-10,0,20),
+  BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
+  --Position = UDim2.new(0,0,0,0),
+  Size = UDim2.new(0.5,0,1,0),
   Font = 'SourceSans',
   Text = 'Materials',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
@@ -57,9 +57,10 @@ local bottomMaterial = uiBuilder:createElement('TextButton', {
 
 local bottomSettings = uiBuilder:createElement('TextButton', {
   Parent = bottomBar,
-  BackgroundColor3 = Enum.StudioStyleGuideColor.ButtonBorder,
-  Position = UDim2.new(0.5,5,0,5),
-  Size = UDim2.new(0.5,-10,0,20),
+  BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
+  BackgroundTransparency = 1,
+  Position = UDim2.new(0.5,0,0,0),
+  Size = UDim2.new(0.5,0,1,0),
   Font = 'SourceSans',
   Text = 'Settings',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
@@ -70,11 +71,14 @@ local bottomSettings = uiBuilder:createElement('TextButton', {
 local materialFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   Parent = mainFrame,
-  Position = UDim2.new(0,5,0,5),
+  Position = UDim2.new(0,5,0,30),
   CanvasSize = UDim2.new(0,0,0,295),
-  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.Mid,
+  BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
+  MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
+  TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
   ScrollBarThickness = 7,
-  Size = UDim2.new(1,-10,1,-40)
+  Size = UDim2.new(1,-10,1,-35)
 })
 
 uiBuilder:CreateGrid('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
@@ -100,10 +104,10 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   CanvasSize = UDim2.new(0,0,0,51),
   Parent = mainFrame,
-  Position = UDim2.new(0,5,0,5),
+  Position = UDim2.new(0,5,0,30),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
   ScrollBarThickness = 7,
-  Size = UDim2.new(1,-10,1,-40),
+  Size = UDim2.new(1,-10,1,-45),
   Visible = false
 })
 uiBuilder:CreateGrid('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
@@ -114,7 +118,13 @@ uiBuilder:CreateGrid('UIListLayout', { Padding = UDim.new(0,1), Parent = setting
 
 -- Material
 for _, material in pairs(materialList) do
-  local materialBtn = uiBuilder:createElement('ImageButton', { Parent = materialFrame, Image = material.img, Active = true })
+  local materialBtn = uiBuilder:createElement('ImageButton', {
+    Parent = materialFrame,
+    BackgroundTransparency = 1,
+    Name = material.enum.Name,
+    Image = material.img,
+    Active = true 
+  })
   materialBtn.MouseButton1Click:connect(function()
     materialSelected = material.enum
     selectionImage.Parent = materialBtn
@@ -132,17 +142,16 @@ end
 if plugin:GetSetting('CheckUpdates') then
   local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
   if success and info.Description ~= version then
-    uiBuilder:createElement('TextLabel', {
+    local notice = uiBuilder:createElement('TextLabel', {
       Parent = ui,
       BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
+      Position = UDim2.new(0,0,1,-20),
       Size = UDim2.new(1,0,0,20),
       Font = 'SourceSans',
       Text = info.Description..' is now available to download!',
       TextColor3 = Enum.StudioStyleGuideColor.Light,
       TextSize = 14
     })
-    mainFrame.Position = UDim2.new(0,0,0,20)
-    mainFrame.Size = UDim2.new(1,0,1,-20)
   end
 end
 

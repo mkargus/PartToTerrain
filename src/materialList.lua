@@ -2,7 +2,7 @@ return {
   {
     enum = Enum.Material.Air,
     text = 'Air',
-    img = 'rbxasset://textures/ui/LuaChat/icons/ic-remove@3x.png'
+    img = 'rbxasset://textures/CollisionGroupsEditor/delete-hover.png'
   },
   {
     enum = Enum.Material.Asphalt,
