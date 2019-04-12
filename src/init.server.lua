@@ -110,6 +110,22 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
 })
 uiBuilder:createElement('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
 
+-- Update Notice
+if plugin:GetSetting('CheckUpdates') then
+  local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
+  if success and info.Description ~= version then
+    uiBuilder:createElement('TextLabel', {
+      Parent = ui,
+      BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
+      Position = UDim2.new(0,0,1,-20),
+      Size = UDim2.new(1,0,0,20),
+      Font = 'SourceSans',
+      Text = info.Description..' is now available to download!',
+      TextColor3 = Enum.StudioStyleGuideColor.Light,
+      TextSize = 14
+    })
+  end
+end
 ------------------------
 -- Fill UI
 ------------------------
@@ -137,39 +153,6 @@ for _, material in pairs(materialList) do
   end)
 end
 
-if plugin:GetSetting('CheckUpdates') then
-  local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
-  if success and info.Description ~= version then
-    uiBuilder:createElement('TextLabel', {
-      Parent = ui,
-      BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
-      Position = UDim2.new(0,0,1,-20),
-      Size = UDim2.new(1,0,0,20),
-      Font = 'SourceSans',
-      Text = info.Description..' is now available to download!',
-      TextColor3 = Enum.StudioStyleGuideColor.Light,
-      TextSize = 14
-    })
-  end
-end
-
-------------------------
--- UI input
-------------------------
-local function ActiveFrame(frame)
-  materialFrame.Visible = false
-  settingsFrame.Visible = false
-  frame.Visible = true
-end
-
-bottomMaterial.MouseButton1Click:connect(function()
-  ActiveFrame(materialFrame)
-end)
-
-bottomSettings.MouseButton1Click:connect(function()
-  ActiveFrame(settingsFrame)
-end)
-
 -- Settings
 for _, settings in pairs(settingsList) do
   local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id), settings.description)
@@ -185,7 +168,7 @@ for _, settings in pairs(settingsList) do
 end
 
 ------------------------
--- Inputs
+-- Functions
 ------------------------
 local function activate(bool)
   enabled = bool
@@ -196,6 +179,23 @@ local function activate(bool)
     outlineManager:Hide()
   end
 end
+
+local function ActiveFrame(frame)
+  materialFrame.Visible = false
+  settingsFrame.Visible = false
+  frame.Visible = true
+end
+
+------------------------
+-- Events
+------------------------
+bottomMaterial.MouseButton1Click:connect(function()
+  ActiveFrame(materialFrame)
+end)
+
+bottomSettings.MouseButton1Click:connect(function()
+  ActiveFrame(settingsFrame)
+end)
 
 ui:BindToClose(function()
   activate(false)
@@ -220,7 +220,6 @@ else
   button.Enabled = false
 end
 
---MOUSE
 mouse.Button1Down:connect(function()
   if enabled and mouse.Target then
     local success, err = pcall(function() terrainConverter:Convert(mouse.Target, materialSelected, plugin:GetSetting('DeletePart')) end)

@@ -8,7 +8,6 @@ local studioThemeWhitelist = {
   ['ScrollBarImageColor3'] = true
 }
 
-
 function module:createElement(class, input)
   local element = Instance.new(class)
 
