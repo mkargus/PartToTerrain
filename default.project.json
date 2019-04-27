@@ -1,0 +1,13 @@
+{
+  "name": "PartToTerrain",
+  "servePort": 8000,
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "PartToTerrain": {
+        "$path": "src"
+      }
+    }
+  }
+}
