@@ -167,7 +167,7 @@ for _, settings in pairs(settingsList) do
     ClipsDescendants = true
   })
 
-  local settingTitle = uiBuilder:createElement('TextLabel', {
+  uiBuilder:createElement('TextLabel', {
     Parent = settingItem,
     BackgroundTransparency = 1,
     Font = 'SourceSans',
@@ -198,7 +198,7 @@ for _, settings in pairs(settingsList) do
     Rotation = 270
   })
 
-  local descLabel = uiBuilder:createElement('TextLabel', {
+  uiBuilder:createElement('TextLabel', {
     Parent = settingItem,
     BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
     Font = 'SourceSans',
