@@ -1,6 +1,6 @@
 {
   "name": "PartToTerrain",
-  "servePort": 8000,
+  "servePort": 34872,
   "tree": {
     "$className": "DataModel",
     "ServerScriptService": {

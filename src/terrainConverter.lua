@@ -1,4 +1,3 @@
--- Using wait() to fix error "attempt to index upvalue 'Terrain' (a nil value)"
 wait()
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local Terrain = game.Workspace:FindFirstChildOfClass('Terrain')

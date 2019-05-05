@@ -13,7 +13,7 @@ Part to Terrain is a Roblox plugin that allows users to convert parts into terra
 
 ## Tools used
 The plugin uses some third-party tools:
-- [Rojo](https://github.com/LPGhatguy/rojo)
+- [Rojo](https://github.com/LPGhatguy/rojo) (0.4.x & 0.5.x)
 - [Luacheck](https://github.com/mpeterv/luacheck) - Syntax checking and linter
 
 ## Credits

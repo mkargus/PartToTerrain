@@ -37,14 +37,14 @@ local mainFrame = uiBuilder:createElement('Frame', {
 })
 
 -- Bottom Bar Frame
-local bottomBar = uiBuilder:createElement('Frame', {
+local navBar = uiBuilder:createElement('Frame', {
   Parent = mainFrame,
   Size = UDim2.new(1,0,0,25),
   BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder
 })
 
-local bottomMaterial = uiBuilder:createElement('TextButton', {
-  Parent = bottomBar,
+local navMaterial = uiBuilder:createElement('TextButton', {
+  Parent = navBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Size = UDim2.new(0.5,0,1,0),
   Font = 'SourceSans',
@@ -53,8 +53,8 @@ local bottomMaterial = uiBuilder:createElement('TextButton', {
   TextSize = 14
 })
 
-local bottomSettings = uiBuilder:createElement('TextButton', {
-  Parent = bottomBar,
+local navSettings = uiBuilder:createElement('TextButton', {
+  Parent = navBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   BackgroundTransparency = 1,
   Position = UDim2.new(0.5,0,0,0),
@@ -100,7 +100,6 @@ local selectionImage = uiBuilder:createElement('ImageLabel', {
 -- Settings Frame
 local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
-  CanvasSize = UDim2.new(0,0,0,51),
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,30),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
@@ -108,7 +107,11 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   Size = UDim2.new(1,-10,1,-45),
   Visible = false
 })
-uiBuilder:createElement('UIListLayout', { Padding = UDim.new(0,1), Parent = settingsFrame })
+
+local settingList = uiBuilder:createElement('UIListLayout', { Padding = UDim.new(0,5), Parent = settingsFrame })
+settingList:GetPropertyChangedSignal('AbsoluteContentSize'):connect(function()
+  settingsFrame.CanvasSize = UDim2.new(0,0,0,settingList.AbsoluteContentSize.Y)
+end)
 
 -- Update Notice
 if plugin:GetSetting('CheckUpdates') then
@@ -155,15 +158,73 @@ end
 
 -- Settings
 for _, settings in pairs(settingsList) do
-  local settingBtn = uiBuilder:CreateSettingBtn(settingsFrame, settings.label, plugin:GetSetting(settings.id), settings.description)
-  settingBtn.ImageButton.MouseButton1Click:connect(function()
-    local value = not plugin:GetSetting(settings.id)
-    plugin:SetSetting(settings.id, value)
-    if plugin:GetSetting(settings.id) then
-      settingBtn.ImageButton.Image = 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png'
+  local isExpanded = false
+
+  local settingItem = uiBuilder:createElement('Frame', {
+    Parent = settingsFrame,
+    Size = UDim2.new(1,-12,0,30),
+    BackgroundColor3 = Enum.StudioStyleGuideColor.Shadow,
+    ClipsDescendants = true
+  })
+
+  local settingTitle = uiBuilder:createElement('TextLabel', {
+    Parent = settingItem,
+    BackgroundTransparency = 1,
+    Font = 'SourceSans',
+    Size = UDim2.new(1,-55,0,30),
+    Text = ' '..settings.label,
+    TextColor3 = Enum.StudioStyleGuideColor.MainText,
+    TextSize = 14,
+    TextWrapped = true,
+    TextXAlignment = 'Left'
+  })
+
+  local check = uiBuilder:createElement('ImageButton', {
+    Parent = settingItem,
+    BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
+    ImageColor3 = Enum.StudioStyleGuideColor.MainText,
+    Image = plugin:GetSetting(settings.id) and 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png' or '',
+    Position = UDim2.new(1,-50,0,5),
+    Size = UDim2.new(0,20,0,20),
+  })
+
+  local expand = uiBuilder:createElement('ImageButton', {
+    Parent = settingItem,
+    BackgroundTransparency = 1,
+    ImageColor3 = Enum.StudioStyleGuideColor.MainText,
+    Image = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png',
+    Position = UDim2.new(1,-25,0,5),
+    Size = UDim2.new(0,20,0,20),
+    Rotation = 270
+  })
+
+  local descLabel = uiBuilder:createElement('TextLabel', {
+    Parent = settingItem,
+    BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+    Font = 'SourceSans',
+    Position = UDim2.new(0,0,0,30),
+    Size = UDim2.new(1,0,0,80),
+    Text = ' '..settings.description,
+    TextColor3 = Enum.StudioStyleGuideColor.MainText,
+    TextSize = 14,
+    TextWrapped = true,
+    TextXAlignment = 'Left'
+  })
+
+  expand.MouseButton1Click:connect(function()
+    isExpanded = not isExpanded
+    if isExpanded then
+      settingItem.Size = UDim2.new(1,-12,0,110)
+      expand.Rotation = 90
     else
-      settingBtn.ImageButton.Image = ''
+      settingItem.Size = UDim2.new(1,-12,0,30)
+      expand.Rotation = 270
     end
+  end)
+
+  check.MouseButton1Click:connect(function()
+    plugin:SetSetting(settings.id, not plugin:GetSetting(settings.id))
+    check.Image = plugin:GetSetting(settings.id) and 'rbxasset://textures/ui/LuaChat/icons/ic-check@3x.png' or ''
   end)
 end
 
@@ -180,21 +241,24 @@ local function activate(bool)
   end
 end
 
-local function ActiveFrame(frame)
+local function ActiveFrame(frame, btn)
+  navMaterial.BackgroundTransparency = 1
+  navSettings.BackgroundTransparency = 1
   materialFrame.Visible = false
   settingsFrame.Visible = false
   frame.Visible = true
+  btn.BackgroundTransparency = 0
 end
 
 ------------------------
 -- Events
 ------------------------
-bottomMaterial.MouseButton1Click:connect(function()
-  ActiveFrame(materialFrame)
+navMaterial.MouseButton1Click:connect(function()
+  ActiveFrame(materialFrame, navMaterial)
 end)
 
-bottomSettings.MouseButton1Click:connect(function()
-  ActiveFrame(settingsFrame)
+navSettings.MouseButton1Click:connect(function()
+  ActiveFrame(settingsFrame, navSettings)
 end)
 
 ui:BindToClose(function()
