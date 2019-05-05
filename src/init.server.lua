@@ -79,14 +79,18 @@ local materialFrame = uiBuilder:createElement('ScrollingFrame', {
   Size = UDim2.new(1,-10,1,-35)
 })
 
-uiBuilder:createElement('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
+local materialUIList = uiBuilder:createElement('UIGridLayout', { CellPadding = UDim2.new(0,5,0,5), CellSize = UDim2.new(0,45,0,45), Parent = materialFrame })
+materialUIList:GetPropertyChangedSignal('AbsoluteContentSize'):connect(function()
+  materialFrame.CanvasSize = UDim2.new(0,0,0,materialUIList.AbsoluteContentSize.Y)
+end)
+
 local selectionHover = uiBuilder:createElement('TextLabel', {
   BackgroundTransparency = .4,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Size = UDim2.new(1,0,1,0),
   Font = 'SourceSans',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
-  TextSize = 14,
+  TextSize = 12,
   TextWrapped = true
 })
 
@@ -103,6 +107,9 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,30),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+  BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
+  MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
+  TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
   ScrollBarThickness = 7,
   Size = UDim2.new(1,-10,1,-45),
   Visible = false
