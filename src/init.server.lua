@@ -85,13 +85,13 @@ materialUIList:GetPropertyChangedSignal('AbsoluteContentSize'):connect(function(
 end)
 
 local selectionHover = uiBuilder:createElement('TextLabel', {
+  Parent = mainFrame,
   BackgroundTransparency = .4,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
-  Size = UDim2.new(1,0,1,0),
   Font = 'SourceSans',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
-  TextSize = 12,
-  TextWrapped = true
+  TextSize = 14,
+  TextWrapped = false
 })
 
 local selectionImage = uiBuilder:createElement('ImageLabel', {
@@ -155,8 +155,11 @@ for _, material in pairs(materialList) do
   end)
   materialBtn.MouseEnter:connect(function()
     selectionHover.Visible = true
-    selectionHover.Parent = materialBtn
     selectionHover.Text = material.text
+    selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
+  end)
+  materialBtn.MouseMoved:connect(function(x, y)
+    selectionHover.Position = UDim2.new(0,x-10,0,y-20)
   end)
   materialBtn.MouseLeave:connect(function()
     selectionHover.Visible = false
