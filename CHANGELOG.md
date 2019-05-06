@@ -1,6 +1,25 @@
 # Changelog
 
-## 1.1.0 - February 2, 2019 (current)
+## [Unreleased]
+### Added
+* Rojo 0.5.x support
+
+### Changed
+* Navbar (formerly "Bottom Bar") is now the top of the widget and has a new look
+* Material image buttons no longer have a gray background behind them
+* Air's image is now a blue trash can
+* Scrollbar uses a different image and color combo
+* Settings has a new look and a expand button to read the what the setting does rather than hovering over
+* Tooltip no longer covers the image buttons and will move with your mouse.
+
+### Removed
+* uiBuilder: Functions `CreateSettingBtn` and `CreateGrid`
+
+### Fixed
+* Tooltip's `MouseEnter` and `MouseLeave` where being overri
+* Scrolling frames no longer show the scrollbar if its contents can be seen without scrolling.
+
+## [1.1.0] - February 2, 2019
 * Added the ability to disable or enable the SelectionBox overlay when hovering over a part.
 * Material and Setting tab frame will no longer show the scrollbar if all the items are already shown without needing to scroll.
 * Fixed a bug when plugins get reloaded, Part to terrain would stay active and made a second SelectionBox.
@@ -13,7 +32,7 @@
   * Smaller list layout padding (3px -> 1px)
   * Changed color style
 
-## 1.0.0 - January 10, 2019
+## [1.0.0] - January 10, 2019
 *This is being compared to the last update (3.1) on Part to Terrain Classic.*
 * Now the plugin uses ModuleScripts rather than one whole script to do everything. 
 * Completely redesigned UI to use Studio widgets rather than ScreenGuis.
@@ -23,3 +42,7 @@
   * If unchecked, it will show nothing when out of date.
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
+
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.1.0...master
+[1.1.0]: https://github.com/mkargus/PartToTerrain/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/mkargus/PartToTerrain/releases/tag/1.0.0
