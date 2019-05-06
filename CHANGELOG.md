@@ -16,7 +16,7 @@
 * uiBuilder: Functions `CreateSettingBtn` and `CreateGrid`
 
 ### Fixed
-* Tooltip's `MouseEnter` and `MouseLeave` where being overri
+* Tooltip's `MouseEnter` and `MouseLeave` state being overwritten.
 * Scrolling frames no longer show the scrollbar if its contents can be seen without scrolling.
 
 ## [1.1.0] - February 2, 2019
