@@ -20,6 +20,7 @@ end
 
 local enabled = false
 local materialSelected = Enum.Material.Air
+local currentTooltip = ''
 
 local button = plugin:CreateToolbar('Fasty48'):CreateButton('Part to Terrain','Convert parts into terrain with ease.','rbxassetid://297321964')
 
@@ -70,7 +71,6 @@ local materialFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,30),
-  CanvasSize = UDim2.new(0,0,0,295),
   ScrollBarImageColor3 = Enum.StudioStyleGuideColor.Mid,
   BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
   MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
@@ -106,7 +106,7 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   BackgroundTransparency = 1,
   Parent = mainFrame,
   Position = UDim2.new(0,5,0,30),
-  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
+  ScrollBarImageColor3 = Enum.StudioStyleGuideColor.Mid,
   BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
   MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
   TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
@@ -146,14 +146,14 @@ for _, material in pairs(materialList) do
     Parent = materialFrame,
     BackgroundTransparency = 1,
     Name = material.enum.Name,
-    Image = material.img,
-    Active = true
+    Image = material.img
   })
   materialBtn.MouseButton1Click:connect(function()
     materialSelected = material.enum
     selectionImage.Parent = materialBtn
   end)
   materialBtn.MouseEnter:connect(function()
+    currentTooltip = material.text
     selectionHover.Visible = true
     selectionHover.Text = material.text
     selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
@@ -162,7 +162,9 @@ for _, material in pairs(materialList) do
     selectionHover.Position = UDim2.new(0,x-10,0,y-20)
   end)
   materialBtn.MouseLeave:connect(function()
-    selectionHover.Visible = false
+    if currentTooltip == material.text then
+      selectionHover.Visible = false
+    end
   end)
 end
 
