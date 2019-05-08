@@ -37,7 +37,7 @@ local mainFrame = uiBuilder:createElement('Frame', {
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground
 })
 
--- Bottom Bar Frame
+-- Nav Frame
 local navBar = uiBuilder:createElement('Frame', {
   Parent = mainFrame,
   Size = UDim2.new(1,0,0,25),
@@ -111,7 +111,7 @@ local settingsFrame = uiBuilder:createElement('ScrollingFrame', {
   MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
   TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
   ScrollBarThickness = 7,
-  Size = UDim2.new(1,-10,1,-45),
+  Size = UDim2.new(1,-10,1,-35),
   Visible = false
 })
 
@@ -134,6 +134,8 @@ if plugin:GetSetting('CheckUpdates') then
       TextColor3 = Enum.StudioStyleGuideColor.Light,
       TextSize = 14
     })
+    materialFrame.Size = UDim2.new(1,-10,1,-55)
+    settingsFrame.Size = UDim2.new(1,-10,1,-55)
   end
 end
 ------------------------

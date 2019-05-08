@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.2.0] - May 8, 2019
 ### Added
 * Rojo 0.5.x support
 
@@ -43,6 +45,7 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.1.0...master
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.2.0...master
+[1.2.0]: https://github.com/mkargus/PartToTerrain/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/mkargus/PartToTerrain/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/mkargus/PartToTerrain/releases/tag/1.0.0
