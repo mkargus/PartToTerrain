@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+## [1.2.1] - May 15, 2019
 ### Fixed
 * Tooltip showing up on the top left when hovering over the Navbar.
 
@@ -48,7 +49,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.2.0...master
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.2.1...master
+[1.2.1]: https://github.com/mkargus/PartToTerrain/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/mkargus/PartToTerrain/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/mkargus/PartToTerrain/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/mkargus/PartToTerrain/releases/tag/1.0.0
