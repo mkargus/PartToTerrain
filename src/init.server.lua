@@ -91,7 +91,8 @@ local selectionHover = uiBuilder:createElement('TextLabel', {
   Font = 'SourceSans',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14,
-  TextWrapped = false
+  TextWrapped = false,
+  Visible = false
 })
 
 local selectionImage = uiBuilder:createElement('ImageLabel', {
@@ -227,13 +228,8 @@ for _, settings in pairs(settingsList) do
 
   expand.MouseButton1Click:connect(function()
     isExpanded = not isExpanded
-    if isExpanded then
-      settingItem.Size = UDim2.new(1,-12,0,110)
-      expand.Rotation = 90
-    else
-      settingItem.Size = UDim2.new(1,-12,0,30)
-      expand.Rotation = 270
-    end
+    settingItem.Size = isExpanded and UDim2.new(1,-12,0,110) or UDim2.new(1,-12,0,30)
+    expand.Rotation = isExpanded and 90 or 270
   end)
 
   check.MouseButton1Click:connect(function()

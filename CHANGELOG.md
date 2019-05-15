@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+* Tooltip showing up on the top left when hovering over the Navbar.
+
 ## [1.2.0] - May 8, 2019
 ### Added
 * Rojo 0.5.x support
