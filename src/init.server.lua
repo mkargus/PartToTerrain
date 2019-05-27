@@ -147,30 +147,29 @@ end
 
 -- Material
 for _, material in pairs(materialList) do
-  local materialBtn = uiBuilder:createElement('ImageButton', {
-    Parent = materialFrame,
+  local materialBtn = Roact.createElement('ImageButton', {
     BackgroundTransparency = 1,
-    Name = material.enum.Name,
-    Image = material.img
-  })
-  materialBtn.MouseButton1Click:connect(function()
-    materialSelected = material.enum
-    selectionImage.Parent = materialBtn
-  end)
-  materialBtn.MouseEnter:connect(function()
-    currentTooltip = material.text
-    selectionHover.Visible = true
-    selectionHover.Text = material.text
-    selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
-  end)
-  materialBtn.MouseMoved:connect(function(x, y)
-    selectionHover.Position = UDim2.new(0,x-10,0,y-20)
-  end)
-  materialBtn.MouseLeave:connect(function()
-    if currentTooltip == material.text then
-      selectionHover.Visible = false
+    Image = material.img,
+    [Roact.Event.MouseButton1Click] = function(self)
+      materialSelected = material.enum
+      selectionImage.Parent = self
+    end,
+    [Roact.Event.MouseEnter] = function()
+      currentTooltip = material.text
+      selectionHover.Visible = true
+      selectionHover.Text = material.text
+      selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
+    end,
+    [Roact.Event.MouseMoved] = function(self, x, y)
+      selectionHover.Position = UDim2.new(0,x-10,0,y-20)
+    end,
+    [Roact.Event.MouseLeave] = function()
+      if currentTooltip == material.text then
+        selectionHover.Visible = false
+      end
     end
-  end)
+  })
+  Roact.mount(materialBtn, materialFrame, material.enum.Name)
 end
 
 -- Settings
