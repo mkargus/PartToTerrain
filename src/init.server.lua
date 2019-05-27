@@ -9,6 +9,8 @@ local materialList = require(script.materialList)
 local outlineManager = require(script.outlineManager)
 local settingsList = require(script.settingsList)
 local terrainConverter = require(script.terrainConverter)
+local Roact = require(script.Roact)
+-- Deprecated
 local uiBuilder = require(script.uiBuilder)
 
 -- Settings

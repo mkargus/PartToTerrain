@@ -9,6 +9,7 @@ local studioThemeWhitelist = {
 }
 
 function module:createElement(class, props)
+  warn('uiBuilder is deprecated. Use Roact.createElement instead of uiBuilder:createElement.')
   local element = Instance.new(class)
 
   if element:IsA('GuiObject') then element.BorderSizePixel = 0 end
