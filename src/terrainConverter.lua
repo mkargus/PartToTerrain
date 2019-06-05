@@ -1,6 +1,4 @@
-wait()
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
-local Terrain = game.Workspace:FindFirstChildOfClass('Terrain')
 
 ChangeHistoryService.OnUndo:connect(function(waypoint)
   if waypoint == 'PartToTerrain' then
@@ -22,7 +20,7 @@ local function ConvertWedge(wedge, mat)
       local dist = (p2-p1).magnitude
       for lerpB = 0,1,1/dist do
         local p = point1.p:lerp(point2.p,lerpB)
-        Terrain:FillBall(p,1,mat)
+        workspace.Terrain:FillBall(p,1,mat)
       end
     end
   end
@@ -39,12 +37,12 @@ local module = {}
 function module:Convert(part, material, deleteAfterConvert)
   if part:IsA('Part') then
     if part.Shape == Enum.PartType.Block then
-      Terrain:FillBlock(part.CFrame, part.Size, material)
+      workspace.Terrain:FillBlock(part.CFrame, part.Size, material)
       RemovePart(part, deleteAfterConvert)
       ChangeHistoryService:SetWaypoint('PartToTerrain')
       return true
     elseif part.Shape == Enum.PartType.Ball then
-      Terrain:FillBall(part.Position, part.Size.X/2, material)
+      workspace.Terrain:FillBall(part.Position, part.Size.X/2, material)
       RemovePart(part, deleteAfterConvert)
       ChangeHistoryService:SetWaypoint('PartToTerrain')
       return true

@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+* Fixed `attempt to index upvalue 'Terrain' (a nil value)` error.
+  * Thanks to Roblox users MrPedro_1, brandonbrady1, EastCoastLaw for reporting the bug.
 
 ## [1.2.1] - May 15, 2019
 ### Fixed
