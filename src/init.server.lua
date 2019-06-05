@@ -1,5 +1,5 @@
 -- Made By Fastcar48
-local version = '1.2.1'
+local version = '1.2.2'
 
 -- Services
 local mouse = plugin:GetMouse()
