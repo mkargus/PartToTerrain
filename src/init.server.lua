@@ -48,7 +48,7 @@ local navMaterial = uiBuilder:createElement('TextButton', {
   Parent = navBar,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Size = UDim2.new(0.5,0,1,0),
-  Font = 'SourceSans',
+  Font = Enum.Font.SourceSans,
   Text = 'Materials',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14
@@ -60,7 +60,7 @@ local navSettings = uiBuilder:createElement('TextButton', {
   BackgroundTransparency = 1,
   Position = UDim2.new(0.5,0,0,0),
   Size = UDim2.new(0.5,0,1,0),
-  Font = 'SourceSans',
+  Font = Enum.Font.SourceSans,
   Text = 'Settings',
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14
@@ -88,7 +88,7 @@ local selectionHover = uiBuilder:createElement('TextLabel', {
   Parent = mainFrame,
   BackgroundTransparency = .4,
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
-  Font = 'SourceSans',
+  Font = Enum.Font.SourceSans,
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14,
   TextWrapped = false,
@@ -130,7 +130,7 @@ if plugin:GetSetting('CheckUpdates') then
       BackgroundColor3 = Enum.StudioStyleGuideColor.WarningText,
       Position = UDim2.new(0,0,1,-20),
       Size = UDim2.new(1,0,0,20),
-      Font = 'SourceSans',
+      Font = Enum.Font.SourceSans,
       Text = info.Description..' is now available to download!',
       TextColor3 = Enum.StudioStyleGuideColor.Light,
       TextSize = 14
@@ -157,9 +157,9 @@ for _, material in pairs(materialList) do
   end)
   materialBtn.MouseEnter:connect(function()
     currentTooltip = material.text
-    selectionHover.Visible = true
     selectionHover.Text = material.text
     selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
+    selectionHover.Visible = true
   end)
   materialBtn.MouseMoved:connect(function(x, y)
     selectionHover.Position = UDim2.new(0,x-10,0,y-20)
@@ -185,13 +185,13 @@ for _, settings in pairs(settingsList) do
   uiBuilder:createElement('TextLabel', {
     Parent = settingItem,
     BackgroundTransparency = 1,
-    Font = 'SourceSans',
+    Font = Enum.Font.SourceSans,
     Size = UDim2.new(1,-55,0,30),
     Text = ' '..settings.label,
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
     TextWrapped = true,
-    TextXAlignment = 'Left'
+    TextXAlignment = Enum.TextXAlignment.Left
   })
 
   local check = uiBuilder:createElement('ImageButton', {
@@ -216,14 +216,14 @@ for _, settings in pairs(settingsList) do
   uiBuilder:createElement('TextLabel', {
     Parent = settingItem,
     BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
-    Font = 'SourceSans',
+    Font = Enum.Font.SourceSans,
     Position = UDim2.new(0,0,0,30),
     Size = UDim2.new(1,0,0,80),
     Text = ' '..settings.description,
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
     TextWrapped = true,
-    TextXAlignment = 'Left'
+    TextXAlignment = Enum.TextXAlignment.Left
   })
 
   expand.MouseButton1Click:connect(function()
@@ -302,7 +302,7 @@ mouse.Button1Down:connect(function()
         Parent = ui,
         BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
         Size = UDim2.new(1,0,0,20),
-        Font = 'SourceSans',
+        Font = Enum.Font.SourceSans,
         Text = err,
         TextColor3 = Enum.StudioStyleGuideColor.Light,
         TextSize = 16
