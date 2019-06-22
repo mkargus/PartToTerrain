@@ -139,6 +139,7 @@ if plugin:GetSetting('CheckUpdates') then
     settingsFrame.Size = UDim2.new(1,-10,1,-55)
   end
 end
+
 ------------------------
 -- Fill UI
 ------------------------
@@ -244,9 +245,11 @@ end
 local function activate(bool)
   enabled = bool
   button:SetActive(bool)
-  plugin:Activate(bool)
   ui.Enabled = bool
-  if not bool then
+  if bool then
+    plugin:Activate(true)
+  elseif not bool then
+    plugin:Deactivate()
     outlineManager:Hide()
   end
 end

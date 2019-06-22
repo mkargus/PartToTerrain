@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+* PluginMouse firing `.Move` event when the plugin is closed.
+
 ## [1.2.2] - June 5, 2019
 ### Fixed
 * Fixed `attempt to index upvalue 'Terrain' (a nil value)` error.
