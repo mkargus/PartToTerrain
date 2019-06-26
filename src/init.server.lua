@@ -301,8 +301,8 @@ end
 mouse.Button1Down:connect(function()
   local part = mouse.Target
   if enabled and part then
-    local success, err = pcall(function() 
-      terrainConverter:Convert(part, materialSelected, plugin:GetSetting('DeletePart'), plugin:GetSetting('IgnoreLockedParts')) 
+    local success, err = pcall(function()
+      terrainConverter:Convert(part, materialSelected, plugin:GetSetting('DeletePart'), plugin:GetSetting('IgnoreLockedParts'))
     end)
     if not success then
       local message = uiBuilder:createElement('TextLabel', {
