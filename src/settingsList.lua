@@ -16,5 +16,11 @@ return {
     defaultValue = true,
     label = 'Enable SelectionBox when hovered',
     description = 'Allow a SelectionBox overlay when the mouse is hovering over a part.'
+  },
+  {
+    id = 'IgnoreLockedParts',
+    defaultValue = false,
+    label = 'Ignore locked parts',
+    description = 'Parts with their Locked property set to true will not be converted.'
   }
 }

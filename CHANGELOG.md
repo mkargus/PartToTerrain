@@ -1,7 +1,9 @@
 # Changelog
 
 ## [Unreleased]
-
+### Added
+* New setting: Ignore locked parts. (Default set to false)
+  * Parts with their Locked property set to true will not be converted.
 ### Fixed
 * PluginMouse firing `.Move` event when the plugin is closed.
 
@@ -17,7 +19,6 @@
 ## [1.2.0] - May 8, 2019
 ### Added
 * Rojo 0.5.x support
-
 ### Changed
 * Navbar (formerly "Bottom Bar") is now the top of the widget and has a new look
 * Material image buttons no longer have a gray background behind them
@@ -25,10 +26,8 @@
 * Scrollbar uses a different image and color combo
 * Settings has a new look and a expand button to read the what the setting does rather than hovering over
 * Tooltip no longer covers the image buttons and will move with your mouse.
-
 ### Removed
 * uiBuilder: Functions `CreateSettingBtn` and `CreateGrid`
-
 ### Fixed
 * Tooltip's `MouseEnter` and `MouseLeave` state being overwritten.
 * Scrolling frames no longer show the scrollbar if its contents can be seen without scrolling.

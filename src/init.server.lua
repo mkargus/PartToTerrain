@@ -219,6 +219,7 @@ for _, settings in pairs(settingsList) do
     BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
     Font = Enum.Font.SourceSans,
     Position = UDim2.new(0,0,0,30),
+    --TODO: Removed fixed height size.
     Size = UDim2.new(1,0,0,80),
     Text = ' '..settings.description,
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
@@ -298,8 +299,11 @@ else
 end
 
 mouse.Button1Down:connect(function()
-  if enabled and mouse.Target then
-    local success, err = pcall(function() terrainConverter:Convert(mouse.Target, materialSelected, plugin:GetSetting('DeletePart')) end)
+  local part = mouse.Target
+  if enabled and part then
+    local success, err = pcall(function() 
+      terrainConverter:Convert(part, materialSelected, plugin:GetSetting('DeletePart'), plugin:GetSetting('IgnoreLockedParts')) 
+    end)
     if not success then
       local message = uiBuilder:createElement('TextLabel', {
         Parent = ui,
@@ -308,7 +312,7 @@ mouse.Button1Down:connect(function()
         Font = Enum.Font.SourceSans,
         Text = err,
         TextColor3 = Enum.StudioStyleGuideColor.Light,
-        TextSize = 16
+        TextScaled = true
       })
       game.Debris:AddItem(message, 5)
     end
@@ -317,7 +321,17 @@ end)
 
 mouse.Move:connect(function()
   local part = mouse.Target
-  if enabled and plugin:GetSetting('EnabledSelectionBox') and part then
-    outlineManager:Set(part)
+  if enabled and part and plugin:GetSetting('EnabledSelectionBox') then
+    if plugin:GetSetting('IgnoreLockedParts') then
+      if part.Locked then
+        outlineManager:Hide()
+      else
+        outlineManager:Set(part)
+      end
+    else
+      outlineManager:Set(part)
+    end
+  else
+    outlineManager:Hide()
   end
 end)
