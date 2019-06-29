@@ -1,11 +1,3 @@
-local ChangeHistoryService = game:GetService('ChangeHistoryService')
-
-ChangeHistoryService.OnUndo:connect(function(waypoint)
-  if waypoint == 'PartToTerrain' then
-    game.Selection:Set({})
-  end
-end)
-
 -- TODO: Allow to fill reather then drawing a outline on the top.
 local function ConvertWedge(wedge, mat)
   local x = wedge.Size.X
@@ -26,36 +18,38 @@ local function ConvertWedge(wedge, mat)
   end
 end
 
-local function RemovePart(part, bool)
-  if bool then
-    part:remove()
-  end
-end
-
-local module = {}
-
-function module:Convert(part, material, deleteAfterConvert)
+local function Convert(part, material)
   if part:IsA('Part') then
     if part.Shape == Enum.PartType.Block then
       workspace.Terrain:FillBlock(part.CFrame, part.Size, material)
-      RemovePart(part, deleteAfterConvert)
-      ChangeHistoryService:SetWaypoint('PartToTerrain')
       return true
     elseif part.Shape == Enum.PartType.Ball then
       workspace.Terrain:FillBall(part.Position, part.Size.X/2, material)
-      RemovePart(part, deleteAfterConvert)
-      ChangeHistoryService:SetWaypoint('PartToTerrain')
       return true
+    --elseif part.Shape == Enum.PartType.Cylinder then
+      --workspace.Terrain:FillCylinder(part.CFrame, part.Size.Y, part.Size.X/2, material)
     else
       error('Part shape is not supported.',0)
     end
   elseif part:IsA('WedgePart') then
     ConvertWedge(part, material)
-    RemovePart(part, deleteAfterConvert)
-    ChangeHistoryService:SetWaypoint('PartToTerrain')
     return true
   else
     error('Part class is not supported.',0)
+  end
+end
+
+local module = {}
+
+function module:Convert(part, material, ignoreLockedParts)
+  if ignoreLockedParts then
+    if part.Locked then
+      error('Ignoring locked part due to settings.',0)
+    else
+      return Convert(part, material)
+    end
+  else
+    return Convert(part, material)
   end
 end
 

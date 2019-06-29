@@ -3,6 +3,7 @@ local version = '1.2.2'
 
 -- Services
 local mouse = plugin:GetMouse()
+local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
 local materialList = require(script.materialList)
@@ -298,13 +299,22 @@ else
   button.Enabled = false
 end
 
+ChangeHistoryService.OnUndo:connect(function(waypoint)
+  if waypoint == 'PartToTerrain' then
+    game.Selection:Set({})
+  end
+end)
+
 mouse.Button1Down:connect(function()
   local part = mouse.Target
   if enabled and part then
-    local success, err = pcall(function()
-      terrainConverter:Convert(part, materialSelected, plugin:GetSetting('DeletePart'), plugin:GetSetting('IgnoreLockedParts'))
-    end)
-    if not success then
+    local success, err = pcall(function() terrainConverter:Convert(part, materialSelected, plugin:GetSetting('IgnoreLockedParts')) end)
+    if success then
+      if plugin:GetSetting('DeletePart') then
+        part:remove()
+      end
+      ChangeHistoryService:SetWaypoint('PartToTerrain')
+    else
       local message = uiBuilder:createElement('TextLabel', {
         Parent = ui,
         BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
