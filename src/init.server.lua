@@ -6,6 +6,7 @@ local mouse = plugin:GetMouse()
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
+local localizationManager = require(script.localizationManager)
 local materialList = require(script.materialList)
 local outlineManager = require(script.outlineManager)
 local settingsList = require(script.settingsList)
@@ -23,13 +24,17 @@ local enabled = false
 local materialSelected = Enum.Material.Air
 local currentTooltip = ''
 
-local button = plugin:CreateToolbar('Fasty48'):CreateButton('Part to Terrain','Convert parts into terrain with ease.','rbxassetid://297321964')
+local button = plugin:CreateToolbar('Fasty48'):CreateButton(
+  localizationManager:TranslateId('Plugin.Name'),
+  localizationManager:TranslateId('Plugin.Desc'),
+  'rbxassetid://297321964'
+)
 
 ------------------------
 -- UI
 ------------------------
 local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, true, 300, 300, 220, 265))
-ui.Title = 'Part to Terrain '..version
+ui.Title = localizationManager:TranslateId('Plugin.NameVersion', {version})
 ui.Name = 'PartToTerrain'
 
 local mainFrame = uiBuilder:createElement('Frame', {
@@ -50,7 +55,7 @@ local navMaterial = uiBuilder:createElement('TextButton', {
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Size = UDim2.new(0.5,0,1,0),
   Font = Enum.Font.SourceSans,
-  Text = 'Materials',
+  Text = localizationManager:TranslateId('Button.Materials'),
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14
 })
@@ -62,7 +67,7 @@ local navSettings = uiBuilder:createElement('TextButton', {
   Position = UDim2.new(0.5,0,0,0),
   Size = UDim2.new(0.5,0,1,0),
   Font = Enum.Font.SourceSans,
-  Text = 'Settings',
+  Text = localizationManager:TranslateId('Button.Settings'),
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
   TextSize = 14
 })
@@ -132,7 +137,7 @@ if plugin:GetSetting('CheckUpdates') then
       Position = UDim2.new(0,0,1,-20),
       Size = UDim2.new(1,0,0,20),
       Font = Enum.Font.SourceSans,
-      Text = info.Description..' is now available to download!',
+      Text = localizationManager:TranslateId('Notice.Outdated', {info.Description}),
       TextColor3 = Enum.StudioStyleGuideColor.Light,
       TextSize = 14
     })
@@ -158,8 +163,8 @@ for _, material in pairs(materialList) do
     selectionImage.Parent = materialBtn
   end)
   materialBtn.MouseEnter:connect(function()
-    currentTooltip = material.text
-    selectionHover.Text = material.text
+    currentTooltip = materialBtn
+    selectionHover.Text = localizationManager:TranslateId('Materials.'..material.enum.Name)
     selectionHover.Size = UDim2.new(0,selectionHover.TextBounds.X+5,0,selectionHover.TextBounds.Y+5)
     selectionHover.Visible = true
   end)
@@ -167,7 +172,7 @@ for _, material in pairs(materialList) do
     selectionHover.Position = UDim2.new(0,x-10,0,y-20)
   end)
   materialBtn.MouseLeave:connect(function()
-    if currentTooltip == material.text then
+    if currentTooltip == materialBtn then
       selectionHover.Visible = false
     end
   end)
@@ -189,7 +194,7 @@ for _, settings in pairs(settingsList) do
     BackgroundTransparency = 1,
     Font = Enum.Font.SourceSans,
     Size = UDim2.new(1,-55,0,30),
-    Text = ' '..settings.label,
+    Text = localizationManager:TranslateId('Settings.'..settings.id),
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
     TextWrapped = true,
@@ -222,7 +227,7 @@ for _, settings in pairs(settingsList) do
     Position = UDim2.new(0,0,0,30),
     --TODO: Removed fixed height size.
     Size = UDim2.new(1,0,0,80),
-    Text = ' '..settings.description,
+    Text = localizationManager:TranslateId('Settings.'..settings.id..'Desc'),
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
     TextWrapped = true,
@@ -320,7 +325,7 @@ mouse.Button1Down:connect(function()
         BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
         Size = UDim2.new(1,0,0,20),
         Font = Enum.Font.SourceSans,
-        Text = err,
+        Text = localizationManager:TranslateId(err),
         TextColor3 = Enum.StudioStyleGuideColor.Light,
         TextScaled = true
       })

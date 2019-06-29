@@ -29,13 +29,13 @@ local function Convert(part, material)
     --elseif part.Shape == Enum.PartType.Cylinder then
       --workspace.Terrain:FillCylinder(part.CFrame, part.Size.Y, part.Size.X/2, material)
     else
-      error('Part shape is not supported.',0)
+      error('Notice.ShapeNotSupported',0)
     end
   elseif part:IsA('WedgePart') then
     ConvertWedge(part, material)
     return true
   else
-    error('Part class is not supported.',0)
+    error('Notice.ClassNotSupport',0)
   end
 end
 
@@ -44,7 +44,7 @@ local module = {}
 function module:Convert(part, material, ignoreLockedParts)
   if ignoreLockedParts then
     if part.Locked then
-      error('Ignoring locked part due to settings.',0)
+      error('Notice.IgnoreLockedPart',0)
     else
       return Convert(part, material)
     end

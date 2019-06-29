@@ -1,0 +1,41 @@
+Key,en-us
+Plugin.Name,Part to Terrain
+Plugin.Desc,Convert parts into terrain with ease.
+Plugin.NameVersion,Part to Terrain {1}
+Button.Materials,Materials
+Button.Settings,Settings
+Settings.CheckUpdates,Check for Updates
+Settings.CheckUpdatesDesc,"If checked, the plugin will check for updates at Studio launch and display a notice on the plugin when outdated. If unchecked, the plugin will not for any updates."
+Settings.DeletePart,Delete part when converted
+Settings.DeletePartDesc,"If checked, the part used to be converted will be delete. If unchecked, it will stay in the Workspace when converted."
+Settings.EnabledSelectionBox,Enable SelectionBox when hovered
+Settings.EnabledSelectionBoxDesc,Allow a SelectionBox overlay when the mouse is hovering over a part.
+Settings.IgnoreLockedParts,Ignore locked parts
+Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.
+Notice.Outdated,{1} is now available to download!
+Notice.IgnoreLockedPart,Ignoring locked part due to settings.
+Notice.ShapeNotSupported,Part shape is not supported.
+Notice.ClassNotSupport,Part class is not supported.
+Materials.Air,Air
+Materials.Asphalt,Asphalt
+Materials.Basalt,Basalt
+Materials.Brick,Brick
+Materials.Cobblestone,Cobblestone
+Materials.Concrete,Concrete
+Materials.CrackedLava,Cracked Lava
+Materials.Glacier,Glacier
+Materials.Grass,Grass
+Materials.Ground,Ground
+Materials.Ice,Ice
+Materials.LeafyGrass,Leafy Grass
+Materials.Limestone,Limestone
+Materials.Mud,Mud
+Materials.Pavement,Pavement
+Materials.Rock,Rock
+Materials.Salt,Salt
+Materials.Sand,Sand
+Materials.Sandstone,Sandstone
+Materials.Slate,Slate
+Materials.Snow,Snow
+Materials.Water,Water
+Materials.WoodPlanks,Wood Planks
