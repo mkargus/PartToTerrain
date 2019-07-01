@@ -2,8 +2,12 @@
 
 ## [Unreleased]
 ### Added
+* Simplified Chinese support!
+  * Follows Studio's language settings.
 * New setting: Ignore locked parts. (Default set to false)
   * Parts with their Locked property set to true will not be converted.
+### Changed
+* Tooltip is slightly taller and now has a shadow. 
 ### Fixed
 * PluginMouse firing `.Move` event when the plugin is closed.
 

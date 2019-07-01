@@ -24,7 +24,7 @@ end
 function module:Set(part)
   if part:IsA('BasePart') and not part:IsA('Terrain') then
     if part:IsA('Part') then
-      if part.Shape == Enum.PartType.Ball or part.Shape == Enum.PartType.Block then
+      if part.Shape == Enum.PartType.Ball or part.Shape == Enum.PartType.Block or part.Shape == Enum.PartType.Cylinder then
         changeColor(greenColor)
         outline.Adornee = part
       else

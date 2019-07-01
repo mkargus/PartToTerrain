@@ -96,7 +96,8 @@ local selectionHover = uiBuilder:createElement('TextLabel', {
   BackgroundColor3 = Enum.StudioStyleGuideColor.MainBackground,
   Font = Enum.Font.SourceSans,
   TextColor3 = Enum.StudioStyleGuideColor.MainText,
-  TextSize = 14,
+  TextSize = 16,
+  TextStrokeTransparency = .8,
   TextWrapped = false,
   Visible = false
 })
