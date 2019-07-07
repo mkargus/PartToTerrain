@@ -8,7 +8,8 @@
   * Parts with their Locked property set to true will not be converted.
 ### Changed
 * Tooltip is slightly taller and now has a shadow.
-* Simplified description for 'Check for Updates' and 'Delete part when converted' settings.
+* Simplified description for 'Check for updates' and 'Delete part when converted' settings.
+* Moved the error message down to not block the Navbar.
 ### Fixed
 * PluginMouse firing events when the plugin is closed.
 

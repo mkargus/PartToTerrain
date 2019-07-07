@@ -322,14 +322,17 @@ mouse.Button1Down:connect(function()
       end
       ChangeHistoryService:SetWaypoint('PartToTerrain')
     else
+      local returnSize = textService:GetTextSize(localizationManager:TranslateId(err), 14, Enum.Font.SourceSans, ui.AbsoluteSize)
       local message = uiBuilder:createElement('TextLabel', {
         Parent = ui,
         BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
-        Size = UDim2.new(1,0,0,20),
+        Position = UDim2.new(0,0,0,25),
+        Size = UDim2.new(1,0,0,returnSize.Y+5),
         Font = Enum.Font.SourceSans,
         Text = localizationManager:TranslateId(err),
         TextColor3 = Enum.StudioStyleGuideColor.Light,
-        TextScaled = true
+        TextSize = 14,
+        TextWrapped = true
       })
       game.Debris:AddItem(message, 5)
     end
