@@ -7,9 +7,10 @@
 * New setting: Ignore locked parts. (Default set to false)
   * Parts with their Locked property set to true will not be converted.
 ### Changed
-* Tooltip is slightly taller and now has a shadow. 
+* Tooltip is slightly taller and now has a shadow.
+* Simplified description for 'Check for Updates' and 'Delete part when converted' settings.
 ### Fixed
-* PluginMouse firing `.Move` event when the plugin is closed.
+* PluginMouse firing events when the plugin is closed.
 
 ## [1.2.2] - June 5, 2019
 ### Fixed

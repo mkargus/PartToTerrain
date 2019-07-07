@@ -5,9 +5,9 @@ Plugin.NameVersion,Part to Terrain {1},
 Button.Materials,Materials,物料
 Button.Settings,Settings,设置
 Settings.CheckUpdates,Check for Updates,检查更新
-Settings.CheckUpdatesDesc,"If checked, the plugin will check for updates at Studio launch and display a notice on the plugin when outdated. If unchecked, the plugin will not for any updates.",
+Settings.CheckUpdatesDesc,Check for updates on Studio launch and display a notice when the plugin is outdated.,
 Settings.DeletePart,Delete part when converted,
-Settings.DeletePartDesc,"If checked, the part used to be converted will be delete. If unchecked, it will stay in the Workspace when converted.",
+Settings.DeletePartDesc,Deletes the part after being converted to Terrain.,
 Settings.EnabledSelectionBox,Enable SelectionBox when hovered,
 Settings.EnabledSelectionBoxDesc,Allow a SelectionBox overlay when the mouse is hovering over a part.,
 Settings.IgnoreLockedParts,Ignore locked parts,

@@ -6,6 +6,7 @@ local mouse = plugin:GetMouse()
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
+local textService = game:GetService('TextService')
 local localizationManager = require(script.localizationManager)
 local materialList = require(script.materialList)
 local outlineManager = require(script.outlineManager)
@@ -297,7 +298,7 @@ plugin.Deactivation:connect(function()
   end
 end)
 
-if runService:IsStudio() and not runService:IsRunning() then
+if runService:IsEdit() then
   button.Click:connect(function()
     activate(not enabled)
   end)
