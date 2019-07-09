@@ -228,7 +228,6 @@ for _, settings in pairs(settingsList) do
     BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
     Font = Enum.Font.SourceSans,
     Position = UDim2.new(0,0,0,30),
-    --Size = UDim2.new(1,0,0,0),
     Text = localizationManager:TranslateId('Settings.'..settings.id..'Desc'),
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
@@ -244,7 +243,9 @@ for _, settings in pairs(settingsList) do
     local returnSize = textService:GetTextSize(localizationManager:TranslateId('Settings.'..settings.id..'Desc'), 14, Enum.Font.SourceSans, Vector2.new(desc.AbsoluteSize.X, 1000))
     desc.Size = UDim2.new(1,0,0,returnSize.Y+5)
     ExpandedHeight = 30 + returnSize.Y + 5
-    settingItem.Size = isExpanded and UDim2.new(1,-12,0,ExpandedHeight) or UDim2.new(1,-12,0,30)
+    if isExpanded then
+      settingItem.Size = UDim2.new(1,-12,0,ExpandedHeight)
+    end
   end)
 
   expand.MouseButton1Click:connect(function()
