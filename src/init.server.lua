@@ -183,6 +183,7 @@ end
 -- Settings
 for _, settings in pairs(settingsList) do
   local isExpanded = false
+  local ExpandedHeight
 
   local settingItem = uiBuilder:createElement('Frame', {
     Parent = settingsFrame,
@@ -222,13 +223,12 @@ for _, settings in pairs(settingsList) do
     Rotation = 270
   })
 
-  uiBuilder:createElement('TextLabel', {
+  local desc = uiBuilder:createElement('TextLabel', {
     Parent = settingItem,
     BackgroundColor3 = Enum.StudioStyleGuideColor.InputFieldBorder,
     Font = Enum.Font.SourceSans,
     Position = UDim2.new(0,0,0,30),
-    --TODO: Removed fixed height size.
-    Size = UDim2.new(1,0,0,80),
+    --Size = UDim2.new(1,0,0,0),
     Text = localizationManager:TranslateId('Settings.'..settings.id..'Desc'),
     TextColor3 = Enum.StudioStyleGuideColor.MainText,
     TextSize = 14,
@@ -236,9 +236,20 @@ for _, settings in pairs(settingsList) do
     TextXAlignment = Enum.TextXAlignment.Left
   })
 
+  local returnSize = textService:GetTextSize(localizationManager:TranslateId('Settings.'..settings.id..'Desc'), 14, Enum.Font.SourceSans, Vector2.new(settingItem.AbsoluteSize.X, 1000))
+  desc.Size = UDim2.new(1,0,0,returnSize.Y + 5)
+  ExpandedHeight = 30 + returnSize.Y + 5
+
+  ui:GetPropertyChangedSignal('AbsoluteSize'):connect(function()
+    local returnSize = textService:GetTextSize(localizationManager:TranslateId('Settings.'..settings.id..'Desc'), 14, Enum.Font.SourceSans, Vector2.new(desc.AbsoluteSize.X, 1000))
+    desc.Size = UDim2.new(1,0,0,returnSize.Y+5)
+    ExpandedHeight = 30 + returnSize.Y + 5
+    settingItem.Size = isExpanded and UDim2.new(1,-12,0,ExpandedHeight) or UDim2.new(1,-12,0,30)
+  end)
+
   expand.MouseButton1Click:connect(function()
     isExpanded = not isExpanded
-    settingItem.Size = isExpanded and UDim2.new(1,-12,0,110) or UDim2.new(1,-12,0,30)
+    settingItem.Size = isExpanded and UDim2.new(1,-12,0,ExpandedHeight) or UDim2.new(1,-12,0,30)
     expand.Rotation = isExpanded and 90 or 270
   end)
 
