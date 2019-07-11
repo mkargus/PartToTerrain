@@ -23,7 +23,7 @@ end
 
 local enabled = false
 local materialSelected = Enum.Material.Air
-local currentTooltip = ''
+local currentTooltip
 
 local button = plugin:CreateToolbar('Fasty48'):CreateButton(
   localizationManager:TranslateId('Plugin.Name'),
@@ -34,7 +34,7 @@ local button = plugin:CreateToolbar('Fasty48'):CreateButton(
 ------------------------
 -- UI
 ------------------------
-local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, true, 300, 300, 220, 265))
+local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, true, 300, 300, 220, 200))
 ui.Title = localizationManager:TranslateId('Plugin.NameVersion', {version})
 ui.Name = 'PartToTerrain'
 
@@ -130,7 +130,7 @@ settingList:GetPropertyChangedSignal('AbsoluteContentSize'):connect(function()
 end)
 
 -- Update Notice
-if plugin:GetSetting('CheckUpdates') then
+if runService:IsEdit() and plugin:GetSetting('CheckUpdates') then
   local success, info = pcall(marketplaceService.GetProductInfo, marketplaceService, 2673110695)
   if success and info.Description ~= version then
     uiBuilder:createElement('TextLabel', {
@@ -269,7 +269,7 @@ local function activate(bool)
   ui.Enabled = bool
   if bool then
     plugin:Activate(true)
-  elseif not bool then
+  else
     plugin:Deactivate()
     outlineManager:Hide()
   end
