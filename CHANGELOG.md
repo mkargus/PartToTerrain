@@ -12,6 +12,8 @@
 * Simplified description for 'Check for updates' and 'Delete part when converted' settings.
 * Moved the error message down to not block the Navbar.
 * Reduced the minimum height the plugin widget.
+### Removed
+* Rojo 0.4.x support
 ### Fixed
 * PluginMouse firing events when the plugin is closed.
 * Check for updates will no longer run if the user is testing their games.
