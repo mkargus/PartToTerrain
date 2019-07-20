@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 ### Added
-* Simplified Chinese support!
+* Cylinder support!
+  *(Waiting to be enabled on Roblox's end.)*
+* Simplified Chinese localization!
   * Follows Studio's language settings.
 * New setting: Ignore locked parts. (Default set to false)
   * Parts with their Locked property set to true will not be converted.
