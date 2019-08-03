@@ -8,6 +8,7 @@
   * Follows Studio's language settings.
 * New setting: Ignore locked parts. (Default set to false)
   * Parts with their Locked property set to true will not be converted.
+* A error message will now show up if the plugin is ran as a non-plugin.
 ### Changed
 * Each setting's description box no longer has a fixed height.
 * Tooltip is slightly taller and now has a shadow.

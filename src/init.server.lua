@@ -1,4 +1,8 @@
 -- Made By Fastcar48
+if not plugin then
+  error('Part to Terrain has to be ran as a plugin.')
+end
+
 local version = '1.2.2'
 
 -- Services
