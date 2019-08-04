@@ -3,7 +3,7 @@ if not plugin then
   error('Part to Terrain has to be ran as a plugin.')
 end
 
-local version = '1.2.2'
+local version = '1.3.0'
 
 -- Services
 local mouse = plugin:GetMouse()

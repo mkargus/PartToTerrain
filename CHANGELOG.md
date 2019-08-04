@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.3.0] - August 4, 2019
 ### Added
 * Cylinder support!
   *(Waiting to be enabled on Roblox's end.)*
@@ -70,7 +72,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.2.2...master
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.3.0...master
+[1.3.0]: https://github.com/mkargus/PartToTerrain/compare/1.2.2...1.3.0
 [1.2.2]: https://github.com/mkargus/PartToTerrain/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/mkargus/PartToTerrain/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/mkargus/PartToTerrain/compare/1.1.0...1.2.0
