@@ -16,6 +16,7 @@ Notice.Outdated,{1} is now available to download!,
 Notice.IgnoreLockedPart,Ignoring locked part due to settings.,
 Notice.ShapeNotSupported,Part shape is not supported.,
 Notice.ClassNotSupport,Part class is not supported.,
+Notice.ApiNotEnabled,Roblox has not enabled the FillCylinder API.,
 Materials.Air,Air,空气
 Materials.Asphalt,Asphalt,沥青
 Materials.Basalt,Basalt,玄武岩

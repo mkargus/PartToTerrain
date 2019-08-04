@@ -27,8 +27,15 @@ local function Convert(part, material)
       workspace.Terrain:FillBall(part.Position, part.Size.X/2, material)
       return true
     elseif part.Shape == Enum.PartType.Cylinder then
-      workspace.Terrain:FillCylinder(part.CFrame, part.Size.X, part.Size.Y/1.75, material)
-      return true
+      -- Temporary solution until Roblox enables the API.
+      local _, err = pcall(function()
+        workspace.Terrain:FillCylinder(part.CFrame, part.Size.X, part.Size.Y/1.75, material)
+      end)
+      if err then
+        error('Notice.ApiNotEnabled',0)
+      else
+        return true
+      end
     else
       error('Notice.ShapeNotSupported',0)
     end
