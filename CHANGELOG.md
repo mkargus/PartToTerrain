@@ -1,11 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+* Cylinders using the wrong orientation when being converted.
 
 ## [1.3.0] - August 4, 2019
 ### Added
 * Cylinder support!
-  *(Waiting to be enabled on Roblox's end.)*
 * Simplified Chinese localization!
   * Follows Studio's language settings.
 * New setting: Ignore locked parts. (Default set to false)

@@ -1,3 +1,16 @@
+local function FillCylinder(part, material)
+  -- FillCylinder will use the wrong orientation without this fix: 
+  -- https://twitter.com/m_kargus/status/1164330550917832704
+  local fixPart = Instance.new('Part')
+  fixPart.Orientation = Vector3.new(part.Orientation.X, part.Orientation.Y, part.Orientation.Z - 90)
+  fixPart.Position = part.Position
+  fixPart.Size = Vector3.new(part.Size.Y, part.Size.X, part.Size.Z)
+
+  workspace.Terrain:FillCylinder(fixPart.CFrame, part.Size.X, part.Size.Y/1.5, material)
+  fixPart:Destroy()
+  return true
+end
+
 -- TODO: Allow to fill reather then drawing a outline on the top.
 local function ConvertWedge(wedge, mat)
   local x = wedge.Size.X
@@ -27,9 +40,8 @@ local function Convert(part, material)
       workspace.Terrain:FillBall(part.Position, part.Size.X/2, material)
       return true
     elseif part.Shape == Enum.PartType.Cylinder then
-      -- Temporary solution until Roblox enables the API.
       local _, err = pcall(function()
-        workspace.Terrain:FillCylinder(part.CFrame, part.Size.X, part.Size.Y/1.75, material)
+        FillCylinder(part, material)
       end)
       if err then
         error('Notice.ApiNotEnabled',0)
