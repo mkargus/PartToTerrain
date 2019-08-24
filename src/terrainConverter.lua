@@ -1,5 +1,5 @@
 local function FillCylinder(part, material)
-  -- FillCylinder will use the wrong orientation without this fix: 
+  -- FillCylinder will use the wrong orientation without this fix:
   -- https://twitter.com/m_kargus/status/1164330550917832704
   local fixPart = Instance.new('Part')
   fixPart.Orientation = Vector3.new(part.Orientation.X, part.Orientation.Y, part.Orientation.Z - 90)
