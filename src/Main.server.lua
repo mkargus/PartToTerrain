@@ -11,12 +11,12 @@ local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local marketplaceService = game:GetService('MarketplaceService')
 local runService = game:GetService('RunService')
 local textService = game:GetService('TextService')
-local localizationManager = require(script.localizationManager)
-local materialList = require(script.materialList)
-local outlineManager = require(script.outlineManager)
-local settingsList = require(script.settingsList)
-local terrainConverter = require(script.terrainConverter)
-local uiBuilder = require(script.uiBuilder)
+local localizationManager = require(script.Parent.Components.Localization)
+local materialList = require(script.Parent.materialList)
+local outlineManager = require(script.Parent.outlineManager)
+local settingsList = require(script.Parent.settingsList)
+local terrainConverter = require(script.Parent.terrainConverter)
+local uiBuilder = require(script.Parent.uiBuilder)
 
 -- Settings
 for _, settings in pairs(settingsList) do
