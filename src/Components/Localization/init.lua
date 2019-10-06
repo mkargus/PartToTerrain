@@ -8,9 +8,7 @@ if LocaleId ~= 'en-us' then
   FallbackTranslator = Table:GetTranslator('en-us')
 end
 
-local module = {}
-
-function module:TranslateId(id, arg)
+return function(id, arg)
   local returnValue
   local success = pcall(function()
     returnValue = Translator:FormatByKey(id, arg)
@@ -27,5 +25,3 @@ function module:TranslateId(id, arg)
 
   return returnValue
 end
-
-return module
