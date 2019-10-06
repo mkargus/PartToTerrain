@@ -20,7 +20,8 @@ return function(id, arg)
   end
 
   if not returnValue then
-    error("Couldn't find '"..id.."' key in localizationTable.")
+    warn("Couldn't find '"..id.."' key in LocalizationTable.")
+    return id
   end
 
   return returnValue
