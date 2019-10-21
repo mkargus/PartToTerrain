@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/14226603/50402248-1828e200-0763-11e9-9b84-7e34f0bd8ef2.png">
   
-  [![](https://img.shields.io/travis/com/mkargus/PartToTerrain.svg?style=flat-square)](https://travis-ci.com/mkargus/PartToTerrain)
+  [![](https://github.com/mkargus/PartToTerrain/workflows/CI/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
   [![](https://img.shields.io/github/release/mkargus/PartToTerrain.svg?style=flat-square)](https://github.com/mkargus/PartToTerrain/releases)
   [![](https://img.shields.io/badge/dynamic/json.svg?label=downloads&url=https%3A%2F%2Fapi.roblox.com%2FMarketplace%2FProductInfo%3FassetId%3D261634767&query=Sales&style=flat-square)](https://www.roblox.com/library/261634767/Part-to-Terrain)
   [![](https://img.shields.io/github/license/mkargus/PartToTerrain.svg?style=flat-square)](LICENSE.txt)
