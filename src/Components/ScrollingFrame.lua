@@ -2,9 +2,7 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 
-return function (props)
-  local children = props[Roact.Children]
-
+return function(props)
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('ScrollingFrame', {
       BackgroundTransparency = 1,
@@ -18,6 +16,6 @@ return function (props)
       ScrollingDirection = 'Y',
       Size = props.Size,
       TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png'
-    }, children)
+    }, props[Roact.Children])
   end)
 end

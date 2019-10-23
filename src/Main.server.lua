@@ -78,6 +78,7 @@ local app = Roact.createElement(RoactRodux.StoreProvider, {
   App = Roact.createElement(App, {
     plugin = plugin,
     store = store,
+    Constants = Constants,
     IsOutdated = CheckForUpdates()
   })
 })
@@ -109,6 +110,7 @@ if runService:IsEdit() then
   end)
 else
   button.Enabled = false
+  Roact.unmount(tree)
 end
 
 ChangeHistoryService.OnUndo:connect(function(waypoint)

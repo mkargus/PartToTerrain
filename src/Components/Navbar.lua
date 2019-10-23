@@ -9,6 +9,7 @@ local Localization = require(Modules.Localization)
 local Navbar = Roact.PureComponent:extend('Navbar')
 
 function Navbar:render()
+  local props = self.props
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = UDim2.new(1,0,0,25)
@@ -18,21 +19,21 @@ function Navbar:render()
       Padding = UDim.new(0,1)
     }),
     Materials = Roact.createElement(TextButton, {
-      Selected = self.props.ActiveFrame == 'Materials',
+      Selected = props.ActiveFrame == 'Materials',
       Text = Localization('Button.Materials'),
       Size = UDim2.new(0.5,0,1,0),
-      leftClick = function()
-        self.props.SetFrame('Materials')
+      MouseClick = function()
+        props.SetFrame('Materials')
       end
     }),
     Settings = Roact.createElement(TextButton, {
-      Selected = self.props.ActiveFrame == 'Settings',
+      Selected = props.ActiveFrame == 'Settings',
       Text = Localization('Button.Settings'),
       Size = UDim2.new(0.5,0,1,0),
-      leftClick = function()
-        self.props.SetFrame('Settings')
+      MouseClick = function()
+        props.SetFrame('Settings')
       end
-    }),
+    })
   })
 end
 

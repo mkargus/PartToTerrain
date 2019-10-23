@@ -2,17 +2,13 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 local Navbar = require(Modules.Navbar)
-local MaterialSelection = require(Modules.MaterialSelection)
+local MaterialFrame = require(Modules.MaterialFrame)
+local SettingsFrame = require(Modules.SettingsFrame)
 
 local App = Roact.PureComponent:extend('App')
 
 function App:init()
   local store = self.props.store
-
-  self.state = {
-    -- height = 0,
-    store = nil
-  }
 
   self:setState({
     store = store:getState()
@@ -26,16 +22,19 @@ function App:init()
 end
 
 function App:render()
+  local props = self.props
   local state = self.state
   local body
 
   if state.store.Frame == 'Materials' then
-    body = Roact.createElement(MaterialSelection)
+    body = Roact.createElement(MaterialFrame, {
+      -- TODO: Change the value for outdated size.
+      Size = props.IsOutdated and UDim2.new(1,0,1,0) or UDim2.new(1,-10,1,-35)
+    })
   elseif state.store.Frame == 'Settings' then
-    body = Roact.createElement('TextLabel', {
-      Position = UDim2.new(0,5,0,30),
-      Size = UDim2.new(1,-10,1,-35),
-      Text = 'Settings'
+    -- TODO: Support outdate size to match MaterialFrame.
+    body = Roact.createElement(SettingsFrame, {
+      Items = props.Constants.Settings
     })
   end
 
