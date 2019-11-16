@@ -54,7 +54,7 @@ function TextButton:render()
       AutoButtonColor = false,
       BackgroundColor3 = theme:GetColor('Button', ButtonState),
       BorderColor3 = theme:GetColor('ButtonBorder', ButtonState),
-      Font = props.Font or Enum.Font.SourceSans,
+      Font = props.Font or 'SourceSans',
       Position = props.Position,
       Size = props.Size,
       Text = props.Text,

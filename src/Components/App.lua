@@ -29,7 +29,8 @@ function App:render()
   if state.store.Frame == 'Materials' then
     body = Roact.createElement(MaterialFrame, {
       -- TODO: Change the value for outdated size.
-      Size = props.IsOutdated and UDim2.new(1,0,1,0) or UDim2.new(1,-10,1,-35)
+      Size = props.IsOutdated and UDim2.new(1,0,1,0) or UDim2.new(1,-10,1,-35),
+      Items = props.Constants.Materials
     })
   elseif state.store.Frame == 'Settings' then
     -- TODO: Support outdate size to match MaterialFrame.
@@ -47,7 +48,10 @@ function App:render()
       Navbar = Roact.createElement(Navbar, {
         ActiveFrame = state.store.Frame
       }),
-      Body = body
+      Body = body,
+
+      -- why does this work
+      -- update = not props.IsOutdated and Roact.createElement('TextLabel') or nil
     })
   end)
 end

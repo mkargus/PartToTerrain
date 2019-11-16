@@ -7,7 +7,7 @@ end
 local mouse = plugin:GetMouse()
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
-local runService = game:GetService('RunService')
+local RunService = game:GetService('RunService')
 local Modules = script.Parent
 local Constants = require(Modules.Constants)
 local Roact = require(Modules.Roact)
@@ -54,7 +54,7 @@ local function activate(bool)
 end
 
 local function CheckForUpdates()
-  if runService:IsEdit() and plugin:GetSetting('CheckUpdates') then
+  if RunService:IsEdit() and plugin:GetSetting('CheckUpdates') then
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UpdateChecker)
     if success and info.Description ~= Constants.Version then
       return true
@@ -104,7 +104,7 @@ plugin.Deactivation:connect(function()
   end
 end)
 
-if runService:IsEdit() then
+if RunService:IsEdit() then
   button.Click:connect(function()
     activate(not IsEnabled)
   end)

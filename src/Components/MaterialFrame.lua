@@ -1,6 +1,7 @@
 local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
+local MaterialItem = require(Modules.MaterialItem)
 
 local MaterialFrame = Roact.PureComponent:extend('MaterialFrame')
 
@@ -26,7 +27,9 @@ function MaterialFrame:render()
         })
       end
     }),
-    -- placeholder
+    Items = Roact.createElement(MaterialItem, {
+      items = props.Items
+    })
   })
 end
 
