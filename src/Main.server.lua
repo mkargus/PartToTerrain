@@ -132,23 +132,6 @@ mouse.Button1Down:connect(function()
     else
       -- Temp solution
       warn(Localization(err))
-
-      --[[
-      local returnSize = textService:GetTextSize(Localization:TranslateId(err), 14, Enum.Font.SourceSans, ui.AbsoluteSize)
-      local message = uiBuilder:createElement('TextLabel', {
-        Parent = ui,
-        BackgroundColor3 = Enum.StudioStyleGuideColor.ErrorText,
-        Position = UDim2.new(0,0,0,25),
-        Size = UDim2.new(1,0,0,returnSize.Y+5),
-        Font = Enum.Font.SourceSans,
-        Text = Localization:TranslateId(err),
-        TextColor3 = Enum.StudioStyleGuideColor.Light,
-        TextSize = 14,
-        TextWrapped = true
-      })
-      game.Debris:AddItem(message, 5)
-      ]]
-
     end
   end
 end)
