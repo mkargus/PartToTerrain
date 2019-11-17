@@ -1,4 +1,4 @@
-local Modules = script.Parent
+local Modules = script.Parent.Parent
 local Roact = require(Modules.Parent.Roact)
 local Localization = require(Modules.Localization)
 local TextButton = require(Modules.TextButton)

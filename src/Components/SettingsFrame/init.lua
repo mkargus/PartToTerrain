@@ -1,7 +1,7 @@
 local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
-local SettingItem = require(Modules.Item)
+local SettingItem = require(script.Item)
 
 local SettingsFrame = Roact.PureComponent:extend('SettingsFrame')
 
