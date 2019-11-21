@@ -26,7 +26,7 @@ for _, settings in pairs(Constants.Settings) do
   end
 end
 
-local IsEnabled = false
+local isEnabled = false
 
 local button = plugin:CreateToolbar('Fasty48'):CreateButton(
   Localization('Plugin.Name'),
@@ -42,7 +42,7 @@ ui.Name = 'PartToTerrain'
 -- Functions
 ------------------------
 local function activate(bool)
-  IsEnabled = bool
+  isEnabled = bool
   button:SetActive(bool)
   ui.Enabled = bool
   if bool then
@@ -99,14 +99,14 @@ plugin.Unloading:connect(function()
 end)
 
 plugin.Deactivation:connect(function()
-  if IsEnabled and ui.Enabled then
+  if isEnabled and ui.Enabled then
     activate(false)
   end
 end)
 
 if RunService:IsEdit() then
   button.Click:connect(function()
-    activate(not IsEnabled)
+    activate(not isEnabled)
   end)
 else
   button.Enabled = false
@@ -122,7 +122,7 @@ end)
 mouse.Button1Down:connect(function()
   local part = mouse.Target
   local Material = store:getState().Material
-  if IsEnabled and part then
+  if isEnabled and part then
     local success, err = pcall(function() terrainConverter:Convert(part, Material, plugin:GetSetting('IgnoreLockedParts')) end)
     if success then
       if plugin:GetSetting('DeletePart') then
@@ -138,7 +138,7 @@ end)
 
 mouse.Move:connect(function()
   local part = mouse.Target
-  if IsEnabled and part and plugin:GetSetting('EnabledSelectionBox') then
+  if isEnabled and part and plugin:GetSetting('EnabledSelectionBox') then
     if plugin:GetSetting('IgnoreLockedParts') then
       if part.Locked then
         outlineManager:Hide()

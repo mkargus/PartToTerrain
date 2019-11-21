@@ -15,6 +15,14 @@ local function MaterialItem(props)
       [Roact.Event.MouseButton1Click] = function()
         props.SetMaterial(item.enum)
       end
+    }, {
+      SelectedImage = Roact.createElement('ImageLabel', {
+        BackgroundTransparency = 1,
+        Image = 'rbxasset://textures/AvatarEditorImages/Portrait/gr-selection-corner-phone@3x.png',
+        Size = UDim2.new(0.5,0,0.5,0),
+        Position = UDim2.new(0.5,0,0,0),
+        Visible = props.MaterialSelected == item.enum
+      })
     })
   end
 

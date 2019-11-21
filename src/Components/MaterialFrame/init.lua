@@ -28,7 +28,8 @@ function MaterialFrame:render()
       end
     }),
     Items = Roact.createElement(MaterialItem, {
-      items = props.Items
+      items = props.Items,
+      MaterialSelected = props.MaterialSelected
     })
   })
 end
