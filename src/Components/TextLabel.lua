@@ -27,8 +27,9 @@ return function(props)
     TextColor3 = props.TextColor3,
     TextSize = props.TextSize or 16,
     TextWrapped = props.TextWrapped,
+    TextXAlignment = props.TextXAlignment,
     ZIndex = props.ZIndex,
-    [Roact.Change.AbsoluteSize] = update or nil,
-    [Roact.Change.TextBounds] = update or nil
+    [Roact.Change.AbsoluteSize] = props.AutoSize and update or nil,
+    [Roact.Change.TextBounds] = props.AutoSize and update or nil
   })
 end

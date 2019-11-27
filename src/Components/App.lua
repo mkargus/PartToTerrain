@@ -55,6 +55,7 @@ function App:render()
       Body = body,
 
       update = props.IsOutdated and Roact.createElement(TextLabel, {
+        AutoSize = true,
         BackgroundColor3 = theme:GetColor('WarningText'),
         Position = UDim2.new(0,0,1,-18),
         Size = UDim2.new(1,0,0,0),
