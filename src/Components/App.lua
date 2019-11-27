@@ -4,6 +4,8 @@ local StudioTheme = require(Modules.StudioTheme)
 local Navbar = require(Modules.Navbar)
 local MaterialFrame = require(Modules.MaterialFrame)
 local SettingsFrame = require(Modules.SettingsFrame)
+local TextLabel = require(Modules.TextLabel)
+local Localization = require(Modules.Localization)
 
 local App = Roact.PureComponent:extend('App')
 
@@ -30,14 +32,13 @@ function App:render()
 
   if store.Frame == 'Materials' then
     body = Roact.createElement(MaterialFrame, {
-      -- TODO: Change the value for outdated size.
-      Size = props.IsOutdated and UDim2.new(1,0,1,0) or UDim2.new(1,-10,1,-35),
+      Size = props.IsOutdated and UDim2.new(1,-10,1,-55) or UDim2.new(1,-10,1,-35),
       Items = props.Constants.Materials,
       MaterialSelected = store.Material
     })
   elseif store.Frame == 'Settings' then
-    -- TODO: Support outdate size to match MaterialFrame.
     body = Roact.createElement(SettingsFrame, {
+      Size = props.IsOutdated and UDim2.new(1,-10,1,-55) or UDim2.new(1,-10,1,-35),
       Items = props.Constants.Settings
     })
   end
@@ -53,8 +54,15 @@ function App:render()
       }),
       Body = body,
 
-      -- why does this work
-      -- update = not props.IsOutdated and Roact.createElement('TextLabel') or nil
+      update = props.IsOutdated and Roact.createElement(TextLabel, {
+        BackgroundColor3 = theme:GetColor('WarningText'),
+        Position = UDim2.new(0,0,1,-18),
+        Size = UDim2.new(1,0,0,0),
+        Text = Localization('Notice.Outdated', {props.IsOutdated}),
+        TextColor3 = theme:GetColor('Mid'),
+        TextWrapped = true,
+        ZIndex = 100
+      }) or nil
     })
   end)
 end

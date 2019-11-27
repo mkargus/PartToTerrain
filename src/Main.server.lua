@@ -57,7 +57,7 @@ local function CheckForUpdates()
   if RunService:IsEdit() and plugin:GetSetting('CheckUpdates') then
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UpdateChecker)
     if success and info.Description ~= Constants.Version then
-      return true
+      return info.Description
     else
       return false
     end
