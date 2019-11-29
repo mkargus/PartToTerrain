@@ -25,10 +25,11 @@ return function(props)
     Size = props.Size,
     Text = props.Text,
     TextColor3 = props.TextColor3,
-    TextSize = props.TextSize or 16,
+    TextSize = props.TextSize or 15,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
     ZIndex = props.ZIndex,
+    -- TODO: Remove support for props.AutoSize.
     [Roact.Change.AbsoluteSize] = props.AutoSize and update or nil,
     [Roact.Change.TextBounds] = props.AutoSize and update or nil
   })

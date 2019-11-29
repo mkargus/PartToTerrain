@@ -4,7 +4,7 @@ local StudioTheme = require(Modules.StudioTheme)
 local Navbar = require(Modules.Navbar)
 local MaterialFrame = require(Modules.MaterialFrame)
 local SettingsFrame = require(Modules.SettingsFrame)
-local TextLabel = require(Modules.TextLabel)
+local ThemedTextLabel = require(Modules.ThemedTextLabel)
 local Localization = require(Modules.Localization)
 
 local App = Roact.PureComponent:extend('App')
@@ -54,16 +54,16 @@ function App:render()
       }),
       Body = body,
 
-      update = props.IsOutdated and Roact.createElement(TextLabel, {
+      update = props.IsOutdated and Roact.createElement(ThemedTextLabel, {
         AutoSize = true,
         BackgroundColor3 = theme:GetColor('WarningText'),
-        Position = UDim2.new(0,0,1,-18),
+        Position = UDim2.new(0,0,1,-17),
         Size = UDim2.new(1,0,0,0),
         Text = Localization('Notice.Outdated', {props.IsOutdated}),
-        TextColor3 = theme:GetColor('Mid'),
+        TextColor = 'Mid',
         TextWrapped = true,
-        ZIndex = 100
-      }) or nil
+        -- ZIndex = 100
+      })
     })
   end)
 end
