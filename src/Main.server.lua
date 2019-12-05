@@ -4,20 +4,22 @@ if not plugin then
 end
 
 -- Services
+local sp = script.Parent
 local mouse = plugin:GetMouse()
+
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
 local RunService = game:GetService('RunService')
-local Modules = script.Parent
-local Constants = require(Modules.Constants)
-local Roact = require(Modules.Roact)
-local Rodux = require(Modules.Rodux)
-local RoactRodux = require(Modules.RoactRodux)
-local Reducer = require(Modules.Reducer)
-local App = require(Modules.Components.App)
-local Localization = require(Modules.Components.Localization)
-local outlineManager = require(Modules.outlineManager)
-local terrainConverter = require(Modules.terrainConverter)
+
+local Constants = require(sp.Constants)
+local Roact = require(sp.Roact)
+local Rodux = require(sp.Rodux)
+local RoactRodux = require(sp.RoactRodux)
+local Reducer = require(sp.Reducer)
+local App = require(sp.Components.App)
+local Localization = require(sp.Components.Localization)
+local outlineManager = require(sp.outlineManager)
+local terrainConverter = require(sp.terrainConverter)
 
 -- Settings
 for _, settings in pairs(Constants.Settings) do

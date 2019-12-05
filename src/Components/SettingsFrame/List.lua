@@ -9,7 +9,8 @@ return function(props)
   for i=1, #items do
     local item = items[i]
     elements[item.id] = Roact.createElement(Item, {
-      item = item.id
+      item = item.id,
+      plugin = props.plugin
     })
   end
 

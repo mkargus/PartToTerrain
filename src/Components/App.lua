@@ -10,15 +10,15 @@ local Localization = require(Modules.Localization)
 local App = Roact.PureComponent:extend('App')
 
 function App:init()
-  local store = self.props.store
+  local _store = self.props.store
 
   self.state = {
-    store = store:getState()
+    store = _store:getState()
   }
 
-  store.changed:connect(function()
+  _store.changed:connect(function()
     self:setState({
-      store = store:getState()
+      store = _store:getState()
     })
   end)
 end
@@ -39,7 +39,8 @@ function App:render()
   elseif store.Frame == 'Settings' then
     body = Roact.createElement(SettingsFrame, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-55) or UDim2.new(1,-10,1,-35),
-      Items = props.Constants.Settings
+      Items = props.Constants.Settings,
+      plugin = props.plugin
     })
   end
 
@@ -61,8 +62,7 @@ function App:render()
         Size = UDim2.new(1,0,0,0),
         Text = Localization('Notice.Outdated', {props.IsOutdated}),
         TextColor = 'Mid',
-        TextWrapped = true,
-        -- ZIndex = 100
+        TextWrapped = true
       })
     })
   end)

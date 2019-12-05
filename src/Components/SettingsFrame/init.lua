@@ -28,7 +28,8 @@ function SettingsFrame:render()
       end
     }),
     Items = Roact.createElement(List, {
-      items = props.Items
+      items = props.Items,
+      plugin = props.plugin
     })
   })
 end
