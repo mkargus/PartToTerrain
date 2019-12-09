@@ -1,19 +1,20 @@
 local Modules = script.Parent.Parent
 local Roact = require(Modules.Parent.Roact)
 local StudioTheme = require(Modules.StudioTheme)
--- local TextLabel = require(Modules.TextLabel)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
 local Localization = require(Modules.Localization)
 local TextButton = require(Modules.TextButton)
-
-local TextService = game:GetService("TextService")
+local ToggleButton = require(Modules.ToggleButton)
 
 local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 
 function SettingsItem:init()
+  local _props = self.props
+
   self.state = {
     height = 120,
-    isExpanded = false
+    isExpanded = false,
+    settingEnabled = _props.plugin:GetSetting(_props.item)
   }
 
   self._expand = function()
@@ -22,16 +23,15 @@ function SettingsItem:init()
     })
   end
 
-  self._autoSize = function(rbx)
-    local width = rbx.AbsoluteSize.X
-    local tb = TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(width, 100000))
-    rbx.Size = UDim2.new(1,0,0,tb.Y+5)
+  self._Setting = function()
+    local plugin = _props.plugin
+    local item = _props.item
 
+    plugin:SetSetting(item, not plugin:GetSetting(item))
     self:setState({
-      height = 30 + rbx.AbsoluteSize.Y + 45
+      settingEnabled = plugin:GetSetting(item)
     })
   end
-
 end
 
 function SettingsItem:render()
@@ -40,6 +40,7 @@ function SettingsItem:render()
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
+      BackgroundColor3 = theme:GetColor('CategoryItem'),
       BorderSizePixel = 0,
       ClipsDescendants = true,
       Size = state.isExpanded and UDim2.new(1,0,0,state.height) or UDim2.new(1,0,0,30)
@@ -54,7 +55,6 @@ function SettingsItem:render()
         Position = UDim2.new(0,2,0,2),
         Size = UDim2.new(1,-30,0,26),
         Text = Localization('Settings.'..props.item),
-        -- TextColor3 = theme:GetColor('MainText'),
         TextSize = 14,
         TextWrapped = true,
         TextXAlignment = 'Left',
@@ -71,33 +71,34 @@ function SettingsItem:render()
         Rotation = state.isExpanded and 90 or 270,
         ZIndex = 2
       }),
-      -- Desc = Roact.createElement('TextLabel', {
-      --   BackgroundColor3 = theme:GetColor('CategoryItem'),
-      --   BackgroundTransparency = 0,
-      --   BorderSizePixel = 0,
-      --   Font = 'SourceSans',
-      --   Position = UDim2.new(0,0,0,30),
-      --   Size = UDim2.new(1,0,0,0),
-      --   Text = Localization('Settings.'..props.item..'Desc'),
-      --   TextColor3 = theme:GetColor('MainText'),
-      --   TextSize = 14,
-      --   TextWrapped = true,
-      --   TextXAlignment = 'Left',
-      --   [Roact.Change.AbsoluteSize] = self._autoSize,
-      --   [Roact.Change.TextBounds] = self._autoSize
-      -- }),
-
-      Desc2 = Roact.createElement(ThemedTextLabel, {
-        AutoSize = true,
-        BackgroundColor3 = theme:GetColor('CategoryItem'),
+      Desc = Roact.createElement(ThemedTextLabel, {
+        BackgroundTransparency = 1,
         Position = UDim2.new(0,0,0,30),
-        Size = UDim2.new(1,0,0,0),
         Text = Localization('Settings.'..props.item..'Desc'),
-        -- TextColor3 = theme:GetColor('MainText'),
         TextSize = 14,
         TextWrapped = true,
         TextXAlignment = 'Left',
       }),
+      ToggleFrame = Roact.createElement('Frame', {
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0,0,0,75),
+        Size = UDim2.new(1,0,0,24)
+      }, {
+        Toggle = Roact.createElement(ToggleButton, {
+          Enabled = state.settingEnabled,
+          Position = UDim2.new(1,-42,0,0),
+          MouseClick = self._Setting
+        }),
+        ToggleText = Roact.createElement(ThemedTextLabel, {
+          BackgroundTransparency = 1,
+          Size = UDim2.new(1,-48,0,24),
+          Text = Localization('Toggle.'..(state.settingEnabled and 'Enabled' or 'Disabled')),
+          TextSize = 14,
+          TextWrapped = true,
+          TextXAlignment = 'Left',
+        }),
+
+      })
 
     })
   end)
