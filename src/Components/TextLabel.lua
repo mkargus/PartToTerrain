@@ -15,6 +15,8 @@ local function update(rbx)
 end
 
 return function(props)
+  local autoSize = not props.Size
+
   return Roact.createElement('TextLabel', {
     BackgroundColor3 = props.BackgroundColor3,
     BackgroundTransparency = props.BackgroundTransparency or 0,
@@ -22,15 +24,14 @@ return function(props)
     ClipsDescendants = props.ClipsDescendants,
     Font = props.Font or 'SourceSans',
     Position = props.Position,
-    Size = props.Size,
+    Size = props.Size or props.TextWrapped and UDim2.new(1, 0, 0, 0) or nil,
     Text = props.Text,
     TextColor3 = props.TextColor3,
     TextSize = props.TextSize or 15,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
     ZIndex = props.ZIndex,
-    -- TODO: Remove support for props.AutoSize.
-    [Roact.Change.AbsoluteSize] = props.AutoSize and update or nil,
-    [Roact.Change.TextBounds] = props.AutoSize and update or nil
+    [Roact.Change.AbsoluteSize] = autoSize and update or nil,
+    [Roact.Change.TextBounds] = autoSize and update or nil
   })
 end

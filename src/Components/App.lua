@@ -32,13 +32,13 @@ function App:render()
 
   if store.Frame == 'Materials' then
     body = Roact.createElement(MaterialFrame, {
-      Size = props.IsOutdated and UDim2.new(1,-10,1,-55) or UDim2.new(1,-10,1,-35),
+      Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       Items = props.Constants.Materials,
       MaterialSelected = store.Material
     })
   elseif store.Frame == 'Settings' then
     body = Roact.createElement(SettingsFrame, {
-      Size = props.IsOutdated and UDim2.new(1,-10,1,-55) or UDim2.new(1,-10,1,-35),
+      Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       Items = props.Constants.Settings,
       plugin = props.plugin
     })
@@ -56,11 +56,9 @@ function App:render()
       Body = body,
 
       update = props.IsOutdated and Roact.createElement(ThemedTextLabel, {
-        AutoSize = true,
         BackgroundColor3 = theme:GetColor('WarningText'),
         Position = UDim2.new(0,0,1,-17),
-        Size = UDim2.new(1,0,0,0),
-        Text = Localization('Notice.Outdated', {props.IsOutdated}),
+        Text = Localization('Notice.Outdated', { props.IsOutdated }),
         TextColor = 'Mid',
         TextWrapped = true
       })

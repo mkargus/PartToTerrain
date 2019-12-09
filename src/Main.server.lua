@@ -36,7 +36,17 @@ local button = plugin:CreateToolbar('Fasty48'):CreateButton(
   'rbxassetid://297321964'
 )
 
-local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, true, 300, 300, 220, 200))
+local DockWidgetInfo = DockWidgetPluginGuiInfo.new(
+  Enum.InitialDockState.Float,
+  false,
+  true,
+  300,
+  300,
+  220,
+  200
+)
+
+local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetInfo)
 ui.Title = Localization('Plugin.NameVersion', { Constants.Version })
 ui.Name = 'PartToTerrain'
 
@@ -57,7 +67,7 @@ end
 
 local function CheckForUpdates()
   if RunService:IsEdit() and plugin:GetSetting('CheckUpdates') then
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UpdateChecker)
+    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UpdateCheckerID)
     if success and info.Description ~= Constants.Version then
       return info.Description
     else
