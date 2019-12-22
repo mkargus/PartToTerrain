@@ -38,7 +38,6 @@ function Navbar:render()
 end
 
 local function mapStateToProps(state)
-  if not state then return end
   return {}
 end
 
