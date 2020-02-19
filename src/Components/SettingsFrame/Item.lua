@@ -17,13 +17,13 @@ function SettingsItem:init()
     settingEnabled = _props.plugin:GetSetting(_props.item)
   }
 
-  self._expand = function()
+  self._expandClick = function()
     self:setState({
       isExpanded = not self.state.isExpanded
     })
   end
 
-  self._Setting = function()
+  self._ToggleClick = function()
     local plugin = _props.plugin
     local item = _props.item
 
@@ -43,13 +43,16 @@ function SettingsItem:render()
       BackgroundColor3 = theme:GetColor('CategoryItem'),
       BorderSizePixel = 0,
       ClipsDescendants = true,
+      -- ! Image clips through the scrollbar.
       Size = state.isExpanded and UDim2.new(1,0,0,state.height) or UDim2.new(1,0,0,30)
     }, {
+
       Button = Roact.createElement(TextButton, {
         Text = '',
         Size = UDim2.new(1,0,0,30),
-        MouseClick = self._expand
+        MouseClick = self._expandClick
       }),
+
       Title = Roact.createElement(ThemedTextLabel, {
         BackgroundTransparency = 1,
         Position = UDim2.new(0,2,0,2),
@@ -60,8 +63,8 @@ function SettingsItem:render()
         TextXAlignment = 'Left',
         ZIndex = 2
       }),
-      -- ! Image clips through the scrollbar.
-      Image = Roact.createElement('ImageLabel', {
+
+      ExpandImg = Roact.createElement('ImageLabel', {
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         Position = UDim2.new(1,-26,0,2),
@@ -71,6 +74,7 @@ function SettingsItem:render()
         Rotation = state.isExpanded and 90 or 270,
         ZIndex = 2
       }),
+
       Desc = Roact.createElement(ThemedTextLabel, {
         BackgroundTransparency = 1,
         Position = UDim2.new(0,0,0,30),
@@ -79,6 +83,7 @@ function SettingsItem:render()
         TextWrapped = true,
         TextXAlignment = 'Left',
       }),
+
       ToggleFrame = Roact.createElement('Frame', {
         BackgroundTransparency = 1,
         Position = UDim2.new(0,0,0,75),
@@ -87,7 +92,7 @@ function SettingsItem:render()
         Toggle = Roact.createElement(ToggleButton, {
           Enabled = state.settingEnabled,
           Position = UDim2.new(1,-42,0,0),
-          MouseClick = self._Setting
+          MouseClick = self._ToggleClick
         }),
         ToggleText = Roact.createElement(ThemedTextLabel, {
           BackgroundTransparency = 1,
@@ -96,7 +101,7 @@ function SettingsItem:render()
           TextSize = 14,
           TextWrapped = true,
           TextXAlignment = 'Left',
-        }),
+        })
 
       })
 
