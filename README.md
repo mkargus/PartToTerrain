@@ -17,6 +17,34 @@ The plugin uses some third-party tools while developing:
 - [Rojo](https://github.com/rojo-rbx/rojo) (0.5.x) - Syncs scripts into Roblox Studio.
 - [Luacheck](https://github.com/mpeterv/luacheck) - Syntax checking and linter
 
+## Building the plugin
+This plugin is built using [Rojo](https://rojo.space/docs/0.5.x/guide/installation).
+
+Clone the repo:
+```
+git clone https://github.com/mkargus/PartToTerrain.git <ProjectName>
+```
+
+**If you're using the VSCode extension:**
+
+Click on `Start Rojo` on the lower right to start the server.
+
+or
+
+Open the command panel (`Ctrl+Shift+P`) and run `Rojo: Start Server`.
+
+**If you're not using the VScode extension:**
+
+Go to the root directory of the repo
+```
+cd <ProjectName>
+```
+
+To start Rojo:
+```
+rojo serve
+```
+
 ## Credits
 * [TigerCaptain](https://roblox.com/users/19053090/profile) - Original concept
 * [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Function to draw terrain for wedges
