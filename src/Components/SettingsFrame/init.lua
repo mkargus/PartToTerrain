@@ -2,6 +2,7 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
 local List = require(script.List)
+local Constants = require(Modules.Parent.Constants)
 
 local SettingsFrame = Roact.PureComponent:extend('SettingsFrame')
 
@@ -28,7 +29,7 @@ function SettingsFrame:render()
       end
     }),
     Items = Roact.createElement(List, {
-      items = props.Items,
+      items = Constants.SETTINGS,
       plugin = props.plugin
     })
   })

@@ -2,6 +2,7 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
 local MaterialItem = require(script.Item)
+local Constants = require(Modules.Parent.Constants)
 
 local MaterialFrame = Roact.PureComponent:extend('MaterialFrame')
 
@@ -19,8 +20,8 @@ function MaterialFrame:render()
     Size = props.Size
   }, {
     Grid = Roact.createElement('UIGridLayout', {
-      CellPadding = UDim2.new(0,5,0,5),
-      CellSize = UDim2.new(0,45,0,45),
+      CellPadding = Constants.MATERIAL_GRID_PADDING,
+      CellSize = Constants.MATERIAL_GRID_SIZE,
       [Roact.Change.AbsoluteContentSize] = function(rbx)
         self:setState({
           height = rbx.AbsoluteContentSize.Y
@@ -28,7 +29,7 @@ function MaterialFrame:render()
       end
     }),
     Items = Roact.createElement(MaterialItem, {
-      items = props.Items,
+      items = Constants.MATERIALS,
       MaterialSelected = props.MaterialSelected
     })
   })

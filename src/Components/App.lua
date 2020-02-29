@@ -33,13 +33,11 @@ function App:render()
   if store.Frame == 'Materials' then
     body = Roact.createElement(MaterialFrame, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
-      Items = props.Constants.Materials,
       MaterialSelected = store.Material
     })
   elseif store.Frame == 'Settings' then
     body = Roact.createElement(SettingsFrame, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
-      Items = props.Constants.Settings,
       plugin = props.plugin
     })
   end

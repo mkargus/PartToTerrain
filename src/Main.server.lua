@@ -22,7 +22,7 @@ local outlineManager = require(sp.outlineManager)
 local terrainConverter = require(sp.terrainConverter)
 
 -- Settings
-for _, settings in pairs(Constants.Settings) do
+for _, settings in pairs(Constants.SETTINGS) do
   if plugin:GetSetting(settings.id) == nil then
     plugin:SetSetting(settings.id, settings.defaultValue)
   end
@@ -47,7 +47,7 @@ local DockWidgetInfo = DockWidgetPluginGuiInfo.new(
 )
 
 local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetInfo)
-ui.Title = Localization('Plugin.NameVersion', { Constants.Version })
+ui.Title = Localization('Plugin.NameVersion', { Constants.VERSION })
 ui.Name = 'PartToTerrain'
 
 ------------------------
@@ -67,8 +67,8 @@ end
 
 local function CheckForUpdates()
   if RunService:IsEdit() and plugin:GetSetting('CheckUpdates') then
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UpdateCheckerID)
-    if success and info.Description ~= Constants.Version then
+    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UPDATE_CHECKER_ID)
+    if success and info.Description ~= Constants.VERSION then
       return info.Description
     else
       return false
@@ -90,7 +90,6 @@ local app = Roact.createElement(RoactRodux.StoreProvider, {
   App = Roact.createElement(App, {
     plugin = plugin,
     store = store,
-    Constants = Constants,
     IsOutdated = CheckForUpdates()
   })
 })

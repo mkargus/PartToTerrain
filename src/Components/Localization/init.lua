@@ -1,5 +1,5 @@
 local Table = script:WaitForChild('LocalizationTable')
-local LocaleId = game:GetService("StudioService").StudioLocaleId
+local LocaleId = game:GetService('StudioService').StudioLocaleId
 local Translator
 local FallbackTranslator
 
