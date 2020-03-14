@@ -5,6 +5,7 @@ local Actions = require(Modules.Parent.Actions)
 
 local TextButton = require(Modules.TextButton)
 local Localization = require(Modules.Localization)
+local Constants = require(Modules.Parent.Constants)
 
 local Navbar = Roact.PureComponent:extend('Navbar')
 
@@ -21,7 +22,7 @@ function Navbar:render()
     Materials = Roact.createElement(TextButton, {
       Selected = props.ActiveFrame == 'Materials',
       Text = Localization('Button.Materials'),
-      Size = UDim2.new(0.5,0,1,0),
+      Size = Constants.NAVBAR_BUTTON_SIZE,
       MouseClick = function()
         props.SetFrame('Materials')
       end
@@ -29,7 +30,7 @@ function Navbar:render()
     Settings = Roact.createElement(TextButton, {
       Selected = props.ActiveFrame == 'Settings',
       Text = Localization('Button.Settings'),
-      Size = UDim2.new(0.5,0,1,0),
+      Size = Constants.NAVBAR_BUTTON_SIZE,
       MouseClick = function()
         props.SetFrame('Settings')
       end
