@@ -2,13 +2,13 @@ local Modules = script.Parent.Parent.Parent
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
 local Actions = require(Modules.Actions)
+local Constants = require(Modules.Constants)
 
 local function MaterialItem(props)
-  local items = props.items
   local elements = {}
 
-  for i=1, #items do
-    local item = items[i]
+  for i=1, #Constants.MATERIALS do
+    local item = Constants.MATERIALS[i]
     elements[item.enum.Name] = Roact.createElement('ImageButton', {
       BackgroundTransparency = 1,
       Image = item.img,

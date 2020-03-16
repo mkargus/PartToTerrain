@@ -10,10 +10,18 @@ function MaterialFrame:init()
   self.state = {
     height = 0
   }
+
+  self._gridSizeChange = function(rbx)
+    self:setState({
+      height = rbx.AbsoluteContentSize.Y
+    })
+  end
+
 end
 
 function MaterialFrame:render()
   local props = self.props
+  
   return Roact.createElement(ScrollingFrame, {
     CanvasSize = UDim2.new(0,0,0,self.state.height),
     Position = UDim2.new(0,5,0,30),
@@ -22,14 +30,9 @@ function MaterialFrame:render()
     Grid = Roact.createElement('UIGridLayout', {
       CellPadding = Constants.MATERIAL_GRID_PADDING,
       CellSize = Constants.MATERIAL_GRID_SIZE,
-      [Roact.Change.AbsoluteContentSize] = function(rbx)
-        self:setState({
-          height = rbx.AbsoluteContentSize.Y
-        })
-      end
+      [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
     }),
     Items = Roact.createElement(MaterialItem, {
-      items = Constants.MATERIALS,
       MaterialSelected = props.MaterialSelected
     })
   })
