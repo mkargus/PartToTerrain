@@ -6,14 +6,17 @@
       "$className": "ServerScriptService",
       "PartToTerrain": {
         "$path": "src",
-        "Roact": {
-          "$path": "modules/Roact"
-        },
-        "Rodux": {
-          "$path": "modules/Rodux"
-        },
-        "RoactRodux": {
-          "$path": "modules/RoactRodux"
+        "Libs": {
+          "$className": "Folder",
+          "Roact": {
+            "$path": "modules/Roact"
+          },
+          "Rodux": {
+            "$path": "modules/Rodux"
+          },
+          "RoactRodux": {
+            "$path": "modules/RoactRodux"
+          }
         }
       }
     }

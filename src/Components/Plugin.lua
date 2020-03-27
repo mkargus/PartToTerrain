@@ -27,9 +27,9 @@ end
 
 -- end
 
-function TerrainPlugin:render()
-  local props = self.props
-  local state = self.state
-end
+-- function TerrainPlugin:render()
+--   local props = self.props
+--   local state = self.state
+-- end
 
 return TerrainPlugin

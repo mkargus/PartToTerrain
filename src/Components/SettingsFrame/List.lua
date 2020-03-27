@@ -1,5 +1,5 @@
 local Modules = script.Parent.Parent
-local Roact = require(Modules.Parent.Roact)
+local Roact = require(Modules.Parent.Libs.Roact)
 local Item = require(script.Parent.Item)
 
 return function(props)

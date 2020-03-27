@@ -11,9 +11,9 @@ local Run = game:GetService('RunService')
 local mouse = plugin:GetMouse()
 
 local sp = script.Parent
-local Roact = require(sp.Roact)
-local Rodux = require(sp.Rodux)
-local RoactRodux = require(sp.RoactRodux)
+local Roact = require(sp.Libs.Roact)
+local Rodux = require(sp.Libs.Rodux)
+local RoactRodux = require(sp.Libs.RoactRodux)
 local Reducer = require(sp.Reducer)
 local App = require(sp.Components.App)
 local Constants = require(sp.Util.Constants)

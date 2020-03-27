@@ -3,7 +3,7 @@
 ------------------------------
 
 local Modules = script.Parent.Parent
-local Roact = require(Modules.Parent.Roact)
+local Roact = require(Modules.Parent.Libs.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
 local Localization = require(Modules.Parent.Util.Localization)

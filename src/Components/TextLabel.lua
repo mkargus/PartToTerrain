@@ -1,5 +1,5 @@
 local Modules = script.Parent
-local Roact = require(Modules.Parent.Roact)
+local Roact = require(Modules.Parent.Libs.Roact)
 
 local TextService = game:GetService("TextService")
 

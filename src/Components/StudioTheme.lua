@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Roact)
+local Roact = require(script.Parent.Parent.Libs.Roact)
 local StudioTheme = Roact.PureComponent:extend('StudioTheme')
 
 function StudioTheme:init()

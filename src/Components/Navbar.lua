@@ -1,6 +1,6 @@
 local Modules = script.Parent
-local Roact = require(Modules.Parent.Roact)
-local RoactRodux = require(Modules.Parent.RoactRodux)
+local Roact = require(Modules.Parent.Libs.Roact)
+local RoactRodux = require(Modules.Parent.Libs.RoactRodux)
 local Actions = require(Modules.Parent.Actions)
 
 local TextButton = require(Modules.TextButton)
