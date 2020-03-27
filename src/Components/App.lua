@@ -5,7 +5,7 @@ local Navbar = require(Modules.Navbar)
 local MaterialFrame = require(Modules.MaterialFrame)
 local SettingsFrame = require(Modules.SettingsFrame)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
-local Localization = require(Modules.Localization)
+local Localization = require(Modules.Parent.Util.Localization)
 
 local App = Roact.PureComponent:extend('App')
 

@@ -4,22 +4,22 @@ if not plugin then
 end
 
 -- Services
-local sp = script.Parent
+local ChangeHistory = game:GetService('ChangeHistoryService')
+local Marketplace = game:GetService('MarketplaceService')
+local Run = game:GetService('RunService')
+
 local mouse = plugin:GetMouse()
 
-local ChangeHistoryService = game:GetService('ChangeHistoryService')
-local MarketplaceService = game:GetService('MarketplaceService')
-local RunService = game:GetService('RunService')
-
-local Constants = require(sp.Constants)
+local sp = script.Parent
 local Roact = require(sp.Roact)
 local Rodux = require(sp.Rodux)
 local RoactRodux = require(sp.RoactRodux)
 local Reducer = require(sp.Reducer)
 local App = require(sp.Components.App)
-local Localization = require(sp.Components.Localization)
-local outlineManager = require(sp.outlineManager)
-local terrainConverter = require(sp.terrainConverter)
+local Constants = require(sp.Util.Constants)
+local Localization = require(sp.Util.Localization)
+local outlineManager = require(sp.Util.outlineManager)
+local terrainConverter = require(sp.Util.TerrainConverter)
 
 -- Settings
 for _, settings in pairs(Constants.SETTINGS) do
@@ -66,8 +66,8 @@ local function activate(bool)
 end
 
 local function CheckForUpdates()
-  if RunService:IsEdit() and plugin:GetSetting('CheckUpdates') then
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, Constants.UPDATE_CHECKER_ID)
+  if Run:IsEdit() and plugin:GetSetting('CheckUpdates') then
+    local success, info = pcall(Marketplace.GetProductInfo, Marketplace, Constants.UPDATE_CHECKER_ID)
     if success and info.Description ~= Constants.VERSION then
       return info.Description
     else
@@ -115,7 +115,7 @@ plugin.Deactivation:connect(function()
   end
 end)
 
-if RunService:IsEdit() then
+if Run:IsEdit() then
   button.Click:connect(function()
     activate(not isEnabled)
   end)
@@ -124,7 +124,7 @@ else
   Roact.unmount(tree)
 end
 
-ChangeHistoryService.OnUndo:connect(function(waypoint)
+ChangeHistory.OnUndo:connect(function(waypoint)
   if waypoint == 'PartToTerrain' then
     game.Selection:Set({})
   end
@@ -139,7 +139,7 @@ mouse.Button1Down:connect(function()
       if plugin:GetSetting('DeletePart') then
         part:remove()
       end
-      ChangeHistoryService:SetWaypoint('PartToTerrain')
+      ChangeHistory:SetWaypoint('PartToTerrain')
     else
       -- Temp solution
       warn(Localization(err))

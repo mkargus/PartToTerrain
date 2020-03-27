@@ -4,8 +4,8 @@ local RoactRodux = require(Modules.Parent.RoactRodux)
 local Actions = require(Modules.Parent.Actions)
 
 local TextButton = require(Modules.TextButton)
-local Localization = require(Modules.Localization)
-local Constants = require(Modules.Parent.Constants)
+local Localization = require(Modules.Parent.Util.Localization)
+local Constants = require(Modules.Parent.Util.Constants)
 
 local Navbar = Roact.PureComponent:extend('Navbar')
 

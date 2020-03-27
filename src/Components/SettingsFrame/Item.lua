@@ -1,8 +1,12 @@
+------------------------------
+-- Trash code. Redo this.
+------------------------------
+
 local Modules = script.Parent.Parent
 local Roact = require(Modules.Parent.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
-local Localization = require(Modules.Localization)
+local Localization = require(Modules.Parent.Util.Localization)
 local TextButton = require(Modules.TextButton)
 local ToggleButton = require(Modules.ToggleButton)
 

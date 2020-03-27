@@ -2,7 +2,7 @@ local Modules = script.Parent.Parent.Parent
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
 local Actions = require(Modules.Actions)
-local Constants = require(Modules.Constants)
+local Constants = require(Modules.Util.Constants)
 
 local function MaterialItem(props)
   local elements = {}

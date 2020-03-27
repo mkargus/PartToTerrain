@@ -2,7 +2,7 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
 local MaterialItem = require(script.Item)
-local Constants = require(Modules.Parent.Constants)
+local Constants = require(Modules.Parent.Util.Constants)
 
 local MaterialFrame = Roact.PureComponent:extend('MaterialFrame')
 
@@ -21,7 +21,7 @@ end
 
 function MaterialFrame:render()
   local props = self.props
-  
+
   return Roact.createElement(ScrollingFrame, {
     CanvasSize = UDim2.new(0,0,0,self.state.height),
     Position = UDim2.new(0,5,0,30),
