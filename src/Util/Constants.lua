@@ -17,6 +17,8 @@ Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
 Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 45, 0, 45)
 Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://450746692'
 
+Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
+
 Constants.OUTLINE_COLOR_GREEN = Color3.fromRGB(67, 160, 71)
 Constants.OUTLINE_COLOR_RED = Color3.fromRGB(229, 57, 53)
 

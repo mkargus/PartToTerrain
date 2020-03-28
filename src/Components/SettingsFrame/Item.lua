@@ -1,41 +1,37 @@
-------------------------------
--- Trash code. Redo this.
-------------------------------
-
 local Modules = script.Parent.Parent
 local Roact = require(Modules.Parent.Libs.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
 local Localization = require(Modules.Parent.Util.Localization)
-local TextButton = require(Modules.TextButton)
+local Constants = require(Modules.Parent.Util.Constants)
 local ToggleButton = require(Modules.ToggleButton)
 
 local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 
 function SettingsItem:init()
-  local _props = self.props
-
   self.state = {
-    height = 120,
-    isExpanded = false,
-    settingEnabled = _props.plugin:GetSetting(_props.item)
+    height = 0,
+    isExpanded = false
   }
 
-  self._expandClick = function()
+  function self._expandClick()
     self:setState({
       isExpanded = not self.state.isExpanded
     })
   end
 
-  self._ToggleClick = function()
-    local plugin = _props.plugin
-    local item = _props.item
+  function self._textSizeChange(rbx)
+    local Text = game:GetService('TextService')
+    local tb = Text:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(rbx.AbsoluteSize.X, 100000))
+    rbx.Size = UDim2.new(1, 0, 0, tb.Y + 5)
 
-    plugin:SetSetting(item, not plugin:GetSetting(item))
+    -- Bad practice. Will replace at a later time.
+    rbx.Parent.ToggleFrame.Position = UDim2.new(0,0,0,tb.Y+35+3)
     self:setState({
-      settingEnabled = plugin:GetSetting(item)
+      height = tb.Y+35+3+24+3
     })
   end
+
 end
 
 function SettingsItem:render()
@@ -47,70 +43,71 @@ function SettingsItem:render()
       BackgroundColor3 = theme:GetColor('CategoryItem'),
       BorderSizePixel = 0,
       ClipsDescendants = true,
-      -- ! Image clips through the scrollbar.
-      Size = state.isExpanded and UDim2.new(1,0,0,state.height) or UDim2.new(1,0,0,30)
+      -- Does the trick for now.
+      Size = state.isExpanded and UDim2.new(1, props.isScrollbarShowing and -8 or 0,0,state.height) or UDim2.new(1,props.isScrollbarShowing and -8 or 0,0,30),
     }, {
 
-      Button = Roact.createElement(TextButton, {
+      -- "Header"
+      Button = Roact.createElement('TextButton', {
+        BackgroundTransparency = 1,
         Text = '',
         Size = UDim2.new(1,0,0,30),
-        MouseClick = self._expandClick
+        [Roact.Event.MouseButton1Click] = self._expandClick
+      }, {
+        Title = Roact.createElement(ThemedTextLabel, {
+          BackgroundTransparency = 1,
+          Position = UDim2.new(0,2,0,2),
+          Size = UDim2.new(1,-30,0,26),
+          Text = Localization('Settings.'..props.item),
+          TextSize = '14',
+          TextXAlignment = 'Left',
+        }),
+        ExpandImg = Roact.createElement('ImageLabel', {
+          BackgroundTransparency = 1,
+          Position = UDim2.new(1,-26,0,2),
+          Size = UDim2.new(0,24,0,24),
+          Image = Constants.SETTING_EXPAND_IMAGE,
+          ImageColor3 = theme:GetColor('SubText'),
+          Rotation = state.isExpanded and 90 or 270,
+        })
       }),
 
-      Title = Roact.createElement(ThemedTextLabel, {
-        BackgroundTransparency = 1,
-        Position = UDim2.new(0,2,0,2),
-        Size = UDim2.new(1,-30,0,26),
-        Text = Localization('Settings.'..props.item),
-        TextSize = 14,
-        TextWrapped = true,
-        TextXAlignment = 'Left',
-        ZIndex = 2
-      }),
-
-      ExpandImg = Roact.createElement('ImageLabel', {
-        BackgroundTransparency = 1,
-        BorderSizePixel = 0,
-        Position = UDim2.new(1,-26,0,2),
-        Size = UDim2.new(0,24,0,24),
-        Image = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png',
-        ImageColor3 = theme:GetColor('SubText'),
-        Rotation = state.isExpanded and 90 or 270,
-        ZIndex = 2
-      }),
-
-      Desc = Roact.createElement(ThemedTextLabel, {
+      Desc = Roact.createElement('TextLabel', {
         BackgroundTransparency = 1,
         Position = UDim2.new(0,0,0,30),
+        Font = 'SourceSans',
         Text = Localization('Settings.'..props.item..'Desc'),
         TextSize = 14,
+        Size = UDim2.new(1,0,0,0),
         TextWrapped = true,
+        TextColor3 = theme:GetColor('MainText'),
         TextXAlignment = 'Left',
+        [Roact.Change.AbsoluteSize] = self._textSizeChange
       }),
 
       ToggleFrame = Roact.createElement('Frame', {
         BackgroundTransparency = 1,
-        Position = UDim2.new(0,0,0,75),
-        Size = UDim2.new(1,0,0,24)
+        BorderSizePixel = 0,
+        BackgroundColor3 = Color3.new(0,1,0),
+        Size = UDim2.new(1,0,0,24),
+        Visible = true
       }, {
-        Toggle = Roact.createElement(ToggleButton, {
-          Enabled = state.settingEnabled,
+        ToggleButton = Roact.createElement(ToggleButton, {
           Position = UDim2.new(1,-42,0,0),
-          MouseClick = self._ToggleClick
+          Enabled = true
         }),
-        ToggleText = Roact.createElement(ThemedTextLabel, {
+        ToggleLabel = Roact.createElement(ThemedTextLabel, {
           BackgroundTransparency = 1,
-          Size = UDim2.new(1,-48,0,24),
-          Text = Localization('Toggle.'..(state.settingEnabled and 'Enabled' or 'Disabled')),
+          Size = UDim2.new(1,-42,1,0),
+          Text = Localization('Toggle.Enabled'),
           TextSize = 14,
-          TextWrapped = true,
-          TextXAlignment = 'Left',
+          TextXAlignment = 'Left'
         })
-
       })
 
     })
   end)
+
 end
 
 return SettingsItem
