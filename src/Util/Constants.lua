@@ -23,6 +23,7 @@ Constants.OUTLINE_COLOR_RED = Color3.fromRGB(229, 57, 53)
 Constants.IS_DEV_CHANNEL = false
 Constants.VERSION = '1.3.1'
 Constants.UPDATE_CHECKER_ID = 2673110695
+Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 
 Constants.MATERIALS = {
   { enum = Enum.Material.Air, img = 'rbxasset://textures/CollisionGroupsEditor/delete-hover.png' },

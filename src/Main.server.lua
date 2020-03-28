@@ -31,19 +31,16 @@ end
 local isEnabled = false
 
 local button = plugin:CreateToolbar('Fasty48'):CreateButton(
-  Localization('Plugin.Name'),
+  Constants.IS_DEV_CHANNEL and Localization('Plugin.NameDev') or Localization('Plugin.Name'),
   Localization('Plugin.Desc'),
-  'rbxassetid://297321964'
+  Constants.PLUGIN_BUTTON_ICON
 )
 
 local DockWidgetInfo = DockWidgetPluginGuiInfo.new(
   Enum.InitialDockState.Float,
-  false,
-  true,
-  300,
-  300,
-  220,
-  200
+  false, true,
+  300, 300,
+  220, 200
 )
 
 local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetInfo)
@@ -67,7 +64,8 @@ end
 
 local function CheckForUpdates()
   if Run:IsEdit() and plugin:GetSetting('CheckUpdates') then
-    local success, info = pcall(Marketplace.GetProductInfo, Marketplace, Constants.UPDATE_CHECKER_ID)
+    local checkerId = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
+    local success, info = pcall(Marketplace.GetProductInfo, Marketplace, checkerId)
     if success and info.Description ~= Constants.VERSION then
       return info.Description
     else

@@ -1,5 +1,6 @@
 Key,en-us,zh-cn
 Plugin.Name,Part to Terrain,
+Plugin.NameDev,Part to Terrain [DEV],
 Plugin.Desc,Convert parts into terrain with ease.,
 Plugin.NameVersion,Part to Terrain {1},
 Button.Materials,Materials,物料
