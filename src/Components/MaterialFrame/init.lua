@@ -11,7 +11,7 @@ function MaterialFrame:init()
     height = 0
   }
 
-  self._gridSizeChange = function(rbx)
+  function self._gridSizeChange(rbx)
     self:setState({
       height = rbx.AbsoluteContentSize.Y
     })

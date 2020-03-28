@@ -10,26 +10,26 @@ function TextButton:init()
     press = false
   }
 
-  self._mouseEnter = function()
+  function self._mouseEnter()
     self:setState({
       hover = true
     })
   end
 
-  self._mouseLeave = function()
+  function self._mouseLeave()
     self:setState({
       hover = false,
       press = false
     })
   end
 
-  self._mouseButtonDown = function()
+  function self._mouseButtonDown()
     self:setState({
       press = true
     })
   end
 
-  self._mouseButtonUp = function()
+  function self._mouseButtonUp()
     self:setState({
       press = false
     })
