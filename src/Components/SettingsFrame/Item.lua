@@ -11,7 +11,8 @@ local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 function SettingsItem:init()
   self.state = {
     height = 0,
-    isExpanded = false
+    isExpanded = false,
+    isToggleEnabled = self.props.plugin:GetSetting(self.props.item)
   }
 
   function self._expandClick()
@@ -29,6 +30,16 @@ function SettingsItem:init()
     rbx.Parent.ToggleFrame.Position = UDim2.new(0,0,0,tb.Y+35+3)
     self:setState({
       height = tb.Y+35+3+24+3
+    })
+  end
+
+  function self._toggleClick()
+    local props = self.props
+    local plugin = props.plugin
+    plugin:SetSetting(props.item, not plugin:GetSetting(props.item))
+
+    self:setState({
+      isToggleEnabled = plugin:GetSetting(props.item)
     })
   end
 
@@ -87,24 +98,23 @@ function SettingsItem:render()
 
       ToggleFrame = Roact.createElement('Frame', {
         BackgroundTransparency = 1,
-        BorderSizePixel = 0,
-        BackgroundColor3 = Color3.new(0,1,0),
+        Position = UDim2.new(1,0,0,0),
         Size = UDim2.new(1,0,0,24),
         Visible = true
       }, {
         ToggleButton = Roact.createElement(ToggleButton, {
           Position = UDim2.new(1,-42,0,0),
-          Enabled = true
+          Enabled = state.isToggleEnabled,
+          MouseClick = self._toggleClick
         }),
         ToggleLabel = Roact.createElement(ThemedTextLabel, {
           BackgroundTransparency = 1,
           Size = UDim2.new(1,-42,1,0),
-          Text = Localization('Toggle.Enabled'),
+          Text = Localization('Toggle.'..(state.isToggleEnabled and 'Enabled' or 'Disabled')),
           TextSize = 14,
           TextXAlignment = 'Left'
         })
       })
-
     })
   end)
 
