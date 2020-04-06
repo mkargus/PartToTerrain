@@ -15,7 +15,7 @@ Constants.NAVBAR_BUTTON_SIZE = UDim2.new(1/2, 0, 1, 0)
 
 Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
 Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 45, 0, 45)
-Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://450746692'
+Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://4507466924'
 
 Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
 

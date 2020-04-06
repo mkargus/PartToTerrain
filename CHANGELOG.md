@@ -1,6 +1,15 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+  #### UI
+  * Rewritten to use Roact.
+  * Settings now has a proper toggle button reather than a checkbox.
+  * Items in settings will now have a "Enabled" or "Disabled" text next to the toggle buttons.
+  * Update notifier no longer uses a orange background
+
+### Fixed
+* Missing selected image when material is selected
 
 ## [1.3.1] - August 24, 2019
 ### Fixed
@@ -66,7 +75,7 @@
 
 ## [1.0.0] - January 10, 2019
 *This is being compared to the last update (3.1) on Part to Terrain Classic.*
-* Now the plugin uses ModuleScripts rather than one whole script to do everything. 
+* Now the plugin uses ModuleScripts rather than one whole script to do everything.
 * Completely redesigned UI to use Studio widgets rather than ScreenGuis.
 * UI has a Light and Dark mode based off of Studio's current selected theme.
 * Added a "Check for updates" setting.

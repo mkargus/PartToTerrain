@@ -1,6 +1,4 @@
-local Modules = script.Parent
-local Roact = require(Modules.Parent.Libs.Roact)
-
+local Roact = require(script.Parent.Parent.Libs.Roact)
 local TextService = game:GetService("TextService")
 
 local function update(rbx)

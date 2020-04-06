@@ -59,7 +59,7 @@ function TextButton:render()
       Size = props.Size,
       Text = props.Text,
       TextColor3 = theme:GetColor('ButtonText', ButtonState),
-      TextSize = props.TextSize or 15,
+      TextSize = props.TextSize or 16,
       [Roact.Event.MouseButton1Click] = props.MouseClick,
       [Roact.Event.MouseEnter] = self._mouseEnter,
       [Roact.Event.MouseLeave] = self._mouseLeave,

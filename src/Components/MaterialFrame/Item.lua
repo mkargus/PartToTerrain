@@ -18,7 +18,7 @@ local function MaterialItem(props)
     }, {
       SelectedImage = Roact.createElement('ImageLabel', {
         BackgroundTransparency = 1,
-        Image = 'rbxassetid://4507466924',
+        Image = Constants.MATERIAL_SELECTED_IMAGE,
         Size = UDim2.new(0.5,0,0.5,0),
         Position = UDim2.new(0.5,0,0,0),
         Visible = props.MaterialSelected == item.enum

@@ -54,10 +54,9 @@ function App:render()
       Body = body,
 
       update = props.IsOutdated and Roact.createElement(ThemedTextLabel, {
-        BackgroundColor3 = theme:GetColor('WarningText'),
+        BackgroundColor3 = theme:GetColor('Separator'),
         Position = UDim2.new(0,0,1,-17),
         Text = Localization('Notice.Outdated', { props.IsOutdated }),
-        TextColor = 'Mid',
         TextWrapped = true
       })
     })
