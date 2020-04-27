@@ -10,6 +10,7 @@ return function(props)
 
   return StudioTheme.withTheme(function(theme)
     local newProps = {
+      BackgroundColor3 = theme:GetColor('Shadow'),
       TextColor3 = theme:GetColor(kind, state)
     }
     for key, value in pairs(props) do

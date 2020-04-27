@@ -28,6 +28,7 @@ return function(props)
     TextSize = props.TextSize or 15,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
+    Visible = props.Visible,
     ZIndex = props.ZIndex,
     [Roact.Change.AbsoluteSize] = autoSize and update or nil,
     [Roact.Change.TextBounds] = autoSize and update or nil
