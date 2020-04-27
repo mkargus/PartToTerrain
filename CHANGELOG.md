@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Korean localization
 ### Changed
 * Wedges now use Roblox's `FillWedge` function which allows for a full wedge shape rather than only converting the top part of the wedge.
 * Adjusted padding for cylinders so that large converted cylinders will be larger than expected.
