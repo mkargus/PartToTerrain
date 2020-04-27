@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Changed
 * Wedges now use Roblox's `FillWedge` function which allows for a full wedge shape rather than only converting the top part of the wedge.
+* Adjusted padding for cylinders so that large converted cylinders will be larger than expected.
   #### UI
   * Rewritten to use Roact.
   * Settings now has a proper toggle button reather than a checkbox.
@@ -11,7 +12,6 @@
 
 ### Fixed
 * Missing selected image when material is selected
-
 ## [1.3.1] - August 24, 2019
 ### Fixed
 * Cylinders using the wrong orientation when being converted.

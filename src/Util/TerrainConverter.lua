@@ -6,7 +6,7 @@ local function FillCylinder(part, material)
   fixPart.Position = part.Position
   fixPart.Size = Vector3.new(part.Size.Y, part.Size.X, part.Size.Z)
 
-  workspace.Terrain:FillCylinder(fixPart.CFrame, part.Size.X, part.Size.Y/1.5, material)
+  workspace.Terrain:FillCylinder(fixPart.CFrame, part.Size.X, part.Size.Y/2, material)
   fixPart:Destroy()
   return true
 end
