@@ -1,12 +1,23 @@
 {
   "name": "PartToTerrain",
-  "servePort": 34872,
   "tree": {
     "$className": "DataModel",
     "ServerScriptService": {
       "$className": "ServerScriptService",
       "PartToTerrain": {
-        "$path": "src"
+        "$path": "src",
+        "Libs": {
+          "$className": "Folder",
+          "Roact": {
+            "$path": "modules/Roact"
+          },
+          "Rodux": {
+            "$path": "modules/Rodux"
+          },
+          "RoactRodux": {
+            "$path": "modules/RoactRodux"
+          }
+        }
       }
     }
   }

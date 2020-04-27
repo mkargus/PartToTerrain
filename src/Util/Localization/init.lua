@@ -1,5 +1,5 @@
-local Table = script.Parent:WaitForChild('localizationTable')
-local LocaleId = game:GetService("StudioService").StudioLocaleId
+local Table = script:WaitForChild('LocalizationTable')
+local LocaleId = game:GetService('StudioService').StudioLocaleId
 local Translator
 local FallbackTranslator
 
@@ -8,9 +8,7 @@ if LocaleId ~= 'en-us' then
   FallbackTranslator = Table:GetTranslator('en-us')
 end
 
-local module = {}
-
-function module:TranslateId(id, arg)
+return function(id, arg)
   local returnValue
   local success = pcall(function()
     returnValue = Translator:FormatByKey(id, arg)
@@ -22,10 +20,9 @@ function module:TranslateId(id, arg)
   end
 
   if not returnValue then
-    error("Couldn't find '"..id.."' key in localizationTable.")
+    warn("Couldn't find '"..id.."' key in LocalizationTable.")
+    return id
   end
 
   return returnValue
 end
-
-return module

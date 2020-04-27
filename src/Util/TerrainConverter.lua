@@ -11,7 +11,7 @@ local function FillCylinder(part, material)
   return true
 end
 
--- TODO: Allow to fill reather then drawing a outline on the top.
+-- ! Deprecated: Use Roblox's FillWedge API.
 local function ConvertWedge(wedge, mat)
   local x = wedge.Size.X
   for i = 0, x do
@@ -40,14 +40,8 @@ local function Convert(part, material)
       workspace.Terrain:FillBall(part.Position, part.Size.X/2, material)
       return true
     elseif part.Shape == Enum.PartType.Cylinder then
-      local _, err = pcall(function()
-        FillCylinder(part, material)
-      end)
-      if err then
-        error('Notice.ApiNotEnabled',0)
-      else
-        return true
-      end
+      FillCylinder(part, material)
+      return true
     else
       error('Notice.ShapeNotSupported',0)
     end

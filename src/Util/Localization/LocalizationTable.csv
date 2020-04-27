@@ -1,5 +1,6 @@
 Key,en-us,zh-cn
 Plugin.Name,Part to Terrain,
+Plugin.NameDev,Part to Terrain [DEV],
 Plugin.Desc,Convert parts into terrain with ease.,
 Plugin.NameVersion,Part to Terrain {1},
 Button.Materials,Materials,物料
@@ -12,11 +13,12 @@ Settings.EnabledSelectionBox,Enable SelectionBox when hovered,
 Settings.EnabledSelectionBoxDesc,Allow a SelectionBox overlay when the mouse is hovering over a part.,
 Settings.IgnoreLockedParts,Ignore locked parts,
 Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.,
+Toggle.Enabled,Enabled,已启用
+Toggle.Disabled,Disabled,已禁用
 Notice.Outdated,{1} is now available to download!,
 Notice.IgnoreLockedPart,Ignoring locked part due to settings.,
 Notice.ShapeNotSupported,Part shape is not supported.,
 Notice.ClassNotSupport,Part class is not supported.,
-Notice.ApiNotEnabled,Roblox has not enabled the FillCylinder API.,
 Materials.Air,Air,空气
 Materials.Asphalt,Asphalt,沥青
 Materials.Basalt,Basalt,玄武岩
