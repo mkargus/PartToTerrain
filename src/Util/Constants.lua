@@ -28,7 +28,7 @@ Constants.UPDATE_CHECKER_ID = 2673110695
 Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 
 Constants.MATERIALS = {
-  { enum = Enum.Material.Air, img = 'rbxasset://textures/CollisionGroupsEditor/delete-hover.png' },
+  { enum = Enum.Material.Air, img = 'rbxasset://textures/TerrainTools/mtrl_air.png' },
   { enum = Enum.Material.Asphalt, img = 'rbxasset://textures/TerrainTools/mtrl_asphalt.png' },
   { enum = Enum.Material.Basalt, img = 'rbxasset://textures/TerrainTools/mtrl_basalt.png' },
   { enum = Enum.Material.Brick, img = 'rbxasset://textures/TerrainTools/mtrl_brick.png' },
