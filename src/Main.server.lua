@@ -79,7 +79,7 @@ end
 ------------------------
 local store = Rodux.Store.new(Reducer, {
   Frame = "Materials",
-  Material = Enum.Material.Air,
+  Material = Enum.Material.Grass,
 })
 
 local app = Roact.createElement(RoactRodux.StoreProvider, {
