@@ -33,7 +33,7 @@ local function MaterialItem(props)
       end,
       [Roact.Event.MouseMoved] = function(rbx, x, y)
         local tooltip = rbx:WaitForChild('Tooltip')
-        tooltip.Position = UDim2.new(0, x - rbx.AbsolutePosition.X + 3, 0, y - rbx.AbsolutePosition.Y - 15)
+        tooltip.Position = UDim2.new(0, x - rbx.AbsolutePosition.X - 5, 0, y - rbx.AbsolutePosition.Y - 20)
       end
     }, {
       SelectedImage = Roact.createElement('ImageLabel', {
