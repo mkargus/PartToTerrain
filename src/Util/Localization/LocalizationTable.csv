@@ -1,8 +1,8 @@
 Key,en-us,zh-cn,ko_KR
-Plugin.Name,Part to Terrain,,
-Plugin.NameDev,Part to Terrain [DEV],,
+Plugin.Name,Part to Terrain,部件至地形,지형 파트
+Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],지형 파트 [DEV]
 Plugin.Desc,Convert parts into terrain with ease.,,
-Plugin.NameVersion,Part to Terrain {1},,
+Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},지형 파트 {1}
 Button.Materials,Materials,物料,기재
 Button.Settings,Settings,设置,설정
 Settings.CheckUpdates,Check for updates,检查更新,
