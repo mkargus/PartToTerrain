@@ -1,9 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.4.0] - July 11, 2020
 ### Added
 * Korean localization
 ### Changed
+* Deafult material when launched is now grass rather than air.
 * Wedges now use Roblox's `FillWedge` function which allows for a full wedge shape rather than only converting the top part of the wedge.
 * Adjusted padding for cylinders so that large converted cylinders will be larger than expected.
   #### UI
@@ -11,9 +14,9 @@
   * Settings now has a proper toggle button reather than a checkbox.
   * Items in settings will now have a "Enabled" or "Disabled" text next to the toggle buttons.
   * Update notifier no longer uses a orange background
-
 ### Fixed
 * Missing selected image when material is selected
+
 ## [1.3.1] - August 24, 2019
 ### Fixed
 * Cylinders using the wrong orientation when being converted.
@@ -87,7 +90,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.3.1...master
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...master
+[1.4.0]: https://github.com/mkargus/PartToTerrain/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/mkargus/PartToTerrain/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/mkargus/PartToTerrain/compare/1.2.2...1.3.0
 [1.2.2]: https://github.com/mkargus/PartToTerrain/compare/1.2.1...1.2.2
