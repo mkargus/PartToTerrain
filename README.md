@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/14226603/50402248-1828e200-0763-11e9-9b84-7e34f0bd8ef2.png">
 
-  [![](https://github.com/mkargus/PartToTerrain/workflows/CI/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
+  [![](https://github.com/mkargus/PartToTerrain/workflows/lint/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
   [![](https://img.shields.io/github/release/mkargus/PartToTerrain.svg?style=flat-square)](https://github.com/mkargus/PartToTerrain/releases)
   [![](https://img.shields.io/badge/dynamic/json.svg?label=downloads&url=https%3A%2F%2Fapi.roblox.com%2FMarketplace%2FProductInfo%3FassetId%3D261634767&query=Sales&style=flat-square)](https://www.roblox.com/library/261634767/Part-to-Terrain)
   [![](https://img.shields.io/github/license/mkargus/PartToTerrain.svg?style=flat-square)](LICENSE.txt)
@@ -15,7 +15,7 @@ The plugin uses some third-party tools while developing:
 - [Rodux](https://github.com/Roblox/Rodux) - State management library inspired by Facebook's Redux
 - [Roact-Rodux](https://github.com/Roblox/roact-rodux) - Connector between Roact and Rodux
 - [Rojo](https://github.com/rojo-rbx/rojo) (0.5.x) - Syncs scripts into Roblox Studio.
-- [Luacheck](https://github.com/mpeterv/luacheck) - Syntax checking and linter
+- [Selene](https://github.com/Kampfkarren/selene) - Syntax checking and linter
 
 ## Building the plugin
 This plugin is built using [Rojo](https://rojo.space/docs/0.5.x/guide/installation).
