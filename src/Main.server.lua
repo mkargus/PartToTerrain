@@ -101,13 +101,13 @@ ui:BindToClose(function()
   activate(false)
 end)
 
-plugin.Unloading:connect(function()
+plugin.Unloading:Connect(function()
   activate(false)
   Roact.unmount(tree)
   outlineManager:Destroy()
 end)
 
-plugin.Deactivation:connect(function()
+plugin.Deactivation:Connect(function()
   if isEnabled and ui.Enabled then
     activate(false)
   end
@@ -132,7 +132,9 @@ mouse.Button1Down:connect(function()
   local part = mouse.Target
   local Material = store:getState().Material
   if isEnabled and part then
-    local success, err = pcall(function() terrainConverter:Convert(part, Material, plugin:GetSetting('IgnoreLockedParts')) end)
+    local success, err = pcall(function()
+      terrainConverter:Convert(part, Material, plugin:GetSetting('IgnoreLockedParts'))
+    end)
     if success then
       if plugin:GetSetting('DeletePart') then
         part:remove()

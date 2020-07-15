@@ -1,0 +1,25 @@
+name: Lint
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Selene
+      run: |
+        wget -q -O selene https://github.com/Kampfkarren/selene/releases/latest/download/selene-linux
+        chmod +x ./selene
+
+    - name: Generate Roblox standards
+      run: ./selene generate-roblox-std
+
+    - name: Run Selene
+      run: ./selene ./src

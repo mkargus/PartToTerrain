@@ -38,7 +38,7 @@ function Navbar:render()
   })
 end
 
-local function mapStateToProps(state)
+local function mapStateToProps()
   return {}
 end
 
