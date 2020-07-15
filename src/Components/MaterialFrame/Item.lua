@@ -58,7 +58,7 @@ local function MaterialItem(props)
   return Roact.createFragment(elements)
 end
 
-local function mapStateToProps(state)
+local function mapStateToProps()
   return {}
 end
 
