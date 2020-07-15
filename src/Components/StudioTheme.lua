@@ -9,7 +9,7 @@ function StudioTheme:init()
     themeEnum = studioSettings['UI Theme']
   }
 
-  self._themeConnection = studioSettings.ThemeChanged:connect(function()
+  self._themeConnection = studioSettings.ThemeChanged:Connect(function()
     self:setState({
       theme = studioSettings.Theme,
       themeEnum = studioSettings['UI Theme']

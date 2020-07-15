@@ -107,7 +107,7 @@ plugin.Deactivation:Connect(function()
 end)
 
 if Run:IsEdit() then
-  button.Click:connect(function()
+  button.Click:Connect(function()
     activate(not isEnabled)
   end)
 else
@@ -115,13 +115,13 @@ else
   Roact.unmount(tree)
 end
 
-ChangeHistory.OnUndo:connect(function(waypoint)
+ChangeHistory.OnUndo:Connect(function(waypoint)
   if waypoint == 'PartToTerrain' then
     game.Selection:Set({})
   end
 end)
 
-mouse.Button1Down:connect(function()
+mouse.Button1Down:Connect(function()
   local part = mouse.Target
   local Material = store:getState().Material
   if isEnabled and part then
@@ -140,7 +140,7 @@ mouse.Button1Down:connect(function()
   end
 end)
 
-mouse.Move:connect(function()
+mouse.Move:Connect(function()
   local part = mouse.Target
   if isEnabled and part and plugin:GetSetting('EnabledSelectionBox') then
     if plugin:GetSetting('IgnoreLockedParts') then
