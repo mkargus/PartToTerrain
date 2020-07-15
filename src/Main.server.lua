@@ -36,14 +36,7 @@ local button = plugin:CreateToolbar('Fasty48'):CreateButton(
   Constants.PLUGIN_BUTTON_ICON
 )
 
-local DockWidgetInfo = DockWidgetPluginGuiInfo.new(
-  Enum.InitialDockState.Float,
-  false, true,
-  300, 300,
-  220, 200
-)
-
-local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', DockWidgetInfo)
+local ui = plugin:CreateDockWidgetPluginGui('PartToTerrain', Constants.DOCK_WIDGET_INFO)
 ui.Title = Localization('Plugin.NameVersion', { Constants.VERSION })
 ui.Name = 'PartToTerrain'
 

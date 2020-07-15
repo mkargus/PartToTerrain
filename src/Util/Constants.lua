@@ -11,6 +11,13 @@ local Constants = {}
 
 Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://297321964'
 
+Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
+  Enum.InitialDockState.Float,
+  false, true,
+  300, 300,
+  220, 200
+)
+
 Constants.NAVBAR_BUTTON_SIZE = UDim2.new(1/2, 0, 1, 0)
 
 Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
