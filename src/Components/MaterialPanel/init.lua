@@ -4,9 +4,9 @@ local ScrollingFrame = require(Modules.ScrollingFrame)
 local MaterialItem = require(script.Item)
 local Constants = require(Modules.Parent.Util.Constants)
 
-local MaterialFrame = Roact.PureComponent:extend('MaterialFrame')
+local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')
 
-function MaterialFrame:init()
+function MaterialPanel:init()
   self.state = {
     height = 0
   }
@@ -19,7 +19,7 @@ function MaterialFrame:init()
 
 end
 
-function MaterialFrame:render()
+function MaterialPanel:render()
   local props = self.props
 
   return Roact.createElement(ScrollingFrame, {
@@ -38,4 +38,4 @@ function MaterialFrame:render()
   })
 end
 
-return MaterialFrame
+return MaterialPanel

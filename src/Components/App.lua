@@ -2,8 +2,8 @@ local Modules = script.Parent
 local Roact = require(Modules.Parent.Libs.Roact)
 local StudioTheme = require(Modules.StudioTheme)
 local Navbar = require(Modules.Navbar)
-local MaterialFrame = require(Modules.MaterialFrame)
-local SettingsFrame = require(Modules.SettingsFrame)
+local MaterialPanel = require(Modules.MaterialPanel)
+local SettingsPanel = require(Modules.SettingsPanel)
 local ThemedTextLabel = require(Modules.ThemedTextLabel)
 local Localization = require(Modules.Parent.Util.Localization)
 
@@ -31,12 +31,12 @@ function App:render()
   local body
 
   if store.Frame == 'Materials' then
-    body = Roact.createElement(MaterialFrame, {
+    body = Roact.createElement(MaterialPanel, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       MaterialSelected = store.Material
     })
   elseif store.Frame == 'Settings' then
-    body = Roact.createElement(SettingsFrame, {
+    body = Roact.createElement(SettingsPanel, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       plugin = props.plugin
     })

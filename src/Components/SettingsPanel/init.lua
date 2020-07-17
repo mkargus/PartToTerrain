@@ -3,9 +3,9 @@ local Roact = require(Modules.Parent.Libs.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
 local List = require(script.List)
 
-local SettingsFrame = Roact.PureComponent:extend('SettingsFrame')
+local SettingsPanel = Roact.PureComponent:extend('SettingsPanel')
 
-function SettingsFrame:init()
+function SettingsPanel:init()
   self.state = {
     height = 0,
     isScrollbarShowing = false
@@ -25,7 +25,7 @@ function SettingsFrame:init()
 
 end
 
-function SettingsFrame:render()
+function SettingsPanel:render()
   local props = self.props
   local state = self.state
 
@@ -45,4 +45,4 @@ function SettingsFrame:render()
   })
 end
 
-return SettingsFrame
+return SettingsPanel
