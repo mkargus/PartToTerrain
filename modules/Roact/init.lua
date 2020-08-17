@@ -4,11 +4,13 @@
 
 local GlobalConfig = require(script.GlobalConfig)
 local createReconciler = require(script.createReconciler)
+local createReconcilerCompat = require(script.createReconcilerCompat)
 local RobloxRenderer = require(script.RobloxRenderer)
 local strict = require(script.strict)
 local Binding = require(script.Binding)
 
 local robloxReconciler = createReconciler(RobloxRenderer)
+local reconcilerCompat = createReconcilerCompat(robloxReconciler)
 
 local Roact = strict {
 	Component = require(script.Component),
@@ -21,6 +23,7 @@ local Roact = strict {
 	createRef = require(script.createRef),
 	createBinding = Binding.create,
 	joinBindings = Binding.join,
+	createContext = require(script.createContext),
 
 	Change = require(script.PropMarkers.Change),
 	Children = require(script.PropMarkers.Children),
@@ -31,7 +34,15 @@ local Roact = strict {
 	unmount = robloxReconciler.unmountVirtualTree,
 	update = robloxReconciler.updateVirtualTree,
 
-	setGlobalConfig = GlobalConfig.set
+	reify = reconcilerCompat.reify,
+	teardown = reconcilerCompat.teardown,
+	reconcile = reconcilerCompat.reconcile,
+
+	setGlobalConfig = GlobalConfig.set,
+
+	-- APIs that may change in the future without warning
+	UNSTABLE = {
+	},
 }
 
 return Roact
