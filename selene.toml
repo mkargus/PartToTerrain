@@ -2,3 +2,5 @@ std = "roblox"
 
 [config]
 unused_variable = {allow_unused_self = true}
+
+roblox_incorrect_roact_usage = false

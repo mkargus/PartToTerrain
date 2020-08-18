@@ -52,8 +52,9 @@ function TextButton:render()
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('TextButton', {
       AutoButtonColor = false,
-      BackgroundColor3 = theme:GetColor('Button', ButtonState),
+      BackgroundColor3 = theme:GetColor('Tab', ButtonState),
       BorderColor3 = theme:GetColor('ButtonBorder', ButtonState),
+      BorderSizePixel = 0,
       Font = props.Font or 'SourceSans',
       Position = props.Position,
       Size = props.Size,

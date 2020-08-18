@@ -3,6 +3,8 @@
 ## [Unreleased]
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
+* Navbar is now centered with a fixed width to the buttons.
+* Adjusted the first time size and the minimum size for plugin widget.
 
 ## [1.4.0] - July 11, 2020
 ### Added
