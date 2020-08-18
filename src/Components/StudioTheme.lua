@@ -1,8 +1,8 @@
 local Roact = require(script.Parent.Parent.Libs.Roact)
-local StudioTheme = Roact.PureComponent:extend('StudioTheme')
+local StudioTheme = Roact.Component:extend('StudioTheme')
 
 function StudioTheme:init()
-  local studioSettings = settings().Studio
+  local studioSettings = settings():GetService('Studio')
 
   self.state = {
     theme = studioSettings.Theme,
@@ -26,9 +26,9 @@ function StudioTheme:render()
   return render(self.state.theme, self.state.themeEnum)
 end
 
-function StudioTheme.withTheme(render)
+function StudioTheme.withTheme(callback)
   return Roact.createElement(StudioTheme, {}, {
-    render = render
+    render = callback
   })
 end
 

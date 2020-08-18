@@ -117,7 +117,7 @@ end
 
 ChangeHistory.OnUndo:Connect(function(waypoint)
   if waypoint == 'PartToTerrain' then
-    game.Selection:Set({})
+    game:GetService('Selection'):Set({})
   end
 end)
 
@@ -130,7 +130,7 @@ mouse.Button1Down:Connect(function()
     end)
     if success then
       if plugin:GetSetting('DeletePart') then
-        part:remove()
+        part.Parent = nil
       end
       ChangeHistory:SetWaypoint('PartToTerrain')
     else

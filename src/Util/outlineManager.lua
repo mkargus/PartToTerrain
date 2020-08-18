@@ -1,7 +1,7 @@
 local Constants = require(script.Parent.Constants)
 
 local outline = Instance.new('SelectionBox')
-outline.Parent = game.CoreGui
+outline.Parent = game:GetService('CoreGui')
 outline.SurfaceTransparency = .7
 outline.LineThickness = .1
 
