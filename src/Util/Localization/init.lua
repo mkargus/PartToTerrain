@@ -8,14 +8,17 @@ if LocaleId ~= 'en-us' then
   FallbackTranslator = Table:GetTranslator('en-us')
 end
 
-return function(id, arg)
+local function Localization(id: string, args: table?): string
+  assert(typeof(id) == 'string', 'id must be a string')
+  assert(typeof(args) == 'nil' or typeof(args) == 'table', 'args must be a table or nil')
+
   local returnValue
   local success = pcall(function()
-    returnValue = Translator:FormatByKey(id, arg)
+    returnValue = Translator:FormatByKey(id, args)
   end)
   if not success and FallbackTranslator or returnValue == '' then
     pcall(function()
-      returnValue = FallbackTranslator:FormatByKey(id, arg)
+      returnValue = FallbackTranslator:FormatByKey(id, args)
     end)
   end
 
@@ -26,3 +29,5 @@ return function(id, arg)
 
   return returnValue
 end
+
+return Localization

@@ -21,6 +21,8 @@ function module:Hide()
 end
 
 function module:Set(part)
+  assert(typeof(part) == 'Instance', 'part must be a Instance')
+
   if part:IsA('BasePart') and not part:IsA('Terrain') then
     if part:IsA('Part') then
       if part.Shape == Enum.PartType.Ball or part.Shape == Enum.PartType.Block or part.Shape == Enum.PartType.Cylinder then

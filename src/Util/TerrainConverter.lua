@@ -36,6 +36,13 @@ end
 local module = {}
 
 function module:Convert(part, material, ignoreLockedParts)
+  assert(typeof(part) == 'Instance', 'part must be a Instance')
+
+  assert(typeof(material) == 'EnumItem', 'material must be a EnumItem')
+  assert(material.EnumType == Enum.Material, 'material needs to be from the Material enum')
+
+  assert(typeof(ignoreLockedParts) == 'boolean', 'ignoreLockedParts must be a boolean')
+
   if ignoreLockedParts then
     if part.Locked then
       error('Notice.IgnoreLockedPart',0)
