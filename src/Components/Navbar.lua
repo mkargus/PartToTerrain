@@ -11,6 +11,7 @@ local Navbar = Roact.PureComponent:extend('Navbar')
 
 function Navbar:render()
   local props = self.props
+
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.RibbonTab),
@@ -29,7 +30,7 @@ function Navbar:render()
         Text = Localization('Button.Materials'),
         Size = UDim2.new(0, 125, 1, 0),
         MouseClick = function()
-          props.SetFrame('Materials')
+          props.SetPanel('Materials')
         end
       }),
       Settings = Roact.createElement(TextButton, {
@@ -37,7 +38,7 @@ function Navbar:render()
         Text = Localization('Button.Settings'),
         Size = UDim2.new(0, 125, 1, 0),
         MouseClick = function()
-          props.SetFrame('Settings')
+          props.SetPanel('Settings')
         end
       })
     })
@@ -50,8 +51,8 @@ end
 
 local function mapDispatchToProps(dispatch)
   return {
-    SetFrame = function(frame)
-      dispatch(Actions.SetFrame(frame))
+    SetPanel = function(panel)
+      dispatch(Actions.SetPanel(panel))
     end
   }
 end

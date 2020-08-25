@@ -30,12 +30,12 @@ function App:render()
 
   local body
 
-  if store.Frame == 'Materials' then
+  if store.Panel == 'Materials' then
     body = Roact.createElement(MaterialPanel, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       MaterialSelected = store.Material
     })
-  elseif store.Frame == 'Settings' then
+  elseif store.Panel == 'Settings' then
     body = Roact.createElement(SettingsPanel, {
       Size = props.IsOutdated and UDim2.new(1,-10,1,-53) or UDim2.new(1,-10,1,-35),
       plugin = props.plugin
@@ -49,7 +49,7 @@ function App:render()
       Size = UDim2.new(1,0,1,0)
     }, {
       Navbar = Roact.createElement(Navbar, {
-        ActiveFrame = store.Frame
+        ActiveFrame = store.Panel
       }),
       Body = body,
 

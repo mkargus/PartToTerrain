@@ -1,6 +1,6 @@
 local Actions = {
-  SetFrame = require(script.SetFrame),
-  SetMaterial = require(script.SetMaterial)
+  SetMaterial = require(script.SetMaterial),
+  SetPanel = require(script.SetPanel)
 }
 
 return Actions

@@ -71,8 +71,8 @@ end
 -- UI
 ------------------------
 local store = Rodux.Store.new(Reducer, {
-  Frame = "Materials",
   Material = Enum.Material.Grass,
+  Panel = "Materials"
 })
 
 local app = Roact.createElement(RoactRodux.StoreProvider, {

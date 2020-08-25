@@ -1,10 +1,10 @@
-local Frame = require(script.Frame)
 local Material = require(script.Material)
+local Panel = require(script.Panel)
 
 return function(state, action)
   state = state or {}
   return {
-    Frame = Frame(state.Frame, action),
-    Material = Material(state.Material, action)
+    Material = Material(state.Material, action),
+    Panel = Panel(state.Panel, action)
   }
 end
