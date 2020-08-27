@@ -4,7 +4,6 @@ if not plugin then
 end
 
 -- Services
-local ChangeHistory = game:GetService('ChangeHistoryService')
 local Marketplace = game:GetService('MarketplaceService')
 local Run = game:GetService('RunService')
 
@@ -19,7 +18,7 @@ local App = require(sp.Components.App)
 local Constants = require(sp.Util.Constants)
 local Localization = require(sp.Util.Localization)
 local outlineManager = require(sp.Util.outlineManager)
-local terrainConverter = require(sp.Util.TerrainConverter)
+local TerrainConverter = require(sp.Util.TerrainConverter)
 
 -- Settings
 for _, settings in pairs(Constants.SETTINGS) do
@@ -115,29 +114,20 @@ else
   Roact.unmount(tree)
 end
 
-ChangeHistory.OnUndo:Connect(function(waypoint)
-  if waypoint == 'PartToTerrain' then
-    game:GetService('Selection'):Set({})
-  end
-end)
-
 mouse.Button1Down:Connect(function()
   local part = mouse.Target
-  local Material = store:getState().Material
-  if isEnabled and part then
+  local material = store:getState().Material
+
+  if isEnabled and part and not part:IsA('Terrain') then
     local success, err = pcall(function()
-      terrainConverter:Convert(part, Material, plugin:GetSetting('IgnoreLockedParts'))
+      TerrainConverter(part, material, plugin:GetSetting('DeletePart'), plugin:GetSetting('IgnoreLockedParts'))
     end)
-    if success then
-      if plugin:GetSetting('DeletePart') then
-        part.Parent = nil
-      end
-      ChangeHistory:SetWaypoint('PartToTerrain')
-    else
-      -- Temp solution
+
+    if not success then
       warn(Localization(err))
     end
   end
+
 end)
 
 mouse.Move:Connect(function()
