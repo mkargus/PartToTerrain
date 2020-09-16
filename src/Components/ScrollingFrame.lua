@@ -15,7 +15,8 @@ return function(props)
       ScrollBarThickness = 7,
       ScrollingDirection = 'Y',
       Size = props.Size,
-      TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png'
+      TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
+      VerticalScrollBarInset = 'ScrollBar'
     }, props[Roact.Children])
   end)
 end

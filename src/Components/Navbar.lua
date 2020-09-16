@@ -14,16 +14,13 @@ function Navbar:render()
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.RibbonTab),
-      BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
+      BackgroundColor3 = theme:GetColor('RibbonTab'),
+      BorderColor3 = theme:GetColor('Border'),
       Size = UDim2.new(1,0,0,25)
     }, {
       UIListLayout = Roact.createElement('UIListLayout', {
         FillDirection = 'Horizontal',
-        Padding = UDim.new(0,0)
-      }),
-      UIPadding = Roact.createElement('UIPadding', {
-        PaddingLeft = UDim.new(0.5, -125)
+        HorizontalAlignment = 'Center'
       }),
       Materials = Roact.createElement(TextButton, {
         Selected = props.ActiveFrame == 'Materials',

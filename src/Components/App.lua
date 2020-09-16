@@ -48,6 +48,11 @@ function App:render()
       BorderSizePixel = 0,
       Size = UDim2.new(1,0,1,0)
     }, {
+      UIListLayout = Roact.createElement('UIListLayout', {
+        HorizontalAlignment = 'Center',
+        Padding = UDim.new(0, 5),
+        SortOrder = 'LayoutOrder'
+      }),
       Navbar = Roact.createElement(Navbar, {
         ActiveFrame = store.Panel
       }),

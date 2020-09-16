@@ -24,12 +24,14 @@ function MaterialPanel:render()
 
   return Roact.createElement(ScrollingFrame, {
     CanvasSize = UDim2.new(0,0,0,self.state.height),
-    Position = UDim2.new(0,5,0,30),
+    LayoutOrder = 1,
     Size = props.Size
   }, {
     Grid = Roact.createElement('UIGridLayout', {
       CellPadding = Constants.MATERIAL_GRID_PADDING,
       CellSize = Constants.MATERIAL_GRID_SIZE,
+      FillDirectionMaxCells = 6,
+      HorizontalAlignment = 'Center',
       [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
     }),
     Items = Roact.createElement(MaterialItem, {

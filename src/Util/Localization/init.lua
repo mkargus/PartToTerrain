@@ -8,7 +8,7 @@ if LocaleId ~= 'en-us' then
   FallbackTranslator = Table:GetTranslator('en-us')
 end
 
-local function Localization(id: string, args: table?): string
+local function Localization(id, args): string
   assert(typeof(id) == 'string', 'id must be a string')
   assert(typeof(args) == 'nil' or typeof(args) == 'table', 'args must be a table or nil')
 
