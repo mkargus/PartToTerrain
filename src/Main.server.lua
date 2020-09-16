@@ -17,8 +17,10 @@ local Reducer = require(sp.Reducer)
 local App = require(sp.Components.App)
 local Constants = require(sp.Util.Constants)
 local Localization = require(sp.Util.Localization)
-local outlineManager = require(sp.Util.outlineManager)
+local OutlineManager = require(sp.Util.OutlineManager)
 local TerrainConverter = require(sp.Util.TerrainConverter)
+
+local outline = OutlineManager.new()
 
 -- Settings
 for _, settings in pairs(Constants.SETTINGS) do
@@ -50,7 +52,7 @@ local function activate(bool)
     plugin:Activate(true)
   else
     plugin:Deactivate()
-    outlineManager:Hide()
+    outline:Set(nil)
   end
 end
 
@@ -96,7 +98,7 @@ end)
 plugin.Unloading:Connect(function()
   activate(false)
   Roact.unmount(tree)
-  outlineManager:Destroy()
+  outline:Despawn()
 end)
 
 plugin.Deactivation:Connect(function()
@@ -132,17 +134,12 @@ end)
 
 mouse.Move:Connect(function()
   local part = mouse.Target
-  if isEnabled and part and plugin:GetSetting('EnabledSelectionBox') then
-    if plugin:GetSetting('IgnoreLockedParts') then
-      if part.Locked then
-        outlineManager:Hide()
-      else
-        outlineManager:Set(part)
-      end
-    else
-      outlineManager:Set(part)
+
+  if isEnabled and plugin:GetSetting('EnabledSelectionBox') and part and not part:IsA('Terrain') then
+    if plugin:GetSetting('IgnoreLockedParts') and part.Locked then
+      return outline:Set(nil)
     end
-  else
-    outlineManager:Hide()
+    outline:Set(part)
   end
+
 end)

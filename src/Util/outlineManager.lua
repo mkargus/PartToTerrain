@@ -1,47 +1,60 @@
 local Constants = require(script.Parent.Constants)
 
-local outline = Instance.new('SelectionBox')
-outline.Parent = game:GetService('CoreGui')
-outline.SurfaceTransparency = .7
-outline.LineThickness = .1
+local function IsPartValid(part)
+  local validShapes = {
+    [Enum.PartType.Block] = true,
+    [Enum.PartType.Ball] = true,
+    [Enum.PartType.Cylinder] = true
+  }
 
-local function changeColor(color)
-  outline.Color3 = color
-  outline.SurfaceColor3 = color
-end
-
-local module = {}
-
-function module:Destroy()
-  outline:Destroy()
-end
-
-function module:Hide()
-  outline.Adornee = nil
-end
-
-function module:Set(part)
-  assert(typeof(part) == 'Instance', 'part must be a Instance')
-
-  if part:IsA('BasePart') and not part:IsA('Terrain') then
-    if part:IsA('Part') then
-      if part.Shape == Enum.PartType.Ball or part.Shape == Enum.PartType.Block or part.Shape == Enum.PartType.Cylinder then
-        changeColor(Constants.OUTLINE_COLOR_GREEN)
-        outline.Adornee = part
-      else
-        changeColor(Constants.OUTLINE_COLOR_RED)
-        outline.Adornee = part
-      end
-    elseif part:IsA('WedgePart') then
-      changeColor(Constants.OUTLINE_COLOR_GREEN)
-      outline.Adornee = part
-    else
-      changeColor(Constants.OUTLINE_COLOR_RED)
-      outline.Adornee = part
-    end
+  if part:IsA('WedgePart') or part:IsA('Part') and validShapes[part.Shape] then
+    return true
   else
-    module:Hide()
+    return false
   end
 end
 
-return module
+local function ChangeColor(self, color)
+  self.Gui.SelectionBox.Color3 = color
+  self.Gui.SelectionBox.SurfaceColor3 = color
+end
+
+local Outline = {}
+Outline.__index = Outline
+
+function Outline.new()
+  local newOutline = {}
+  setmetatable(newOutline, Outline)
+
+  newOutline.Part = nil
+
+  newOutline.Gui = Instance.new('Folder')
+  newOutline.Gui.Name = 'PTT'
+  newOutline.Gui.Parent = game:GetService('CoreGui')
+
+  local SelectionBox = Instance.new('SelectionBox')
+  SelectionBox.Parent = newOutline.Gui
+  SelectionBox.SurfaceTransparency = 0.7
+  SelectionBox.LineThickness = 0.1
+
+  return newOutline
+end
+
+function Outline:Set(part)
+  self.Part = part
+  self.Gui.SelectionBox.Adornee = self.Part
+
+  if part and IsPartValid(part) then
+    ChangeColor(self, Constants.OUTLINE_COLOR_GREEN)
+  else
+    ChangeColor(self, Constants.OUTLINE_COLOR_RED)
+  end
+
+end
+
+function Outline:Despawn()
+  self.Gui:Destroy()
+  self = nil
+end
+
+return Outline
