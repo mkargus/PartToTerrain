@@ -1,8 +1,6 @@
 local Modules = script.Parent
 local Roact = require(Modules.Parent.Libs.Roact)
-local RoactRodux = require(Modules.Parent.Libs.RoactRodux)
-local Actions = require(Modules.Parent.Actions)
-
+local Store = require(Modules.Store)
 local TextButton = require(Modules.TextButton)
 local Localization = require(Modules.Parent.Util.Localization)
 local StudioTheme = require(Modules.StudioTheme)
@@ -10,7 +8,7 @@ local StudioTheme = require(Modules.StudioTheme)
 local Navbar = Roact.PureComponent:extend('Navbar')
 
 function Navbar:render()
-  local props = self.props
+  local activePanel = self.state.Panel
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
@@ -23,35 +21,24 @@ function Navbar:render()
         HorizontalAlignment = 'Center'
       }),
       Materials = Roact.createElement(TextButton, {
-        Selected = props.ActiveFrame == 'Materials',
+        Selected = activePanel == 'Materials',
         Text = Localization('Button.Materials'),
         Size = UDim2.new(0, 125, 1, 0),
         MouseClick = function()
-          props.SetPanel('Materials')
+          Store:Set('Panel', 'Materials')
         end
       }),
       Settings = Roact.createElement(TextButton, {
-        Selected = props.ActiveFrame == 'Settings',
+        Selected = activePanel == 'Settings',
         Text = Localization('Button.Settings'),
         Size = UDim2.new(0, 125, 1, 0),
         MouseClick = function()
-          props.SetPanel('Settings')
+          Store:Set('Panel', 'Settings')
         end
       })
     })
   end)
 end
 
-local function mapStateToProps()
-  return {}
-end
 
-local function mapDispatchToProps(dispatch)
-  return {
-    SetPanel = function(panel)
-      dispatch(Actions.SetPanel(panel))
-    end
-  }
-end
-
-return RoactRodux.connect(mapStateToProps,mapDispatchToProps)(Navbar)
+return Store:Roact(Navbar, { 'Panel' })

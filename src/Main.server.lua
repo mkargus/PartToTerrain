@@ -11,9 +11,7 @@ local mouse = plugin:GetMouse()
 
 local sp = script.Parent
 local Roact = require(sp.Libs.Roact)
-local Rodux = require(sp.Libs.Rodux)
-local RoactRodux = require(sp.Libs.RoactRodux)
-local Reducer = require(sp.Reducer)
+local Store = require(sp.Components.Store)
 local App = require(sp.Components.App)
 local Constants = require(sp.Util.Constants)
 local Localization = require(sp.Util.Localization)
@@ -71,19 +69,9 @@ end
 ------------------------
 -- UI
 ------------------------
-local store = Rodux.Store.new(Reducer, {
-  Material = Enum.Material.Grass,
-  Panel = "Materials"
-})
-
-local app = Roact.createElement(RoactRodux.StoreProvider, {
-  store = store
-}, {
-  App = Roact.createElement(App, {
-    plugin = plugin,
-    store = store,
-    IsOutdated = CheckForUpdates()
-  })
+local app = Roact.createElement(App, {
+  plugin = plugin,
+  IsOutdated = CheckForUpdates()
 })
 
 local tree = Roact.mount(app, ui, 'PartToTerrain')
@@ -118,7 +106,7 @@ end
 
 mouse.Button1Down:Connect(function()
   local part = mouse.Target
-  local material = store:getState().Material
+  local material = Store:Get('Material')
 
   if isEnabled and part and not part:IsA('Terrain') then
     local success, err = pcall(function()

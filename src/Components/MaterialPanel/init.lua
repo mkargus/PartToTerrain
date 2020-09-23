@@ -3,6 +3,7 @@ local Roact = require(Modules.Parent.Libs.Roact)
 local ScrollingFrame = require(Modules.ScrollingFrame)
 local MaterialItem = require(script.Item)
 local Constants = require(Modules.Parent.Util.Constants)
+local Store = require(Modules.Store)
 
 local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')
 
@@ -34,10 +35,8 @@ function MaterialPanel:render()
       HorizontalAlignment = 'Center',
       [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
     }),
-    Items = Roact.createElement(MaterialItem, {
-      MaterialSelected = props.MaterialSelected
-    })
+    Items = Roact.createElement(MaterialItem)
   })
 end
 
-return MaterialPanel
+return Store:Roact(MaterialPanel, { 'Material' })
