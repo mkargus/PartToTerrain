@@ -13,8 +13,8 @@ Settings.EnabledSelectionBox,Highlight part on hover,,
 Settings.EnabledSelectionBoxDesc,Highlight the part when the mouse is hovers over the part.,,
 Settings.IgnoreLockedParts,Ignore locked parts,,
 Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.,,
-Toggle.Enabled,Enabled,已启用,
-Toggle.Disabled,Disabled,已禁用,
+Toggle.Enabled,Enabled,已启用,사용
+Toggle.Disabled,Disabled,已禁用,사용 안 함
 Notice.Outdated,{1} is now available to download!,,
 Notice.IgnoreLockedPart,Ignoring locked part due to settings.,,
 Notice.ShapeNotSupported,Part shape is not supported.,,

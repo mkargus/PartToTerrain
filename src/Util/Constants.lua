@@ -9,7 +9,7 @@ end
 
 local Constants = {}
 
-Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://297321964'
+Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://5768049797'
 
 Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
   Enum.InitialDockState.Float,

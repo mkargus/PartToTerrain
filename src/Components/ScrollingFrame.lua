@@ -9,6 +9,7 @@ return function(props)
       BorderSizePixel = 0,
       BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
       CanvasSize = props.CanvasSize,
+      LayoutOrder = props.LayoutOrder,
       MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
       Position = props.Position,
       ScrollBarImageColor3 = theme:GetColor('Mid'),

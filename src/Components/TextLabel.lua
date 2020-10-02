@@ -16,16 +16,18 @@ return function(props)
   local autoSize = not props.Size
 
   return Roact.createElement('TextLabel', {
+    -- AutomaticSize = props.AutomaticSize,
     BackgroundColor3 = props.BackgroundColor3,
     BackgroundTransparency = props.BackgroundTransparency or 0,
-    BorderSizePixel = 0,
+    BorderSizePixel = props.BorderSizePixel or 0,
     ClipsDescendants = props.ClipsDescendants,
     Font = props.Font or 'SourceSans',
+    LayoutOrder = props.LayoutOrder,
     Position = props.Position,
     Size = props.Size or props.TextWrapped and UDim2.new(1, 0, 0, 0) or nil,
     Text = props.Text,
     TextColor3 = props.TextColor3,
-    TextSize = props.TextSize or 15,
+    TextSize = props.TextSize or 14,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
     Visible = props.Visible,

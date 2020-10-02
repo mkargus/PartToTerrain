@@ -7,6 +7,7 @@
 * Adjusted the first time size and the minimum size for plugin widget.
 * Increased the size of material images from 45px to 50px
 * Replaced Rodux with BasicState
+* Updated icon on plugin button
 
 ## [1.4.0] - July 11, 2020
 ### Added
