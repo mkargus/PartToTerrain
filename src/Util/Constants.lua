@@ -9,6 +9,9 @@ end
 
 local Constants = {}
 
+----------------------------------------
+-- Meta settings
+----------------------------------------
 Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://5768049797'
 
 Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
@@ -18,19 +21,23 @@ Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
   250, 150
 )
 
-Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
-Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 50, 0, 50)
-Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://4507466924'
-
-Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
-
 Constants.OUTLINE_COLOR_GREEN = Color3.fromRGB(67, 160, 71)
 Constants.OUTLINE_COLOR_RED = Color3.fromRGB(229, 57, 53)
 
+----------------------------------------
+-- Update Checking
+----------------------------------------
 Constants.IS_DEV_CHANNEL = false
 Constants.VERSION = '1.4.0'
 Constants.UPDATE_CHECKER_ID = 2673110695
 Constants.DEV_UPDATE_CHECKER_ID = 4685764627
+
+----------------------------------------
+-- Material related
+----------------------------------------
+Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
+Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 50, 0, 50)
+Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://4507466924'
 
 Constants.MATERIALS = {
   { enum = Enum.Material.Air, img = 'rbxasset://textures/TerrainTools/mtrl_air.png' },
@@ -58,11 +65,27 @@ Constants.MATERIALS = {
   { enum = Enum.Material.WoodPlanks, img = 'rbxasset://textures/TerrainTools/mtrl_woodplanks.png' }
 }
 
+----------------------------------------
+-- Settings related
+----------------------------------------
+Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
+
 Constants.SETTINGS = {
   { id = 'CheckUpdates', defaultValue = true },
   { id = 'DeletePart', defaultValue = true },
   { id = 'EnabledSelectionBox', defaultValue = true },
   { id = 'IgnoreLockedParts', defaultValue = false }
+}
+
+----------------------------------------
+-- Navbar related
+----------------------------------------
+Constants.TAB_ICON_SIZE = 24
+Constants.TAB_INNER_PADDING = 3
+
+Constants.NAVBAR_TABS = {
+  { key = 'Materials', icon = 'rbxassetid://5741677639', outlineIcon = 'rbxassetid://5747196489' },
+  { key = 'Settings', icon = 'rbxassetid://5747147099', outlineIcon = 'rbxassetid://5747192169' }
 }
 
 return readOnlyTable(Constants)

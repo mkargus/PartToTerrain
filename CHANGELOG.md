@@ -3,11 +3,11 @@
 ## [Unreleased]
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
-* Navbar is now centered with a fixed width to the buttons.
 * Adjusted the first time size and the minimum size for plugin widget.
 * Increased the size of material images from 45px to 50px
 * Replaced Rodux with BasicState
 * Updated icon on plugin button
+* Updated the look of the Navbar to look similar to Roblox's Toolbox navbar
 
 ## [1.4.0] - July 11, 2020
 ### Added
