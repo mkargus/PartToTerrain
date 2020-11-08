@@ -11,7 +11,7 @@ local StudioTheme = require(Components.StudioTheme)
 local Navbar = require(Components.Navbar)
 local MaterialPanel = require(Components.MaterialPanel)
 local SettingsPanel = require(Components.SettingsPanel)
-local ThemedTextLabel = require(Components.ThemedTextLabel)
+local TextLabel = require(Components.TextLabel)
 local Store = require(Components.Store)
 
 local App = Roact.PureComponent:extend('App')
@@ -24,7 +24,7 @@ function App:render()
 
   if store == 'Materials' then
     body = Roact.createElement(MaterialPanel, {
-      Size = props.IsOutdated and UDim2.new(1, -10, 1, -53) or UDim2.new(1, -10, 1, -35),
+      Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -35),
     })
   elseif store == 'Settings' then
     body = Roact.createElement(SettingsPanel, {
@@ -40,8 +40,7 @@ function App:render()
       Size = UDim2.new(1, 0, 1, 0)
     }, {
       UIListLayout = Roact.createElement('UIListLayout', {
-        HorizontalAlignment = 'Center',
-        Padding = UDim.new(0, 5),
+        -- HorizontalAlignment = 'Center',
         SortOrder = 'LayoutOrder'
       }),
 
@@ -51,10 +50,13 @@ function App:render()
 
       Body = body,
 
-      update = props.IsOutdated and Roact.createElement(ThemedTextLabel, {
-        BackgroundColor3 = theme:GetColor('Separator'),
+      update = props.IsOutdated and Roact.createElement(TextLabel, {
+        BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
+        Font = Enum.Font.Gotham,
         Position = UDim2.new(0, 0, 1, -17),
         Text = Localization('Notice.Outdated', { props.IsOutdated }),
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+        TextSize = 12,
         TextWrapped = true
       })
     })

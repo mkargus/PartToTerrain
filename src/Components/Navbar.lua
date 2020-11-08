@@ -89,6 +89,7 @@ function Navbar:render()
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = UDim2.new(1, 0, 0, 28),
+    ZIndex = 2,
     [Roact.Change.AbsoluteSize] = self._onAbsoluteSizeChange
   }, children)
 

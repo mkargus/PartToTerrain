@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* The ability to search materials via a search bar
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
 * Adjusted the first time size and the minimum size for plugin widget.

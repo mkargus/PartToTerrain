@@ -3,6 +3,7 @@ Plugin.Name,Part to Terrain,部件至地形,파트를 지형으로
 Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],파트를 지형으로 [DEV]
 Plugin.Desc,Convert parts into terrain with ease.,,
 Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},파트를 지형으로 {1}
+Plugin.Search,Search...,搜索...,검색...
 Button.Materials,Materials,物料,기재
 Button.Settings,Settings,设置,설정
 Settings.CheckUpdates,Check for updates,检查更新,
