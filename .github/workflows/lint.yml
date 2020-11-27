@@ -15,7 +15,8 @@ jobs:
 
     - name: Install Selene
       run: |
-        wget -q -O selene https://github.com/Kampfkarren/selene/releases/latest/download/selene-linux
+        wget -q -O selene-zip https://github.com/Kampfkarren/selene/releases/download/0.9.2/selene-0.9.2-linux.zip
+        unzip selene-zip
         chmod +x ./selene
 
     - name: Generate Roblox standards
