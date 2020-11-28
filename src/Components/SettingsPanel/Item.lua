@@ -104,7 +104,7 @@ function SettingsItem:render()
       }, {
         ToggleButton = Roact.createElement(ToggleButton, {
           Position = UDim2.new(1,-42,0,0),
-          Enabled = state.isToggleEnabled,
+          isEnabled = state.isToggleEnabled,
           MouseClick = self._toggleClick
         }),
         ToggleLabel = Roact.createElement(ThemedTextLabel, {
