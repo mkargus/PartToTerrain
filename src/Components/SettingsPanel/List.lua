@@ -6,8 +6,8 @@ local Constants = require(Modules.Parent.Util.Constants)
 return function(props)
   local elements = {}
 
-  for i=1, #Constants.SETTINGS do
-    local item = Constants.SETTINGS[i]
+  for i=1, #Constants.SETTINGS_TABLE do
+    local item = Constants.SETTINGS_TABLE[i]
     elements[item.id] = Roact.createElement(Item, {
       item = item.id,
       plugin = props.plugin,

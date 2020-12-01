@@ -9,7 +9,6 @@
     int LayoutOrder
 ]]
 
-
 local TextService = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
@@ -93,8 +92,6 @@ function NavTab:render()
           Size = UDim2.new(0, self._textWidth, 0, 20),
           Text = Localization('Button.'..props.Key),
           TextColor3 = theme:GetColor((props.isSelected or state.hovering) and 'MainText' or 'DimmedText'),
-          Font = Enum.Font.Gotham,
-          TextSize = 14,
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
         })

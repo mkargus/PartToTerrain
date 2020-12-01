@@ -5,7 +5,7 @@ local function update(rbx)
   if rbx.TextWrapped then
     local width = rbx.AbsoluteSize.X
     local tb = TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(width, 100000))
-    rbx.Size = UDim2.new(1, 0, 0, tb.Y + 2)
+    rbx.Size = UDim2.new(1, 0, 0, tb.Y + 6)
   else
     local tb = TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(100000, 100000))
     rbx.Size = UDim2.new(0, tb.X, 0, tb.Y)
@@ -21,7 +21,7 @@ return function(props)
     BackgroundTransparency = props.BackgroundTransparency or 0,
     BorderSizePixel = props.BorderSizePixel or 0,
     ClipsDescendants = props.ClipsDescendants,
-    Font = props.Font or 'SourceSans',
+    Font = props.Font or Enum.Font.Gotham,
     LayoutOrder = props.LayoutOrder,
     Position = props.Position,
     Size = props.Size or props.TextWrapped and UDim2.new(1, 0, 0, 0) or nil,

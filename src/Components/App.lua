@@ -16,22 +16,22 @@ local Store = require(Components.Store)
 
 local App = Roact.PureComponent:extend('App')
 
-function App:render()
-  local props = self.props
-  local store = self.state.Panel
-
-  local body
-
-  if store == 'Materials' then
-    body = Roact.createElement(MaterialPanel, {
-      Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -35),
+function App:renderBody(Panel)
+  if Panel == 'Materials' then
+    return Roact.createElement(MaterialPanel, {
+      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -35),
     })
-  elseif store == 'Settings' then
-    body = Roact.createElement(SettingsPanel, {
-      Size = props.IsOutdated and UDim2.new(1, -10, 1, -53) or UDim2.new(1, -10, 1, -35),
-      plugin = props.plugin
+  elseif Panel == 'Settings' then
+    return Roact.createElement(SettingsPanel, {
+      Size = self.props.IsOutdated and UDim2.new(1, -10, 1, -53) or UDim2.new(1, -10, 1, -35),
+      plugin = self.props.plugin
     })
   end
+end
+
+function App:render()
+  local props = self.props
+  local state = self.state
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
@@ -48,11 +48,10 @@ function App:render()
         Tabs = Constants.NAVBAR_TABS
       }),
 
-      Body = body,
+      Body = self:renderBody(state.Panel),
 
       update = props.IsOutdated and Roact.createElement(TextLabel, {
         BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
-        Font = Enum.Font.Gotham,
         Position = UDim2.new(0, 0, 1, -17),
         Text = Localization('Notice.Outdated', { props.IsOutdated }),
         TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),

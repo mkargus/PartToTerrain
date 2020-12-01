@@ -23,8 +23,8 @@ function MaterialPanel:init()
   function self._createElements()
     local elements = {}
 
-    for i=1, #Constants.MATERIALS do
-      local item = Constants.MATERIALS[i]
+    for i=1, #Constants.MATERIALS_TABLE do
+      local item = Constants.MATERIALS_TABLE[i]
       elements[item.enum.Name] = Roact.createElement(MaterialItem, {
         Id = item.enum,
         Image = item.img
@@ -72,7 +72,7 @@ function MaterialPanel:render()
       MaterialContainer = Roact.createElement(ScrollingFrame, {
         CanvasSize = UDim2.new(0, 0, 0, state.height),
         LayoutOrder = 2,
-        Size = UDim2.new(1, -3, 1, -30)
+        Size = UDim2.new(1, -6, 1, -31)
       }, {
         Grid = Roact.createElement('UIGridLayout', {
           CellPadding = Constants.MATERIAL_GRID_PADDING,

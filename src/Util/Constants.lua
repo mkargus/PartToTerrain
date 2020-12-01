@@ -39,7 +39,7 @@ Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
 Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 50, 0, 50)
 Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://4507466924'
 
-Constants.MATERIALS = {
+Constants.MATERIALS_TABLE = {
   { enum = Enum.Material.Air, img = 'rbxasset://textures/TerrainTools/mtrl_air.png' },
   { enum = Enum.Material.Asphalt, img = 'rbxasset://textures/TerrainTools/mtrl_asphalt.png' },
   { enum = Enum.Material.Basalt, img = 'rbxasset://textures/TerrainTools/mtrl_basalt.png' },
@@ -70,7 +70,7 @@ Constants.MATERIALS = {
 ----------------------------------------
 Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
 
-Constants.SETTINGS = {
+Constants.SETTINGS_TABLE = {
   { id = 'CheckUpdates', defaultValue = true },
   { id = 'DeletePart', defaultValue = true },
   { id = 'EnabledSelectionBox', defaultValue = true },
