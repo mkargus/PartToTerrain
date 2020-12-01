@@ -9,9 +9,9 @@ local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local OutlineManager = require(Util.OutlineManager)
 local TerrainConverter = require(Util.TerrainConverter)
+local Store = require(Util.Store)
 
 local App = require(Plugin.Components.App)
-local Store = require(Plugin.Components.Store)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 

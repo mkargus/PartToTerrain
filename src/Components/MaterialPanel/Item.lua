@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local Store = require(Plugin.Components.Store)
+local Store = require(Plugin.Util.Store)
 
 local MaterialButton = Roact.PureComponent:extend('MaterialButton')
 

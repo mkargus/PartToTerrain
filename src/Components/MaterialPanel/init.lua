@@ -2,11 +2,12 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local Constants = require(Plugin.Util.Constants)
+local Util = Plugin.Util
+local Constants = require(Util.Constants)
+local Store = require(Util.Store)
 
 local Components = Plugin.Components
 local ScrollingFrame = require(Components.ScrollingFrame)
-local Store = require(Components.Store)
 local Search = require(Components.Search)
 local StudioTheme = require(Components.StudioTheme)
 

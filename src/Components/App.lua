@@ -5,6 +5,7 @@ local Roact = require(Plugin.Libs.Roact)
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
 local Constants = require(Util.Constants)
+local Store = require(Util.Store)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
@@ -12,7 +13,7 @@ local Navbar = require(Components.Navbar)
 local MaterialPanel = require(Components.MaterialPanel)
 local SettingsPanel = require(Components.SettingsPanel)
 local TextLabel = require(Components.TextLabel)
-local Store = require(Components.Store)
+
 
 local App = Roact.PureComponent:extend('App')
 

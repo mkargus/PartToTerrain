@@ -14,10 +14,9 @@ local Roact = require(Plugin.Libs.Roact)
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
+local Store = require(Util.Store)
 
-local Components = Plugin.Components
-local Store = require(Components.Store)
-local NavTab = require(Components.NavTab)
+local NavTab = require(Plugin.Components.NavTab)
 
 local Navbar = Roact.PureComponent:extend('Navbar')
 
