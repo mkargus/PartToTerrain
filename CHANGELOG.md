@@ -99,7 +99,7 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...master
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...main
 [1.4.0]: https://github.com/mkargus/PartToTerrain/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/mkargus/PartToTerrain/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/mkargus/PartToTerrain/compare/1.2.2...1.3.0
