@@ -21,6 +21,7 @@ function ToggleButton:render()
 
     return Roact.createElement('ImageButton', {
       AutoButtonColor = false,
+      AnchorPoint = props.AnchorPoint,
       BackgroundColor3 = props.isEnabled and Color3.fromRGB(64, 166, 81) or theme:GetColor('ScriptWhitespace'),
       Size = UDim2.new(0, 40, 0, 24),
       Position = props.Position,

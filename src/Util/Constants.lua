@@ -18,7 +18,7 @@ Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
   Enum.InitialDockState.Float,
   false, true,
   250, 330,
-  250, 150
+  250, 200
 )
 
 Constants.OUTLINE_COLOR_GREEN = Color3.fromRGB(67, 160, 71)
