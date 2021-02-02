@@ -12,6 +12,7 @@ local TerrainConverter = require(Util.TerrainConverter)
 local Store = require(Util.Store)
 
 local App = require(Plugin.Components.App)
+local PluginSettings = require(Plugin.Components.PluginSettings)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
@@ -64,9 +65,12 @@ function PluginApp:render()
   return Roact.createElement(Roact.Portal, {
     target = self.widgetGui
   }, {
-    App = Roact.createElement(App, {
-      plugin = self.plugin,
-      IsOutdated = self:isUpdateAvailable()
+    Roact.createElement(PluginSettings.StudioProvider, {
+      plugin = self.props.plugin
+    }, {
+      App = Roact.createElement(App, {
+        IsOutdated = self:isUpdateAvailable()
+      })
     })
   })
 end

@@ -1,38 +1,37 @@
 local Roact = require(script.Parent.Parent.Libs.Roact)
-local TextService = game:GetService("TextService")
 
-local function update(rbx)
-  if rbx.TextWrapped then
-    local width = rbx.AbsoluteSize.X
-    local tb = TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(width, 100000))
-    rbx.Size = UDim2.new(1, 0, 0, tb.Y + 6)
-  else
-    local tb = TextService:GetTextSize(rbx.Text, rbx.TextSize, rbx.Font, Vector2.new(100000, 100000))
-    rbx.Size = UDim2.new(0, tb.X, 0, tb.Y)
-  end
-end
+local TextLabel = Roact.PureComponent:extend('TextLabel')
 
-return function(props)
-  local autoSize = not props.Size
+TextLabel.defaultProps = {
+  -- AutomaticSize = Enum.AutomaticSize.None,
+  BackgroundTransparency = 0,
+  BorderSizePixel = 0,
+  Font = Enum.Font.Gotham,
+  TextSize = 14
+}
+
+function TextLabel:render()
+  local props = self.props
 
   return Roact.createElement('TextLabel', {
     -- AutomaticSize = props.AutomaticSize,
     BackgroundColor3 = props.BackgroundColor3,
-    BackgroundTransparency = props.BackgroundTransparency or 0,
-    BorderSizePixel = props.BorderSizePixel or 0,
+    BackgroundTransparency = props.BackgroundTransparency,
+    BorderSizePixel = props.BorderSizePixel,
     ClipsDescendants = props.ClipsDescendants,
-    Font = props.Font or Enum.Font.Gotham,
+    Font = props.Font,
     LayoutOrder = props.LayoutOrder,
     Position = props.Position,
-    Size = props.Size or props.TextWrapped and UDim2.new(1, 0, 0, 0) or nil,
+    Size = props.Size,
     Text = props.Text,
     TextColor3 = props.TextColor3,
-    TextSize = props.TextSize or 14,
+    TextSize = props.TextSize,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
     Visible = props.Visible,
     ZIndex = props.ZIndex,
-    [Roact.Change.AbsoluteSize] = autoSize and update or nil,
-    [Roact.Change.TextBounds] = autoSize and update or nil
+    [Roact.Ref] = props[Roact.Ref]
   })
 end
+
+return TextLabel

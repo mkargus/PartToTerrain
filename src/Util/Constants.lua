@@ -68,13 +68,11 @@ Constants.MATERIALS_TABLE = {
 ----------------------------------------
 -- Settings related
 ----------------------------------------
-Constants.SETTING_EXPAND_IMAGE = 'rbxasset://textures/ui/LuaChat/icons/ic-back@2x.png'
-
 Constants.SETTINGS_TABLE = {
-  { id = 'CheckUpdates', defaultValue = true },
-  { id = 'DeletePart', defaultValue = true },
-  { id = 'EnabledSelectionBox', defaultValue = true },
-  { id = 'IgnoreLockedParts', defaultValue = false }
+  CheckUpdates = { defaultValue = true },
+  DeletePart = { defaultValue = true },
+  EnabledSelectionBox = { defaultValue = true },
+  IgnoreLockedParts = { defaultValue = false }
 }
 
 ----------------------------------------
