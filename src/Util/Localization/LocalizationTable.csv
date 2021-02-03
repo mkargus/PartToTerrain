@@ -1,4 +1,4 @@
-Key,en-us,zh-cn,ko_KR
+Key,en_US,zh_CN,ko_KR
 Plugin.Name,Part to Terrain,部件至地形,파트를 지형으로
 Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],파트를 지형으로 [DEV]
 Plugin.Desc,Convert parts into terrain with ease.,,

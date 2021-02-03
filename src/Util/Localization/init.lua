@@ -4,8 +4,8 @@ local Translator
 local FallbackTranslator
 
 Translator = Table:GetTranslator(LocaleId)
-if LocaleId ~= 'en-us' then
-  FallbackTranslator = Table:GetTranslator('en-us')
+if LocaleId ~= 'en_US' then
+  FallbackTranslator = Table:GetTranslator('en_US')
 end
 
 local function Localization(id, args): string
