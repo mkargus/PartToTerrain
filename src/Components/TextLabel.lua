@@ -3,7 +3,7 @@ local Roact = require(script.Parent.Parent.Libs.Roact)
 local TextLabel = Roact.PureComponent:extend('TextLabel')
 
 TextLabel.defaultProps = {
-  -- AutomaticSize = Enum.AutomaticSize.None,
+  AutomaticSize = Enum.AutomaticSize.None,
   BackgroundTransparency = 0,
   BorderSizePixel = 0,
   Font = Enum.Font.Gotham,
@@ -14,7 +14,7 @@ function TextLabel:render()
   local props = self.props
 
   return Roact.createElement('TextLabel', {
-    -- AutomaticSize = props.AutomaticSize,
+    AutomaticSize = props.AutomaticSize,
     BackgroundColor3 = props.BackgroundColor3,
     BackgroundTransparency = props.BackgroundTransparency,
     BorderSizePixel = props.BorderSizePixel,

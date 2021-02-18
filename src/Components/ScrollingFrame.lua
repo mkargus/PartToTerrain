@@ -7,7 +7,8 @@ local StudioTheme = require(Plugin.Components.StudioTheme)
 local ScrollingFrame = Roact.PureComponent:extend('ScrollingFrame')
 
 ScrollingFrame.defaultProps = {
-  -- AutomaticCanvasSize = Enum.AutomaticSize.None,
+  AutomaticCanvasSize = Enum.AutomaticSize.None,
+  CanvasSize = UDim2.new(0, 0, 0, 0),
   ScrollBarThickness = 8,
   ScrollBarThicknessPadding = 3
 }
@@ -19,7 +20,7 @@ function ScrollingFrame:init()
 
   function self._onChange(rbx)
     self:setState({
-      isShowingScrollBar = rbx.AbsoluteWindowSize.Y <= rbx.CanvasSize.Y.Offset
+      isShowingScrollBar = rbx.AbsoluteWindowSize.Y < rbx.CanvasSize.Y.Offset
     })
   end
 end
@@ -48,7 +49,7 @@ function ScrollingFrame:render()
         Size = UDim2.new(0, props.ScrollBarThickness, 1, 0)
       }),
       ScrollingFrame = Roact.createElement('ScrollingFrame', {
-        -- AutomaticCanvasSize = props.AutomaticCanvasSize,
+        AutomaticCanvasSize = props.AutomaticCanvasSize,
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
