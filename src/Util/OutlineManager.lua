@@ -45,9 +45,9 @@ function Outline:Set(part)
   self.Gui.SelectionBox.Adornee = self.Part
 
   if part and IsPartValid(part) then
-    ChangeColor(self, Constants.OUTLINE_COLOR_GREEN)
+    ChangeColor(self, Constants.OUTLINE_COLOR_ALLOW)
   else
-    ChangeColor(self, Constants.OUTLINE_COLOR_RED)
+    ChangeColor(self, Constants.OUTLINE_COLOR_ERROR)
   end
 
 end

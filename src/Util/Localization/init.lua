@@ -23,7 +23,6 @@ local function Localization(id, args): string
   end
 
   if not returnValue then
-    warn("Couldn't find '"..id.."' key in LocalizationTable.")
     return id
   end
 

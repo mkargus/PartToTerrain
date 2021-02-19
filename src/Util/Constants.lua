@@ -21,8 +21,9 @@ Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
   250, 200
 )
 
-Constants.OUTLINE_COLOR_GREEN = Color3.fromRGB(67, 160, 71)
-Constants.OUTLINE_COLOR_RED = Color3.fromRGB(229, 57, 53)
+Constants.OUTLINE_COLOR_ALLOW = Color3.fromRGB(67, 160, 71)
+Constants.OUTLINE_COLOR_WARNING = Color3.new(1, 1, 0)
+Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(229, 57, 53)
 
 ----------------------------------------
 -- Update Checking
@@ -82,8 +83,8 @@ Constants.TAB_ICON_SIZE = 24
 Constants.TAB_INNER_PADDING = 3
 
 Constants.NAVBAR_TABS = {
-  { key = 'Materials', icon = 'rbxassetid://5741677639', outlineIcon = 'rbxassetid://5747196489' },
-  { key = 'Settings', icon = 'rbxassetid://5747147099', outlineIcon = 'rbxassetid://5747192169' }
+  { key = 'Materials', icon = 'rbxassetid://5741677639' },
+  { key = 'Settings', icon = 'rbxassetid://5747147099' }
 }
 
 return readOnlyTable(Constants)
