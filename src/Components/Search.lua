@@ -35,7 +35,6 @@ function Search:init()
   function self.onFocusLost()
     self:setState({ isFocus = false })
   end
-
 end
 
 function Search:render()
@@ -54,8 +53,8 @@ function Search:render()
       AutoButtonColor = false,
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
       BorderSizePixel = 0,
-      Position = UDim2.new(0, 3, 0, 3),
-      Size = UDim2.new(1, -6, 1, -6),
+      Position = props.Position,
+      Size = UDim2.new(1, -6, 0, 26),
       [Roact.Event.MouseButton1Click] = self._onMouseButton1Click,
       [Roact.Event.MouseEnter] = self._onMouseEnter,
       [Roact.Event.MouseLeave] = self._onMouseLeave

@@ -22,7 +22,7 @@ Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
 )
 
 Constants.OUTLINE_COLOR_ALLOW = Color3.fromRGB(67, 160, 71)
-Constants.OUTLINE_COLOR_WARNING = Color3.new(1, 1, 0)
+Constants.OUTLINE_COLOR_WARNING = Color3.fromRGB(255, 235, 59)
 Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(229, 57, 53)
 
 ----------------------------------------

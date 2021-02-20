@@ -1,5 +1,3 @@
-local TextServce = game:GetService('TextService')
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
@@ -14,30 +12,27 @@ local PluginSettings = require(Components.PluginSettings)
 
 local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 
-function SettingsItem:init()
-  self._Size = TextServce:GetTextSize(Localization('Settings.'..self.props.Title), 16, "Gotham", Vector2.new(150, 1000))
-end
-
 function SettingsItem:render()
   local props = self.props
 
   return PluginSettings.with(function(settings)
     return StudioTheme.withTheme(function(theme)
       return Roact.createElement('Frame', {
+        AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-        Size = UDim2.new(0.95, 0, 0, 60),
+        Size = UDim2.new(0.95, 0, 0, 0),
         LayoutOrder = props.LayoutOrder
       }, {
         Title = Roact.createElement(TextLabel, {
           BackgroundTransparency = 1,
           Font = Enum.Font.GothamBold,
+          Size = UDim2.new(0.8, 0, 0, 24),
           Text = Localization('Settings.'..props.Title),
           TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-          TextWrapped = true,
           TextSize = 16,
+          TextWrapped = true,
           TextXAlignment = Enum.TextXAlignment.Left,
-          Size = UDim2.new(0, 150, 0, 24)
         }),
 
         Toggle = Roact.createElement(ToggleButton, {
@@ -50,16 +45,18 @@ function SettingsItem:render()
           end
         }),
 
-        DESC = Roact.createElement(TextLabel, {
+        Description = Roact.createElement(TextLabel, {
+          AutomaticSize = Enum.AutomaticSize.Y,
           BackgroundTransparency = 1,
-          TextSize = 12,
+          LineHeight = 1.2,
+          Position = UDim2.new(0, 0, 0, 30),
+          Size = UDim2.new(1, 0, 0, 0),
           Text = Localization('Settings.'..props.Title..'Desc'),
           TextColor3 = theme:GetColor('SubText'),
-          Size = UDim2.new(1, 0, 0, 14),
-          Position = UDim2.new(0, 0, 0, 30),
+          TextSize = 12,
           TextWrapped = true,
           TextXAlignment = Enum.TextXAlignment.Left
-        }),
+        })
 
       })
     end)

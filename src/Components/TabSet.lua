@@ -1,9 +1,12 @@
 --[[
-  A collective set of NavTabs for navigation
+  A collective set of Tabs for navigation
 
   Props:
+    string CurrentTab
     table Tabs =
-      {string Key, ContentId icon, ContentId outlineIcon}
+      { string Key, ContentId icon }
+
+    function onTabSelected = A callback for when a Tab is selected.
 ]]
 local TextService = game:GetService('TextService')
 
@@ -14,13 +17,12 @@ local Roact = require(Plugin.Libs.Roact)
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
-local Store = require(Util.Store)
 
-local NavTab = require(Plugin.Components.NavTab)
+local Tab = require(Plugin.Components.Tab)
 
-local Navbar = Roact.PureComponent:extend('Navbar')
+local TabSet = Roact.PureComponent:extend('TabSet')
 
-function Navbar:init()
+function TabSet:init()
   self.state = {
     currentWidth = 0
   }
@@ -30,13 +32,20 @@ function Navbar:init()
       currentWidth = rbx.AbsoluteSize.X
     })
   end
+
+  function self.onTabSelected(key)
+    if self.props.onTabSelected then
+      self.props.onTabSelected(key)
+    end
+  end
+
 end
 
-function Navbar:ResetLayout()
+function TabSet:ResetLayout()
   self.currentLayout = 0
 end
 
-function Navbar:NextLayout()
+function TabSet:NextLayout()
   self.currentLayout = self.currentLayout + 1
   return self.currentLayout
 end
@@ -57,7 +66,7 @@ local function canTextBeDisplayed(tabs, tabSize)
   return true
 end
 
-function Navbar:render()
+function TabSet:render()
   local props = self.props
   local state = self.state
 
@@ -74,24 +83,31 @@ function Navbar:render()
   local textDisplayed = canTextBeDisplayed(props.Tabs, state.currentWidth / # props.Tabs)
 
   for _, tab in ipairs (props.Tabs) do
-    children[tab.key] = Roact.createElement(NavTab, {
-        Key = tab.key,
-        isSelected = state.Panel == tab.key,
-        widthScale = 1 / #props.Tabs,
-        Icon = tab.icon,
-        OutlineIcon = tab.outlineIcon,
-        displayText = textDisplayed,
-        LayoutOrder = self:NextLayout()
-      })
+    children[tab.key] = Roact.createElement(Tab, {
+
+      -- ! ------------------------------
+      -- ! READ TAB FOR POSSIBLE CHANGES.
+      -- ! ------------------------------
+
+      Key = tab.key,
+      Active = props.CurrentTab == tab.key,
+      widthScale = 1 / #props.Tabs,
+      Icon = tab.icon,
+      displayText = textDisplayed,
+      LayoutOrder = self:NextLayout(),
+      onClick = function()
+        self.onTabSelected(tab.key)
+      end
+    })
+
   end
 
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = UDim2.new(1, 0, 0, 28),
-    ZIndex = 2,
     [Roact.Change.AbsoluteSize] = self._onAbsoluteSizeChange
   }, children)
 
 end
 
-return Store:Roact(Navbar, { 'Panel' })
+return TabSet

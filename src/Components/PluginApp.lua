@@ -1,4 +1,5 @@
 local MarketplaceService = game:GetService('MarketplaceService')
+local RunService = game:GetService('RunService')
 
 local Plugin = script.Parent.Parent
 
@@ -13,12 +14,24 @@ local Store = require(Util.Store)
 
 local App = require(Plugin.Components.App)
 local PluginSettings = require(Plugin.Components.PluginSettings)
+local StudioWidget = require(Plugin.Components.StudioWidget)
+-- local Outline = require(Plugin.Components.Outline)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
+  self.state = {
+    guiEnabled = false
+  }
+
   self.plugin = self.props.plugin
+
   self.plugin.Deactivation:Connect(function()
+    self:setState({
+      guiEnabled = false
+    })
+    self.button:SetActive(false)
+
     self.OutlineObj:Set(nil)
   end)
 
@@ -31,18 +44,20 @@ function PluginApp:init()
     Localization('Plugin.Desc'),
     Constants.PLUGIN_BUTTON_ICON
   )
-  -- self.button.Enabled = false
-  self.button.Click:Connect(function()
-    self.widgetGui.Enabled = not self.widgetGui.Enabled
-    self.plugin:Activate(true)
-  end)
+  self.button.Enabled = RunService:IsRunning() ~= true
 
-  self.widgetGui = self.plugin:CreateDockWidgetPluginGui('PartToTerrain', Constants.DOCK_WIDGET_INFO)
-  self.widgetGui.Title = Localization('Plugin.NameVersion', { Constants.VERSION })
-  self.widgetGui.Name = 'PartToTerrain'
-  self.widgetGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-  self.widgetGui:GetPropertyChangedSignal('Enabled'):Connect(function()
-    self.button:SetActive(self.widgetGui.Enabled)
+  self.button.Click:Connect(function()
+    self:setState({
+      guiEnabled = not self.state.guiEnabled
+    })
+
+    self.button:SetActive(self.state.guiEnabled)
+
+    if self.state.guiEnabled then
+      self.plugin:Activate(true)
+    else
+      self.plugin:Deactivate()
+    end
   end)
 
 end
@@ -62,11 +77,25 @@ function PluginApp:isUpdateAvailable()
 end
 
 function PluginApp:render()
-  return Roact.createElement(Roact.Portal, {
-    target = self.widgetGui
+  local state = self.state
+
+  return RunService:IsRunning() ~= true and Roact.createElement(StudioWidget, {
+    plugin = self.plugin,
+    Id = 'PartToTerrain',
+    Title = Localization('Plugin.NameVersion', { Constants.VERSION }),
+
+    Active = state.guiEnabled,
+
+    OverridePreviousState = true,
+    FloatingSize = Vector2.new(250, 330),
+    MinimumSize = Vector2.new(250, 300),
+
+    onClose = function()
+      self.plugin:Deactivate()
+    end
   }, {
     Roact.createElement(PluginSettings.StudioProvider, {
-      plugin = self.props.plugin
+      plugin = self.plugin
     }, {
       App = Roact.createElement(App, {
         IsOutdated = self:isUpdateAvailable()
@@ -93,7 +122,7 @@ function PluginApp:didMount()
 
     if part and not part:IsA('Terrain') then
       local success, err = pcall(function()
-        TerrainConverter(part, material, self.plugin:GetSetting('DeletePart'), self.plugin:GetSetting('IgnoreLockedParts'))
+        TerrainConverter.DEPRECATED_Convert(part, material, self.plugin:GetSetting('DeletePart'), self.plugin:GetSetting('IgnoreLockedParts'))
       end)
 
       if not success then

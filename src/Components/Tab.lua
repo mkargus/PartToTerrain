@@ -1,15 +1,16 @@
 --[[
   Props:
     string Key
-    boolean isSelected
+    boolean Active
     number widthScale
     ContentId Icon
-    ContentId OutlineIcon
-    boolean displayText
+    ? boolean displayText (Possible renaming to 'ShowText')
     int LayoutOrder
+
+    function onClick = A callback when the user clicks this Tab.
 ]]
 
-local TextService = game:GetService('TextService')
+-- local TextService = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
 
@@ -18,23 +19,17 @@ local Roact = require(Plugin.Libs.Roact)
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
 local Constants = require(Util.Constants)
-local Store = require(Util.Store)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
 local TextLabel = require(Components.TextLabel)
 
+local Tab = Roact.PureComponent:extend('Tab')
 
-local NavTab = Roact.PureComponent:extend('NavTab')
-
-function NavTab:init()
+function Tab:init()
   self.state = {
     hovering = false
   }
-
-  function self._onMouseButton1Click()
-    Store:Set('Panel', self.props.Key)
-  end
 
   function self._onMouseEnter()
     self:setState({ hovering = true })
@@ -44,28 +39,27 @@ function NavTab:init()
     self:setState({ hovering = false })
   end
 
-  self._textWidth = TextService:GetTextSize(Localization('Button.'..self.props.Key), 14, Enum.Font.Gotham, Vector2.new(10000, 20)).X
-
+  -- self._textWidth = TextService:GetTextSize(Localization('Button.'..self.props.Key), 14, Enum.Font.Gotham, Vector2.new(10000, 20)).X
 end
 
-function NavTab:render()
+function Tab:render()
   local props = self.props
   local state = self.state
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('TextButton', {
       AutoButtonColor = false,
-      BackgroundColor3 = theme:GetColor(props.isSelected and 'Titlebar' or 'Dark'),
+      BackgroundColor3 = theme:GetColor(props.Active and 'Titlebar' or 'Dark'),
       BorderSizePixel = 0,
       LayoutOrder = props.LayoutOrder,
       Size = UDim2.new(props.widthScale, 0, 1, 0),
       Text = '',
-      [Roact.Event.MouseButton1Click] = self._onMouseButton1Click,
+      [Roact.Event.MouseButton1Click] = props.onClick,
       [Roact.Event.MouseEnter] = self._onMouseEnter,
       [Roact.Event.MouseLeave] = self._onMouseLeave
     }, {
 
-      UpperBorder = props.isSelected and Roact.createElement('Frame', {
+      UpperBorder = props.Active and Roact.createElement('Frame', {
         BackgroundColor3 = Color3.fromRGB(0, 162, 255),
         BorderSizePixel = 0,
         Size = UDim2.new(1, 0, 0, 2)
@@ -84,15 +78,17 @@ function NavTab:render()
         }),
         Icon = Roact.createElement('ImageLabel', {
           BackgroundTransparency = 1,
-          Image = props.isSelected and props.Icon or props.OutlineIcon,
+          Image = props.Icon,
           Size = UDim2.new(0, Constants.TAB_ICON_SIZE, 0, Constants.TAB_ICON_SIZE),
-          ImageColor3 = theme:GetColor((props.isSelected or state.hovering) and 'MainText' or 'DimmedText')
+          ImageColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText')
         }),
         Name = props.displayText and Roact.createElement(TextLabel, {
+          AutomaticSize = Enum.AutomaticSize.X,
           BackgroundTransparency = 1,
-          Size = UDim2.new(0, self._textWidth, 0, 20),
+          Size = UDim2.new(0, 0, 0, 20),
+          -- Size = UDim2.new(0, self._textWidth, 0, 20),
           Text = Localization('Button.'..props.Key),
-          TextColor3 = theme:GetColor((props.isSelected or state.hovering) and 'MainText' or 'DimmedText'),
+          TextColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText'),
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
         })
@@ -104,4 +100,4 @@ function NavTab:render()
 
 end
 
-return NavTab
+return Tab

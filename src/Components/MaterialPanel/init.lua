@@ -4,12 +4,9 @@ local Roact = require(Plugin.Libs.Roact)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
-local Store = require(Util.Store)
 
 local Components = Plugin.Components
 local ScrollingFrame = require(Components.ScrollingFrame)
-local Search = require(Components.Search)
-local StudioTheme = require(Components.StudioTheme)
 
 -- Might move this to the root Components folder.
 local MaterialItem = require(script.Item)
@@ -46,48 +43,20 @@ function MaterialPanel:render()
   local props = self.props
   local state = self.state
 
-  return StudioTheme.withTheme(function(theme)
-    return Roact.createElement('Frame', {
-      BackgroundTransparency = 1,
-      Size = props.Size
-    }, {
-      UIListLayout = Roact.createElement('UIListLayout', {
-        HorizontalAlignment = 'Center',
-        Padding = UDim.new(0, 3),
-        SortOrder = 'LayoutOrder'
-      }),
-
-      topBar = Roact.createElement('Frame', {
-        BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
-        BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
-        BorderSizePixel = 1,
-        Size = UDim2.new(1, 0, 0, 32)
-      }, {
-        Searchbar = Roact.createElement(Search, {
-          onTextChange = function(rbx)
-            Store:Set('SearchTerm', rbx.Text)
-          end
-        })
-      }),
-
-      MaterialContainer = Roact.createElement(ScrollingFrame, {
-        CanvasSize = UDim2.new(0, 0, 0, state.height),
-        LayoutOrder = 2,
-        Size = UDim2.new(1, -6, 1, -31)
-      }, {
-        Grid = Roact.createElement('UIGridLayout', {
-          CellPadding = Constants.MATERIAL_GRID_PADDING,
-          CellSize = Constants.MATERIAL_GRID_SIZE,
-          FillDirectionMaxCells = 6,
-          HorizontalAlignment = Enum.HorizontalAlignment.Center,
-          [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
-        }),
-
-        Items = Roact.createElement(self._createElements)
-
-      })
-    })
-  end)
+  return Roact.createElement(ScrollingFrame, {
+    CanvasSize = UDim2.new(0, 0, 0, state.height),
+    LayoutOrder = 2,
+    Size = props.Size
+  }, {
+    Grid = Roact.createElement('UIGridLayout', {
+      CellPadding = Constants.MATERIAL_GRID_PADDING,
+      CellSize = Constants.MATERIAL_GRID_SIZE,
+      FillDirectionMaxCells = 6,
+      HorizontalAlignment = Enum.HorizontalAlignment.Center,
+      [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
+    }),
+    Items = Roact.createElement(self._createElements)
+  })
 end
 
 return MaterialPanel

@@ -19,12 +19,6 @@ if not plugin then
   error('Part to Terrain has to be ran as a plugin.')
 end
 
-local RunService = game:GetService('RunService')
-
-if RunService:IsRunning() then
-  return
-end
-
 local Plugin = script.Parent
 local Roact = require(Plugin.Libs.Roact)
 
