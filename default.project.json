@@ -2,12 +2,16 @@
   "name": "PartToTerrain",
   "tree": {
     "$className": "DataModel",
-    "PartToTerrain": {
-      "$path": "src",
-      "Libs": {
-        "$className": "Folder",
-        "$path": "modules"
+
+    "ReplicatedStorage" : {
+      "PartToTerrain": {
+        "$path": "src",
+        "Libs": {
+          "$className": "Folder",
+          "$path": "modules"
+        }
       }
     }
+
   }
 }
