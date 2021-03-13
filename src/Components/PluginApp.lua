@@ -9,13 +9,12 @@ local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local OutlineManager = require(Util.OutlineManager)
-local TerrainConverter = require(Util.TerrainConverter)
+local DEPRECATED_TerrainConverter = require(Util.DEPRECATED_TerrainConverter)
 local Store = require(Util.Store)
 
 local App = require(Plugin.Components.App)
 local PluginSettings = require(Plugin.Components.PluginSettings)
 local StudioWidget = require(Plugin.Components.StudioWidget)
--- local Outline = require(Plugin.Components.Outline)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
@@ -122,7 +121,7 @@ function PluginApp:didMount()
 
     if part and not part:IsA('Terrain') then
       local success, err = pcall(function()
-        TerrainConverter.DEPRECATED_Convert(part, material, self.plugin:GetSetting('DeletePart'), self.plugin:GetSetting('IgnoreLockedParts'))
+        DEPRECATED_TerrainConverter.DEPRECATED_Convert(part, material, self.plugin:GetSetting('DeletePart'), self.plugin:GetSetting('IgnoreLockedParts'))
       end)
 
       if not success then
