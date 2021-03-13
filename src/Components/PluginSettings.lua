@@ -45,29 +45,29 @@ function Settings:Set(name, value)
   self.__values[name] = value
 
   for callback in pairs(self.__updateListeners) do
-		callback(name, value)
-	end
+    callback(name, value)
+  end
 end
 
 function Settings:onUpdate(newCallback)
-	local newListeners = {}
-	for callback in pairs(self.__updateListeners) do
-		newListeners[callback] = true
-	end
+  local newListeners = {}
+  for callback in pairs(self.__updateListeners) do
+    newListeners[callback] = true
+  end
 
-	newListeners[newCallback] = true
-	self.__updateListeners = newListeners
+  newListeners[newCallback] = true
+  self.__updateListeners = newListeners
 
-	return function()
-		newListeners = {}
-		for callback in pairs(self.__updateListeners) do
-			if callback ~= newCallback then
-				newListeners[callback] = true
-			end
-		end
+  return function()
+    newListeners = {}
+    for callback in pairs(self.__updateListeners) do
+      if callback ~= newCallback then
+        newListeners[callback] = true
+      end
+    end
 
-		self.__updateListeners = newListeners
-	end
+    self.__updateListeners = newListeners
+  end
 end
 
 --------------------------------------------
