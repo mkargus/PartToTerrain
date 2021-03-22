@@ -12,7 +12,7 @@ Part to Terrain is a Roblox plugin that allows users to convert parts into terra
 The plugin uses some third-party tools while developing:
 - [Roact](https://github.com/Roblox/Roact) - Declarative UI library inspired by Facebook's React
 - [BasicState](https://github.com/ClockworkSquirrel/BasicState) - Key-value based state management library
-- [Rojo](https://github.com/rojo-rbx/rojo) (0.5.x) - Syncs scripts into Roblox Studio.
+- [Rojo](https://github.com/rojo-rbx/rojo) (0.6.x+) - Syncs scripts into Roblox Studio.
 - [Selene](https://github.com/Kampfkarren/selene) - Syntax checking and linter
 
 ## Building the plugin
