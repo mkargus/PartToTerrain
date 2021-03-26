@@ -1,5 +1,5 @@
 local TerrainEnum = require(script.Parent.TerrainEnum)
--- local TerrainConverter = require(script.Parent.TerrainConverter)
+local TerrainConverter = require(script.Parent.TerrainConverter)
 
 local MINIMUM_SIZE = 4
 
@@ -61,13 +61,40 @@ local function getPartShape(part)
   return TerrainEnum.Shape.Block
 end
 
--- local function convertToTerrain(shape)
--- end
+local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3)
+
+  local success, errorCode = (function()
+
+    if shape == TerrainEnum.Shape.Ball then
+      local center = cframe.Position
+      local radius = math.min(size.X, size.Y, size.Z) / 2
+      return TerrainConverter:FillBall(material, center, radius)
+
+    elseif shape == TerrainEnum.Shape.Block then
+      return TerrainConverter:FillBlock(material, cframe, size)
+
+    -- elseif shape == TerrainEnum.Shape.Cylinder then
+
+    elseif shape == TerrainEnum.Shape.CylinderRotate then
+      local cframe_fix = cframe * CFrame.Angles(0, 0, math.rad(90))
+      local height = size.X
+      local radius = math.min(size.Y, size.Z) / 2
+      return TerrainConverter:FillCylinder(material, cframe_fix, height, radius)
+
+    elseif shape == TerrainEnum.Shape.Wedge then
+      return TerrainConverter:FillWedge(material, cframe, size)
+    end
+
+    return false, TerrainEnum.ConvertError.UnknownShape
+  end)()
+
+  return success, errorCode
+end
 
 return {
   isConvertibleToTerrain = isConvertibleToTerrain,
 
   getPartShape = getPartShape,
 
-  -- convertToTerrain = convertToTerrain
+  convertToTerrain = convertToTerrain
 }

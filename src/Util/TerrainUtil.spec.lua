@@ -102,4 +102,61 @@ return function ()
     end)
   end)
 
+  describe('convertToTerrain', function()
+    local CTT = TerrainUtil.convertToTerrain
+
+    beforeEach(function()
+      workspace.Terrain:Clear()
+    end)
+
+    it('should turn Ball into terrain', function()
+      local cframe = CFrame.new()
+      local size = Vector3.new(8, 8, 8)
+
+      local success, errorCode = CTT(TerrainEnum.Shape.Ball, Enum.Material.Grass, cframe, size)
+
+      expect(success).to.equal(true)
+      expect(errorCode).to.equal(nil)
+    end)
+
+    it('should turn Block into terrain', function()
+      local cframe = CFrame.new()
+      local size = Vector3.new(8, 8, 8)
+
+      local success, errorCode = CTT(TerrainEnum.Shape.Block, Enum.Material.Grass, cframe, size)
+
+      expect(success).to.equal(true)
+      expect(errorCode).to.equal(nil)
+    end)
+
+    --! This shape is not programmed in yet so skip the test for now.
+    itSKIP('should turn Cylinder into terrain', function()
+      local cframe = CFrame.new()
+      local size = Vector3.new(16, 8, 8)
+
+      local success, errorCode = CTT(TerrainEnum.Shape.Cylinder, Enum.Material.Grass, cframe, size)
+
+      expect(success).to.equal(true)
+      expect(errorCode).to.equal(nil)
+    end)
+
+    it('should turn CylinderRotate into terrain', function()
+      local cframe = CFrame.new()
+      local size = Vector3.new(16, 8, 8)
+
+      local success, errorCode = CTT(TerrainEnum.Shape.CylinderRotate, Enum.Material.Grass, cframe, size)
+
+      expect(success).to.equal(true)
+      expect(errorCode).to.equal(nil)
+    end)
+
+    it('should return false on unsupported parts', function()
+      local success, errorCode = CTT('FakePartType')
+
+      expect(success).to.equal(false)
+      expect(errorCode).to.equal(TerrainEnum.ConvertError.UnknownShape)
+    end)
+
+  end)
+
 end

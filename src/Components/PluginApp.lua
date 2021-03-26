@@ -1,3 +1,4 @@
+local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
 local RunService = game:GetService('RunService')
 
@@ -9,12 +10,13 @@ local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local OutlineManager = require(Util.OutlineManager)
-local DEPRECATED_TerrainConverter = require(Util.DEPRECATED_TerrainConverter)
 local Store = require(Util.Store)
+local TerrainUtil = require(Util.TerrainUtil)
 
-local App = require(Plugin.Components.App)
-local PluginSettings = require(Plugin.Components.PluginSettings)
-local StudioWidget = require(Plugin.Components.StudioWidget)
+local Components = Plugin.Components
+local App = require(Components.App)
+local PluginSettings = require(Components.PluginSettings)
+local StudioWidget = require(Components.StudioWidget)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
@@ -22,6 +24,14 @@ function PluginApp:init()
   self.state = {
     guiEnabled = false
   }
+
+  -- This is a fix for a unintended side effect when undoing,
+  -- where it will select the part and give it a outline.
+  ChangeHistoryService.OnUndo:Connect(function(waypoint)
+    if waypoint == 'PartToTerrain' then
+      game:GetService('Selection'):Set({})
+    end
+  end)
 
   self.plugin = self.props.plugin
 
@@ -33,8 +43,6 @@ function PluginApp:init()
 
     self.OutlineObj:Set(nil)
   end)
-
-  self.pluginMouse = self.plugin:GetMouse()
 
   self.toolbar = self.plugin:CreateToolbar('mkargus')
 
@@ -56,6 +64,33 @@ function PluginApp:init()
       self.plugin:Activate(true)
     else
       self.plugin:Deactivate()
+    end
+  end)
+
+  ----------------------------------------
+  -- Plugin Mouse
+  ----------------------------------------
+  self.pluginMouse = self.plugin:GetMouse()
+
+  self.pluginMouse.Button1Down:Connect(function()
+    local part = self.pluginMouse.Target
+
+    if TerrainUtil.isConvertibleToTerrain(part) then
+      local shape = TerrainUtil.getPartShape(part)
+      local material = Store:Get('Material')
+      local cframe = part.CFrame
+      local size = part.Size
+
+      local success = TerrainUtil.convertToTerrain(shape, material, cframe, size)
+
+      if success then
+        if self.plugin:GetSetting('DeletePart') then
+          part.Parent = nil
+        end
+
+        ChangeHistoryService:SetWaypoint('PartToTerrain')
+
+      end
     end
   end)
 
@@ -115,20 +150,6 @@ function PluginApp:didMount()
     end
   end)
 
-  self.pluginMouse.Button1Down:Connect(function()
-    local part = self.pluginMouse.Target
-    local material = Store:Get('Material')
-
-    if part and not part:IsA('Terrain') then
-      local success, err = pcall(function()
-        DEPRECATED_TerrainConverter.DEPRECATED_Convert(part, material, self.plugin:GetSetting('DeletePart'), self.plugin:GetSetting('IgnoreLockedParts'))
-      end)
-
-      if not success then
-        warn(Localization(err))
-      end
-    end
-  end)
 end
 
 function PluginApp:willUnmount()
