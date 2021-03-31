@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 * The ability to search materials via a search bar
+* You are able to hover and click on parts that are covered by terrain water.
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
 * Adjusted the first time size and the minimum size for plugin widget.

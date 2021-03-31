@@ -72,18 +72,24 @@ function PluginApp:init()
   ----------------------------------------
   self.pluginMouse = self.plugin:GetMouse()
 
-  self.pluginMouse.Button1Down:Connect(function()
-    local part = self.pluginMouse.Target
+  local raycastParams = RaycastParams.new()
+  raycastParams.IgnoreWater = true
 
-    if TerrainUtil.isConvertibleToTerrain(part) then
+  self.pluginMouse.Button1Down:Connect(function()
+    local camera = workspace.CurrentCamera.CFrame
+    local ray = self.pluginMouse.UnitRay
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
+
+    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
+      local part = RaycastResults.Instance
       local shape = TerrainUtil.getPartShape(part)
       local material = Store:Get('Material')
       local cframe = part.CFrame
       local size = part.Size
 
       local success = TerrainUtil.convertToTerrain(shape, material, cframe, size)
-
       if success then
+
         if self.plugin:GetSetting('DeletePart') then
           part.Parent = nil
         end
@@ -91,6 +97,20 @@ function PluginApp:init()
         ChangeHistoryService:SetWaypoint('PartToTerrain')
 
       end
+    end
+  end)
+
+  self.OutlineObj = OutlineManager.new()
+
+  self.pluginMouse.Move:Connect(function()
+    local camera = workspace.CurrentCamera.CFrame
+    local ray = self.pluginMouse.UnitRay
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
+
+    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
+      self.OutlineObj:Set(RaycastResults.Instance)
+    else
+      self.OutlineObj:Set(nil)
     end
   end)
 
@@ -136,20 +156,6 @@ function PluginApp:render()
       })
     })
   })
-end
-
-function PluginApp:didMount()
-  self.OutlineObj = OutlineManager.new()
-
-  self.pluginMouse.Move:Connect(function()
-    local part = self.pluginMouse.Target
-    if part and not part:IsA('Terrain') then
-      self.OutlineObj:Set(part)
-    else
-      self.OutlineObj:Set(nil)
-    end
-  end)
-
 end
 
 function PluginApp:willUnmount()
