@@ -84,6 +84,33 @@ return function ()
       expect(shape).to.equal(ShapeEnum.Block)
     end)
 
+    it('should support Meshes', function()
+      local p = Instance.new('Part')
+      local mesh = Instance.new('SpecialMesh')
+      mesh.Parent = p
+
+      mesh.MeshType = Enum.MeshType.Cylinder
+      local shape = gps(p)
+      expect(shape).to.equal(ShapeEnum.CylinderRotate)
+
+      mesh.MeshType = Enum.MeshType.Head
+      shape = gps(p)
+      expect(shape).to.equal(ShapeEnum.Cylinder)
+
+      mesh.MeshType = Enum.MeshType.Sphere
+      shape = gps(p)
+      expect(shape).to.equal(ShapeEnum.Ball)
+
+      mesh.MeshType = Enum.MeshType.Wedge
+      shape = gps(p)
+      expect(shape).to.equal(ShapeEnum.Wedge)
+
+      -- Should use the fallback shape of Block
+      mesh.MeshType = Enum.MeshType.Torso
+      shape = gps(p)
+      expect(shape).to.equal(ShapeEnum.Block)
+    end)
+
     it('should support WedgeParts', function()
       local wedge = Instance.new('WedgePart')
 
@@ -129,8 +156,7 @@ return function ()
       expect(errorCode).to.equal(nil)
     end)
 
-    --! This shape is not programmed in yet so skip the test for now.
-    itSKIP('should turn Cylinder into terrain', function()
+    it('should turn Cylinder into terrain', function()
       local cframe = CFrame.new()
       local size = Vector3.new(16, 8, 8)
 

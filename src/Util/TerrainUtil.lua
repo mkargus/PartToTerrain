@@ -42,8 +42,31 @@ end
 
 local function getPartShape(part)
 
-  -- Add SpecialMesh support.
-  -- https://github.com/CloneTrooper1019/Roblox-Client-Tracker/blob/roblox/BuiltInPlugins/TerrainToolsV2/Src/Util/PartConverterUtil.lua#L89
+  -- If the part has a mesh parented to it, then use the mesh shape instead
+  for _, obj in ipairs(part:GetChildren()) do
+    if obj:IsA('DataModelMesh') then
+
+      if obj:IsA('SpecialMesh') then
+        if obj.MeshType == Enum.MeshType.Cylinder then
+          return TerrainEnum.Shape.CylinderRotate
+        elseif obj.MeshType == Enum.MeshType.Head then
+          return TerrainEnum.Shape.Cylinder
+        elseif obj.MeshType == Enum.MeshType.Sphere then
+          return TerrainEnum.Shape.Ball
+        elseif obj.MeshType == Enum.MeshType.Wedge then
+          return TerrainEnum.Shape.Wedge
+        end
+
+      elseif obj:IsA('CylinderMesh') then
+        return TerrainEnum.Shape.Cylinder
+      end
+
+      -- Fallback to a block
+      return TerrainEnum.Shape.Block
+
+    end
+
+  end
 
   if part:IsA('Part') then
     if part.Shape == Enum.PartType.Cylinder then
@@ -73,7 +96,10 @@ local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3)
     elseif shape == TerrainEnum.Shape.Block then
       return TerrainConverter:FillBlock(material, cframe, size)
 
-    -- elseif shape == TerrainEnum.Shape.Cylinder then
+    elseif shape == TerrainEnum.Shape.Cylinder then
+      local height = size.Y
+      local radius = math.min(size.X, size.Z) / 2
+      return TerrainConverter:FillCylinder(material, cframe, height, radius)
 
     elseif shape == TerrainEnum.Shape.CylinderRotate then
       local cframe_fix = cframe * CFrame.Angles(0, 0, math.rad(90))
