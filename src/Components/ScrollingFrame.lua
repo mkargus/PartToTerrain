@@ -29,8 +29,8 @@ function ScrollingFrame:render()
   local props = self.props
   local state = self.state
 
-  return StudioTheme.withTheme(function(_, themeEnum)
-    local isDark = themeEnum == Enum.UITheme.Dark
+  return StudioTheme.withTheme(function(theme)
+    local isDark = theme.Name == 'Dark'
 
     local BkgColor = isDark and Color3.fromRGB(38, 38, 38) or Color3.fromRGB(245, 245, 245)
     local ScrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245)
