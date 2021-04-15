@@ -23,7 +23,7 @@
   },
 
   "globIgnorePaths": [
-    "packages/**/*.spec.lua",
+    "**.spec.lua",
     "packages/Roact/*.spec"
   ]
 
