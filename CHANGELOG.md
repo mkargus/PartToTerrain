@@ -5,6 +5,7 @@
 * The ability to search materials via a search bar
 * You are able to hover and click on parts that are covered by terrain water.
 * Parts that have a Mesh child will use the mesh shape rather than the actual part's shape
+* Clicking on the terrain while holding any alt key will now change the selected material
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
 * Adjusted the first time size and the minimum size for plugin widget.

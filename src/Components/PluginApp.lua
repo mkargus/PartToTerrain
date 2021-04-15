@@ -1,6 +1,7 @@
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
 local RunService = game:GetService('RunService')
+local UserInputService = game:GetService('UserInputService')
 
 local Plugin = script.Parent.Parent
 
@@ -80,24 +81,33 @@ function PluginApp:init()
     local ray = self.pluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
 
-    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
-      local part = RaycastResults.Instance
-      local shape = TerrainUtil.getPartShape(part)
-      local material = Store:Get('Material')
-      local cframe = part.CFrame
-      local size = part.Size
-
-      local success = TerrainUtil.convertToTerrain(shape, material, cframe, size)
-      if success then
-
-        if self.plugin:GetSetting('DeletePart') then
-          part.Parent = nil
-        end
-
-        ChangeHistoryService:SetWaypoint('PartToTerrain')
-
-      end
+    local function isPressingAlt()
+      return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
     end
+
+    if RaycastResults then
+      local obj = RaycastResults.Instance
+
+      if isPressingAlt() and obj:IsA('Terrain') then
+        return Store:Set('Material', RaycastResults.Material)
+
+      elseif not obj:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
+        local shape = TerrainUtil.getPartShape(obj)
+        local material = Store:Get('Material')
+        local cframe = obj.CFrame
+        local size = obj.Size
+
+        local success = TerrainUtil.convertToTerrain(shape, material, cframe, size)
+          if success then
+            if self.plugin:GetSetting('DeletePart') then
+              obj.Parent = nil
+            end
+
+            ChangeHistoryService:SetWaypoint('PartToTerrain')
+
+          end
+        end
+      end
   end)
 
   self.OutlineObj = OutlineManager.new()
