@@ -28,8 +28,8 @@ local function isConvertibleToTerrain(instance)
     return false
   end
 
-  -- Disallow Mesh or CSG parts
-  if instance:IsA('MeshPart') or instance:IsA('PartOperation') then
+  -- Disallow Mesh, CSG or CornerWedge parts
+  if instance:IsA('MeshPart') or instance:IsA('PartOperation') or instance:IsA('CornerWedgePart') then
     return false
   end
 
