@@ -6,9 +6,8 @@ local Roact = require(Plugin.Libs.Roact)
 local Constants = require(Plugin.Util.Constants)
 
 --------------------------------------------
--- Studio Provider
+-- APIs
 --------------------------------------------
-
 local Settings = {}
 Settings.__index = Settings
 
@@ -20,6 +19,7 @@ function Settings.fromPlugin(plugin)
 
     if savedValue == nil then
       values[name] = test.defaultValue
+      plugin:SetSetting(name, test.defaultValue)
     else
       values[name] = savedValue
     end
@@ -118,7 +118,7 @@ local function with(callback)
 end
 
 --------------------------------------------
--- Internal Consumer
+-- Public functions
 --------------------------------------------
 return {
   StudioProvider = StudioProvider,
