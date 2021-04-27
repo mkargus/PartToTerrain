@@ -10,7 +10,6 @@ local Roact = require(Plugin.Libs.Roact)
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
-local OutlineManager = require(Util.OutlineManager)
 local Store = require(Util.Store)
 local TerrainUtil = require(Util.TerrainUtil)
 
@@ -18,6 +17,7 @@ local Components = Plugin.Components
 local App = require(Components.App)
 local PluginSettings = require(Components.PluginSettings)
 local StudioWidget = require(Components.StudioWidget)
+local Outline = require(Components.Outline)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
@@ -41,8 +41,6 @@ function PluginApp:init()
       guiEnabled = false
     })
     self.button:SetActive(false)
-
-    self.OutlineObj:Set(nil)
   end)
 
   self.toolbar = self.plugin:CreateToolbar('mkargus')
@@ -98,29 +96,14 @@ function PluginApp:init()
         local size = obj.Size
 
         local success = TerrainUtil.convertToTerrain(shape, material, cframe, size)
-          if success then
-            if self.plugin:GetSetting('DeletePart') then
-              obj.Parent = nil
-            end
-
-            ChangeHistoryService:SetWaypoint('PartToTerrain')
-
+        if success then
+          if self.plugin:GetSetting('DeletePart') then
+            obj.Parent = nil
           end
+          ChangeHistoryService:SetWaypoint('PartToTerrain')
+
         end
       end
-  end)
-
-  self.OutlineObj = OutlineManager.new()
-
-  self.pluginMouse.Move:Connect(function()
-    local camera = workspace.CurrentCamera.CFrame
-    local ray = self.pluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
-
-    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
-      self.OutlineObj:Set(RaycastResults.Instance)
-    else
-      self.OutlineObj:Set(nil)
     end
   end)
 
@@ -163,13 +146,14 @@ function PluginApp:render()
     }, {
       App = Roact.createElement(App, {
         IsOutdated = self:isUpdateAvailable()
+      }),
+
+      Outline = self.plugin:GetSetting('EnabledSelectionBox') and Roact.createElement(Outline, {
+        plugin = self.plugin
       })
+
     })
   })
-end
-
-function PluginApp:willUnmount()
-  self.OutlineObj:Despawn()
 end
 
 return PluginApp
