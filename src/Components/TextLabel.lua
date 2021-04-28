@@ -7,6 +7,7 @@ TextLabel.defaultProps = {
   BackgroundTransparency = 0,
   BorderSizePixel = 0,
   Font = Enum.Font.Gotham,
+  RichText = false,
   TextSize = 14
 }
 
@@ -24,6 +25,7 @@ function TextLabel:render()
     LayoutOrder = props.LayoutOrder,
     LineHeight = props.LineHeight,
     Position = props.Position,
+    RichText = props.RichText,
     Size = props.Size,
     Text = props.Text,
     TextColor3 = props.TextColor3,

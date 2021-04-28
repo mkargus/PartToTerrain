@@ -73,7 +73,8 @@ Constants.SETTINGS_TABLE = {
   CheckUpdates = { defaultValue = true },
   DeletePart = { defaultValue = true },
   EnabledSelectionBox = { defaultValue = true },
-  IgnoreLockedParts = { defaultValue = false }
+  IgnoreLockedParts = { defaultValue = false },
+  PreserveTerrain = { defaultValue = true }
 }
 
 ----------------------------------------

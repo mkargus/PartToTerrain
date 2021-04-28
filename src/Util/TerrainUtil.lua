@@ -84,17 +84,16 @@ local function getPartShape(part)
   return TerrainEnum.Shape.Block
 end
 
-local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3)
+local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3, preserceTerrain)
 
   local success, errorCode = (function()
-
     if shape == TerrainEnum.Shape.Ball then
       local center = cframe.Position
       local radius = math.min(size.X, size.Y, size.Z) / 2
       return TerrainConverter:FillBall(material, center, radius)
 
     elseif shape == TerrainEnum.Shape.Block then
-      return TerrainConverter:FillBlock(material, cframe, size)
+      return TerrainConverter:FillBlock(material, cframe, size, preserceTerrain)
 
     elseif shape == TerrainEnum.Shape.Cylinder then
       local height = size.Y

@@ -25,6 +25,7 @@ function SettingsItem:render()
         LayoutOrder = props.LayoutOrder
       }, {
         Title = Roact.createElement(TextLabel, {
+          AutomaticSize = Enum.AutomaticSize.Y,
           BackgroundTransparency = 1,
           Font = Enum.Font.GothamBold,
           Size = UDim2.new(0.8, 0, 0, 24),
@@ -55,7 +56,8 @@ function SettingsItem:render()
           TextColor3 = theme:GetColor('SubText'),
           TextSize = 12,
           TextWrapped = true,
-          TextXAlignment = Enum.TextXAlignment.Left
+          TextXAlignment = Enum.TextXAlignment.Left,
+          RichText = true
         })
 
       })

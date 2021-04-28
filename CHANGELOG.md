@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added
+* Preserving already existing terrain.
+
+  NOTE: If air material is selected, it will still delete any terrain regardless of setting.
 * The ability to search materials via a search bar
 * You are able to hover and click on parts that are covered by terrain water.
 * Parts that have a Mesh child will use the mesh shape rather than the actual part's shape

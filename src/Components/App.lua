@@ -22,7 +22,7 @@ function App:renderBody(Panel)
     })
   elseif Panel == 'Settings' then
     return Roact.createElement(SettingsPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, -10, 1, -53) or UDim2.new(1, -3, 1, -35)
+      Size = self.props.IsOutdated and UDim2.new(1, -3, 1, -53) or UDim2.new(1, -3, 1, -35)
     })
   end
 end

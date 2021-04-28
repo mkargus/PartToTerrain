@@ -14,6 +14,8 @@ Settings.EnabledSelectionBox,Highlight part on hover,,
 Settings.EnabledSelectionBoxDesc,Highlight the part when the mouse is hovers over the part.,,
 Settings.IgnoreLockedParts,Ignore locked parts,,
 Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.,,
+Settings.PreserveTerrain,Preserve existing Terrain,,
+Settings.PreserveTerrainDesc,Existing terrain will not be overwritten.<br/><br/>NOTE: Air will delete terrain regardless of setting.,,
 Toggle.Enabled,Enabled,已启用,사용
 Toggle.Disabled,Disabled,已禁用,사용 안 함
 Notice.Outdated,A new update is available.,,
