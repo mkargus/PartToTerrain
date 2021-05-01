@@ -47,14 +47,6 @@ return function ()
       expect(ictt(negate)).to.equal(false)
     end)
 
-    it('should not allow small parts', function()
-      local parent = Instance.new('Model')
-      local part = Instance.new('Part')
-      part.Size = Vector3.new(1, 1, 1)
-      part.Parent = parent
-      expect(ictt(part)).to.equal(false)
-    end)
-
     it('should allow parts that meet the rules', function()
       local parent = Instance.new('Model')
       local part = Instance.new('Part')

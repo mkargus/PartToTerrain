@@ -1,14 +1,6 @@
 local TerrainEnum = require(script.Parent.TerrainEnum)
 local TerrainConverter = require(script.Parent.TerrainConverter)
 
-local MINIMUM_SIZE = 4
-
-local function isTooSmallToConvert(instance)
-  return instance.Size.X < MINIMUM_SIZE
-      or instance.Size.Y < MINIMUM_SIZE
-      or instance.Size.Z < MINIMUM_SIZE
-end
-
 local function isConvertibleToTerrain(instance)
   if not instance then
     return false
@@ -30,10 +22,6 @@ local function isConvertibleToTerrain(instance)
 
   -- Disallow Mesh, CSG or CornerWedge parts
   if instance:IsA('MeshPart') or instance:IsA('PartOperation') or instance:IsA('CornerWedgePart') then
-    return false
-  end
-
-  if isTooSmallToConvert(instance) then
     return false
   end
 

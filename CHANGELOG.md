@@ -16,7 +16,6 @@
 * Replaced Rodux with BasicState
 * Updated icon on plugin button
 * Updated the look of the Navbar to look similar to Roblox's Toolbox navbar
-* Requires all parts to be have a size of atleast 4x4x4
 
 ## [1.4.0] - July 11, 2020
 ### Added
