@@ -26,8 +26,8 @@ function TerrainConverter:FillBall(material, center, radius)
   return true
 end
 
-function TerrainConverter:FillBlock(material, cframe, size, preserceTerrain)
-  if not preserceTerrain or material == Enum.Material.Air then
+function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
+  if not preserveTerrain or material == Enum.Material.Air then
     workspace.Terrain:FillBlock(cframe, size, material)
     return true
   end
