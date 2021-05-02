@@ -1,6 +1,7 @@
--- local TerrainEnum = require(script.Parent.TerrainEnum)
+local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local RESOLUTION = 4
+local MAX_VOXEL_LIMIT_READWRITE = 4194304
 
 local function GetAABBRegion(cframe: CFrame, size: Vector3): Region3
   local inv = cframe:Inverse()
@@ -32,14 +33,11 @@ function TerrainConverter:FillBlock(material, cframe, size, preserceTerrain)
   end
 
   local region = GetAABBRegion(cframe, size)
+  local regionVoxelSize = (region.Size.X / RESOLUTION) * (region.Size.Y / RESOLUTION) * (region.Size.Z / RESOLUTION)
 
-  local regionSize = (region.Size.X / 4) * (region.Size.Y / 4) * (region.Size.Z / 4)
-  print(regionSize)
-
-  -- https://developer.roblox.com/en-us/api-reference/function/Terrain/WriteVoxels#maximum-region-size
-  -- if 4*1024*1024 < regionSize then
-  --   return false, TerrainEnum.ConvertError.RegionTooLarge
-  -- end
+  if MAX_VOXEL_LIMIT_READWRITE < regionVoxelSize then
+    return false, TerrainEnum.ConvertError.RegionTooLarge
+  end
 
   local min = region.CFrame.Position - region.Size / 2
   local materialVoxels, occupancyVoxels = workspace.Terrain:ReadVoxels(region, RESOLUTION)
@@ -63,8 +61,7 @@ function TerrainConverter:FillBlock(material, cframe, size, preserceTerrain)
       for z = 1, RegionSize.Z do
         local cellPosZ = min.Z + (z - 0.5) * RESOLUTION
 
-        local cellPosition  = Vector3.new(cellPosX, cellPosY, cellPosZ)
-
+        local cellPosition = Vector3.new(cellPosX, cellPosY, cellPosZ)
         local offset = cframe:PointToObjectSpace(cellPosition) / RESOLUTION
 
         local distX = sizeCellsHalfOffset.X - math.abs(offset.X)
