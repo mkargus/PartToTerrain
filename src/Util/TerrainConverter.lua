@@ -2,8 +2,9 @@ local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local RESOLUTION = 4
 local MAX_VOXEL_LIMIT_READWRITE = 4194304
+local MAX_VOXEL_LIMIT_FILLAPIS = 67108864
 
-local function GetAABBRegion(cframe: CFrame, size: Vector3): Region3
+local function GetAABBRegion(cframe: CFrame, size: Vector3)
   local inv = cframe:Inverse()
   local x = size * inv.RightVector
   local y = size * inv.UpVector
@@ -16,7 +17,10 @@ local function GetAABBRegion(cframe: CFrame, size: Vector3): Region3
   local pos = cframe.Position
   local halfSize = Vector3.new(w, h, d) / 2
 
-  return Region3.new(pos - halfSize, pos + halfSize):ExpandToGrid(RESOLUTION)
+  local region = Region3.new(pos - halfSize, pos + halfSize):ExpandToGrid(RESOLUTION)
+  local regionVolume = (region.Size.X / RESOLUTION) * (region.Size.Y / RESOLUTION) * (region.Size.Z / RESOLUTION)
+
+  return region, regionVolume
 end
 
 local TerrainConverter = {}
@@ -28,14 +32,19 @@ end
 
 function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
   if not preserveTerrain or material == Enum.Material.Air then
+    local _, regionVolume = GetAABBRegion(cframe, size)
+
+    if MAX_VOXEL_LIMIT_FILLAPIS < regionVolume then
+      return false, TerrainEnum.ConvertError.RegionTooLarge
+    end
+
     workspace.Terrain:FillBlock(cframe, size, material)
     return true
   end
 
-  local region = GetAABBRegion(cframe, size)
-  local regionVoxelSize = (region.Size.X / RESOLUTION) * (region.Size.Y / RESOLUTION) * (region.Size.Z / RESOLUTION)
+  local region, regionVolume = GetAABBRegion(cframe, size)
 
-  if MAX_VOXEL_LIMIT_READWRITE < regionVoxelSize then
+  if MAX_VOXEL_LIMIT_READWRITE < regionVolume then
     return false, TerrainEnum.ConvertError.RegionTooLarge
   end
 
