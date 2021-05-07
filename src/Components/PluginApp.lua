@@ -90,6 +90,11 @@ function PluginApp:init()
         return Store:Set('Material', RaycastResults.Material)
 
       elseif not obj:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
+
+        if self.plugin:GetSetting('IgnoreLockedParts') and obj.Locked then
+          return
+        end
+
         local shape = TerrainUtil.getPartShape(obj)
         local material = Store:Get('Material')
         local cframe = obj.CFrame
