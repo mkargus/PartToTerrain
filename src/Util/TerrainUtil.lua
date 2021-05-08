@@ -76,9 +76,8 @@ local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3, 
 
   local success, errorCode = (function()
     if shape == TerrainEnum.Shape.Ball then
-      local center = cframe.Position
       local radius = math.min(size.X, size.Y, size.Z) / 2
-      return TerrainConverter:FillBall(material, center, radius)
+      return TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
 
     elseif shape == TerrainEnum.Shape.Block then
       return TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
