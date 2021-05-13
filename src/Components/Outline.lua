@@ -18,6 +18,8 @@ function Outline:init()
 
   local pluginMouse = self.props.plugin:GetMouse()
 
+
+
   pluginMouse.Move:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = pluginMouse.UnitRay
@@ -66,7 +68,7 @@ function Outline:render()
     target = game.CoreGui
   }, {
 
-    PTT_BoxHandleAdornment = shape == TerrainEnum.Shape.Block and Roact.createElement('BoxHandleAdornment', {
+    PTT_BoxHandleAdornment = (shape == TerrainEnum.Shape.Block or shape == TerrainEnum.Shape.Wedge) and Roact.createElement('BoxHandleAdornment', {
       Adornee = Part,
       AlwaysOnTop = true,
       Color3 = color,
@@ -80,6 +82,17 @@ function Outline:render()
       AlwaysOnTop = true,
       Color3 = color,
       Radius = math.min(Part.Size.X, Part.Size.Y, Part.Size.Z) / 2,
+      Transparency = 0.3,
+      ZIndex = 1
+    }),
+
+    CylinderHandleAdornment = shape == TerrainEnum.Shape.CylinderRotate and Roact.createElement('CylinderHandleAdornment', {
+      Adornee = Part,
+      AlwaysOnTop = true,
+      CFrame = CFrame.new() * CFrame.Angles(0, math.rad(90), 0),
+      Color3 = color,
+      Height = Part.Size.X,
+      Radius = math.min(Part.Size.Y, Part.Size.Z) / 2,
       Transparency = 0.3,
       ZIndex = 1
     })
