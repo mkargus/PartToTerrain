@@ -80,9 +80,9 @@ function TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
 end
 
 function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
-  if not preserveTerrain or material == Enum.Material.Air then
-    local _, regionVolume = GetAABBRegion(cframe, size)
+  local region, regionVolume = GetAABBRegion(cframe, size)
 
+  if not preserveTerrain or material == Enum.Material.Air then
     if MAX_VOXEL_LIMIT_FILLAPIS < regionVolume then
       return false, TerrainEnum.ConvertError.RegionTooLarge
     end
@@ -90,8 +90,6 @@ function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
     workspace.Terrain:FillBlock(cframe, size, material)
     return true
   end
-
-  local region, regionVolume = GetAABBRegion(cframe, size)
 
   if MAX_VOXEL_LIMIT_READWRITE < regionVolume then
     return false, TerrainEnum.ConvertError.RegionTooLarge
