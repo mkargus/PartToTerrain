@@ -8,9 +8,11 @@
     callback onClick()
 ]]
 
-local Modules = script.Parent
-local Roact = require(Modules.Parent.Libs.Roact)
-local StudioTheme = require(Modules.StudioTheme)
+local Plugin = script.Parent.Parent
+
+local Roact = require(Plugin.Libs.Roact)
+
+local StudioTheme = require(Plugin.Components.StudioTheme)
 
 local ToggleButton = Roact.PureComponent:extend('ToggleButton')
 
