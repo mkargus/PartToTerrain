@@ -22,6 +22,7 @@ Notice.Outdated,A new update is available.,,
 Notice.IgnoreLockedPart,Ignoring locked part due to settings.,,
 Notice.ShapeNotSupported,Part shape is not supported.,,
 Notice.ClassNotSupport,Part class is not supported.,,
+Notice.NoResultsFound,No results found,未找到结果,결과 없음
 Materials.Air,Air,天空,공기
 Materials.Asphalt,Asphalt,沥青,아스팔트
 Materials.Basalt,Basalt,玄武岩,현무암
