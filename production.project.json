@@ -24,6 +24,7 @@
 
   "globIgnorePaths": [
     "**.spec.lua",
+    "**.story.lua",
     "packages/Roact/*.spec"
   ]
 
