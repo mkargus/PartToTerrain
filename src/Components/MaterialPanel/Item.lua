@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
+local Localization = require(Plugin.Util.Localization)
 local Store = require(Plugin.Util.Store)
 
 local Tooltip = require(Plugin.Components.Tooltip)
@@ -36,7 +37,7 @@ function MaterialButton:render()
     }),
 
     Tooltip = state.isHovering and Roact.createElement(Tooltip, {
-      Text = props.Id.Name
+      Text = Localization('Materials.'..props.Id.Name)
     }),
 
     SelectedImage = state.Material == props.Id and Roact.createElement('ImageLabel', {

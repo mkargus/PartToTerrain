@@ -10,11 +10,6 @@ function Wrapper:init()
   self.state = {
     IsHovering = false
   }
-
-  function self.onTabSelected(tabName)
-    self:setState({ CurrentTab = tabName })
-  end
-
 end
 
 function Wrapper:render()
@@ -28,7 +23,7 @@ function Wrapper:render()
     end,
   }, {
     Tooltip = self.state.IsHovering and Roact.createElement(Tooltip, {
-      Text = 'TEST'
+      Text = 'Lorem Ipsum'
     })
   })
 end

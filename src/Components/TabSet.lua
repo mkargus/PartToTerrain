@@ -104,7 +104,7 @@ function TabSet:render()
 
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
-    Size = UDim2.new(1, 0, 0, 28),
+    Size = props.Size,
     [Roact.Change.AbsoluteSize] = self._onAbsoluteSizeChange
   }, children)
 

@@ -10,16 +10,14 @@ function Wrapper:init()
   self.state = {
     enabled = false
   }
-
-  function self.OnClick()
-    self:setState({ enabled = not self.state.enabled })
-  end
 end
 
 function Wrapper:render()
   return Roact.createElement(ToggleButton, {
     isEnabled = self.state.enabled,
-    onClick = self.OnClick
+    onClick = function()
+      self:setState({ enabled = not self.state.enabled })
+    end
   })
 end
 

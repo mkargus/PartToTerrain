@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local Localization = require(Plugin.Util.Localization)
-
 local TextLabel = require(Plugin.Components.TextLabel)
 local StudioTheme = require(Plugin.Components.StudioTheme)
 
@@ -18,7 +16,7 @@ function Tooltip:render()
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
       BackgroundTransparency = 0.1,
       Size = UDim2.new(0, 50, 0, 16),
-      Text = Localization('Materials.'..props.Text),
+      Text = props.Text,
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
     }, {
       UICorner = Roact.createElement('UICorner', {

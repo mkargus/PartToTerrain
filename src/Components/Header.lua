@@ -27,6 +27,7 @@ function Header:render()
 
       Navbar = Roact.createElement(TabSet, {
         CurrentTab = Store:Get('Panel'),
+        Size = UDim2.new(1, 0, 0, 28),
         Tabs = Constants.NAVBAR_TABS,
         onTabSelected = function(tabName)
           Store:Set('Panel', tabName)
