@@ -2,8 +2,8 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local Constants = require(Plugin.Util.Constants)
 local Store = require(Plugin.Util.Store)
+local Localization = require(Plugin.Util.Localization)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
@@ -28,7 +28,10 @@ function Header:render()
       Navbar = Roact.createElement(TabSet, {
         CurrentTab = Store:Get('Panel'),
         Size = UDim2.new(1, 0, 0, 28),
-        Tabs = Constants.NAVBAR_TABS,
+        Tabs = {
+          { key = 'Materials', icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
+          { key = 'Settings', icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
+        },
         onTabSelected = function(tabName)
           Store:Set('Panel', tabName)
         end

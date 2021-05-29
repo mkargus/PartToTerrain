@@ -22,14 +22,13 @@ function Wrapper:render()
     BackgroundTransparency = 1,
     Size = UDim2.fromScale(1, 1)
   }, {
-    -- UI = Roact.createElement('UIListLayout'),
 
     MainExample = Roact.createElement(TabSet, {
       CurrentTab = self.state.CurrentTab,
       Size = UDim2.new(1, 0, 0, 28),
       Tabs = {
-        { key = 'Test1', icon = 'rbxassetid://5741677639' },
-        { key = 'Test2' }
+        { key = 'Test1', icon = 'rbxassetid://5904861868', Text = 'Lorem ipsum' },
+        { key = 'Test2', icon = 'rbxassetid://5904861868', Text = 'Lorem ipsum' }
       },
       onTabSelected = self.onTabSelected
     }),

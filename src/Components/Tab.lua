@@ -10,14 +10,11 @@
     function onClick = A callback when the user clicks this Tab.
 ]]
 
--- local TextService = game:GetService('TextService')
-
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
 local Util = Plugin.Util
-local Localization = require(Util.Localization)
 local Constants = require(Util.Constants)
 
 local Components = Plugin.Components
@@ -28,18 +25,16 @@ local Tab = Roact.PureComponent:extend('Tab')
 
 function Tab:init()
   self.state = {
-    hovering = false
+    isHovering = false
   }
 
   function self._onMouseEnter()
-    self:setState({ hovering = true })
+    self:setState({ isHovering = true })
   end
 
   function self._onMouseLeave()
-    self:setState({ hovering = false })
+    self:setState({ isHovering = false })
   end
-
-  -- self._textWidth = TextService:GetTextSize(Localization('Button.'..self.props.Key), 14, Enum.Font.Gotham, Vector2.new(10000, 20)).X
 end
 
 function Tab:render()
@@ -86,8 +81,7 @@ function Tab:render()
           AutomaticSize = Enum.AutomaticSize.X,
           BackgroundTransparency = 1,
           Size = UDim2.new(0, 0, 0, 20),
-          -- Size = UDim2.new(0, self._textWidth, 0, 20),
-          Text = Localization('Button.'..props.Key),
+          Text = props.Text,
           TextColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText'),
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1

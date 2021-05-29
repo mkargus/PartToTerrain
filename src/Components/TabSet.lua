@@ -3,8 +3,11 @@
 
   Props:
     string CurrentTab
-    table Tabs =
-      { string Key, ContentId icon }
+    table Tabs = {
+      string Key,
+      ContentId icon
+      string Text
+    }
 
     function onTabSelected = A callback for when a Tab is selected.
 ]]
@@ -16,7 +19,6 @@ local Roact = require(Plugin.Libs.Roact)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
-local Localization = require(Util.Localization)
 
 local Tab = require(Plugin.Components.Tab)
 
@@ -53,7 +55,7 @@ end
 local function canTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
     for _, tab in ipairs(tabs) do
-      local textWidth = TextService:GetTextSize(Localization('Button.'..tab.key), 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
+      local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
       local totalWidth = Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + textWidth
 
       if totalWidth >= tabSize then
@@ -95,6 +97,7 @@ function TabSet:render()
       Icon = tab.icon,
       displayText = textDisplayed,
       LayoutOrder = self:NextLayout(),
+      Text = tab.Text,
       onClick = function()
         self.onTabSelected(tab.key)
       end
