@@ -14,13 +14,6 @@ local Constants = {}
 ----------------------------------------
 Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://5768049797'
 
-Constants.DOCK_WIDGET_INFO = DockWidgetPluginGuiInfo.new(
-  Enum.InitialDockState.Float,
-  false, true,
-  250, 330,
-  250, 200
-)
-
 Constants.OUTLINE_COLOR_ALLOW = Color3.fromRGB(67, 160, 71)
 Constants.OUTLINE_COLOR_WARNING = Color3.fromRGB(255, 235, 59)
 Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(229, 57, 53)
@@ -38,7 +31,6 @@ Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 ----------------------------------------
 Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
 Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 50, 0, 50)
-Constants.MATERIAL_SELECTED_IMAGE = 'rbxassetid://4507466924'
 
 Constants.MATERIALS_TABLE = {
   { enum = Enum.Material.Air, img = 'rbxasset://textures/TerrainTools/mtrl_air.png' },
@@ -82,10 +74,5 @@ Constants.SETTINGS_TABLE = {
 ----------------------------------------
 Constants.TAB_ICON_SIZE = 24
 Constants.TAB_INNER_PADDING = 3
-
-Constants.NAVBAR_TABS = {
-  { key = 'Materials', icon = 'rbxassetid://5741677639' },
-  { key = 'Settings', icon = 'rbxassetid://5747147099' }
-}
 
 return readOnlyTable(Constants)
