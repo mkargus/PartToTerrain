@@ -18,12 +18,15 @@ local App = require(Components.App)
 local PluginSettings = require(Components.PluginSettings)
 local StudioWidget = require(Components.StudioWidget)
 local Outline = require(Components.Outline)
+local PluginGuiWrapper = require(Components.PluginGuiWrapper)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
   self.state = {
-    guiEnabled = false
+    guiEnabled = false,
+
+    pluginGui = nil,
   }
 
   -- This is a fix for a unintended side effect when undoing,
@@ -132,6 +135,8 @@ end
 function PluginApp:render()
   local state = self.state
 
+  local isPluginGuiLoaded = state.pluginGui ~= nil
+
   return RunService:IsRunning() ~= true and Roact.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
@@ -145,11 +150,19 @@ function PluginApp:render()
 
     onClose = function()
       self.plugin:Deactivate()
+    end,
+    [Roact.Ref] = function(ref)
+      self:setState({ pluginGui = ref })
     end
   }, {
     Roact.createElement(PluginSettings.StudioProvider, {
       plugin = self.plugin
     }, {
+
+      ShowOnTop = isPluginGuiLoaded and Roact.createElement(PluginGuiWrapper.Provider, {
+        pluginGui = state.pluginGui
+      }),
+
       App = Roact.createElement(App, {
         IsOutdated = self:isUpdateAvailable()
       }),

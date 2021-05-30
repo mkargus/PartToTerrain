@@ -50,6 +50,10 @@ function StudioWidget:init()
     end
   end)
 
+  if props[Roact.Ref] then
+    props[Roact.Ref](pluginGui)
+  end
+
   self.pluginGui = pluginGui
 end
 
