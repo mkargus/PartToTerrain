@@ -20,6 +20,7 @@ local Constants = require(Util.Constants)
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
 local TextLabel = require(Components.TextLabel)
+local Tooltip = require(Components.Tooltip)
 
 local Tab = Roact.PureComponent:extend('Tab')
 
@@ -85,7 +86,12 @@ function Tab:render()
           TextColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText'),
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
+        }),
+
+        Tooltip = (not props.displayText and state.isHovering) and Roact.createElement(Tooltip, {
+          Text = props.Text
         })
+
       })
 
     })
