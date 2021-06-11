@@ -5,12 +5,14 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local TextLabel = require(Plugin.Components.TextLabel)
-local PluginGuiWrapper = require(Plugin.Components.PluginGuiWrapper)
-local StudioTheme = require(Plugin.Components.StudioTheme)
+local Components = Plugin.Components
+local TextLabel = require(Components.TextLabel)
+local PluginGuiWrapper = require(Components.PluginGuiWrapper)
+local StudioTheme = require(Components.StudioTheme)
 
 local Tooltip = Roact.PureComponent:extend('Tooltip')
 
+local PADDING = 3
 local SHOW_DELAY_TIME = 0.5
 local OFFSET = Vector2.new(10, 5)
 
@@ -72,8 +74,8 @@ function Tooltip:render()
 
         local TextBound = TextSerice:GetTextSize(props.Text, 14, 'Gotham', Vector2.new(100, 10000))
 
-        local tooltipWidth = TextBound.X + (2 * 3)
-        local tooltipHeight = TextBound.Y + (2 * 3)
+        local tooltipWidth = TextBound.X + (2 * PADDING)
+        local tooltipHeight = TextBound.Y + (2 * PADDING)
 
         if targetX + tooltipWidth >= pluginGui.AbsoluteSize.X then
           targetX = pluginGui.AbsoluteSize.X - tooltipWidth
@@ -97,10 +99,10 @@ function Tooltip:render()
           }),
 
           UIPadding = Roact.createElement('UIPadding', {
-            PaddingBottom = UDim.new(0, 3),
-            PaddingLeft = UDim.new(0, 3),
-            PaddingRight = UDim.new(0, 3),
-            PaddingTop = UDim.new(0, 3)
+            PaddingBottom = UDim.new(0, PADDING),
+            PaddingLeft = UDim.new(0, PADDING),
+            PaddingRight = UDim.new(0, PADDING),
+            PaddingTop = UDim.new(0, PADDING)
           }),
 
           -- UIStroke = Roact.createElement('UIStroke', {
