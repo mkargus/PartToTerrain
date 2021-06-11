@@ -123,13 +123,19 @@ function PluginApp:isUpdateAvailable()
     local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
 
-    if success and info.Description ~= Constants.VERSION then
-      return true
-    else
-      return false
-    end
+    if success then
+      local LastestVersion = info.Description:match('([0-9]+%.[0-9]+%.[0-9]+)')
 
+      if LastestVersion and LastestVersion ~= Constants.VERSION then
+        return true
+      end
+
+    end
   end
+
+  -- Fallback
+  return false
+
 end
 
 function PluginApp:render()
