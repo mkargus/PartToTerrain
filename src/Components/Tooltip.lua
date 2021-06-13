@@ -14,7 +14,7 @@ local Tooltip = Roact.PureComponent:extend('Tooltip')
 
 local PADDING = 3
 local SHOW_DELAY_TIME = 0.5
-local OFFSET = Vector2.new(10, 5)
+local OFFSET = Vector2.new(13, 5)
 
 function Tooltip:init()
   self.state = {
@@ -105,10 +105,11 @@ function Tooltip:render()
             PaddingTop = UDim.new(0, PADDING)
           }),
 
-          -- UIStroke = Roact.createElement('UIStroke', {
-          --   ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-          --   Color = theme:GetColor('Border')
-          -- })
+          -- selene: allow(roblox_incorrect_roact_usage)
+          UIStroke = Roact.createElement('UIStroke', {
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+            Color = theme:GetColor('Border')
+          })
         })
 
       end
