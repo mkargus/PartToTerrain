@@ -25,7 +25,6 @@ local PluginApp = Roact.PureComponent:extend('PluginApp')
 function PluginApp:init()
   self.state = {
     guiEnabled = false,
-
     pluginGui = nil,
   }
 
@@ -40,10 +39,7 @@ function PluginApp:init()
   self.plugin = self.props.plugin
 
   self.plugin.Deactivation:Connect(function()
-    self:setState({
-      guiEnabled = false
-    })
-    self.button:SetActive(false)
+    self:setState({ guiEnabled = false })
   end)
 
   self.toolbar = self.plugin:CreateToolbar('mkargus')
@@ -56,11 +52,7 @@ function PluginApp:init()
   self.button.Enabled = RunService:IsRunning() ~= true
 
   self.button.Click:Connect(function()
-    self:setState({
-      guiEnabled = not self.state.guiEnabled
-    })
-
-    self.button:SetActive(self.state.guiEnabled)
+    self:setState({ guiEnabled = not self.state.guiEnabled })
 
     if self.state.guiEnabled then
       self.plugin:Activate(true)
@@ -136,6 +128,10 @@ function PluginApp:isUpdateAvailable()
   -- Fallback
   return false
 
+end
+
+function PluginApp:didUpdate()
+  self.button:SetActive(self.state.guiEnabled)
 end
 
 function PluginApp:render()
