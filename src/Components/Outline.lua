@@ -2,9 +2,10 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
-local Constants = require(Plugin.Util.Constants)
-local TerrainEnum = require(Plugin.Util.TerrainEnum)
-local TerrainUtil = require(Plugin.Util.TerrainUtil)
+local Util = Plugin.Util
+local Constants = require(Util.Constants)
+local TerrainEnum = require(Util.TerrainEnum)
+local TerrainUtil = require(Util.TerrainUtil)
 
 local Outline = Roact.PureComponent:extend('Outline')
 
@@ -16,27 +17,23 @@ function Outline:init()
   local raycastParams = RaycastParams.new()
   raycastParams.IgnoreWater = true
 
-  local pluginMouse = self.props.plugin:GetMouse()
+  self.pluginMouse = self.props.plugin:GetMouse()
 
-
-
-  pluginMouse.Move:Connect(function()
+  self.pluginMouse.Move:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
-    local ray = pluginMouse.UnitRay
+    local ray = self.pluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
-      self:setState({
-        part = RaycastResults.Instance
-      })
+      self:setState({ part = RaycastResults.Instance })
     else
-      self:setState({
-        part = workspace.Terrain
-      })
+      self.pluginMouse.Icon = ''
+      self:setState({ part = workspace.Terrain })
     end
   end)
 
   self.props.plugin.Deactivation:Connect(function()
+    self.pluginMouse.Icon = ''
     self:setState({ part = workspace.Terrain })
   end)
 end
@@ -45,20 +42,19 @@ function Outline:render()
   local state = self.state
   local Part = state.part
 
+  -- TODO: Include Ignore locked part setting.
+
   if Part:IsA('Terrain') then return nil end
 
   local shape = TerrainUtil.getPartShape(Part)
 
   local isConvertibleToTerrain = TerrainUtil.isConvertibleToTerrain(Part)
 
-  -- TODO: There's a better way to do this.
+  self.pluginMouse.Icon = isConvertibleToTerrain and '' or 'rbxasset://SystemCursors/Forbidden'
+
   local color = (function()
     if isConvertibleToTerrain then
-      if #Part:GetChildren() == 0 then
-        return Constants.OUTLINE_COLOR_ALLOW
-      else
-        return Constants.OUTLINE_COLOR_WARNING
-      end
+      return #Part:GetChildren() == 0  and Constants.OUTLINE_COLOR_ALLOW or Constants.OUTLINE_COLOR_WARNING
     else
       return Constants.OUTLINE_COLOR_ERROR
     end

@@ -9,6 +9,7 @@
 * You are able to hover and click on parts that are covered by terrain water.
 * Parts that have a Mesh child will use the mesh shape rather than the actual part's shape
 * Clicking on the terrain while holding any alt key will now change the selected material
+* Mouse cursor changes depending on if part is allowed to be converted.
 ### Changed
 * Linting is now done using [Selene](https://github.com/Kampfkarren/selene).
 * Adjusted the first time size and the minimum size for plugin widget.
