@@ -38,6 +38,14 @@ function Outline:init()
   end)
 end
 
+function Outline:shouldUpdate(_, nextState)
+  if self.state.part == nextState.part then
+    return false
+  end
+
+  return true
+end
+
 function Outline:render()
   local state = self.state
   local Part = state.part
