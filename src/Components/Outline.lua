@@ -11,30 +11,23 @@ local Outline = Roact.PureComponent:extend('Outline')
 
 function Outline:init()
   self.state = {
-    part = workspace.Terrain
+    part = nil
   }
 
   local raycastParams = RaycastParams.new()
   raycastParams.IgnoreWater = true
 
-  self.pluginMouse = self.props.plugin:GetMouse()
-
-  self.pluginMouse.Move:Connect(function()
+  self.MoveConnection = self.props.PluginMouse.Move:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
-    local ray = self.pluginMouse.UnitRay
+    local ray = self.props.PluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
       self:setState({ part = RaycastResults.Instance })
     else
-      self.pluginMouse.Icon = ''
-      self:setState({ part = workspace.Terrain })
+      self.props.PluginMouse.Icon = ''
+      self:setState({ part = Roact.None })
     end
-  end)
-
-  self.props.plugin.Deactivation:Connect(function()
-    self.pluginMouse.Icon = ''
-    self:setState({ part = workspace.Terrain })
   end)
 end
 
@@ -52,13 +45,13 @@ function Outline:render()
 
   -- TODO: Include Ignore locked part setting.
 
-  if Part:IsA('Terrain') then return nil end
+  if not Part then return nil end
 
   local shape = TerrainUtil.getPartShape(Part)
 
   local isConvertibleToTerrain = TerrainUtil.isConvertibleToTerrain(Part)
 
-  self.pluginMouse.Icon = isConvertibleToTerrain and '' or 'rbxasset://SystemCursors/Forbidden'
+  self.props.PluginMouse.Icon = isConvertibleToTerrain and '' or 'rbxasset://SystemCursors/Forbidden'
 
   local color = (function()
     if isConvertibleToTerrain then
@@ -101,6 +94,10 @@ function Outline:render()
       ZIndex = 1
     })
   })
+end
+
+function Outline:willUnmount()
+  self.MoveConnection:Disconnect()
 end
 
 return Outline
