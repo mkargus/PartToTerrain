@@ -76,14 +76,14 @@ function Tab:render()
           BackgroundTransparency = 1,
           Image = props.Icon,
           Size = UDim2.new(0, Constants.TAB_ICON_SIZE, 0, Constants.TAB_ICON_SIZE),
-          ImageColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText')
+          ImageColor3 = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText')
         }),
         Name = props.displayText and Roact.createElement(TextLabel, {
           AutomaticSize = Enum.AutomaticSize.X,
           BackgroundTransparency = 1,
           Size = UDim2.new(0, 0, 0, 20),
           Text = props.Text,
-          TextColor3 = theme:GetColor((props.Active or state.hovering) and 'MainText' or 'DimmedText'),
+          TextColor3 = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText'),
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
         }),
