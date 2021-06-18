@@ -88,7 +88,7 @@ function Search:render()
           PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
           Position = UDim2.new(0, 24, 0, 0),
           Size = UDim2.new(1, -24, 1, 0),
-          Text = '',
+          Text = props.Text,
           TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
           TextSize = 14,
           TextTruncate = 'AtEnd',
