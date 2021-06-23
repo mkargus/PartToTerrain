@@ -15,7 +15,6 @@ local TerrainUtil = require(Util.TerrainUtil)
 
 local Components = Plugin.Components
 local App = require(Components.App)
-local PluginSettings = require(Components.PluginSettings)
 local StudioWidget = require(Components.StudioWidget)
 local Outline = require(Components.Outline)
 local PluginGuiWrapper = require(Components.PluginGuiWrapper)
@@ -157,22 +156,16 @@ function PluginApp:render()
       self:setState({ pluginGui = ref })
     end
   }, {
-    Roact.createElement(PluginSettings.StudioProvider, {
-      plugin = self.plugin
-    }, {
+    ShowOnTop = isPluginGuiLoaded and Roact.createElement(PluginGuiWrapper.Provider, {
+      pluginGui = state.pluginGui
+    }),
 
-      ShowOnTop = isPluginGuiLoaded and Roact.createElement(PluginGuiWrapper.Provider, {
-        pluginGui = state.pluginGui
-      }),
+    App = Roact.createElement(App, {
+      IsOutdated = self:isUpdateAvailable()
+    }),
 
-      App = Roact.createElement(App, {
-        IsOutdated = self:isUpdateAvailable()
-      }),
-
-      Outline = (state.guiEnabled and self.plugin:GetSetting('EnabledSelectionBox')) and Roact.createElement(Outline, {
-        PluginMouse = self.pluginMouse
-      })
-
+    Outline = (state.guiEnabled and self.plugin:GetSetting('EnabledSelectionBox')) and Roact.createElement(Outline, {
+      PluginMouse = self.pluginMouse
     })
   })
 end

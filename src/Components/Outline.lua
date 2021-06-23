@@ -45,8 +45,6 @@ function Outline:render()
   local state = self.state
   local Part = state.part
 
-  -- TODO: Include Ignore locked part setting.
-
   if not Part then return nil end
 
   local shape = TerrainUtil.getPartShape(Part)
