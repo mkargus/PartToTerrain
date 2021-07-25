@@ -47,7 +47,7 @@ function Outline:render()
 
   if not Part then return nil end
 
-  local shape = TerrainUtil.getPartShape(Part)
+  local shape, _, size = TerrainUtil.GetPartInfo(Part)
 
   local isConvertibleToTerrain = TerrainUtil.isConvertibleToTerrain(Part)
 
@@ -80,7 +80,7 @@ function Outline:render()
         Adornee = Part,
         AlwaysOnTop = true,
         Color3 = color,
-        Size = Part.Size,
+        Size = size,
         Transparency = 0.3,
         ZIndex = 1
       }),
@@ -89,7 +89,7 @@ function Outline:render()
         Adornee = Part,
         AlwaysOnTop = true,
         Color3 = color,
-        Radius = math.min(Part.Size.X, Part.Size.Y, Part.Size.Z) / 2,
+        Radius = math.min(size.X, size.Y, size.Z) / 2,
         Transparency = 0.3,
         ZIndex = 1
       }),
@@ -99,8 +99,8 @@ function Outline:render()
         AlwaysOnTop = true,
         CFrame = CFrame.new() * CFrame.Angles(0, math.rad(90), 0),
         Color3 = color,
-        Height = Part.Size.X,
-        Radius = math.min(Part.Size.Y, Part.Size.Z) / 2,
+        Height = size.X,
+        Radius = math.min(size.Y, size.Z) / 2,
         Transparency = 0.3,
         ZIndex = 1
       })

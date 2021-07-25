@@ -89,10 +89,8 @@ function PluginApp:init()
           return
         end
 
-        local shape = TerrainUtil.getPartShape(obj)
+        local shape, cframe, size = TerrainUtil.GetPartInfo(obj)
         local material = Store:Get('Material')
-        local cframe = obj.CFrame
-        local size = obj.Size
         local preserceTerrain = self.plugin:GetSetting('PreserveTerrain')
 
         local success = TerrainUtil.convertToTerrain(shape, material, cframe, size, preserceTerrain)

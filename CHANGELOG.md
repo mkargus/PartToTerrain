@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+* Parts with a Mesh parent will now take into account the mesh's `Scale` and `Offset` properties
 
 ## [1.5.0] - June 24, 2021
 ### Added

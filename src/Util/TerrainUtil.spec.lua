@@ -56,23 +56,24 @@ return function ()
     end)
   end)
 
-  describe('getPartShape', function()
-    local gps = TerrainUtil.getPartShape
+  describe('GetPartInfo', function()
+    local gpi = TerrainUtil.GetPartInfo
     local ShapeEnum = TerrainEnum.Shape
 
     it('should support part.Shape', function()
       local p = Instance.new('Part')
+      p.Size = Vector3.new(4, 4, 4)
 
       p.Shape = Enum.PartType.Ball
-      local shape = gps(p)
+      local shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Ball)
 
       p.Shape = Enum.PartType.Cylinder
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.CylinderRotate)
 
       p.Shape = Enum.PartType.Block
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Block)
     end)
 
@@ -82,41 +83,41 @@ return function ()
       mesh.Parent = p
 
       mesh.MeshType = Enum.MeshType.Cylinder
-      local shape = gps(p)
+      local shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.CylinderRotate)
 
       mesh.MeshType = Enum.MeshType.Head
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Cylinder)
 
       mesh.MeshType = Enum.MeshType.Sphere
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Ball)
 
       mesh.MeshType = Enum.MeshType.Wedge
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Wedge)
 
       -- Should use the fallback shape of Block
       mesh.MeshType = Enum.MeshType.Torso
-      shape = gps(p)
+      shape = gpi(p)
       expect(shape).to.equal(ShapeEnum.Block)
     end)
 
     it('should support WedgeParts', function()
       local wedge = Instance.new('WedgePart')
 
-      local shape = gps(wedge)
+      local shape = gpi(wedge)
       expect(shape).to.equal(ShapeEnum.Wedge)
     end)
 
     it('should support unknown part types', function()
       local truss = Instance.new('TrussPart')
-      local shape = gps(truss)
+      local shape = gpi(truss)
       expect(shape).to.equal(ShapeEnum.Block)
 
       local CornerWedge = Instance.new('CornerWedgePart')
-      shape = gps(CornerWedge)
+      shape = gpi(CornerWedge)
       expect(shape).to.equal(ShapeEnum.Block)
     end)
   end)

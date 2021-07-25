@@ -28,51 +28,61 @@ local function isConvertibleToTerrain(instance)
   return true
 end
 
-local function getPartShape(part)
+--[[
+  Returns info about the part such as what shape it is, cframe and size.
+]]
+local function GetPartInfo(part)
+  local cframe = part.CFrame
+  local size = part.Size
 
   -- If the part has a mesh parented to it, then use the mesh shape instead
   for _, obj in ipairs(part:GetChildren()) do
     if obj:IsA('DataModelMesh') then
+      cframe = part.CFrame + part.CFrame:VectorToWorldSpace(obj.Offset)
+      size = part.Size * obj.Scale
 
       if obj:IsA('SpecialMesh') then
         if obj.MeshType == Enum.MeshType.Cylinder then
-          return TerrainEnum.Shape.CylinderRotate
+          return TerrainEnum.Shape.CylinderRotate, cframe, size
         elseif obj.MeshType == Enum.MeshType.Head then
-          return TerrainEnum.Shape.Cylinder
+          return TerrainEnum.Shape.Cylinder, cframe, size
         elseif obj.MeshType == Enum.MeshType.Sphere then
-          return TerrainEnum.Shape.Ball
+          return TerrainEnum.Shape.Ball, cframe, size
         elseif obj.MeshType == Enum.MeshType.Wedge then
-          return TerrainEnum.Shape.Wedge
+          return TerrainEnum.Shape.Wedge, cframe, size
         end
 
       elseif obj:IsA('CylinderMesh') then
-        return TerrainEnum.Shape.Cylinder
+        return TerrainEnum.Shape.Cylinder, cframe, size
       end
 
       -- Fallback to a block
-      return TerrainEnum.Shape.Block
-
+      return TerrainEnum.Shape.Block, cframe, size
     end
-
   end
 
   if part:IsA('Part') then
     if part.Shape == Enum.PartType.Cylinder then
-      return TerrainEnum.Shape.CylinderRotate
+      return TerrainEnum.Shape.CylinderRotate, cframe, size
     elseif part.Shape == Enum.PartType.Ball then
-      return TerrainEnum.Shape.Ball
+      return TerrainEnum.Shape.Ball, cframe, size
     else
-      return TerrainEnum.Shape.Block
+      return TerrainEnum.Shape.Block, cframe, size
     end
 
   elseif part:IsA('WedgePart') then
-    return TerrainEnum.Shape.Wedge
+    return TerrainEnum.Shape.Wedge, cframe, size
   end
 
-  return TerrainEnum.Shape.Block
+  return TerrainEnum.Shape.Block, cframe, size
 end
 
 local function convertToTerrain(shape, material, cframe: CFrame, size: Vector3, preserveTerrain)
+
+  if size.X <= 0 or size.Y <= 0 or size.Z <= 0 then
+    print('Invalid size found')
+    return false, TerrainEnum.ConvertError.InvalidSize
+  end
 
   local success, errorCode = (function()
     if shape == TerrainEnum.Shape.Ball then
@@ -106,7 +116,8 @@ end
 return {
   isConvertibleToTerrain = isConvertibleToTerrain,
 
-  getPartShape = getPartShape,
+  -- getPartShape = getPartShape,
+  GetPartInfo = GetPartInfo,
 
   convertToTerrain = convertToTerrain
 }
