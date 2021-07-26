@@ -13,11 +13,12 @@ local Localization = require(Util.Localization)
 local Store = require(Util.Store)
 local TerrainUtil = require(Util.TerrainUtil)
 
+local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
+
 local Components = Plugin.Components
 local App = require(Components.App)
 local StudioWidget = require(Components.StudioWidget)
 local Outline = require(Components.Outline)
-local PluginGuiWrapper = require(Components.PluginGuiWrapper)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 

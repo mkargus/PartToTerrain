@@ -4,11 +4,12 @@ local Roact = require(Plugin.Libs.Roact)
 
 local Localization = require(Plugin.Util.Localization)
 
+local PluginSettings = require(Plugin.Context.PluginSettings)
+
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
 local TextLabel = require(Components.TextLabel)
 local ToggleButton = require(Components.ToggleButton)
-local PluginSettings = require(Components.PluginSettings)
 
 local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 

@@ -5,9 +5,10 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
 
+local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
+
 local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
-local PluginGuiWrapper = require(Components.PluginGuiWrapper)
 local StudioTheme = require(Components.StudioTheme)
 
 local Tooltip = Roact.PureComponent:extend('Tooltip')

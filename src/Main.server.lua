@@ -22,7 +22,7 @@ end
 local Plugin = script.Parent
 local Roact = require(Plugin.Libs.Roact)
 
-local PluginSettings = require(Plugin.Components.PluginSettings)
+local PluginSettings = require(Plugin.Context.PluginSettings)
 local PluginApp = require(Plugin.Components.PluginApp)
 
 local app = Roact.createElement(PluginSettings.StudioProvider, {
