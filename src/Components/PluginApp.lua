@@ -28,14 +28,6 @@ function PluginApp:init()
     pluginGui = nil,
   }
 
-  -- This is a fix for a unintended side effect when undoing,
-  -- where it will select the part and give it a outline.
-  ChangeHistoryService.OnUndo:Connect(function(waypoint)
-    if waypoint == 'PartToTerrain' then
-      game:GetService('Selection'):Set({})
-    end
-  end)
-
   self.plugin = self.props.plugin
 
   self.plugin.Deactivation:Connect(function()
