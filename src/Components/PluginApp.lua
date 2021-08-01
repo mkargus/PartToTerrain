@@ -66,13 +66,13 @@ function PluginApp:init()
   ----------------------------------------
   self.pluginMouse = self.plugin:GetMouse()
 
-  local raycastParams = RaycastParams.new()
-  raycastParams.IgnoreWater = true
+  self.raycastParams = RaycastParams.new()
+  self.raycastParams.IgnoreWater = true
 
   self.pluginMouse.Button1Down:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = self.pluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, self.raycastParams)
 
     local function isPressingAlt()
       return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
@@ -164,7 +164,8 @@ function PluginApp:render()
     }),
 
     Outline = (state.guiEnabled and self.plugin:GetSetting('EnabledSelectionBox')) and Roact.createElement(Outline, {
-      PluginMouse = self.pluginMouse
+      PluginMouse = self.pluginMouse,
+      raycastParams = self.raycastParams
     })
   })
 end

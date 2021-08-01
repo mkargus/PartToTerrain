@@ -16,13 +16,10 @@ function Outline:init()
     part = nil
   }
 
-  local raycastParams = RaycastParams.new()
-  raycastParams.IgnoreWater = true
-
   self.MoveConnection = self.props.PluginMouse.Move:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = self.props.PluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, raycastParams)
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, self.props.raycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
       self:setState({ part = RaycastResults.Instance })
