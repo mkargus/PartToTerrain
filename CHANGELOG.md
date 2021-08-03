@@ -3,6 +3,13 @@
 ## [Unreleased]
 ### Changed
 * Parts with a Mesh parent will now take into account the mesh's `Scale` and `Offset` properties
+### Fixed
+* Fixed multiple issues regarding the update checker:
+  * Should no longer check more then once per place. (The update check would check twice on startup, once on every widget visibility change, and twice if closed via button in the toolbar.)
+  * Spam clicking the plugin will no longer error out and hang. (This is because the `MarketplaceService::GetProductInfo` ratelimit and yielding nature)
+  * Plugin should no longer have a tiny delay when closing. (Same reason as above)
+
+
 
 ## [1.5.0] - June 24, 2021
 ### Added

@@ -26,6 +26,7 @@ function PluginApp:init()
   self.state = {
     guiEnabled = false,
     pluginGui = nil,
+    isOutdated = nil
   }
 
   self.plugin = self.props.plugin
@@ -152,7 +153,7 @@ function PluginApp:render()
     }),
 
     App = Roact.createElement(App, {
-      IsOutdated = self:isUpdateAvailable()
+      IsOutdated = state.isOutdated
     }),
 
     Outline = (state.guiEnabled and self.plugin:GetSetting('EnabledSelectionBox')) and Roact.createElement(Outline, {
@@ -160,6 +161,10 @@ function PluginApp:render()
       raycastParams = self.raycastParams
     })
   })
+end
+
+function PluginApp:didMount()
+  self:setState({ isOutdated = self:isUpdateAvailable()})
 end
 
 return PluginApp
