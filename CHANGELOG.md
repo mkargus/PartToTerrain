@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.5.1] - August 4, 2021
 ### Changed
 * Parts with a Mesh parent will now take into account the mesh's `Scale` and `Offset` properties
 ### Fixed
@@ -8,8 +10,6 @@
   * Should no longer check more then once per place. (The update check would check twice on startup, once on every widget visibility change, and twice if closed via button in the toolbar.)
   * Spam clicking the plugin will no longer error out and hang. (This is because the `MarketplaceService::GetProductInfo` ratelimit and yielding nature)
   * Plugin should no longer have a tiny delay when closing. (Same reason as above)
-
-
 
 ## [1.5.0] - June 24, 2021
 ### Added
@@ -118,7 +118,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.0...main
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.1...main
+[1.5.1]: https://github.com/mkargus/PartToTerrain/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/mkargus/PartToTerrain/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/mkargus/PartToTerrain/compare/1.3.0...1.3.1
