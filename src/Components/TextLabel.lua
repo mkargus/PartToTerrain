@@ -32,7 +32,6 @@ function TextLabel:render()
     TextSize = props.TextSize,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
-    -- Visible = props.Visible,
     ZIndex = props.ZIndex,
     [Roact.Ref] = props[Roact.Ref]
   }, props[Roact.Children])

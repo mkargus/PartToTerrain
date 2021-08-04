@@ -51,6 +51,7 @@ function App:render()
       update = props.IsOutdated and Roact.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
+        LayoutOrder = -1,
         Text = Localization('Notice.Outdated'),
         TextColor3 = theme:GetColor('MainText'),
         TextSize = 12,
