@@ -82,8 +82,10 @@ function PluginApp:init()
     if RaycastResults then
       local obj = RaycastResults.Instance
 
-      if isPressingAlt() and obj:IsA('Terrain') then
-        return Store:Set('Material', RaycastResults.Material)
+      if isPressingAlt() then
+        if obj:IsA('Terrain')then
+          return Store:Set('Material', RaycastResults.Material)
+        end
 
       elseif not obj:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
 
