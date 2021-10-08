@@ -73,7 +73,7 @@ function PluginApp:init()
   self.pluginMouse.Button1Down:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = self.pluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 1000, self.raycastParams)
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, self.raycastParams)
 
     local function isPressingAlt()
       return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
@@ -128,7 +128,6 @@ function PluginApp:isUpdateAvailable()
 
   -- Fallback
   return false
-
 end
 
 function PluginApp:didUpdate()
@@ -140,7 +139,7 @@ function PluginApp:render()
 
   local isPluginGuiLoaded = state.pluginGui ~= nil
 
-  return RunService:IsRunning() ~= true and Roact.createElement(StudioWidget, {
+  return not RunService:IsRunning() and Roact.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
     Title = Localization('Plugin.NameVersion', { Constants.VERSION }),

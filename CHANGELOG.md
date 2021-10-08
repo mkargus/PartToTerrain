@@ -1,7 +1,9 @@
 # Changelog
 
 ## [Unreleased]
-## Fixed
+### Changed
+* Increased raycasting distance from 1,000 studs to 15,000 studs.
+### Fixed
 * Holding any of the Alt keys and click on a part should no longer convert the terrain.
 
 ## [1.5.1] - August 4, 2021
