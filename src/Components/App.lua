@@ -38,6 +38,7 @@ function App:render()
       Size = UDim2.new(1, 0, 1, 0)
     }, {
       Header = Roact.createElement(Header, {
+        CurrentPanel = state.Panel,
         IsSearchEnabled = state.Panel == 'Materials'
       }),
 

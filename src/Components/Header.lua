@@ -26,7 +26,7 @@ function Header:render()
     }, {
 
       Navbar = Roact.createElement(TabSet, {
-        CurrentTab = Store:Get('Panel'),
+        CurrentTab = props.CurrentPanel,
         Size = UDim2.new(1, 0, 0, 28),
         Tabs = {
           { key = 'Materials', icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
