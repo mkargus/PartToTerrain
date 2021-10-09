@@ -83,7 +83,7 @@ function PluginApp:init()
       local obj = RaycastResults.Instance
 
       if isPressingAlt() then
-        if obj:IsA('Terrain')then
+        if obj:IsA('Terrain') then
           return Store:Set('Material', RaycastResults.Material)
         end
 
@@ -173,7 +173,7 @@ function PluginApp:render()
 end
 
 function PluginApp:didMount()
-  self:setState({ isOutdated = self:isUpdateAvailable()})
+  self:setState({ isOutdated = self:isUpdateAvailable() })
 end
 
 return PluginApp

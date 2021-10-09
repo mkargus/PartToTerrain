@@ -15,18 +15,6 @@ local MaterialItem = require(Components.MaterialPanel.Item)
 
 local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')
 
-function MaterialPanel:init()
-  self.state = {
-    height = 0
-  }
-
-  function self._OnContentSizeChange(rbx)
-    self:setState({
-      height = rbx.AbsoluteContentSize.Y
-    })
-  end
-end
-
 function MaterialPanel:createMaterialButtons(searchTerm)
   local numberAssets = 0
 
@@ -35,8 +23,7 @@ function MaterialPanel:createMaterialButtons(searchTerm)
       CellPadding = Constants.MATERIAL_GRID_PADDING,
       CellSize = Constants.MATERIAL_GRID_SIZE,
       FillDirectionMaxCells = 6,
-      HorizontalAlignment = Enum.HorizontalAlignment.Center,
-      [Roact.Change.AbsoluteContentSize] = self._OnContentSizeChange
+      HorizontalAlignment = Enum.HorizontalAlignment.Center
     })
   }
 
@@ -73,9 +60,11 @@ function MaterialPanel:render()
     }, {
 
       MaterialGrid = hasAssets and Roact.createElement(ScrollingFrame, {
-        CanvasSize = UDim2.new(0, 0, 0, state.height),
+        AutomaticCanvasSize = Enum.AutomaticSize.Y,
+        ScrollingDirection = Enum.ScrollingDirection.Y,
         Size = UDim2.new(1, 0, 1, 0)
       }, content),
+
 
       NoResults = not hasAssets and Roact.createElement(TextLabel, {
         BackgroundTransparency = 1,

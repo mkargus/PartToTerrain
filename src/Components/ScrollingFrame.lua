@@ -7,20 +7,18 @@ local StudioTheme = require(Plugin.Components.StudioTheme)
 local ScrollingFrame = Roact.PureComponent:extend('ScrollingFrame')
 
 ScrollingFrame.defaultProps = {
-  AutomaticCanvasSize = Enum.AutomaticSize.None,
   CanvasSize = UDim2.new(0, 0, 0, 0),
-  ScrollBarThickness = 8,
-  ScrollBarThicknessPadding = 3
+  ScrollBarThickness = 8
 }
 
 function ScrollingFrame:init()
   self.state = {
-    isShowingScrollBar = false
+    isYAxisShowing = false
   }
 
-  function self._onChange(rbx)
+  function self._onWindowSizeChange(rbx)
     self:setState({
-      isShowingScrollBar = rbx.AbsoluteWindowSize.Y < rbx.CanvasSize.Y.Offset
+      isYAxisShowing = rbx.AbsoluteWindowSize.Y < rbx.AbsoluteCanvasSize.Y
     })
   end
 end
@@ -37,16 +35,16 @@ function ScrollingFrame:render()
 
     return Roact.createElement('Frame', {
       BackgroundTransparency = 1,
+      Position = props.Position,
       LayoutOrder = props.LayoutOrder,
       Size = props.Size
     }, {
-      ScrollingBKG = state.isShowingScrollBar and Roact.createElement('Frame', {
+      YScrollingBackground = state.isYAxisShowing and Roact.createElement('Frame', {
         AnchorPoint = Vector2.new(1, 0),
         BackgroundColor3 = BkgColor,
-        BorderSizePixel = props.ScrollBarThicknessPadding,
-        BorderColor3 = BkgColor,
+        BorderSizePixel = 0,
         Position = UDim2.new(1, 0, 0, 0),
-        Size = UDim2.new(0, props.ScrollBarThickness, 1, 0)
+        Size = UDim2.new(0, 12, 1, 0)
       }),
       ScrollingFrame = Roact.createElement('ScrollingFrame', {
         AutomaticCanvasSize = props.AutomaticCanvasSize,
@@ -55,14 +53,15 @@ function ScrollingFrame:render()
         BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
         CanvasSize = props.CanvasSize,
         MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
+        Position = UDim2.new(0, 0, 0, 3),
         ScrollBarImageColor3 = ScrollbarColor,
         ScrollBarThickness = props.ScrollBarThickness,
-        ScrollingDirection = 'Y',
-        Size = UDim2.new(1, 0, 1, 0),
+        ScrollingDirection = props.ScrollingDirection,
+        Size = UDim2.new(1, -2, 1, -6),
         TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
         VerticalScrollBarInset = 'ScrollBar',
         ZIndex = 2,
-        [Roact.Change.AbsoluteWindowSize] = self._onChange
+        [Roact.Change.AbsoluteWindowSize] = self._onWindowSizeChange
       }, props[Roact.Children])
     })
   end)

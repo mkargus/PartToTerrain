@@ -11,18 +11,6 @@ local Separator = require(script.Separator)
 
 local SettingsPanel = Roact.PureComponent:extend('SettingsPanel')
 
-function SettingsPanel:init()
-  self.state = {
-    height = 0
-  }
-
-  function self._gridSizeChange(rbx)
-    self:setState({
-      height = rbx.AbsoluteContentSize.Y
-    })
-  end
-end
-
 function SettingsPanel:ResetLayout()
   self.currentLayout = 0
 end
@@ -34,7 +22,6 @@ end
 
 function SettingsPanel:render()
   local props = self.props
-  local state = self.state
 
   self:ResetLayout()
 
@@ -43,8 +30,7 @@ function SettingsPanel:render()
       FillDirection = Enum.FillDirection.Vertical,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
-      SortOrder = Enum.SortOrder.LayoutOrder,
-      [Roact.Change.AbsoluteContentSize] = self._gridSizeChange
+      SortOrder = Enum.SortOrder.LayoutOrder
     })
   }
 
@@ -60,8 +46,8 @@ function SettingsPanel:render()
   end
 
   return Roact.createElement(ScrollingFrame, {
-    BackgroundTransparency = 1,
-    CanvasSize = UDim2.new(0, 0, 0, state.height),
+    AutomaticCanvasSize = Enum.AutomaticSize.Y,
+    ScrollingDirection = Enum.ScrollingDirection.Y,
     Size = props.Size
   }, children)
 end
