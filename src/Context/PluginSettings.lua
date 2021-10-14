@@ -1,7 +1,7 @@
 -- Modified code from Rojo's plugin.
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local Constants = require(Plugin.Util.Constants)
 

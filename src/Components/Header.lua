@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local Store = require(Plugin.Util.Store)
 local Localization = require(Plugin.Util.Localization)

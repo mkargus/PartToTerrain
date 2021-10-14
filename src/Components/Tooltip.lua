@@ -3,7 +3,7 @@ local TextSerice = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
 

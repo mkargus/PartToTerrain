@@ -5,7 +5,7 @@ local UserInputService = game:GetService('UserInputService')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)

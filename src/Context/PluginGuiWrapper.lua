@@ -4,7 +4,7 @@
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 -- For some unexplained reason, Roact keeps putting the context value to nil even if the PluginGui is noted.
 -- If someone is able to improve this script to use Roact's Context system, that would be awesome!

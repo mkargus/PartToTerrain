@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local TextLabel = require(Plugin.Components.TextLabel)
 

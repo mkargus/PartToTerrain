@@ -15,7 +15,7 @@ local TAB_INNER_PADDING = 3
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)

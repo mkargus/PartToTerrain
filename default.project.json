@@ -8,7 +8,7 @@
       "PartToTerrain": {
         "$path": "src",
 
-        "Libs": {
+        "Packages": {
           "$className": "Folder",
           "Roact": {
             "$path": "packages/Roact/src"
@@ -17,8 +17,8 @@
             "$path": "packages/BasicState/src"
           }
         }
-      }
 
+      }
     }
   },
 
@@ -26,5 +26,4 @@
     "packages/**/*.spec.lua",
     "packages/Roact/*.spec"
   ]
-
 }

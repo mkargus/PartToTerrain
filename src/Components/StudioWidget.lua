@@ -12,7 +12,7 @@
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local StudioWidget = Roact.PureComponent:extend('StudioWidget')
 

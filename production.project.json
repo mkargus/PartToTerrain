@@ -1,5 +1,5 @@
 {
-  "name": "Part to Terrain",
+  "name": "Part to Terrain - Production",
   "tree": {
     "$className": "DataModel",
 
@@ -8,7 +8,7 @@
       "PartToTerrain": {
         "$path": "src",
 
-        "Libs": {
+        "Packages": {
           "$className": "Folder",
           "Roact": {
             "$path": "packages/Roact/src"
@@ -27,5 +27,4 @@
     "**.story.lua",
     "packages/Roact/*.spec"
   ]
-
 }

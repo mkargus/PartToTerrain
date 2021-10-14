@@ -1,6 +1,6 @@
 local studioSettings = settings():GetService('Studio')
 
-local Roact = require(script.Parent.Parent.Libs.Roact)
+local Roact = require(script.Parent.Parent.Packages.Roact)
 local StudioTheme = Roact.Component:extend('StudioTheme')
 
 function StudioTheme:init()

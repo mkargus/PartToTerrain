@@ -20,10 +20,14 @@ if not plugin then
 end
 
 local Plugin = script.Parent
-local Roact = require(Plugin.Libs.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local PluginSettings = require(Plugin.Context.PluginSettings)
 local PluginApp = require(Plugin.Components.PluginApp)
+
+Roact.setGlobalConfig({
+  elementTracing = true,
+})
 
 local app = Roact.createElement(PluginSettings.StudioProvider, {
   plugin = plugin

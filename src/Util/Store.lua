@@ -1,4 +1,4 @@
-local BasicState = require(script.Parent.Parent.Libs.BasicState)
+local BasicState = require(script.Parent.Parent.Packages.BasicState)
 
 local State = BasicState.new({
   Material = Enum.Material.Grass,

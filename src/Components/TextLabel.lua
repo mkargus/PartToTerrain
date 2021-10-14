@@ -1,4 +1,4 @@
-local Roact = require(script.Parent.Parent.Libs.Roact)
+local Roact = require(script.Parent.Parent.Packages.Roact)
 
 local TextLabel = Roact.PureComponent:extend('TextLabel')
 
