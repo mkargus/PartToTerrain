@@ -6,6 +6,7 @@
 ### Changed
 * Increased raycasting distance from 1,000 studs to 15,000 studs.
 * ScrollingFrames now use AutomaticCanvasSize.
+* Updated Roact to 1.4.2
 ### Fixed
 * Holding any of the Alt keys and click on a part should no longer convert the terrain.
 
