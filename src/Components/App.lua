@@ -18,11 +18,11 @@ local App = Roact.PureComponent:extend('App')
 function App:renderBody(Panel)
   if Panel == 'Materials' then
     return Roact.createElement(MaterialPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, -3, 1, -53) or UDim2.new(1, -3, 1, -67)
+      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -60)
     })
   elseif Panel == 'Settings' then
     return Roact.createElement(SettingsPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, -3, 1, -53) or UDim2.new(1, -3, 1, -35)
+      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
     })
   end
 end
@@ -43,7 +43,6 @@ function App:render()
       }),
 
       UIListLayout = Roact.createElement('UIListLayout', {
-        Padding = UDim.new(0, 4),
         SortOrder = 'LayoutOrder'
       }),
 
