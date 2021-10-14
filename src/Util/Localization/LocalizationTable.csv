@@ -1,48 +1,48 @@
-Key,en_US,zh_CN,ko_KR
-Plugin.Name,Part to Terrain,部件至地形,파트를 지형으로
-Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],파트를 지형으로 [DEV]
-Plugin.Desc,Convert parts into terrain with ease.,,
-Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},파트를 지형으로 {1}
-Plugin.Search,Search...,搜索...,검색...
-Button.Materials,Materials,物料,기재
-Button.Settings,Settings,设置,설정
-Settings.CheckUpdates,Check for updates,检查更新,
-Settings.CheckUpdatesDesc,Check for updates on Studio launch and display a notice when the plugin is outdated.,,
-Settings.DeletePart,Delete part when converted,,
-Settings.DeletePartDesc,Deletes the part after being converted to Terrain.,,
-Settings.EnabledSelectionBox,Highlight part on hover,,
-Settings.EnabledSelectionBoxDesc,Highlight the part when the mouse is hovers over the part.,,
-Settings.IgnoreLockedParts,Ignore locked parts,,
-Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.,,
-Settings.PreserveTerrain,Preserve existing Terrain,,
-Settings.PreserveTerrainDesc,Existing terrain will not be overwritten.<br/><br/>NOTE: Air will delete terrain regardless of setting.,,
-Toggle.Enabled,Enabled,已启用,사용
-Toggle.Disabled,Disabled,已禁用,사용 안 함
-Notice.Outdated,A new update is available.,,
-Notice.IgnoreLockedPart,Ignoring locked part due to settings.,,
-Notice.ShapeNotSupported,Part shape is not supported.,,
-Notice.ClassNotSupport,Part class is not supported.,,
-Notice.NoResultsFound,No results found,未找到结果,결과 없음
-Materials.Air,Air,天空,공기
-Materials.Asphalt,Asphalt,沥青,아스팔트
-Materials.Basalt,Basalt,玄武岩,현무암
-Materials.Brick,Brick,砖块,벽돌
-Materials.Cobblestone,Cobblestone,鹅卵石,자갈
-Materials.Concrete,Concrete,水泥,콘크리트
-Materials.CrackedLava,Cracked Lava,裂纹熔岩,갈라진 용암
-Materials.Glacier,Glacier,冰川,빙하
-Materials.Grass,Grass,草地,잔디
-Materials.Ground,Ground,土地,토양
-Materials.Ice,Ice,冰,얼음
-Materials.LeafyGrass,Leafy Grass,绿叶草,무성한 잔디
-Materials.Limestone,Limestone,石灰石,석회암
-Materials.Mud,Mud,泥,진흙
-Materials.Pavement,Pavement,路面,보도
-Materials.Rock,Rock,岩石,바위
-Materials.Salt,Salt,盐,소금
-Materials.Sand,Sand,沙,모래
-Materials.Sandstone,Sandstone,砂岩,사암
-Materials.Slate,Slate,石板,슬레이트
-Materials.Snow,Snow,雪,눈
-Materials.Water,Water,水域,물
-Materials.WoodPlanks,Wood Planks,木板,나무 판자
+Key,en_US,zh_CN,ko_KR,ja_JP,es_ES,pt_BR
+Plugin.Name,Part to Terrain,部件至地形,파트를 지형으로,地形のパーツ,Parte en Terreno,Parte para terreno
+Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],파트를 지형으로 [DEV],,,
+Plugin.Desc,Convert parts into terrain with ease.,,,,,
+Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},파트를 지형으로 {1},地形のパーツ {1},Parte en Terreno {1},Parte para terreno {1}
+Plugin.Search,Search...,搜索...,검색...,検索...,Buscar...,Pesquisar...
+Button.Materials,Materials,物料,기재,材料,,
+Button.Settings,Settings,设置,설정,設定,,
+Settings.CheckUpdates,Check for updates,检查更新,,,,
+Settings.CheckUpdatesDesc,Check for updates on Studio launch and display a notice when the plugin is outdated.,,,,,
+Settings.DeletePart,Delete part when converted,,,,,
+Settings.DeletePartDesc,Deletes the part after being converted to Terrain.,,,,,
+Settings.EnabledSelectionBox,Highlight part on hover,,,,,
+Settings.EnabledSelectionBoxDesc,Highlight the part when the mouse is hovers over the part.,,,,,
+Settings.IgnoreLockedParts,Ignore locked parts,,,,,
+Settings.IgnoreLockedPartsDesc,Parts with their Locked property set to true will not be converted.,,,,,
+Settings.PreserveTerrain,Preserve existing Terrain,,,,,
+Settings.PreserveTerrainDesc,Existing terrain will not be overwritten.<br/><br/>NOTE: Air will delete terrain regardless of setting.,,,,,
+Toggle.Enabled,Enabled,已启用,사용,,,
+Toggle.Disabled,Disabled,已禁用,사용 안 함,,,
+Notice.Outdated,A new update is available.,,,,,
+Notice.IgnoreLockedPart,Ignoring locked part due to settings.,,,,,
+Notice.ShapeNotSupported,Part shape is not supported.,,,,,
+Notice.ClassNotSupport,Part class is not supported.,,,,,
+Notice.NoResultsFound,No results found,未找到结果,결과 없음,,,
+Materials.Air,Air,天空,공기,空気,Aire,Ar
+Materials.Asphalt,Asphalt,沥青,아스팔트,アスファルト,Asfalto,Asfalto
+Materials.Basalt,Basalt,玄武岩,현무암,玄武岩,Basalto,Basalto
+Materials.Brick,Brick,砖块,벽돌,レンガ,Ladrillo,Ladrillo
+Materials.Cobblestone,Cobblestone,鹅卵石,자갈,玉砂利,Adoquín,Paralelepípedo
+Materials.Concrete,Concrete,水泥,콘크리트,コンクリート,Concreto,Concreto
+Materials.CrackedLava,Cracked Lava,裂纹熔岩,갈라진 용암,ひび割れた溶岩,Lava agrietada,Lava rachada
+Materials.Glacier,Glacier,冰川,빙하,氷河,Glaciar,Geleira
+Materials.Grass,Grass,草地,잔디,草,Hierba,Grama
+Materials.Ground,Ground,土地,토양,地面,Tierra,Solo
+Materials.Ice,Ice,冰,얼음,氷,Hielo,Gelo
+Materials.LeafyGrass,Leafy Grass,绿叶草,무성한 잔디,草地,Hierba espesa,Grama alta
+Materials.Limestone,Limestone,石灰石,석회암,ライムストーン,Piedra caliza,Calcário
+Materials.Mud,Mud,泥,진흙,泥,Lodo,Lama
+Materials.Pavement,Pavement,路面,보도,舗道,Pavimento,Pavimentação
+Materials.Rock,Rock,岩石,바위,岩,Roca,Rocha
+Materials.Salt,Salt,盐,소금,塩,Sal,Sal
+Materials.Sand,Sand,沙,모래,砂,Arena,Areia
+Materials.Sandstone,Sandstone,砂岩,사암,サンドストーン,Piedra arenisca,Arenito
+Materials.Slate,Slate,石板,슬레이트,スレート,Pizarra,Ardósia
+Materials.Snow,Snow,雪,눈,雪,Nieve,Neve
+Materials.Water,Water,水域,물,水,Agua,Água
+Materials.WoodPlanks,Wood Planks,木板,나무 판자,木材,Tablones de madera,Tábuas

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Localization for Spanish, Portuguese & Japanese
 ### Changed
 * Increased raycasting distance from 1,000 studs to 15,000 studs.
 * ScrollingFrames now use AutomaticCanvasSize.
