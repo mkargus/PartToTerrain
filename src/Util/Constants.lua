@@ -69,10 +69,4 @@ Constants.SETTINGS_TABLE = {
   PreserveTerrain = { defaultValue = true }
 }
 
-----------------------------------------
--- Navbar related
-----------------------------------------
-Constants.TAB_ICON_SIZE = 24
-Constants.TAB_INNER_PADDING = 3
-
 return readOnlyTable(Constants)

@@ -2,20 +2,20 @@
   Props:
     string Key
     boolean Active
-    number widthScale
+    number WidthScale
     ContentId Icon
-    ? boolean displayText (Possible renaming to 'ShowText')
+    boolean IsDisplayingText
     int LayoutOrder
 
     function onClick = A callback when the user clicks this Tab.
 ]]
 
+local TAB_ICON_SIZE = 24
+local TAB_INNER_PADDING = 3
+
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
-
-local Util = Plugin.Util
-local Constants = require(Util.Constants)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
@@ -43,12 +43,14 @@ function Tab:render()
   local state = self.state
 
   return StudioTheme.withTheme(function(theme)
+    local color = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText')
+
     return Roact.createElement('TextButton', {
       AutoButtonColor = false,
       BackgroundColor3 = theme:GetColor(props.Active and 'Titlebar' or 'Dark'),
       BorderSizePixel = 0,
       LayoutOrder = props.LayoutOrder,
-      Size = UDim2.new(props.widthScale, 0, 1, 0),
+      Size = UDim2.new(props.WidthScale, 0, 1, 0),
       Text = '',
       [Roact.Event.MouseButton1Click] = props.onClick,
       [Roact.Event.MouseEnter] = self._onMouseEnter,
@@ -69,35 +71,31 @@ function Tab:render()
           FillDirection = Enum.FillDirection.Horizontal,
           HorizontalAlignment = Enum.HorizontalAlignment.Center,
           VerticalAlignment = Enum.VerticalAlignment.Center,
-          Padding = UDim.new(0, Constants.TAB_INNER_PADDING),
+          Padding = UDim.new(0, TAB_INNER_PADDING),
           SortOrder = Enum.SortOrder.LayoutOrder
         }),
         Icon = Roact.createElement('ImageLabel', {
           BackgroundTransparency = 1,
           Image = props.Icon,
-          Size = UDim2.new(0, Constants.TAB_ICON_SIZE, 0, Constants.TAB_ICON_SIZE),
-          ImageColor3 = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText')
+          Size = UDim2.new(0, TAB_ICON_SIZE, 0, TAB_ICON_SIZE),
+          ImageColor3 = color
         }),
-        Name = props.displayText and Roact.createElement(TextLabel, {
+        Name = props.IsDisplayingText and Roact.createElement(TextLabel, {
           AutomaticSize = Enum.AutomaticSize.X,
           BackgroundTransparency = 1,
           Size = UDim2.new(0, 0, 0, 20),
           Text = props.Text,
-          TextColor3 = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText'),
+          TextColor3 = color,
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
         }),
 
-        Tooltip = (not props.displayText and state.isHovering) and Roact.createElement(Tooltip, {
+        Tooltip = (not props.IsDisplayingText and state.isHovering) and Roact.createElement(Tooltip, {
           Text = props.Text
         })
-
       })
-
     })
-
   end)
-
 end
 
 return Tab

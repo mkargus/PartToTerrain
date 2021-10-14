@@ -11,14 +11,15 @@
 
     function onTabSelected = A callback for when a Tab is selected.
 ]]
+
+local TAB_ICON_SIZE = 24
+local TAB_INNER_PADDING = 3
+
 local TextService = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Libs.Roact)
-
-local Util = Plugin.Util
-local Constants = require(Util.Constants)
 
 local Tab = require(Plugin.Components.Tab)
 
@@ -56,7 +57,7 @@ local function canTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
     for _, tab in ipairs(tabs) do
       local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
-      local totalWidth = Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + textWidth
+      local totalWidth = TAB_ICON_SIZE + TAB_INNER_PADDING + textWidth
 
       if totalWidth >= tabSize then
         return false
@@ -86,16 +87,11 @@ function TabSet:render()
 
   for _, tab in ipairs (props.Tabs) do
     children[tab.key] = Roact.createElement(Tab, {
-
-      -- ! ------------------------------
-      -- ! READ TAB FOR POSSIBLE CHANGES.
-      -- ! ------------------------------
-
       Key = tab.key,
       Active = props.CurrentTab == tab.key,
-      widthScale = 1 / #props.Tabs,
+      WidthScale = 1 / #props.Tabs,
       Icon = tab.icon,
-      displayText = textDisplayed,
+      IsDisplayingText = textDisplayed,
       LayoutOrder = self:NextLayout(),
       Text = tab.Text,
       onClick = function()
