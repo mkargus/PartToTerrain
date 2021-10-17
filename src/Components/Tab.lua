@@ -43,11 +43,11 @@ function Tab:render()
   local state = self.state
 
   return StudioTheme.withTheme(function(theme)
-    local color = theme:GetColor((props.Active or state.isHovering) and 'MainText' or 'DimmedText')
+    local color = theme:GetColor((props.Active or state.isHovering) and Enum.StudioStyleGuideColor.MainText or Enum.StudioStyleGuideColor.DimmedText)
 
     return Roact.createElement('TextButton', {
       AutoButtonColor = false,
-      BackgroundColor3 = theme:GetColor(props.Active and 'Titlebar' or 'Dark'),
+      BackgroundColor3 = theme:GetColor(props.Active and Enum.StudioStyleGuideColor.Titlebar or Enum.StudioStyleGuideColor.Dark),
       BorderSizePixel = 0,
       LayoutOrder = props.LayoutOrder,
       Size = UDim2.new(props.WidthScale, 0, 1, 0),

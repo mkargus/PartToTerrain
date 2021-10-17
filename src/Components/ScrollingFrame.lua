@@ -59,7 +59,7 @@ function ScrollingFrame:render()
         ScrollingDirection = props.ScrollingDirection,
         Size = UDim2.new(1, -2, 1, -6),
         TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
-        VerticalScrollBarInset = 'ScrollBar',
+        VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
         ZIndex = 2,
         [Roact.Change.AbsoluteWindowSize] = self._onWindowSizeChange
       }, props[Roact.Children])

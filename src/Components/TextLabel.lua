@@ -3,7 +3,6 @@ local Roact = require(script.Parent.Parent.Packages.Roact)
 local TextLabel = Roact.PureComponent:extend('TextLabel')
 
 TextLabel.defaultProps = {
-  AutomaticSize = Enum.AutomaticSize.None,
   BackgroundTransparency = 0,
   BorderSizePixel = 0,
   Font = Enum.Font.Gotham,

@@ -14,7 +14,6 @@ function Wrapper:init()
   function self.onTabSelected(tabName)
     self:setState({ CurrentTab = tabName })
   end
-
 end
 
 function Wrapper:render()

@@ -33,7 +33,7 @@ function App:render()
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor('MainBackground'),
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
       BorderSizePixel = 0,
       Size = UDim2.new(1, 0, 1, 0)
     }, {
@@ -43,7 +43,7 @@ function App:render()
       }),
 
       UIListLayout = Roact.createElement('UIListLayout', {
-        SortOrder = 'LayoutOrder'
+        SortOrder = Enum.SortOrder.LayoutOrder
       }),
 
       Body = self:renderBody(state.Panel),
@@ -53,7 +53,7 @@ function App:render()
         BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
         LayoutOrder = -1,
         Text = Localization('Notice.Outdated'),
-        TextColor3 = theme:GetColor('MainText'),
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
         TextSize = 12,
         TextWrapped = true,
         Size = UDim2.new(1, 0, 0, 0)

@@ -20,8 +20,8 @@ function Header:render()
   return StudioTheme.withTheme(function(theme)
 
     return Roact.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor('Titlebar'),
-      BorderColor3 = theme:GetColor('Border'),
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
+      BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
       Size = UDim2.new(1, 0, 0, Height)
     }, {
 

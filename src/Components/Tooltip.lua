@@ -73,7 +73,7 @@ function Tooltip:render()
         local targetX = state.MousePos.X + OFFSET.X
         local targetY = state.MousePos.Y + OFFSET.Y
 
-        local TextBound = TextSerice:GetTextSize(props.Text, 14, 'Gotham', Vector2.new(100, 10000))
+        local TextBound = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
 
         local tooltipWidth = TextBound.X + (2 * PADDING)
         local tooltipHeight = TextBound.Y + (2 * PADDING)
@@ -106,10 +106,9 @@ function Tooltip:render()
             PaddingTop = UDim.new(0, PADDING)
           }),
 
-          -- selene: allow(roblox_incorrect_roact_usage)
           UIStroke = Roact.createElement('UIStroke', {
             ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-            Color = theme:GetColor('Border')
+            Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
           })
         })
 

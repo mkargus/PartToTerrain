@@ -70,7 +70,7 @@ function Outline:render()
     end)()
 
     return Roact.createElement(Roact.Portal, {
-      target = game.CoreGui
+      target = game:GetService('CoreGui')
     }, {
 
       PTT_BoxHandleAdornment = (shape == TerrainEnum.Shape.Block or shape == TerrainEnum.Shape.Wedge) and Roact.createElement('BoxHandleAdornment', {

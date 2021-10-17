@@ -43,9 +43,9 @@ function Search:render()
   local Modifier = 'Default'
 
   if state.isFocus then
-    Modifier = 'Selected'
+    Modifier = Enum.StudioStyleGuideModifier.Selected
   elseif state.isHover then
-    Modifier = 'Hover'
+    Modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
   return StudioTheme.withTheme(function(theme)
@@ -74,7 +74,7 @@ function Search:render()
 
         Icon = Roact.createElement('ImageLabel', {
           BackgroundTransparency = 1,
-          ImageColor3 = theme:GetColor('DimmedText'),
+          ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
           Image = 'rbxassetid://5927945389',
           ImageRectSize = Vector2.new(96, 96),
           Size = UDim2.new(0, 24, 0, 24)
@@ -91,7 +91,7 @@ function Search:render()
           Text = props.Text or '',
           TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
           TextSize = 14,
-          TextTruncate = 'AtEnd',
+          TextTruncate = Enum.TextTruncate.AtEnd,
           TextXAlignment = Enum.TextXAlignment.Left,
           [Roact.Ref] = self.TextBoxRef,
           [Roact.Event.Focused] = self._onFocused,

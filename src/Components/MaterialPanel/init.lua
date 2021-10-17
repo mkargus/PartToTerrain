@@ -70,7 +70,7 @@ function MaterialPanel:render()
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 0, 30),
         Text = Localization('Notice.NoResultsFound'),
-        TextColor3 = theme:GetColor('SubText')
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText)
       })
 
     })

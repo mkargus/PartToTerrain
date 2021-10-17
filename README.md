@@ -45,5 +45,5 @@ rojo serve
 
 ## Credits
 * [TigerCaptain](https://roblox.com/users/19053090/profile) - Original concept
-* [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Function to draw terrain for wedges
+* [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Original function to draw terrain for wedges
 * [Valletta](https://twitter.com/valletta__) - Created the logo for this plugin
