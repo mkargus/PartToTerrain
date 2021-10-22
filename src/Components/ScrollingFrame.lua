@@ -43,7 +43,7 @@ function ScrollingFrame:render()
         AnchorPoint = Vector2.new(1, 0),
         BackgroundColor3 = BkgColor,
         BorderSizePixel = 0,
-        Position = UDim2.new(1, 0, 0, 0),
+        Position = UDim2.fromScale(1, 0),
         Size = UDim2.new(0, 12, 1, 0)
       }),
       ScrollingFrame = Roact.createElement('ScrollingFrame', {

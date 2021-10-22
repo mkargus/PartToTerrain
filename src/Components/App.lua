@@ -35,7 +35,7 @@ function App:render()
     return Roact.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
       BorderSizePixel = 0,
-      Size = UDim2.new(1, 0, 1, 0)
+      Size = UDim2.fromScale(1, 1)
     }, {
       Header = Roact.createElement(Header, {
         CurrentPanel = state.Panel,
@@ -56,7 +56,7 @@ function App:render()
         TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
         TextSize = 12,
         TextWrapped = true,
-        Size = UDim2.new(1, 0, 0, 0)
+        Size = UDim2.fromScale(1, 0)
       }, {
         UIPadding = Roact.createElement('UIPadding', {
           PaddingBottom = UDim.new(0, 3),

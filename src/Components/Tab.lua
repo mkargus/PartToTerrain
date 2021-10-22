@@ -50,7 +50,7 @@ function Tab:render()
       BackgroundColor3 = theme:GetColor(props.Active and Enum.StudioStyleGuideColor.Titlebar or Enum.StudioStyleGuideColor.Dark),
       BorderSizePixel = 0,
       LayoutOrder = props.LayoutOrder,
-      Size = UDim2.new(props.WidthScale, 0, 1, 0),
+      Size = UDim2.fromScale(props.WidthScale, 1),
       Text = '',
       [Roact.Event.MouseButton1Click] = props.onClick,
       [Roact.Event.MouseEnter] = self._onMouseEnter,
@@ -65,7 +65,7 @@ function Tab:render()
 
       Container = Roact.createElement('Frame', {
         BackgroundTransparency = 1,
-        Size = UDim2.new(1, 0, 1, 0)
+        Size = UDim2.fromScale(1, 1)
       }, {
         UIListLayout = Roact.createElement('UIListLayout', {
           FillDirection = Enum.FillDirection.Horizontal,
@@ -77,7 +77,7 @@ function Tab:render()
         Icon = Roact.createElement('ImageLabel', {
           BackgroundTransparency = 1,
           Image = props.Icon,
-          Size = UDim2.new(0, TAB_ICON_SIZE, 0, TAB_ICON_SIZE),
+          Size = UDim2.fromOffset(TAB_ICON_SIZE, TAB_ICON_SIZE),
           ImageColor3 = color
         }),
         Name = props.IsDisplayingText and Roact.createElement(TextLabel, {

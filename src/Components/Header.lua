@@ -38,7 +38,7 @@ function Header:render()
       }),
 
       Search = props.IsSearchEnabled and Roact.createElement(Search, {
-        Position = UDim2.new(0, 3, 0, 31),
+        Position = UDim2.fromOffset(3, 31),
         Text = Store:Get('SearchTerm'),
         onTextChange = function(rbx)
           Store:Set('SearchTerm', rbx.Text)

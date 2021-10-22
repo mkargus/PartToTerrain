@@ -44,8 +44,8 @@ function MaterialButton:render()
       AnchorPoint = Vector2.new(1, 0),
       BackgroundTransparency = 1,
       Image = 'rbxassetid://4507466924',
-      Position = UDim2.new(1, 0, 0, 0),
-      Size = UDim2.new(0.5, 0, 0.5, 0),
+      Position = UDim2.fromScale(1, 0),
+      Size = UDim2.fromScale(0.5, 0.5)
     })
   })
 end

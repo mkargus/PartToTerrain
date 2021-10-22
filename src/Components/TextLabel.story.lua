@@ -8,7 +8,7 @@ local Wrapper = Roact.Component:extend('TextLabelWrapper')
 
 function Wrapper:render()
   return Roact.createElement(TextLabel, {
-    Size = UDim2.new(0, 150, 0, 50),
+    Size = UDim2.fromOffset(150, 50),
     Text = 'Hello World!'
   })
 end

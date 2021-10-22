@@ -89,10 +89,9 @@ function Tooltip:render()
         content.Tooltip = Roact.createElement(TextLabel, {
           BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
           Position = UDim2.fromOffset(targetX, targetY),
-          Size = UDim2.new(0, tooltipWidth, 0, tooltipHeight),
+          Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
           Text = props.Text,
           TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
-
         }, {
 
           UICorner = Roact.createElement('UICorner', {

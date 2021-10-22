@@ -33,7 +33,6 @@ function Wrapper:render()
       Text = 'Input: ' ..self.state.CurrentText
     })
   })
-
 end
 
 return function(target)

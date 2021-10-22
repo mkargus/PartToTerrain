@@ -22,8 +22,8 @@ function SettingsItem:render()
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-        Size = UDim2.new(0.95, 0, 0, 0),
-        LayoutOrder = props.LayoutOrder
+        LayoutOrder = props.LayoutOrder,
+        Size = UDim2.fromScale(0.95, 0),
       }, {
         Title = Roact.createElement(TextLabel, {
           AutomaticSize = Enum.AutomaticSize.Y,
@@ -39,7 +39,7 @@ function SettingsItem:render()
 
         Toggle = Roact.createElement(ToggleButton, {
           AnchorPoint = Vector2.new(1, 0),
-          Position = UDim2.new(1, 0, 0, 0),
+          Position = UDim2.fromScale(1, 0),
           isEnabled = settings:Get(props.Title),
           onClick = function()
             local currentValue = settings:Get(props.Title)
@@ -51,8 +51,8 @@ function SettingsItem:render()
           AutomaticSize = Enum.AutomaticSize.Y,
           BackgroundTransparency = 1,
           LineHeight = 1.2,
-          Position = UDim2.new(0, 0, 0, 30),
-          Size = UDim2.new(1, 0, 0, 0),
+          Position = UDim2.fromOffset(0, 30),
+          Size = UDim2.fromScale(1, 0),
           Text = Localization('Settings.'..props.Title..'Desc'),
           TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
           TextSize = 12,

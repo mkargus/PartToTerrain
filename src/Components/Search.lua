@@ -40,7 +40,7 @@ end
 function Search:render()
   local props = self.props
   local state = self.state
-  local Modifier = 'Default'
+  local Modifier = Enum.StudioStyleGuideModifier.Default
 
   if state.isFocus then
     Modifier = Enum.StudioStyleGuideModifier.Selected
@@ -65,7 +65,7 @@ function Search:render()
 
       Container = Roact.createElement('Frame', {
         BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, Modifier),
-        Position = UDim2.new(0, 1, 0, 1),
+        Position = UDim2.fromOffset(1, 1),
         Size = UDim2.new(1, -2, 1, -2)
       }, {
         UICorner = Roact.createElement('UICorner', {
@@ -77,7 +77,7 @@ function Search:render()
           ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
           Image = 'rbxassetid://5927945389',
           ImageRectSize = Vector2.new(96, 96),
-          Size = UDim2.new(0, 24, 0, 24)
+          Size = UDim2.fromOffset(24, 24)
         }),
 
         Input = Roact.createElement('TextBox', {
