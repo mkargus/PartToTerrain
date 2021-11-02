@@ -1,10 +1,11 @@
+--!strict
 local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local RESOLUTION = 4
 local MAX_VOXEL_LIMIT_READWRITE = 4194304
 local MAX_VOXEL_LIMIT_FILLAPIS = 67108864
 
-local function GetAABBRegion(cframe: CFrame, size: Vector3)
+local function GetAABBRegion(cframe: CFrame, size: Vector3): (Region3, number)
   local inv = cframe:Inverse()
   local x = size * inv.RightVector
   local y = size * inv.UpVector
@@ -25,7 +26,7 @@ end
 
 local TerrainConverter = {}
 
-function TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
+function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radius: number, preserveTerrain: boolean?): (boolean, string?)
   local center = cframe.Position
   local diameter3 = Vector3.new(radius, radius, radius) * 2
   local region, regionVolume = GetAABBRegion(cframe, diameter3)
@@ -79,7 +80,7 @@ function TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
   return true
 end
 
-function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
+function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?): (boolean, string?)
   local region, regionVolume = GetAABBRegion(cframe, size)
 
   if not preserveTerrain or material == Enum.Material.Air then
@@ -149,12 +150,12 @@ function TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
   return true
 end
 
-function TerrainConverter:FillCylinder(material, cframe, height, radius)
+function TerrainConverter:FillCylinder(material: Enum.Material, cframe: CFrame, height: number, radius: number): boolean
   workspace.Terrain:FillCylinder(cframe, height, radius, material)
   return true
 end
 
-function TerrainConverter:FillWedge(material, cframe, size)
+function TerrainConverter:FillWedge(material: Enum.Material, cframe: CFrame, size: Vector3): boolean
   workspace.Terrain:FillWedge(cframe, size, material)
   return true
 end

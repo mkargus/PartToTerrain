@@ -1,3 +1,4 @@
+--!strict
 local Table = script:WaitForChild('LocalizationTable')
 local LocaleId = game:GetService('StudioService').StudioLocaleId
 local Translator
@@ -8,7 +9,7 @@ if LocaleId ~= 'en_US' then
   FallbackTranslator = Table:GetTranslator('en_US')
 end
 
-local function Localization(id, args): string
+local function Localization(id: string, args: {[number]: string}?): string
   assert(typeof(id) == 'string', 'id must be a string')
   assert(typeof(args) == 'nil' or typeof(args) == 'table', 'args must be a table or nil')
 
