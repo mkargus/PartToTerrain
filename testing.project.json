@@ -1,5 +1,5 @@
 {
-  "name": "Part to Terrain - Production",
+  "name": "Part to Terrain - Testing",
   "tree": {
     "$className": "DataModel",
 
@@ -23,8 +23,6 @@
   },
 
   "globIgnorePaths": [
-    "**.spec.lua",
-    "**.story.lua",
-    "packages/Roact/*.spec"
+    "packages/**/*.spec*"
   ]
 }

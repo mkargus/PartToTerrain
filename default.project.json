@@ -1,29 +1,17 @@
 {
   "name": "Part to Terrain",
   "tree": {
-    "$className": "DataModel",
-
-    "ReplicatedStorage" : {
-      "$className": "ReplicatedStorage",
-      "PartToTerrain": {
-        "$path": "src",
-
-        "Packages": {
-          "$className": "Folder",
-          "Roact": {
-            "$path": "packages/Roact/src"
-          },
-          "BasicState": {
-            "$path": "packages/BasicState/src"
-          }
-        }
-
+    "$path": "src",
+    "Packages": {
+      "$path": "packages",
+      "BasicState": {
+        "$path": "packages/BasicState/src"
       }
     }
   },
 
   "globIgnorePaths": [
-    "packages/**/*.spec.lua",
-    "packages/Roact/*.spec"
+    "**/*.story.lua",
+    "**/*.spec*"
   ]
 }
