@@ -1,0 +1,9 @@
+[package]
+name = "mkargus/parttoterrain"
+version = "1.5.1"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+Roact = "roblox/roact@1.4.2"
+BasicState = "csqrl/basicstate@^0.2.3"

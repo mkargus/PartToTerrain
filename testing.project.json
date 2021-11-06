@@ -9,20 +9,14 @@
         "$path": "src",
 
         "Packages": {
-          "$className": "Folder",
-          "Roact": {
-            "$path": "packages/Roact/src"
-          },
-          "BasicState": {
-            "$path": "packages/BasicState/src"
-          }
+          "$path": "Packages"
         }
-      }
 
+      }
     }
   },
 
   "globIgnorePaths": [
-    "packages/**/*.spec*"
+    "Packages/**/*.spec*"
   ]
 }

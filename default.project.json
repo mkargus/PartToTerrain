@@ -3,10 +3,7 @@
   "tree": {
     "$path": "src",
     "Packages": {
-      "$path": "packages",
-      "BasicState": {
-        "$path": "packages/BasicState/src"
-      }
+      "$path": "Packages"
     }
   },
 

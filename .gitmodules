@@ -1,6 +1,0 @@
-[submodule "packages/Roact"]
-	path = packages/Roact
-	url = https://github.com/Roblox/roact.git
-[submodule "packages/BasicState"]
-	path = packages/BasicState
-	url = https://github.com/ClockworkSquirrel/BasicState.git
