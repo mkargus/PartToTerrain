@@ -11,12 +11,13 @@ Part to Terrain is a Roblox plugin that allows users to convert parts into terra
 ## Tools used
 The plugin uses some third-party tools while developing:
 - [Roact](https://github.com/Roblox/Roact) - Declarative UI library inspired by Facebook's React
-- [BasicState](https://github.com/ClockworkSquirrel/BasicState) - Key-value based state management library
+- [BasicState](https://github.com/csqrl/BasicState) - Key-value based state management library
 - [Rojo](https://github.com/rojo-rbx/rojo) (0.6.x+) - Syncs scripts into Roblox Studio.
 - [Selene](https://github.com/Kampfkarren/selene) - Syntax checking and linter
+- [Wally](https://github.com/UpliftGames/wally) - Package manager for Roblox projects
 
 ## Building the plugin
-This plugin is built using [Rojo](https://rojo.space/docs/0.5.x/guide/installation).
+This plugin is built using [Rojo](https://rojo.space/docs).
 
 Clone the repo:
 ```
@@ -45,5 +46,5 @@ rojo serve
 
 ## Credits
 * [TigerCaptain](https://roblox.com/users/19053090/profile) - Original concept
-* [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Original function to draw terrain for wedges
+* [CloneTrooper1019](https://roblox.com/users/2032622/profile) - Helped with the original plugin
 * [Valletta](https://twitter.com/valletta__) - Created the logo for this plugin
