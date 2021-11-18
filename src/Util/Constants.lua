@@ -1,12 +1,3 @@
--- http://lua-users.org/wiki/ReadOnlyTables
-local function readOnlyTable(table)
-  return setmetatable({}, {
-    __index = table,
-    __newindex = function() error('Attempted to modify read-only table') end,
-    __metatable = false
-  })
-end
-
 local Constants = {}
 
 ----------------------------------------
@@ -69,4 +60,5 @@ Constants.SETTINGS_TABLE = {
   PreserveTerrain = { defaultValue = true }
 }
 
-return readOnlyTable(Constants)
+-- selene: allow(incorrect_standard_library_use)
+return table.freeze(Constants)

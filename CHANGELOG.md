@@ -8,6 +8,7 @@
 * ScrollingFrames now use AutomaticCanvasSize.
 * Updated Roact to 1.4.2
 * Dependencies are now fetched using the [Wally](https://github.com/UpliftGames/wally) package manager
+* Constants now uses Luau's `table.freeze()` function
 ### Fixed
 * Holding any of the Alt keys and click on a part should no longer convert the terrain.
 
