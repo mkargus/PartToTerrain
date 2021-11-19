@@ -112,7 +112,7 @@ function PluginApp:init()
 end
 
 function PluginApp:isUpdateAvailable()
-  if self.plugin:GetSetting('CheckUpdates') then
+  if self.plugin:GetSetting('CheckUpdates') and not RunService:IsRunning() then
     local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
 

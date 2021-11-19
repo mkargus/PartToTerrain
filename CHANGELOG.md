@@ -12,6 +12,7 @@
 * Update Checking is no longer tied to the UI rendering thread. (Meaning if Roblox's server are slow or you have a bad connection, it will no longer delay the plugin's launch.)
 ### Fixed
 * Holding any of the Alt keys and click on a part should no longer convert the terrain.
+* Update checking would check twice when using "Play Solo".
 
 ## [1.5.1] - August 4, 2021
 ### Changed
