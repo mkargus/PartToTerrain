@@ -25,15 +25,11 @@ local Roact = require(Plugin.Packages.Roact)
 local PluginSettings = require(Plugin.Context.PluginSettings)
 local PluginApp = require(Plugin.Components.PluginApp)
 
-Roact.setGlobalConfig({
-  elementTracing = true,
-})
-
 local app = Roact.createElement(PluginSettings.StudioProvider, {
   plugin = plugin
 }, {
   Roact.createElement(PluginApp, {
-    plugin = plugin,
+    plugin = plugin
   })
 })
 
