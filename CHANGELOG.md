@@ -10,6 +10,7 @@
 * Dependencies are now fetched using the [Wally](https://github.com/UpliftGames/wally) package manager
 * Constants now uses Luau's `table.freeze()` function
 * Update Checking is no longer tied to the UI rendering thread. (Meaning if Roblox's server are slow or you have a bad connection, it will no longer delay the plugin's launch.)
+* SpawnLocation will no longer be allowed to be converted.
 ### Fixed
 * Holding any of the Alt keys and click on a part should no longer convert the terrain.
 * Update checking would check twice when using "Play Solo".
