@@ -17,31 +17,20 @@ The plugin uses some third-party tools while developing:
 - [Wally](https://github.com/UpliftGames/wally) - Package manager for Roblox projects
 
 ## Building the plugin
-This plugin is built using [Rojo](https://rojo.space/docs).
+1. Make sure you have installed Git, Wally, and Rojo in order to build the plugin.
 
-Clone the repo:
+2. Clone the repo:
 ```
-git clone https://github.com/mkargus/PartToTerrain.git <ProjectName>
+git clone https://github.com/mkargus/PartToTerrain.git
 ```
-
-**If you're using the VSCode extension:**
-
-Click on `Start Rojo` on the lower right to start the server.
-
-or
-
-Open the command panel (`Ctrl+Shift+P`) and run `Rojo: Start Server`.
-
-**If you're not using the VScode extension:**
-
-Go to the root directory of the repo
+3. Inside the project's root folder, you'll need to install the packages used for the plugin via Wally:
 ```
-cd <ProjectName>
+wally install
 ```
 
-To start Rojo:
+4. To compile the plugin without the test scripts, run Rojo with this command:
 ```
-rojo serve
+rojo build --output PartToTerrain.rbxmx
 ```
 
 ## Credits

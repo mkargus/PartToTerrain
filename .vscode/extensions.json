@@ -1,5 +1,7 @@
 {
   "recommendations": [
-    "evaera.vscode-rojo"
+    "evaera.vscode-rojo",
+    "nightrains.robloxlsp",
+    "kampfkarren.selene-vscode"
   ]
 }
