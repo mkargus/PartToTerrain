@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.5.2] - December 22, 2021
 ### Added
 * Localization for Spanish, Portuguese & Japanese
 ### Changed
@@ -131,7 +133,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.1...main
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.2...main
+[1.5.2]: https://github.com/mkargus/PartToTerrain/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/mkargus/PartToTerrain/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/mkargus/PartToTerrain/compare/1.3.1...1.4.0
