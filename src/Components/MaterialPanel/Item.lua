@@ -50,4 +50,20 @@ function MaterialButton:render()
   })
 end
 
+function MaterialButton:shouldUpdate(_, newState)
+  -- Allow re-rendering only if the Material state is selected or deselected.
+  -- * Removing this would cause ALL materials button, whether or not selected, to re-rendering. (23 materials => 23 re-renders)
+  if newState.Material == self.props.Id or self.state.Material == self.props.Id then
+    return true
+  end
+
+  -- Allows re-rendering for the `isHovering` state that is used for the tooltip.
+  if newState.isHovering ~= self.state.isHovering then
+    return true
+  end
+
+  -- For any other reason, don't re-render the element.
+  return false
+end
+
 return Store:Roact(MaterialButton, { 'Material' })
