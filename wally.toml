@@ -6,4 +6,6 @@ realm = "shared"
 
 [dependencies]
 Roact = "roblox/roact@1.4.2"
-BasicState = "csqrl/basicstate@^0.2.3"
+# csqrl's BasicState install is currently busted. See https://github.com/csqrl/BasicState/issues/10 & https://github.com/csqrl/BasicState/pull/11
+# BasicState = "csqrl/basicstate@^0.2.3"
+BasicState = "mkargus/basicstate@=0.2.3-patch1"
