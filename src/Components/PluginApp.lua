@@ -37,7 +37,7 @@ function PluginApp:init()
     end
   end)
 
-  self.plugin = self.props.plugin
+  self.plugin = self.props.plugin :: Plugin
 
   self.plugin.Deactivation:Connect(function()
     self:setState({ guiEnabled = false })
@@ -87,17 +87,17 @@ function PluginApp:init()
           return Store:Set('Material', RaycastResults.Material)
         end
 
-      elseif not obj:IsA('Terrain') and TerrainUtil.isConvertibleToTerrain(RaycastResults.Instance) then
+      elseif not obj:IsA('Terrain') and TerrainUtil:IsConvertibleToTerrain(RaycastResults.Instance) then
 
         if self.plugin:GetSetting('IgnoreLockedParts') and obj.Locked then
           return
         end
 
-        local shape, cframe, size = TerrainUtil.GetPartInfo(obj)
+        local shape, cframe, size = TerrainUtil:GetPartInfo(obj)
         local material = Store:Get('Material')
         local preserceTerrain = self.plugin:GetSetting('PreserveTerrain')
 
-        local success = TerrainUtil.convertToTerrain(shape, material, cframe, size, preserceTerrain)
+        local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserceTerrain)
         if success then
           if self.plugin:GetSetting('DeletePart')  then
             obj.Parent = nil

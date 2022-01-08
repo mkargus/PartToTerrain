@@ -2,7 +2,9 @@
 local TerrainEnum = require(script.Parent.TerrainEnum)
 local TerrainConverter = require(script.Parent.TerrainConverter)
 
-local function isConvertibleToTerrain(instance: Instance): boolean
+local TerrainUtil = {}
+
+function TerrainUtil:IsConvertibleToTerrain(instance: Instance): boolean
   if not instance then
     return false
   end
@@ -32,7 +34,7 @@ end
 --[[
   Returns info about the part such as what shape it is, cframe and size.
 ]]
-local function GetPartInfo(part): (string, CFrame, Vector3)
+function TerrainUtil:GetPartInfo(part): (string, CFrame, Vector3)
   local cframe = part.CFrame
   local size = part.Size
 
@@ -78,9 +80,8 @@ local function GetPartInfo(part): (string, CFrame, Vector3)
   return TerrainEnum.Shape.Block, cframe, size
 end
 
-local function convertToTerrain(shape: string, material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?): (boolean, string?)
+function TerrainUtil:ConvertToTerrain(shape: string, material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?): (boolean, string?)
   if size.X <= 0 or size.Y <= 0 or size.Z <= 0 then
-    print('Invalid size found')
     return false, TerrainEnum.ConvertError.InvalidSize
   end
 
@@ -113,10 +114,4 @@ local function convertToTerrain(shape: string, material: Enum.Material, cframe: 
   return success, errorCode
 end
 
-return {
-  isConvertibleToTerrain = isConvertibleToTerrain,
-
-  GetPartInfo = GetPartInfo,
-
-  convertToTerrain = convertToTerrain
-}
+return TerrainUtil

@@ -44,9 +44,9 @@ function Outline:render()
 
   if not Part then return nil end
 
-  local shape, _, size = TerrainUtil.GetPartInfo(Part)
+  local shape, _, size = TerrainUtil:GetPartInfo(Part)
 
-  local isConvertibleToTerrain = TerrainUtil.isConvertibleToTerrain(Part)
+  local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(Part)
 
   return PluginSettings.with(function(settings)
 
