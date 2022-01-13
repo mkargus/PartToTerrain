@@ -59,73 +59,75 @@ function Tooltip:willUnmount()
   self.disconnectHover()
 end
 
+function Tooltip:createToolTip(targetX, targetY, tooltipWidth, tooltipHeight)
+  return StudioTheme.withTheme(function(theme)
+    return Roact.createElement(TextLabel, {
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
+      Position = UDim2.fromOffset(targetX, targetY),
+      Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
+      Text = self.props.Text,
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+    }, {
+
+      UICorner = Roact.createElement('UICorner', {
+        CornerRadius = UDim.new(0, 3)
+      }),
+
+      UIPadding = Roact.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, PADDING),
+        PaddingLeft = UDim.new(0, PADDING),
+        PaddingRight = UDim.new(0, PADDING),
+        PaddingTop = UDim.new(0, PADDING)
+      }),
+
+      UIStroke = Roact.createElement('UIStroke', {
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+        Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
+      })
+
+    })
+  end)
+end
+
 function Tooltip:render()
   local props = self.props
   local state = self.state
 
-  return StudioTheme.withTheme(function(theme)
-    return PluginGuiWrapper.withFocus(function(pluginGui)
+  return PluginGuiWrapper.withFocus(function(pluginGui)
+    local content = nil
 
-      local content = {}
+    if state.MousePos and state.ShowTooltip then
 
-      if pluginGui and state.MousePos and state.ShowTooltip then
+      local targetX = state.MousePos.X + OFFSET.X
+      local targetY = state.MousePos.Y + OFFSET.Y
 
-        local targetX = state.MousePos.X + OFFSET.X
-        local targetY = state.MousePos.Y + OFFSET.Y
+      local TextBound = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
 
-        local TextBound = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
+      local tooltipWidth = TextBound.X + (2 * PADDING)
+      local tooltipHeight = TextBound.Y + (2 * PADDING)
 
-        local tooltipWidth = TextBound.X + (2 * PADDING)
-        local tooltipHeight = TextBound.Y + (2 * PADDING)
-
-        if targetX + tooltipWidth >= pluginGui.AbsoluteSize.X then
-          targetX = pluginGui.AbsoluteSize.X - tooltipWidth
-        end
-
-        if targetY + tooltipHeight >= pluginGui.AbsoluteSize.Y then
-          targetY = pluginGui.AbsoluteSize.Y - tooltipHeight
-        end
-
-        content.Tooltip = Roact.createElement(TextLabel, {
-          BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
-          Position = UDim2.fromOffset(targetX, targetY),
-          Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
-          Text = props.Text,
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
-        }, {
-
-          UICorner = Roact.createElement('UICorner', {
-            CornerRadius = UDim.new(0, 3)
-          }),
-
-          UIPadding = Roact.createElement('UIPadding', {
-            PaddingBottom = UDim.new(0, PADDING),
-            PaddingLeft = UDim.new(0, PADDING),
-            PaddingRight = UDim.new(0, PADDING),
-            PaddingTop = UDim.new(0, PADDING)
-          }),
-
-          UIStroke = Roact.createElement('UIStroke', {
-            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-            Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
-          })
-        })
-
+      if targetX + tooltipWidth >= pluginGui.AbsoluteSize.X then
+        targetX = pluginGui.AbsoluteSize.X - tooltipWidth
       end
 
-      return Roact.createElement(Roact.Portal, {
-        target = pluginGui
-      }, {
-        TopLevelFrame = Roact.createElement('Frame', {
-          BackgroundTransparency = 1,
-          Size = UDim2.fromScale(1, 1),
-          ZIndex = 100000,
-          [Roact.Event.MouseEnter] = self.onMouseEnter,
-          [Roact.Event.MouseMoved] = self.onMouseMoved
-        }, content)
-      })
+      if targetY + tooltipHeight >= pluginGui.AbsoluteSize.Y then
+        targetY = pluginGui.AbsoluteSize.Y - tooltipHeight
+      end
 
-    end)
+      content = self:createToolTip(targetX, targetY, tooltipWidth, tooltipHeight)
+    end
+
+    return Roact.createElement(Roact.Portal, {
+      target = pluginGui
+    }, {
+      TopLevelFrame = Roact.createElement('Frame', {
+        BackgroundTransparency = 1,
+        Size = UDim2.fromScale(1, 1),
+        ZIndex = 100000,
+        [Roact.Event.MouseEnter] = self.onMouseEnter,
+        [Roact.Event.MouseMoved] = self.onMouseMoved
+      }, content)
+    })
   end)
 end
 
