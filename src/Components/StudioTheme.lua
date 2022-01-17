@@ -1,35 +1,11 @@
-local studioSettings = settings():GetService('Studio')
+local StudioTheme = {}
 
-local Roact = require(script.Parent.Parent.Packages.Roact)
-local StudioTheme = Roact.PureComponent:extend('StudioTheme')
-
-function StudioTheme:init()
-  self.state = {
-    theme = studioSettings.Theme
-  }
-end
-
-function StudioTheme:didMount()
-  self._themeConnection = studioSettings.ThemeChanged:Connect(function()
-    self:setState({
-      theme = studioSettings.Theme
-    })
-  end)
-end
-
-function StudioTheme:render()
-  local render = Roact.oneChild(self.props[Roact.Children])
-  return render(self.state.theme)
-end
-
-function StudioTheme:willUnmount()
-  self._themeConnection:Disconnect()
-end
+local ThemeContext = require(script.Parent.Parent.Context.StudioTheme)
 
 function StudioTheme.withTheme(callback)
-  return Roact.createElement(StudioTheme, {}, {
-    render = callback
-  })
+  -- I could have just replace all `Plugin.Components.StudioTheme` requires and avoid redirecting
+  -- but I don't want to mess with several files and risk breaking stuff.
+  return ThemeContext.withTheme(callback)
 end
 
 return StudioTheme

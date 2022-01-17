@@ -23,13 +23,16 @@ local Plugin = script.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local PluginSettings = require(Plugin.Context.PluginSettings)
+local StudioThemeContext = require(Plugin.Context.StudioTheme)
 local PluginApp = require(Plugin.Components.PluginApp)
 
 local app = Roact.createElement(PluginSettings.StudioProvider, {
   plugin = plugin
 }, {
-  Roact.createElement(PluginApp, {
-    plugin = plugin
+  Roact.createElement(StudioThemeContext.StudioProvider, nil, {
+    Roact.createElement(PluginApp, {
+      plugin = plugin
+    })
   })
 })
 
