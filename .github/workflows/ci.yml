@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: roblox/setup-foreman@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        version: "=1.0.2"
+
+    - name: List installed foreman tools
+      run: foreman list
+
+    - name: Generate Roblox standards
+      run: selene generate-roblox-std
+
+    - name: Run Selene
+      run: selene ./src
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: "=1.0.2"
+
+      - name: List installed foreman tools
+        run: foreman list
+
+      - name: Install Wally packages
+        run: wally install
+
+      - name: Build plugin
+        run: rojo build default.project.json --output PartToTerrain.rbxmx

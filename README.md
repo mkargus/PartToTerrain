@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/14226603/50402248-1828e200-0763-11e9-9b84-7e34f0bd8ef2.png">
 
-  [![](https://github.com/mkargus/PartToTerrain/workflows/Lint/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
+  [![](https://github.com/mkargus/PartToTerrain/workflows/CI/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
   [![](https://img.shields.io/github/release/mkargus/PartToTerrain.svg?style=flat-square)](https://github.com/mkargus/PartToTerrain/releases)
   [![](https://img.shields.io/github/license/mkargus/PartToTerrain.svg?style=flat-square)](LICENSE.txt)
 </div>
