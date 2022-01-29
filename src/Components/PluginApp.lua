@@ -117,9 +117,9 @@ function PluginApp:isUpdateAvailable()
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
 
     if success then
-      local LastestVersion = info.Description:match('([0-9]+%.[0-9]+%.[0-9]+)')
+      local LatestVersion = info.Description:match('([0-9]+%.[0-9]+%.[0-9]+)')
 
-      if LastestVersion and LastestVersion ~= Constants.VERSION then
+      if LatestVersion and LatestVersion ~= Constants.VERSION then
         return true
       end
 
