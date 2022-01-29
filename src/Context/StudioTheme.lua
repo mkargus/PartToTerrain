@@ -29,7 +29,7 @@ function StudioThemeProvider:willUnmount()
   self._themeConnection:Disconnect()
 end
 
-local function withTheme(callback)
+local function withTheme(callback: (theme: StudioTheme) -> any)
   return Roact.createElement(Context.Consumer, {
     render = callback
   })
