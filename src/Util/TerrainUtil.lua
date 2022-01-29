@@ -1,4 +1,3 @@
---!strict
 local TerrainEnum = require(script.Parent.TerrainEnum)
 local TerrainConverter = require(script.Parent.TerrainConverter)
 
