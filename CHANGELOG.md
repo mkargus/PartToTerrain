@@ -3,8 +3,8 @@
 ## [Unreleased]
 ### Changed
 * Material buttons will now only re-render itself if it's been selected or needs to be deselected
-* Improved performance for tooltips
-* Ported StudioTheme to use Roact's Context feature
+* Tooltip is no longer created immediately in the background.
+* StudioTheme now uses Roact's Context feature. This change should reduce the usage of memory.
 
 ## [1.5.2] - December 22, 2021
 ### Added
