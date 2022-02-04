@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags: [ '*' ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List installed foreman tools
+        run: foreman list
+
+      - name: Install Wally packages
+        run: wally install
+
+      - name: Build plugin
+        run: rojo build default.project.json --output PartToTerrain.rbxmx
+
+      - name: Get release info
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
+      # TODO: Look into plugin uploading via Open Cloud when supported.
+
+      - name: Create Github release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.get_version.outputs.VERSION }}
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          files: PartToTerrain.rbxmx
