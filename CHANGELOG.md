@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.5.3] - February 4, 2022
 ### Changed
 * Material buttons will now only re-render itself if it's been selected or needs to be deselected
 * Tooltip is no longer created immediately in the background.
@@ -137,7 +139,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.2...main
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.3...main
+[1.5.3]: https://github.com/mkargus/PartToTerrain/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/mkargus/PartToTerrain/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/mkargus/PartToTerrain/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/mkargus/PartToTerrain/compare/1.4.0...1.5.0
