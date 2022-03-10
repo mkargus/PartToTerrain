@@ -43,6 +43,7 @@ function PluginApp:init()
     self:setState({ guiEnabled = false })
   end)
 
+  -- TODO: Make PluginToolbar & PluginToolbarButton into a Roact component
   self.toolbar = self.plugin:CreateToolbar('mkargus')
 
   self.button = self.toolbar:CreateButton(
@@ -70,7 +71,7 @@ function PluginApp:init()
   self.raycastParams = RaycastParams.new()
   self.raycastParams.IgnoreWater = true
 
-  self.pluginMouse.Button1Down:Connect(function()
+  self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = self.pluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, self.raycastParams)
@@ -178,6 +179,13 @@ function PluginApp:didMount()
   task.spawn(function()
     self:setState({ isOutdated = self:isUpdateAvailable() })
   end)
+end
+
+function PluginApp:willUnmount()
+  self.toolbar:Destroy()
+  self.button:Destroy()
+
+  self.PluginMouseClickConnection:Disconnect()
 end
 
 return PluginApp
