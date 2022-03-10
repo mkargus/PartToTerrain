@@ -22,20 +22,21 @@ function Outline:init()
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, self.props.raycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
-      self:setState({ part = RaycastResults.Instance })
+
+      -- Only change the state if the part in the RaycastResults is different from the one in the state.
+      if RaycastResults.Instance ~= self.state.part then
+        self:setState({ part = RaycastResults.Instance })
+      end
+
     else
-      self.props.PluginMouse.Icon = ''
-      self:setState({ part = Roact.None })
+
+      if self.state.part then
+        self.props.PluginMouse.Icon = ''
+        self:setState({ part = Roact.None })
+      end
+
     end
   end)
-end
-
-function Outline:shouldUpdate(_, nextState)
-  if self.state.part == nextState.part then
-    return false
-  end
-
-  return true
 end
 
 function Outline:render()
