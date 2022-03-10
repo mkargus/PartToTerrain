@@ -16,7 +16,7 @@ function ScrollingFrame:init()
     isYAxisShowing = false
   }
 
-  function self._onWindowSizeChange(rbx)
+  function self._onCanvasSizeChange(rbx)
     self:setState({
       isYAxisShowing = rbx.AbsoluteWindowSize.Y < rbx.AbsoluteCanvasSize.Y
     })
@@ -61,11 +61,18 @@ function ScrollingFrame:render()
         TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
         VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
         ZIndex = 2,
-        [Roact.Change.AbsoluteWindowSize] = self._onWindowSizeChange
+        [Roact.Change.AbsoluteCanvasSize] = self._onCanvasSizeChange
       }, props[Roact.Children])
     })
   end)
+end
 
+function ScrollingFrame:shouldUpdate(_, nextState)
+  if nextState.isYAxisShowing == self.state.isYAxisShowing then
+    return false
+  end
+
+  return true
 end
 
 return ScrollingFrame
