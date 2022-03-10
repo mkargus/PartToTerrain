@@ -66,4 +66,8 @@ function StudioWidget:didUpdate()
   self.pluginGui.Enabled = self.props.Active
 end
 
+function StudioWidget:willUnmount()
+  self.pluginGui:Destroy()
+end
+
 return StudioWidget
