@@ -162,7 +162,7 @@ function PluginApp:render()
       pluginGui = state.pluginGui
     }),
 
-    App = Roact.createElement(App, {
+    App = state.guiEnabled and Roact.createElement(App, {
       IsOutdated = state.isOutdated
     }),
 
