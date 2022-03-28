@@ -22,6 +22,18 @@ local Outline = require(Components.Outline)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
+function PluginApp:GetInvisibleParts(): Array<Instance>
+  local ignoreList = {}
+
+  for _, descendant in ipairs(workspace:GetDescendants()) do
+    if descendant:IsA('BasePart') and descendant.Transparency == 1 then
+      table.insert(ignoreList, descendant)
+    end
+  end
+
+  return ignoreList
+end
+
 function PluginApp:init()
   self.state = {
     guiEnabled = false,
@@ -70,6 +82,7 @@ function PluginApp:init()
 
   self.raycastParams = RaycastParams.new()
   self.raycastParams.IgnoreWater = true
+  self.raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
 
   self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
@@ -133,6 +146,13 @@ end
 
 function PluginApp:didUpdate()
   self.button:SetActive(self.state.guiEnabled)
+
+  if self.state.guiEnabled then
+    task.spawn(function()
+      self.raycastParams.FilterDescendantsInstances = self.plugin:GetSetting('IgnoreInvisibleParts') and self:GetInvisibleParts() or {}
+    end)
+  end
+
 end
 
 function PluginApp:render()
