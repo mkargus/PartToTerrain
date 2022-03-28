@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Added setting to ignore invisible parts.
+### Changed
+* Improved cleanup on unmounting
+* Improvements to limit unnecessary rerenders.
+* UI will not render if the widget is closed.
 
 ## [1.5.3] - February 4, 2022
 ### Changed
