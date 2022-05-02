@@ -12,11 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          version: "=1.0.3"
 
       - name: List installed foreman tools
         run: foreman list
