@@ -67,7 +67,12 @@ function ScrollingFrame:render()
   end)
 end
 
-function ScrollingFrame:shouldUpdate(_, nextState)
+function ScrollingFrame:shouldUpdate(nextProps, nextState)
+  -- Allow updating when using the search bar.
+  if nextProps[Roact.Children] ~= self.props[Roact.Children] then
+    return true
+  end
+
   if nextState.isYAxisShowing == self.state.isYAxisShowing then
     return false
   end
