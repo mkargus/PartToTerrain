@@ -39,5 +39,5 @@ jobs:
         with:
           name: ${{ steps.get_version.outputs.VERSION }}
           fail_on_unmatched_files: true
-          generate_release_notes: true
           files: PartToTerrain.rbxmx
+          draft: true
