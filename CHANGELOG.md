@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.5.4] - May 27, 2022
 ### Added
 * Added setting to ignore invisible parts.
 ### Changed
@@ -145,7 +147,8 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.3...main
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.5.4...main
+[1.5.4]: https://github.com/mkargus/PartToTerrain/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/mkargus/PartToTerrain/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/mkargus/PartToTerrain/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/mkargus/PartToTerrain/compare/1.5.0...1.5.1
