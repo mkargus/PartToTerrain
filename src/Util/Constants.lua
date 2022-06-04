@@ -61,5 +61,4 @@ Constants.SETTINGS_TABLE = {
   IgnoreInvisibleParts = { defaultValue = true }
 }
 
--- selene: allow(incorrect_standard_library_use)
 return table.freeze(Constants)
