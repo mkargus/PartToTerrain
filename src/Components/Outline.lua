@@ -64,7 +64,7 @@ function Outline:render()
 
     local color = (function()
       if isConvertibleToTerrain and not isLockedPartAllowed() then
-        return #Part:GetChildren() == 0  and Constants.OUTLINE_COLOR_ALLOW or Constants.OUTLINE_COLOR_WARNING
+        return #Part:GetChildren() == 0 and Constants.OUTLINE_COLOR_ALLOW or Constants.OUTLINE_COLOR_WARNING
       else
         return Constants.OUTLINE_COLOR_ERROR
       end

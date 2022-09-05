@@ -113,7 +113,7 @@ function PluginApp:init()
 
         local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserceTerrain)
         if success then
-          if self.plugin:GetSetting('DeletePart')  then
+          if self.plugin:GetSetting('DeletePart') then
             obj.Parent = nil
           end
           ChangeHistoryService:SetWaypoint('PartToTerrain')

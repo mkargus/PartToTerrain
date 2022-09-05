@@ -17,11 +17,11 @@ local PluginGUI = nil
 --------------------------------------------
 -- Provider
 --------------------------------------------
-local FocusProvider = Roact.PureComponent:extend("FocusProvider")
+local FocusProvider = Roact.PureComponent:extend('FocusProvider')
 
 function FocusProvider:init()
   local pluginGui = self.props.pluginGui
-  assert(pluginGui ~= nil, "No pluginGui was given to this FocusProvider.")
+  assert(pluginGui ~= nil, 'No pluginGui was given to this FocusProvider.')
 
   PluginGUI = pluginGui
 end
@@ -33,11 +33,11 @@ end
 --------------------------------------------
 -- Internal Consumer
 --------------------------------------------
-local InternalConsumer = Roact.PureComponent:extend("InternalConsumer")
+local InternalConsumer = Roact.PureComponent:extend('InternalConsumer')
 
 function InternalConsumer:init()
-  assert(PluginGUI ~= nil, "No FocusProvider found.")
-  assert(self.props.focusedRender ~= nil, "Use withFocus, not FocusConsumer.")
+  assert(PluginGUI ~= nil, 'No FocusProvider found.')
+  assert(self.props.focusedRender ~= nil, 'Use withFocus, not FocusConsumer.')
 
   self.pluginGui = PluginGUI
 end

@@ -3,10 +3,8 @@ local Roact = require(script.Parent.Parent.Packages.Roact)
 local TextLabel = Roact.PureComponent:extend('TextLabel')
 
 TextLabel.defaultProps = {
-  BackgroundTransparency = 0,
   BorderSizePixel = 0,
   Font = Enum.Font.Gotham,
-  RichText = false,
   TextSize = 14
 }
 
@@ -19,7 +17,6 @@ function TextLabel:render()
     BackgroundTransparency = props.BackgroundTransparency,
     BorderColor3 = props.BorderColor3,
     BorderSizePixel = props.BorderSizePixel,
-    ClipsDescendants = props.ClipsDescendants,
     Font = props.Font,
     LayoutOrder = props.LayoutOrder,
     LineHeight = props.LineHeight,
@@ -31,8 +28,6 @@ function TextLabel:render()
     TextSize = props.TextSize,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
-    ZIndex = props.ZIndex,
-    [Roact.Ref] = props[Roact.Ref]
   }, props[Roact.Children])
 end
 
