@@ -26,7 +26,7 @@ jobs:
         run: wally install
 
       - name: Build plugin
-        run: rojo build default.project.json --output PartToTerrain.rbxmx
+        run: rojo build default.project.json --output PartToTerrain.rbxm
 
       - name: Get release info
         id: get_version
@@ -39,5 +39,5 @@ jobs:
         with:
           name: ${{ steps.get_version.outputs.VERSION }}
           fail_on_unmatched_files: true
-          files: PartToTerrain.rbxmx
+          files: PartToTerrain.rbxm
           draft: true

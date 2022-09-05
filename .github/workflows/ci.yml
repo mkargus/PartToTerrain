@@ -47,4 +47,4 @@ jobs:
         run: wally install
 
       - name: Build plugin
-        run: rojo build default.project.json --output PartToTerrain.rbxmx
+        run: rojo build default.project.json --output PartToTerrain.rbxm
