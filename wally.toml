@@ -5,5 +5,5 @@ registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
-Roact = "roblox/roact@=1.4.2"
+Roact = "roblox/roact@=1.4.4"
 BasicState = "csqrl/basicstate@=0.2.6"

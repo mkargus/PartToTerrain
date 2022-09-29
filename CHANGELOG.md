@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+* Updated Roact to 1.4.4
 
 ## [1.5.4] - May 27, 2022
 ### Added
