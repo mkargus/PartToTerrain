@@ -12,6 +12,7 @@ local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local Store = require(Util.Store)
 local TerrainUtil = require(Util.TerrainUtil)
+local Settings = require(Util.Settings)
 
 local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
 
@@ -103,17 +104,17 @@ function PluginApp:init()
 
       elseif not obj:IsA('Terrain') and TerrainUtil:IsConvertibleToTerrain(RaycastResults.Instance) then
 
-        if self.plugin:GetSetting('IgnoreLockedParts') and obj.Locked then
+        if Settings:Get('IgnoreLockedParts') and obj.Locked then
           return
         end
 
         local shape, cframe, size = TerrainUtil:GetPartInfo(obj)
         local material = Store:Get('Material')
-        local preserceTerrain = self.plugin:GetSetting('PreserveTerrain')
+        local preserceTerrain = Settings:Get('PreserveTerrain')
 
         local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserceTerrain)
         if success then
-          if self.plugin:GetSetting('DeletePart') then
+          if Settings:Get('DeletePart') then
             obj.Parent = nil
           end
           ChangeHistoryService:SetWaypoint('PartToTerrain')
@@ -126,7 +127,7 @@ function PluginApp:init()
 end
 
 function PluginApp:isUpdateAvailable()
-  if self.plugin:GetSetting('CheckUpdates') and not RunService:IsRunning() then
+  if Settings:Get('CheckUpdates') and not RunService:IsRunning() then
     local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
     local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
 
@@ -149,7 +150,7 @@ function PluginApp:didUpdate()
 
   if self.state.guiEnabled then
     task.spawn(function()
-      self.raycastParams.FilterDescendantsInstances = self.plugin:GetSetting('IgnoreInvisibleParts') and self:GetInvisibleParts() or {}
+      self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and self:GetInvisibleParts() or {}
     end)
   end
 
@@ -186,7 +187,7 @@ function PluginApp:render()
       IsOutdated = state.isOutdated
     }),
 
-    Outline = (state.guiEnabled and self.plugin:GetSetting('EnabledSelectionBox')) and Roact.createElement(Outline, {
+    Outline = (state.guiEnabled and Settings:Get('EnabledSelectionBox')) and Roact.createElement(Outline, {
       PluginMouse = self.pluginMouse,
       raycastParams = self.raycastParams
     })

@@ -2,9 +2,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-local Localization = require(Plugin.Util.Localization)
-
-local PluginSettings = require(Plugin.Context.PluginSettings)
+local Util = Plugin.Util
+local Localization = require(Util.Localization)
+local Settings = require(Util.Settings)
 
 local Components = Plugin.Components
 local StudioTheme = require(Components.StudioTheme)
@@ -13,58 +13,68 @@ local ToggleButton = require(Components.ToggleButton)
 
 local SettingsItem = Roact.PureComponent:extend('SettingsItem')
 
+function SettingsItem:init()
+  self.state = {
+    setting = Settings:Get(self.props.Title)
+  }
+
+  self.updatedCleanup = Settings:onUpdate(self.props.Title, function(value)
+    self:setState({ setting = value })
+  end)
+end
+
 function SettingsItem:render()
   local props = self.props
+  local currentSettingValue = self.state.setting
 
-  return PluginSettings.with(function(settings)
-    return StudioTheme.withTheme(function(theme)
-      return Roact.createElement('Frame', {
+  return StudioTheme.withTheme(function(theme)
+    return Roact.createElement('Frame', {
+      AutomaticSize = Enum.AutomaticSize.Y,
+      BackgroundTransparency = 1,
+      BorderSizePixel = 0,
+      LayoutOrder = props.LayoutOrder,
+      Size = UDim2.fromScale(0.95, 0),
+    }, {
+      Title = Roact.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
-        BorderSizePixel = 0,
-        LayoutOrder = props.LayoutOrder,
-        Size = UDim2.fromScale(0.95, 0),
-      }, {
-        Title = Roact.createElement(TextLabel, {
-          AutomaticSize = Enum.AutomaticSize.Y,
-          BackgroundTransparency = 1,
-          Font = Enum.Font.GothamBold,
-          Size = UDim2.new(0.8, 0, 0, 24),
-          Text = Localization('Settings.'..props.Title),
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-          TextSize = 16,
-          TextWrapped = true,
-          TextXAlignment = Enum.TextXAlignment.Left,
-        }),
+        Font = Enum.Font.GothamBold,
+        Size = UDim2.new(0.8, 0, 0, 24),
+        Text = Localization('Settings.'..props.Title),
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+        TextSize = 16,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Left,
+      }),
 
-        Toggle = Roact.createElement(ToggleButton, {
-          AnchorPoint = Vector2.new(1, 0),
-          Position = UDim2.fromScale(1, 0),
-          isEnabled = settings:Get(props.Title),
-          onClick = function()
-            local currentValue = settings:Get(props.Title)
-            settings:Set(props.Title, not currentValue)
-          end
-        }),
+      Toggle = Roact.createElement(ToggleButton, {
+        AnchorPoint = Vector2.new(1, 0),
+        Position = UDim2.fromScale(1, 0),
+        isEnabled = currentSettingValue,
+        onClick = function()
+          Settings:Set(props.Title, not currentSettingValue)
+        end
+      }),
 
-        Description = Roact.createElement(TextLabel, {
-          AutomaticSize = Enum.AutomaticSize.Y,
-          BackgroundTransparency = 1,
-          LineHeight = 1.2,
-          Position = UDim2.fromOffset(0, 30),
-          Size = UDim2.fromScale(1, 0),
-          Text = Localization('Settings.'..props.Title..'Desc'),
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
-          TextSize = 12,
-          TextWrapped = true,
-          TextXAlignment = Enum.TextXAlignment.Left,
-          RichText = true
-        })
-
+      Description = Roact.createElement(TextLabel, {
+        AutomaticSize = Enum.AutomaticSize.Y,
+        BackgroundTransparency = 1,
+        LineHeight = 1.2,
+        Position = UDim2.fromOffset(0, 30),
+        Size = UDim2.fromScale(1, 0),
+        Text = Localization('Settings.'..props.Title..'Desc'),
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+        TextSize = 12,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        RichText = true
       })
-    end)
+    })
   end)
+end
 
+function SettingsItem:willUnmount()
+  self.updatedCleanup()
 end
 
 return SettingsItem

@@ -34,7 +34,7 @@ function SettingsPanel:render()
     })
   }
 
-  for key in pairs(Constants.SETTINGS_TABLE) do
+  for _, key in ipairs(Constants.SETTINGS_TABLE) do
     children[key] = Roact.createElement(Item, {
       LayoutOrder = self:NextLayout(),
       Title = key
