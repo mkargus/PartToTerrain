@@ -18,12 +18,12 @@ function TerrainUtil:IsConvertibleToTerrain(instance: Instance): boolean
   end
 
   -- Block attepments against NPCs.
-  if instance.Parent:IsA('Model') and instance.Parent:FindFirstChildOfClass('Humanoid') then
+  if instance.Parent and instance.Parent:IsA('Model') and instance.Parent:FindFirstChildOfClass('Humanoid') then
     return false
   end
 
   -- Disallow Mesh, CSG, CornerWedge or SpawnLocation parts
-  if instance:IsA('MeshPart') or instance:IsA('PartOperation') or instance:IsA('CornerWedgePart') or instance:IsA('SpawnLocation') then
+  if instance:IsA('TriangleMeshPart') or instance:IsA('CornerWedgePart') or instance:IsA('SpawnLocation') then
     return false
   end
 

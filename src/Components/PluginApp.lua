@@ -23,7 +23,7 @@ local Outline = require(Components.Outline)
 
 local PluginApp = Roact.PureComponent:extend('PluginApp')
 
-function PluginApp:GetInvisibleParts(): Array<Instance>
+function PluginApp:GetInvisibleParts()
   local ignoreList = {}
 
   for _, descendant in ipairs(workspace:GetDescendants()) do
@@ -99,7 +99,8 @@ function PluginApp:init()
 
       if isPressingAlt() then
         if obj:IsA('Terrain') then
-          return Store:Set('Material', RaycastResults.Material)
+          Store:Set('Material', RaycastResults.Material)
+          return
         end
 
       elseif not obj:IsA('Terrain') and TerrainUtil:IsConvertibleToTerrain(RaycastResults.Instance) then

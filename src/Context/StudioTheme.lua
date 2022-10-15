@@ -1,3 +1,4 @@
+--!nocheck
 local Studio = settings():GetService('Studio')
 
 local Plugin = script.Parent.Parent
