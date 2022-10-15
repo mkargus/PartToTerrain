@@ -4,7 +4,7 @@ local DEFAULT_SETTINGS = {
   CheckUpdates = true,
   DeletePart = true,
   EnabledSelectionBox = true,
-  IgnoreLockedParts = true,
+  IgnoreLockedParts = false,
   PreserveTerrain = true,
   IgnoreInvisibleParts = true
 }
