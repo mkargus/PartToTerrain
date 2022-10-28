@@ -53,7 +53,6 @@ Constants.MATERIALS_TABLE = {
 -- Settings related
 ----------------------------------------
 Constants.SETTINGS_TABLE = {
-  'CheckUpdates',
   'DeletePart',
   'EnabledSelectionBox',
   'IgnoreLockedParts',

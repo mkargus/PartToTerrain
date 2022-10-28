@@ -6,6 +6,8 @@
 ### Changed
 * Updated Roact to 1.4.4
 * Mouse cursor icon will now change icons even if highlight part setting is disabled.
+### Removed
+* Removed the setting for disabling the update checker on studio launch.
 
 ## [1.5.4] - May 27, 2022
 ### Added

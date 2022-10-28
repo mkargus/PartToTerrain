@@ -1,7 +1,6 @@
 local plugin = plugin or script:FindFirstAncestorWhichIsA('Plugin')
 
 local DEFAULT_SETTINGS = {
-  CheckUpdates = true,
   DeletePart = true,
   EnabledSelectionBox = true,
   IgnoreLockedParts = false,

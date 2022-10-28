@@ -6,8 +6,6 @@ Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},파트를 지형으�
 Plugin.Search,Search,搜索,검색,サーチ,Buscar,Pesquisar,Rechercher,Cerca,搜尋
 Button.Materials,Materials,物料,기재,材料,Materiales,Materiais,Matériel,Materiale,材質
 Button.Settings,Settings,设置,설정,設定,Config,Config,Paramètres,Impostazioni,設定
-Settings.CheckUpdates,Check for updates,检查更新,,,,,,,
-Settings.CheckUpdatesDesc,Check for updates on Studio launch and display a notice when the plugin is outdated.,,,,,,,,
 Settings.DeletePart,Delete part when converted,,,,,,,,
 Settings.DeletePartDesc,Deletes the part after being converted to Terrain.,,,,,,,,
 Settings.EnabledSelectionBox,Highlight part on hover,,,,,,,,
