@@ -17,7 +17,6 @@ jobs:
     - uses: roblox/setup-foreman@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        version: "^1.0.5"
 
     - name: List installed foreman tools
       run: foreman list
@@ -38,7 +37,6 @@ jobs:
       - uses: roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          version: "^1.0.5"
 
       - name: List installed foreman tools
         run: foreman list
