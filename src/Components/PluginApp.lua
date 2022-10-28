@@ -188,7 +188,7 @@ function PluginApp:render()
       IsOutdated = state.isOutdated
     }),
 
-    Outline = (state.guiEnabled and Settings:Get('EnabledSelectionBox')) and Roact.createElement(Outline, {
+    Outline = state.guiEnabled and Roact.createElement(Outline, {
       PluginMouse = self.pluginMouse,
       raycastParams = self.raycastParams
     })

@@ -15,7 +15,9 @@ function Outline:init()
     part = nil
   }
 
-  self.MoveConnection = self.props.PluginMouse.Move:Connect(function()
+  self.PluginMouse = self.props.PluginMouse :: PluginMouse
+
+  self.MoveConnection = self.PluginMouse.Move:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = self.props.PluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, self.props.raycastParams)
@@ -51,13 +53,19 @@ function Outline:render()
   local state = self.state
   local Part = state.part
 
-  if not Part then return nil end
+  if not Part then
+    self.PluginMouse.Icon = 'rbxasset://SystemCursors/Arrow'
+    return nil
+  end
 
   local shape, _, size = TerrainUtil:GetPartInfo(Part)
   local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(Part)
   local isLockedPartAllowed = self:isLockedPartAllowed(Part)
 
-  self.props.PluginMouse.Icon = (isConvertibleToTerrain and not isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
+  self.PluginMouse.Icon = (isConvertibleToTerrain and not isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
+
+  -- If the setting is disabled, then no need to do anymore work.
+  if not Settings:Get('EnabledSelectionBox') then return nil end
 
   local color = (function()
     if isConvertibleToTerrain and not isLockedPartAllowed then

@@ -1,8 +1,11 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Translations for French, Italian and Traditional Chinese.
 ### Changed
 * Updated Roact to 1.4.4
+* Mouse cursor icon will now change icons even if highlight part setting is disabled.
 
 ## [1.5.4] - May 27, 2022
 ### Added
