@@ -53,11 +53,11 @@ Constants.MATERIALS_TABLE = {
 -- Settings related
 ----------------------------------------
 Constants.SETTINGS_TABLE = {
+  'PreserveTerrain',
+  'IgnoreLockedParts',
+  'IgnoreInvisibleParts',
   'DeletePart',
   'EnabledSelectionBox',
-  'IgnoreLockedParts',
-  'PreserveTerrain',
-  'IgnoreInvisibleParts'
 }
 
 return table.freeze(Constants)
