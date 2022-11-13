@@ -4,7 +4,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Localization = require(Plugin.Util.Localization)
 
-local StudioTheme = require(Plugin.Components.StudioTheme)
+local StudioTheme = require(Plugin.Context.StudioTheme)
 
 local Search = Roact.PureComponent:extend('Search')
 

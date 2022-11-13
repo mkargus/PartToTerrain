@@ -5,8 +5,9 @@ local Roact = require(Plugin.Packages.Roact)
 local Store = require(Plugin.Util.Store)
 local Localization = require(Plugin.Util.Localization)
 
+local StudioTheme = require(Plugin.Context.StudioTheme)
+
 local Components = Plugin.Components
-local StudioTheme = require(Components.StudioTheme)
 local Search = require(Components.Search)
 local TabSet = require(Components.TabSet)
 

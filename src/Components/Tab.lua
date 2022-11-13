@@ -17,8 +17,9 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
+local StudioTheme = require(Plugin.Context.StudioTheme)
+
 local Components = Plugin.Components
-local StudioTheme = require(Components.StudioTheme)
 local TextLabel = require(Components.TextLabel)
 local Tooltip = require(Components.Tooltip)
 

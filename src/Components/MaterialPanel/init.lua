@@ -7,10 +7,11 @@ local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local Store = require(Util.Store)
 
+local StudioTheme = require(Plugin.Context.StudioTheme)
+
 local Components = Plugin.Components
 local ScrollingFrame = require(Components.ScrollingFrame)
 local TextLabel = require(Components.TextLabel)
-local StudioTheme = require(Components.StudioTheme)
 local MaterialItem = require(Components.MaterialPanel.Item)
 
 local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')

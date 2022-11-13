@@ -6,8 +6,9 @@ local Util = Plugin.Util
 local Localization = require(Util.Localization)
 local Store = require(Util.Store)
 
+local StudioTheme = require(Plugin.Context.StudioTheme)
+
 local Components = Plugin.Components
-local StudioTheme = require(Components.StudioTheme)
 local MaterialPanel = require(Components.MaterialPanel)
 local SettingsPanel = require(Components.SettingsPanel)
 local TextLabel = require(Components.TextLabel)
@@ -18,7 +19,7 @@ local App = Roact.PureComponent:extend('App')
 function App:renderBody(Panel)
   if Panel == 'Materials' then
     return Roact.createElement(MaterialPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -60)
+      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -78) or UDim2.new(1, 0, 1, -60)
     })
   elseif Panel == 'Settings' then
     return Roact.createElement(SettingsPanel, {

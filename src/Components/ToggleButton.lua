@@ -12,7 +12,7 @@ local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
-local StudioTheme = require(Plugin.Components.StudioTheme)
+local StudioTheme = require(Plugin.Context.StudioTheme)
 
 local ToggleButton = Roact.PureComponent:extend('ToggleButton')
 
