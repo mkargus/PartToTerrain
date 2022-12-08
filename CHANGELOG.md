@@ -6,6 +6,10 @@
 ### Changed
 * Updated Roact to 1.4.4
 * Mouse cursor icon will now change icons even if highlight part setting is disabled.
+* Setting descriptions are now slightly larger
+* Improvements related to settings to make it faster
+### Fixed
+* Fixed an issue where the settings names could clipped onto the descriptions.
 ### Removed
 * Removed the setting for disabling the update checker on studio launch.
 
