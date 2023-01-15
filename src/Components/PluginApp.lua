@@ -67,10 +67,9 @@ function PluginApp:init()
   self.button.Enabled = RunService:IsRunning() ~= true
 
   self.button.Click:Connect(function()
-    self:setState({ guiEnabled = not self.state.guiEnabled })
-
-    if self.state.guiEnabled then
+    if not self.state.guiEnabled then
       self.plugin:Activate(true)
+      self:setState({ guiEnabled = true })
     else
       self.plugin:Deactivate()
     end
