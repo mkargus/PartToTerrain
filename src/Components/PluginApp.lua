@@ -82,7 +82,7 @@ function PluginApp:init()
 
   self.raycastParams = RaycastParams.new()
   self.raycastParams.IgnoreWater = true
-  self.raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+  self.raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
   self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
     local camera = workspace.CurrentCamera.CFrame
