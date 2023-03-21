@@ -198,7 +198,9 @@ function PluginApp:didMount()
   -- Creates a seprate thread for update checking as to not block rendering thread.
   -- This is incase Roblox servers go extremely slow or if a user has a bad connection.
   task.spawn(function()
-    self:setState({ isOutdated = self:isUpdateAvailable() })
+    if self:isUpdateAvailable() then
+      self:setState({ isOutdated = true })
+    end
   end)
 end
 
