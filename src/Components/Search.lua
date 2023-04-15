@@ -54,7 +54,7 @@ function Search:render()
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
       BorderSizePixel = 0,
       Position = props.Position,
-      Size = UDim2.new(1, -6, 0, 26),
+      Size = UDim2.new(1, -7, 0, 26),
       [Roact.Event.MouseButton1Click] = self._onMouseButton1Click,
       [Roact.Event.MouseEnter] = self._onMouseEnter,
       [Roact.Event.MouseLeave] = self._onMouseLeave
