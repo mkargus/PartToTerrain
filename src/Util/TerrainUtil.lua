@@ -33,34 +33,34 @@ end
 --[[
   Returns info about the part such as what shape it is, cframe and size.
 ]]
-function TerrainUtil:GetPartInfo(part): (string, CFrame, Vector3)
+function TerrainUtil:GetPartInfo(part: BasePart): (string, CFrame, Vector3)
   local cframe = part.CFrame
   local size = part.Size
 
+  local obj = part:FindFirstChildWhichIsA('DataModelMesh')
+
   -- If the part has a mesh parented to it, then use the mesh shape instead
-  for _, obj in ipairs(part:GetChildren()) do
-    if obj:IsA('DataModelMesh') then
-      cframe = part.CFrame + part.CFrame:VectorToWorldSpace(obj.Offset)
-      size = part.Size * obj.Scale
+  if obj then
+    cframe += part.CFrame:VectorToWorldSpace(obj.Offset)
+    size *= obj.Scale
 
-      if obj:IsA('SpecialMesh') then
-        if obj.MeshType == Enum.MeshType.Cylinder then
-          return TerrainEnum.Shape.CylinderRotate, cframe, size
-        elseif obj.MeshType == Enum.MeshType.Head then
-          return TerrainEnum.Shape.Cylinder, cframe, size
-        elseif obj.MeshType == Enum.MeshType.Sphere then
-          return TerrainEnum.Shape.Ball, cframe, size
-        elseif obj.MeshType == Enum.MeshType.Wedge then
-          return TerrainEnum.Shape.Wedge, cframe, size
-        end
-
-      elseif obj:IsA('CylinderMesh') then
+    if obj:IsA('SpecialMesh') then
+      if obj.MeshType == Enum.MeshType.Cylinder then
+        return TerrainEnum.Shape.CylinderRotate, cframe, size
+      elseif obj.MeshType == Enum.MeshType.Head then
         return TerrainEnum.Shape.Cylinder, cframe, size
+      elseif obj.MeshType == Enum.MeshType.Sphere then
+        return TerrainEnum.Shape.Ball, cframe, size
+      elseif obj.MeshType == Enum.MeshType.Wedge then
+        return TerrainEnum.Shape.Wedge, cframe, size
       end
 
-      -- Fallback to a block
-      return TerrainEnum.Shape.Block, cframe, size
+    elseif obj:IsA('CylinderMesh') then
+      return TerrainEnum.Shape.Cylinder, cframe, size
     end
+
+    -- Fallback to a block
+    return TerrainEnum.Shape.Block, cframe, size
   end
 
   if part:IsA('Part') then
