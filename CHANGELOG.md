@@ -1,6 +1,16 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Added support to `Part.Shape = Wedge`
+### Changed
+* Replaced deprecated Raycast enum. *(`Enum.RaycastFilterType.Blacklist` -> `Enum.RaycastFilterType.Exclude`)*
+* Update checker will only change state when update is found.
+* Optimized `GetPartInfo`
+* Updated to latest Rojo, Wally and Selene.
+### Fixed
+* Fixed double setState on ToolbarButton click
+* Missing pixel padding on search bar.
 
 ## [1.6.0] - December 8, 2022
 ### Added
