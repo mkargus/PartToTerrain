@@ -68,6 +68,8 @@ function TerrainUtil:GetPartInfo(part: BasePart): (string, CFrame, Vector3)
       return TerrainEnum.Shape.CylinderRotate, cframe, size
     elseif part.Shape == Enum.PartType.Ball then
       return TerrainEnum.Shape.Ball, cframe, size
+    elseif part.Shape == Enum.PartType.Wedge then
+      return TerrainEnum.Shape.Wedge, cframe, size
     else
       return TerrainEnum.Shape.Block, cframe, size
     end
