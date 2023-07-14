@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.6.1] - July 14, 2023
 ### Added
 * Added support to `Part.Shape = Wedge`
 ### Changed
