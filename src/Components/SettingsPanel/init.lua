@@ -5,8 +5,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Util.Constants)
 
 local Components = Plugin.Components
-local ScrollingFrame = require(Components.ScrollingFrame)
 local Item = require(script.Item)
+local ScrollingFrame = require(Components.ScrollingFrame)
 local Separator = require(script.Separator)
 
 local SettingsPanel = Roact.PureComponent:extend('SettingsPanel')
@@ -34,7 +34,7 @@ function SettingsPanel:render()
     })
   }
 
-  for _, key in ipairs(Constants.SETTINGS_TABLE) do
+  for _, key in Constants.SETTINGS_TABLE do
     children[key] = Roact.createElement(Item, {
       LayoutOrder = self:NextLayout(),
       Title = key

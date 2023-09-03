@@ -1,5 +1,5 @@
-local TerrainEnum = require(script.Parent.TerrainEnum)
 local TerrainConverter = require(script.Parent.TerrainConverter)
+local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local TerrainUtil = {}
 

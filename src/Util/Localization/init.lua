@@ -1,5 +1,5 @@
 --!strict
-local Table = script:WaitForChild('LocalizationTable')
+local Table = script.LocalizationTable
 local LocaleId = game:GetService('StudioService').StudioLocaleId
 local Translator
 local FallbackTranslator
@@ -11,7 +11,7 @@ end
 
 local function Localization(id: string, args: {any}?): string
   assert(typeof(id) == 'string', 'id must be a string')
-  assert(typeof(args) == 'nil' or typeof(args) == 'table', 'args must be a table or nil')
+  assert(args == nil or typeof(args) == 'table', 'args must be a table or nil')
 
   local returnValue
   local success = pcall(function()

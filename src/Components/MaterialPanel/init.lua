@@ -10,9 +10,9 @@ local Store = require(Util.Store)
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
 local Components = Plugin.Components
+local MaterialItem = require(Components.MaterialPanel.Item)
 local ScrollingFrame = require(Components.ScrollingFrame)
 local TextLabel = require(Components.TextLabel)
-local MaterialItem = require(Components.MaterialPanel.Item)
 
 local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')
 
@@ -28,18 +28,15 @@ function MaterialPanel:createMaterialButtons(searchTerm)
     })
   }
 
-  for i=1, #Constants.MATERIALS_TABLE do
-    local item = Constants.MATERIALS_TABLE[i]
-
-    if string.find(item.enum.Name:lower(), searchTerm:lower(), 1, true) then
+  for _, item in Constants.MATERIALS_TABLE do
+    if string.find(string.lower(item.enum.Name), string.lower(searchTerm), 1, true) then
       assetsToDisplay[item.enum.Name] = Roact.createElement(MaterialItem, {
         Id = item.enum,
         Image = item.img
       })
 
-      numberAssets = numberAssets + 1
+      numberAssets += 1
     end
-
   end
 
   return assetsToDisplay, numberAssets

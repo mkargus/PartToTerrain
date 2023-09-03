@@ -89,12 +89,13 @@ function Tab:render()
           TextColor3 = color,
           TextXAlignment = Enum.TextXAlignment.Left,
           LayoutOrder = 1
-        }),
-
-        Tooltip = (not props.IsDisplayingText and state.isHovering) and Roact.createElement(Tooltip, {
-          Text = props.Text
         })
+      }),
+
+      Tooltip = (not props.IsDisplayingText and state.isHovering) and Roact.createElement(Tooltip, {
+        Text = props.Text
       })
+
     })
   end)
 end

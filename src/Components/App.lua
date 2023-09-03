@@ -25,6 +25,8 @@ function App:renderBody(Panel)
     return Roact.createElement(SettingsPanel, {
       Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
     })
+  else
+    error('Requested unknown panel.')
   end
 end
 

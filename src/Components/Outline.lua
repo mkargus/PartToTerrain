@@ -4,9 +4,9 @@ local Roact = require(Plugin.Packages.Roact)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
+local Settings = require(Util.Settings)
 local TerrainEnum = require(Util.TerrainEnum)
 local TerrainUtil = require(Util.TerrainUtil)
-local Settings = require(Util.Settings)
 
 local Outline = Roact.PureComponent:extend('Outline')
 

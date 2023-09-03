@@ -85,7 +85,7 @@ function TabSet:render()
 
   local textDisplayed = canTextBeDisplayed(props.Tabs, state.currentWidth / # props.Tabs)
 
-  for _, tab in ipairs (props.Tabs) do
+  for _, tab in props.Tabs do
     children[tab.key] = Roact.createElement(Tab, {
       Key = tab.key,
       Active = props.CurrentTab == tab.key,

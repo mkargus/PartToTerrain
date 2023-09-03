@@ -1,6 +1,7 @@
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
 local RunService = game:GetService('RunService')
+local Selection = game:GetService('Selection')
 local UserInputService = game:GetService('UserInputService')
 
 local Plugin = script.Parent.Parent
@@ -10,20 +11,18 @@ local Roact = require(Plugin.Packages.Roact)
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
+local Settings = require(Util.Settings)
 local Store = require(Util.Store)
 local TerrainUtil = require(Util.TerrainUtil)
-local Settings = require(Util.Settings)
 
 local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
 
 local Components = Plugin.Components
 local App = require(Components.App)
-local StudioWidget = require(Components.StudioWidget)
 local Outline = require(Components.Outline)
+local StudioWidget = require(Components.StudioWidget)
 
-local PluginApp = Roact.PureComponent:extend('PluginApp')
-
-function PluginApp:GetInvisibleParts()
+local function GetInvisibleParts()
   local ignoreList = {}
 
   for _, descendant in ipairs(workspace:GetDescendants()) do
@@ -34,6 +33,27 @@ function PluginApp:GetInvisibleParts()
 
   return ignoreList
 end
+
+local function IsUpdateAvailable()
+  if not RunService:IsRunning() then
+    local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
+    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
+
+    if success then
+      local LatestVersion = string.match(info.Description, '([0-9]+%.[0-9]+%.[0-9]+)')
+
+      if LatestVersion and LatestVersion ~= Constants.VERSION then
+        return true
+      end
+
+    end
+  end
+
+  -- Fallback
+  return false
+end
+
+local PluginApp = Roact.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
   self.state = {
@@ -46,7 +66,7 @@ function PluginApp:init()
   -- where it will select the part and give it a outline.
   ChangeHistoryService.OnUndo:Connect(function(waypoint)
     if waypoint == 'PartToTerrain' then
-      game:GetService('Selection'):Set({})
+      Selection:Set({})
     end
   end)
 
@@ -126,31 +146,12 @@ function PluginApp:init()
 
 end
 
-function PluginApp:isUpdateAvailable()
-  if not RunService:IsRunning() then
-    local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
-
-    if success then
-      local LatestVersion = info.Description:match('([0-9]+%.[0-9]+%.[0-9]+)')
-
-      if LatestVersion and LatestVersion ~= Constants.VERSION then
-        return true
-      end
-
-    end
-  end
-
-  -- Fallback
-  return false
-end
-
 function PluginApp:didUpdate()
   self.button:SetActive(self.state.guiEnabled)
 
   if self.state.guiEnabled then
     task.spawn(function()
-      self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and self:GetInvisibleParts() or {}
+      self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
     end)
   end
 
@@ -198,7 +199,7 @@ function PluginApp:didMount()
   -- Creates a seprate thread for update checking as to not block rendering thread.
   -- This is incase Roblox servers go extremely slow or if a user has a bad connection.
   task.spawn(function()
-    if self:isUpdateAvailable() then
+    if IsUpdateAvailable() then
       self:setState({ isOutdated = true })
     end
   end)
