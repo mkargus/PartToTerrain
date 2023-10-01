@@ -4,15 +4,13 @@ local Roact = require(Plugin.Packages.Roact)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
-local Separator = Roact.PureComponent:extend('Separator')
-
-function Separator:render()
+local function Separator(props)
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Separator),
       BorderSizePixel = 0,
       Size = UDim2.new(1, 0, 0, 1),
-      LayoutOrder = self.props.LayoutOrder
+      LayoutOrder = props.LayoutOrder
     }, {
       UIGradient = Roact.createElement('UIGradient', {
         Transparency = NumberSequence.new({

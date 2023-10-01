@@ -11,15 +11,10 @@ local Components = Plugin.Components
 local Search = require(Components.Search)
 local TabSet = require(Components.TabSet)
 
-local Header = Roact.PureComponent:extend('Header')
-
-function Header:render()
-  local props = self.props
-
+local function Header(props)
   local Height = props.IsSearchEnabled and 60 or 28
 
   return StudioTheme.withTheme(function(theme)
-
     return Roact.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
       BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
@@ -46,7 +41,6 @@ function Header:render()
         end
       })
     })
-
   end)
 end
 

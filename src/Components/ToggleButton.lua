@@ -14,11 +14,7 @@ local Roact = require(Plugin.Packages.Roact)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
-local ToggleButton = Roact.PureComponent:extend('ToggleButton')
-
-function ToggleButton:render()
-  local props = self.props
-
+local function ToggleButton(props)
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('ImageButton', {
       AutoButtonColor = false,
