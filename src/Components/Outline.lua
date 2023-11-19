@@ -40,7 +40,7 @@ function Outline:init()
   end)
 end
 
-function Outline:isLockedPartAllowed(Part)
+function IsLockedPartAllowed(Part)
   local setting = Settings:Get('IgnoreLockedParts')
   if setting then
     return setting == Part.Locked
@@ -60,7 +60,7 @@ function Outline:render()
 
   local shape, _, size = TerrainUtil:GetPartInfo(Part)
   local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(Part)
-  local isLockedPartAllowed = self:isLockedPartAllowed(Part)
+  local isLockedPartAllowed = IsLockedPartAllowed(Part)
 
   self.PluginMouse.Icon = (isConvertibleToTerrain and not isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
 

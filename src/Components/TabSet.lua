@@ -41,21 +41,20 @@ function TabSet:init()
       self.props.onTabSelected(key)
     end
   end
-
 end
 
-function TabSet:ResetLayout()
-  self.currentLayout = 0
-end
+local function CreateNextOrder(): () -> number
+  local LayoutOrder = 0
 
-function TabSet:NextLayout()
-  self.currentLayout = self.currentLayout + 1
-  return self.currentLayout
+  return function()
+    LayoutOrder += 1
+    return LayoutOrder
+  end
 end
 
 local function canTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
-    for _, tab in ipairs(tabs) do
+    for _, tab in tabs do
       local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
       local totalWidth = TAB_ICON_SIZE + TAB_INNER_PADDING + textWidth
 
@@ -73,7 +72,7 @@ function TabSet:render()
   local props = self.props
   local state = self.state
 
-  self:ResetLayout()
+  local NextOrder = CreateNextOrder()
 
   local children = {
     UIListLayout = Roact.createElement('UIListLayout', {
@@ -92,13 +91,12 @@ function TabSet:render()
       WidthScale = 1 / #props.Tabs,
       Icon = tab.icon,
       IsDisplayingText = textDisplayed,
-      LayoutOrder = self:NextLayout(),
+      LayoutOrder = NextOrder(),
       Text = tab.Text,
       onClick = function()
         self.onTabSelected(tab.key)
       end
     })
-
   end
 
   return Roact.createElement('Frame', {

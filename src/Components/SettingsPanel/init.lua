@@ -9,21 +9,17 @@ local Item = require(script.Item)
 local ScrollingFrame = require(Components.ScrollingFrame)
 local Separator = require(script.Separator)
 
-local SettingsPanel = Roact.PureComponent:extend('SettingsPanel')
+local function CreateNextOrder(): () -> number
+  local LayoutOrder = 0
 
-function SettingsPanel:ResetLayout()
-  self.currentLayout = 0
+  return function()
+    LayoutOrder += 1
+    return LayoutOrder
+  end
 end
 
-function SettingsPanel:NextLayout()
-  self.currentLayout = self.currentLayout + 1
-  return self.currentLayout
-end
-
-function SettingsPanel:render()
-  local props = self.props
-
-  self:ResetLayout()
+local function SettingsPanel(props)
+  local NextOrder = CreateNextOrder()
 
   local children = {
     UIListLayout = Roact.createElement('UIListLayout', {
@@ -36,12 +32,12 @@ function SettingsPanel:render()
 
   for _, key in Constants.SETTINGS_TABLE do
     children[key] = Roact.createElement(Item, {
-      LayoutOrder = self:NextLayout(),
+      LayoutOrder = NextOrder(),
       Title = key
     })
 
     children['Separator'..key] = Roact.createElement(Separator, {
-      LayoutOrder = self:NextLayout()
+      LayoutOrder = NextOrder()
     })
   end
 

@@ -16,7 +16,7 @@ local TextLabel = require(Components.TextLabel)
 
 local MaterialPanel = Roact.PureComponent:extend('MaterialPanel')
 
-function MaterialPanel:createMaterialButtons(searchTerm)
+function CreateMaterialButtons(searchTerm)
   local numberAssets = 0
 
   local assetsToDisplay = {
@@ -46,7 +46,7 @@ function MaterialPanel:render()
   local props = self.props
   local state = self.state
 
-  local content, assetCount = self:createMaterialButtons(state.SearchTerm)
+  local content, assetCount = CreateMaterialButtons(state.SearchTerm)
 
   local hasAssets = assetCount ~= 0
 
