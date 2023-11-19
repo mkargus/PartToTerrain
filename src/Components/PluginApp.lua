@@ -167,7 +167,7 @@ function PluginApp:render()
     Id = 'PartToTerrain',
     Title = Localization('Plugin.NameVersion', { Constants.VERSION }),
 
-    Active = state.guiEnabled,
+    Enabled = state.guiEnabled,
 
     OverridePreviousState = true,
     FloatingSize = Vector2.new(250, 330),

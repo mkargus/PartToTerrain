@@ -1,7 +1,7 @@
 --[[
   Props:
     InitialDockState InitialDockState
-    boolean Active
+    boolean Enabled
     boolean OverridePreviousState
     Vector2 FloatingSize
     Vector2 MinimumSize
@@ -18,10 +18,10 @@ local StudioWidget = Roact.PureComponent:extend('StudioWidget')
 
 StudioWidget.defaultProps = {
   InitialDockState = Enum.InitialDockState.Float,
-  Active = false,
+  Enabled = false,
   OverridePreviousState = false,
-  FloatingSize = Vector2.new(0, 0),
-  MinimumSize = Vector2.new(0, 0),
+  FloatingSize = Vector2.zero,
+  MinimumSize = Vector2.zero,
   ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 }
 
@@ -30,10 +30,12 @@ function StudioWidget:init()
 
   local DockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
     props.InitialDockState,
-    props.Active,
+    props.Enabled,
     props.OverridePreviousState,
-    props.FloatingSize.X, props.FloatingSize.Y,
-    props.MinimumSize.X, props.MinimumSize.Y
+    props.FloatingSize.X,
+    props.FloatingSize.Y,
+    props.MinimumSize.X,
+    props.MinimumSize.Y
   )
 
   local pluginGui = props.plugin:CreateDockWidgetPluginGui(props.Id, DockWidgetPluginGuiInfo)
@@ -62,8 +64,10 @@ function StudioWidget:render()
   }, self.props[Roact.Children])
 end
 
-function StudioWidget:didUpdate()
-  self.pluginGui.Enabled = self.props.Active
+function StudioWidget:didUpdate(lastProps)
+  if lastProps.Enabled ~= self.props.Enabled then
+    self.pluginGui.Enabled = self.props.Enabled
+  end
 end
 
 function StudioWidget:willUnmount()
