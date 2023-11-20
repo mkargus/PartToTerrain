@@ -1,4 +1,3 @@
-local RunService = game:GetService('RunService')
 local TextSerice = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
@@ -12,82 +11,88 @@ local StudioTheme = require(Context.StudioTheme)
 local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
 
-local Tooltip = Roact.PureComponent:extend('Tooltip')
-
 local PADDING = 3
 local SHOW_DELAY_TIME = 0.5
 local OFFSET = Vector2.new(13, 5)
 
-function Tooltip:init()
-  self.state = {
-    ShowTooltip = false,
-    MousePos = nil
-  }
+local function Popup(props)
+  local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
 
-  self.targetTime = nil
+  local tooltipWidth = TextSize.X + (2 * PADDING)
+  local tooltipHeight = TextSize.Y + (2 * PADDING)
 
-  self.connectHover = function()
-    self.hoverConnection = RunService.Heartbeat:Connect(function()
-      if tick() >= self.targetTime then
-        self.disconnectHover()
-        self:setState({ ShowTooltip = true })
-      end
-    end)
+  local targetX = props.Position.X + OFFSET.X
+  local targetY = props.Position.Y + OFFSET.Y
+
+  if targetX + tooltipWidth >= props.pluginGui.AbsoluteSize.X then
+    targetX = props.pluginGui.AbsoluteSize.X - tooltipWidth
   end
 
-  self.disconnectHover = function()
-    if self.hoverConnection then
-      self.hoverConnection:Disconnect()
-    end
+  if targetY + tooltipHeight >= props.pluginGui.AbsoluteSize.Y then
+    targetY = props.pluginGui.AbsoluteSize.Y - tooltipHeight
   end
 
-  function self.onMouseEnter(_, PosX, PosY)
-    self:setState({ MousePos = Vector2.new(PosX, PosY) })
-    self.targetTime = tick() + SHOW_DELAY_TIME
-    self.connectHover()
-  end
-
-  function self.onMouseMoved(_, PosX, PosY)
-    if not self.state.ShowTooltip then
-      self:setState({ MousePos = Vector2.new(PosX, PosY) })
-      self.targetTime = tick() + SHOW_DELAY_TIME
-    end
-  end
-
-end
-
-function Tooltip:willUnmount()
-  self.disconnectHover()
-end
-
-function Tooltip:createToolTip(targetX, targetY, tooltipWidth, tooltipHeight)
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement(TextLabel, {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
       Position = UDim2.fromOffset(targetX, targetY),
       Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
-      Text = self.props.Text,
+      Text = props.Text,
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
     }, {
-
       UICorner = Roact.createElement('UICorner', {
         CornerRadius = UDim.new(0, 3)
       }),
-
       UIPadding = Roact.createElement('UIPadding', {
         PaddingBottom = UDim.new(0, PADDING),
         PaddingLeft = UDim.new(0, PADDING),
         PaddingRight = UDim.new(0, PADDING),
         PaddingTop = UDim.new(0, PADDING)
       }),
-
       UIStroke = Roact.createElement('UIStroke', {
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
         Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
       })
-
     })
   end)
+end
+
+local Tooltip = Roact.PureComponent:extend('Tooltip')
+
+function Tooltip:init()
+  self.state = {
+    ShowTooltip = false
+  }
+
+  self.MousePos = Vector2.zero
+
+  self.connectHover = function()
+    self.showDelayThread = task.delay(SHOW_DELAY_TIME, function()
+      self:setState({ ShowTooltip = true })
+      self.showDelayThread = nil
+    end)
+  end
+
+  self.disconnectHover = function()
+    if self.showDelayThread then
+      pcall(task.cancel, self.showDelayThread)
+    end
+  end
+
+  function self.onMouseEnter(_, PosX, PosY)
+    self.MousePos = Vector2.new(PosX, PosY)
+    self.connectHover()
+  end
+
+  function self.onMouseMoved(_, PosX, PosY)
+    if not self.state.ShowTooltip then
+      self.MousePos = Vector2.new(PosX, PosY)
+    end
+  end
+end
+
+function Tooltip:willUnmount()
+  self.disconnectHover()
 end
 
 function Tooltip:render()
@@ -95,28 +100,11 @@ function Tooltip:render()
   local state = self.state
 
   return PluginGuiWrapper.withFocus(function(pluginGui)
-    local content = nil
-
-    if state.MousePos and state.ShowTooltip then
-
-      local targetX = state.MousePos.X + OFFSET.X
-      local targetY = state.MousePos.Y + OFFSET.Y
-
-      local TextBound = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
-
-      local tooltipWidth = TextBound.X + (2 * PADDING)
-      local tooltipHeight = TextBound.Y + (2 * PADDING)
-
-      if targetX + tooltipWidth >= pluginGui.AbsoluteSize.X then
-        targetX = pluginGui.AbsoluteSize.X - tooltipWidth
-      end
-
-      if targetY + tooltipHeight >= pluginGui.AbsoluteSize.Y then
-        targetY = pluginGui.AbsoluteSize.Y - tooltipHeight
-      end
-
-      content = self:createToolTip(targetX, targetY, tooltipWidth, tooltipHeight)
-    end
+    local content = state.ShowTooltip and Roact.createElement(Popup, {
+      pluginGui = pluginGui,
+      Position = self.MousePos,
+      Text = props.Text
+    })
 
     return Roact.createElement(Roact.Portal, {
       target = pluginGui
