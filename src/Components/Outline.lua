@@ -9,6 +9,8 @@ local Settings = require(Util.Settings)
 local TerrainEnum = require(Util.TerrainEnum)
 local TerrainUtil = require(Util.TerrainUtil)
 
+local useEventConnection = require(Plugin.Hooks.useEventConnection)
+
 local function IsLockedPartAllowed(Part)
   local setting = Settings:Get('IgnoreLockedParts')
   if setting then
@@ -61,26 +63,20 @@ local function Outline(props, hooks)
   local Part, setPart = hooks.useState()
   local PluginMouse = props.PluginMouse :: PluginMouse
 
-  hooks.useEffect(function()
-    local MoveConnection = PluginMouse.Move:Connect(function()
-      local camera = workspace.CurrentCamera.CFrame
-      local ray = PluginMouse.UnitRay
-      local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.raycastParams)
+  useEventConnection(hooks, PluginMouse.Move, function()
+    local camera = workspace.CurrentCamera.CFrame
+    local ray = PluginMouse.UnitRay
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.raycastParams)
 
-      if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
-        -- Only change the state if the part in the RaycastResults is different from the one in the state.
-        if RaycastResults.Instance ~= Part then
-          setPart(RaycastResults.Instance)
-        end
-      else
-        setPart(nil)
+    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
+      -- Only change the state if the part in the RaycastResults is different from the one in the state.
+      if RaycastResults.Instance ~= Part then
+        setPart(RaycastResults.Instance)
       end
-    end)
-
-    return function()
-      MoveConnection:Disconnect()
+    else
+      setPart(nil)
     end
-  end, {})
+  end)
 
   if not Part then
     PluginMouse.Icon = 'rbxasset://SystemCursors/Arrow'
