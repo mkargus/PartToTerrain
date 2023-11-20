@@ -1,10 +1,10 @@
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
-local Store = require(Util.Store)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
@@ -14,25 +14,24 @@ local SettingsPanel = require(Components.SettingsPanel)
 local TextLabel = require(Components.TextLabel)
 local Header = require(Components.Header)
 
-local App = Roact.PureComponent:extend('App')
+local useStore = require(Plugin.Hooks.useStore)
 
-function App:renderBody(Panel)
-  if Panel == 'Materials' then
-    return Roact.createElement(MaterialPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -78) or UDim2.new(1, 0, 1, -60)
-    })
-  elseif Panel == 'Settings' then
-    return Roact.createElement(SettingsPanel, {
-      Size = self.props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
-    })
-  else
-    error('Requested unknown panel.')
-  end
-end
+local function App(props, hooks)
+  local CurrentPanel = useStore(hooks, 'Panel')
 
-function App:render()
-  local props = self.props
-  local state = self.state
+  local PanelElement = hooks.useMemo(function()
+    if CurrentPanel == 'Materials' then
+      return Roact.createElement(MaterialPanel, {
+        Size = props.IsOutdated and UDim2.new(1, 0, 1, -78) or UDim2.new(1, 0, 1, -60)
+      })
+    elseif CurrentPanel == 'Settings' then
+      return Roact.createElement(SettingsPanel, {
+        Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
+      })
+    else
+      error('Requested unknown panel.')
+    end
+  end, { CurrentPanel })
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
@@ -41,15 +40,15 @@ function App:render()
       Size = UDim2.fromScale(1, 1)
     }, {
       Header = Roact.createElement(Header, {
-        CurrentPanel = state.Panel,
-        IsSearchEnabled = state.Panel == 'Materials'
+        CurrentPanel = CurrentPanel,
+        IsSearchEnabled = CurrentPanel == 'Materials'
       }),
 
       UIListLayout = Roact.createElement('UIListLayout', {
         SortOrder = Enum.SortOrder.LayoutOrder
       }),
 
-      Body = self:renderBody(state.Panel),
+      Body = PanelElement,
 
       update = props.IsOutdated and Roact.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.Y,
@@ -71,4 +70,6 @@ function App:render()
   end)
 end
 
-return Store:Roact(App, { 'Panel' })
+App = Hooks.new(Roact)(App)
+
+return App
