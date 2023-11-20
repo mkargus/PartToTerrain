@@ -27,14 +27,7 @@ end
 
 StudioThemeProvider = Hooks.new(Roact)(StudioThemeProvider)
 
-local function withTheme(callback: (theme: StudioTheme) -> any)
-  return Roact.createElement(Context.Consumer, {
-    render = callback
-  })
-end
-
 return {
   Context = Context,
-  Provider = StudioThemeProvider,
-  withTheme = withTheme
+  Provider = StudioThemeProvider
 }

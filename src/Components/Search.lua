@@ -5,9 +5,10 @@ local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Localization = require(Plugin.Util.Localization)
 
-local StudioTheme = require(Plugin.Context.StudioTheme)
+local useTheme = require(Plugin.Hooks.useTheme)
 
 local function Search(props, hooks)
+  local theme = useTheme(hooks)
   local TextBoxRef = hooks.useValue(Roact.createRef())
   local isFocus, setFocus = hooks.useState(false)
   local isHover, setHover = hooks.useState(false)
@@ -39,60 +40,57 @@ local function Search(props, hooks)
     Modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
-  return StudioTheme.withTheme(function(theme)
-    return Roact.createElement('ImageButton', {
-      AutoButtonColor = false,
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
-      BorderSizePixel = 0,
-      Position = props.Position,
-      Size = UDim2.new(1, -7, 0, 26),
-      [Roact.Event.MouseButton1Click] = onMouseButton1Click,
-      [Roact.Event.MouseEnter] = onMouseEnter,
-      [Roact.Event.MouseLeave] = onMouseLeave
+  return Roact.createElement('ImageButton', {
+    AutoButtonColor = false,
+    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
+    BorderSizePixel = 0,
+    Position = props.Position,
+    Size = UDim2.new(1, -7, 0, 26),
+    [Roact.Event.MouseButton1Click] = onMouseButton1Click,
+    [Roact.Event.MouseEnter] = onMouseEnter,
+    [Roact.Event.MouseLeave] = onMouseLeave
+  }, {
+    UICorner = Roact.createElement('UICorner', {
+      CornerRadius = UDim.new(0, 3)
+    }),
+
+    Container = Roact.createElement('Frame', {
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, Modifier),
+      Position = UDim2.fromOffset(1, 1),
+      Size = UDim2.new(1, -2, 1, -2)
     }, {
       UICorner = Roact.createElement('UICorner', {
         CornerRadius = UDim.new(0, 3)
       }),
 
-      Container = Roact.createElement('Frame', {
-        BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, Modifier),
-        Position = UDim2.fromOffset(1, 1),
-        Size = UDim2.new(1, -2, 1, -2)
-      }, {
-        UICorner = Roact.createElement('UICorner', {
-          CornerRadius = UDim.new(0, 3)
-        }),
+      Icon = Roact.createElement('ImageLabel', {
+        BackgroundTransparency = 1,
+        ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
+        Image = 'rbxassetid://5927945389',
+        ImageRectSize = Vector2.new(96, 96),
+        Size = UDim2.fromOffset(24, 24)
+      }),
 
-        Icon = Roact.createElement('ImageLabel', {
-          BackgroundTransparency = 1,
-          ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
-          Image = 'rbxassetid://5927945389',
-          ImageRectSize = Vector2.new(96, 96),
-          Size = UDim2.fromOffset(24, 24)
-        }),
-
-        Input = Roact.createElement('TextBox', {
-          BackgroundTransparency = 1,
-          BorderSizePixel = 0,
-          Font = Enum.Font.Gotham,
-          PlaceholderText = Localization('Plugin.Search'),
-          PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
-          Position = UDim2.new(0, 24, 0, 0),
-          Size = UDim2.new(1, -24, 1, 0),
-          Text = props.Text or '',
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-          TextSize = 14,
-          TextTruncate = Enum.TextTruncate.AtEnd,
-          TextXAlignment = Enum.TextXAlignment.Left,
-          [Roact.Ref] = TextBoxRef.value,
-          [Roact.Event.Focused] = onFocused,
-          [Roact.Event.FocusLost] = onFocusLost,
-          [Roact.Change.Text] = props.onTextChange
-        })
+      Input = Roact.createElement('TextBox', {
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        Font = Enum.Font.Gotham,
+        PlaceholderText = Localization('Plugin.Search'),
+        PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
+        Position = UDim2.new(0, 24, 0, 0),
+        Size = UDim2.new(1, -24, 1, 0),
+        Text = props.Text or '',
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+        TextSize = 14,
+        TextTruncate = Enum.TextTruncate.AtEnd,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        [Roact.Ref] = TextBoxRef.value,
+        [Roact.Event.Focused] = onFocused,
+        [Roact.Event.FocusLost] = onFocusLost,
+        [Roact.Change.Text] = props.onTextChange
       })
-
     })
-  end)
+  })
 end
 
 Search = Hooks.new(Roact)(Search)
