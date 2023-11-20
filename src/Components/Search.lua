@@ -1,50 +1,41 @@
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Localization = require(Plugin.Util.Localization)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
-local Search = Roact.PureComponent:extend('Search')
+local function Search(props, hooks)
+  local TextBoxRef = hooks.useValue(Roact.createRef())
+  local isFocus, setFocus = hooks.useState(false)
+  local isHover, setHover = hooks.useState(false)
 
-function Search:init()
-  self.state = {
-    isFocus = false,
-    isHover = false
-  }
+  local onMouseButton1Click = hooks.useCallback(function()
+    TextBoxRef.value:getValue():CaptureFocus()
+  end, {})
 
-  self.TextBoxRef = Roact.createRef()
+  local onMouseEnter = hooks.useCallback(function()
+    setHover(true)
+  end, {})
 
-  function self._onMouseButton1Click()
-    self.TextBoxRef:getValue():CaptureFocus()
-  end
+  local onMouseLeave = hooks.useCallback(function()
+    setHover(false)
+  end, {})
 
-  function self._onMouseEnter()
-    self:setState({ isHover = true })
-  end
+  local onFocused = hooks.useCallback(function()
+    setFocus(true)
+  end, {})
 
-  function self._onMouseLeave()
-    self:setState({ isHover = false })
-  end
+  local onFocusLost = hooks.useCallback(function()
+    setFocus(false)
+  end, {})
 
-  function self._onFocused()
-    self:setState({ isFocus = true })
-  end
-
-  function self.onFocusLost()
-    self:setState({ isFocus = false })
-  end
-end
-
-function Search:render()
-  local props = self.props
-  local state = self.state
   local Modifier = Enum.StudioStyleGuideModifier.Default
-
-  if state.isFocus then
+  if isFocus then
     Modifier = Enum.StudioStyleGuideModifier.Selected
-  elseif state.isHover then
+  elseif isHover then
     Modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
@@ -55,9 +46,9 @@ function Search:render()
       BorderSizePixel = 0,
       Position = props.Position,
       Size = UDim2.new(1, -7, 0, 26),
-      [Roact.Event.MouseButton1Click] = self._onMouseButton1Click,
-      [Roact.Event.MouseEnter] = self._onMouseEnter,
-      [Roact.Event.MouseLeave] = self._onMouseLeave
+      [Roact.Event.MouseButton1Click] = onMouseButton1Click,
+      [Roact.Event.MouseEnter] = onMouseEnter,
+      [Roact.Event.MouseLeave] = onMouseLeave
     }, {
       UICorner = Roact.createElement('UICorner', {
         CornerRadius = UDim.new(0, 3)
@@ -93,9 +84,9 @@ function Search:render()
           TextSize = 14,
           TextTruncate = Enum.TextTruncate.AtEnd,
           TextXAlignment = Enum.TextXAlignment.Left,
-          [Roact.Ref] = self.TextBoxRef,
-          [Roact.Event.Focused] = self._onFocused,
-          [Roact.Event.FocusLost] = self.onFocusLost,
+          [Roact.Ref] = TextBoxRef.value,
+          [Roact.Event.Focused] = onFocused,
+          [Roact.Event.FocusLost] = onFocusLost,
           [Roact.Change.Text] = props.onTextChange
         })
       })
@@ -103,5 +94,7 @@ function Search:render()
     })
   end)
 end
+
+Search = Hooks.new(Roact)(Search)
 
 return Search

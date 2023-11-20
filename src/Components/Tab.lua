@@ -16,6 +16,7 @@ local TAB_INNER_PADDING = 3
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
@@ -23,28 +24,19 @@ local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
 local Tooltip = require(Components.Tooltip)
 
-local Tab = Roact.PureComponent:extend('Tab')
+local function Tab(props, hooks)
+  local isHovering, setHovering = hooks.useState(false)
 
-function Tab:init()
-  self.state = {
-    isHovering = false
-  }
+  local onMouseEnter = hooks.useCallback(function()
+    setHovering(true)
+  end, {})
 
-  function self._onMouseEnter()
-    self:setState({ isHovering = true })
-  end
-
-  function self._onMouseLeave()
-    self:setState({ isHovering = false })
-  end
-end
-
-function Tab:render()
-  local props = self.props
-  local state = self.state
+  local onMouseLeave = hooks.useCallback(function()
+    setHovering(false)
+  end, {})
 
   return StudioTheme.withTheme(function(theme)
-    local color = theme:GetColor((props.Active or state.isHovering) and Enum.StudioStyleGuideColor.MainText or Enum.StudioStyleGuideColor.DimmedText)
+    local color = theme:GetColor((props.Active or isHovering) and Enum.StudioStyleGuideColor.MainText or Enum.StudioStyleGuideColor.DimmedText)
 
     return Roact.createElement('TextButton', {
       AutoButtonColor = false,
@@ -54,8 +46,8 @@ function Tab:render()
       Size = UDim2.fromScale(props.WidthScale, 1),
       Text = '',
       [Roact.Event.MouseButton1Click] = props.onClick,
-      [Roact.Event.MouseEnter] = self._onMouseEnter,
-      [Roact.Event.MouseLeave] = self._onMouseLeave
+      [Roact.Event.MouseEnter] = onMouseEnter,
+      [Roact.Event.MouseLeave] = onMouseLeave
     }, {
 
       UpperBorder = props.Active and Roact.createElement('Frame', {
@@ -92,12 +84,14 @@ function Tab:render()
         })
       }),
 
-      Tooltip = (not props.IsDisplayingText and state.isHovering) and Roact.createElement(Tooltip, {
+      Tooltip = (not props.IsDisplayingText and isHovering) and Roact.createElement(Tooltip, {
         Text = props.Text
       })
 
     })
   end)
 end
+
+Tab = Hooks.new(Roact)(Tab)
 
 return Tab

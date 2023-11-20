@@ -1,31 +1,16 @@
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
 
-local ScrollingFrame = Roact.PureComponent:extend('ScrollingFrame')
+local function ScrollingFrame(props, hooks)
+  local isYAxisShowing, setYAxisShowing = hooks.useState(false)
 
-ScrollingFrame.defaultProps = {
-  CanvasSize = UDim2.new(0, 0, 0, 0),
-  ScrollBarThickness = 8
-}
-
-function ScrollingFrame:init()
-  self.state = {
-    isYAxisShowing = false
-  }
-
-  function self._onCanvasSizeChange(rbx)
-    self:setState({
-      isYAxisShowing = rbx.AbsoluteWindowSize.Y < rbx.AbsoluteCanvasSize.Y
-    })
-  end
-end
-
-function ScrollingFrame:render()
-  local props = self.props
-  local state = self.state
+  local onCanvasSizeChange = hooks.useCallback(function(rbx: ScrollingFrame)
+    setYAxisShowing(rbx.AbsoluteWindowSize.Y < rbx.AbsoluteCanvasSize.Y)
+  end, {})
 
   return StudioTheme.withTheme(function(theme)
     local isDark = theme.Name == 'Dark'
@@ -39,45 +24,34 @@ function ScrollingFrame:render()
       LayoutOrder = props.LayoutOrder,
       Size = props.Size
     }, {
-      YScrollingBackground = state.isYAxisShowing and Roact.createElement('Frame', {
-        AnchorPoint = Vector2.new(1, 0),
-        BackgroundColor3 = BkgColor,
-        BorderSizePixel = 0,
-        Position = UDim2.fromScale(1, 0),
-        Size = UDim2.new(0, 12, 1, 0)
-      }),
       ScrollingFrame = Roact.createElement('ScrollingFrame', {
         AutomaticCanvasSize = props.AutomaticCanvasSize,
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
-        CanvasSize = props.CanvasSize,
+        CanvasSize = props.CanvasSize or UDim2.new(),
         MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
         Position = UDim2.new(0, 0, 0, 3),
         ScrollBarImageColor3 = ScrollbarColor,
-        ScrollBarThickness = props.ScrollBarThickness,
+        ScrollBarThickness = props.ScrollBarThickness or 8,
         ScrollingDirection = props.ScrollingDirection,
         Size = UDim2.new(1, -2, 1, -6),
         TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
         VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
         ZIndex = 2,
-        [Roact.Change.AbsoluteCanvasSize] = self._onCanvasSizeChange
-      }, props[Roact.Children])
+        [Roact.Change.AbsoluteCanvasSize] = onCanvasSizeChange
+      }, props[Roact.Children]),
+      YScrollingBackground = isYAxisShowing and Roact.createElement('Frame', {
+        AnchorPoint = Vector2.new(1, 0),
+        BackgroundColor3 = BkgColor,
+        BorderSizePixel = 0,
+        Position = UDim2.fromScale(1, 0),
+        Size = UDim2.new(0, 12, 1, 0)
+      })
     })
   end)
 end
 
-function ScrollingFrame:shouldUpdate(nextProps, nextState)
-  -- Allow updating when using the search bar.
-  if nextProps[Roact.Children] ~= self.props[Roact.Children] then
-    return true
-  end
-
-  if nextState.isYAxisShowing == self.state.isYAxisShowing then
-    return false
-  end
-
-  return true
-end
+ScrollingFrame = Hooks.new(Roact)(ScrollingFrame)
 
 return ScrollingFrame

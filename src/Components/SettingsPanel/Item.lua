@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
@@ -12,21 +13,18 @@ local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
 local ToggleButton = require(Components.ToggleButton)
 
-local SettingsItem = Roact.PureComponent:extend('SettingsItem')
+local function SettingsItem(props, hooks)
+  local currentSettingValue, setSettingValue = hooks.useState(Settings:Get(props.Title))
 
-function SettingsItem:init()
-  self.state = {
-    setting = Settings:Get(self.props.Title)
-  }
+  hooks.useEffect(function()
+    local updatedCleanup = Settings:onUpdate(props.Title, function(value)
+      setSettingValue(value)
+    end)
 
-  self.updatedCleanup = Settings:onUpdate(self.props.Title, function(value)
-    self:setState({ setting = value })
-  end)
-end
-
-function SettingsItem:render()
-  local props = self.props
-  local currentSettingValue = self.state.setting
+    return function()
+      updatedCleanup()
+    end
+  end, {})
 
   return StudioTheme.withTheme(function(theme)
     return Roact.createElement('Frame', {
@@ -88,8 +86,6 @@ function SettingsItem:render()
   end)
 end
 
-function SettingsItem:willUnmount()
-  self.updatedCleanup()
-end
+SettingsItem = Hooks.new(Roact)(SettingsItem)
 
 return SettingsItem

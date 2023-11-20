@@ -1,34 +1,31 @@
---!nocheck
 local Studio = settings():GetService('Studio')
 
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
-local Context = Roact.createContext(nil)
-local StudioThemeProvider = Roact.Component:extend('StudioThemeProvider')
+local Context = Roact.createContext()
 
-function StudioThemeProvider:init()
-  self.state = {
-    theme = Studio.Theme
-  }
-end
+local function StudioThemeProvider(props, hooks)
+  local theme, setTheme = hooks.useState(Studio.Theme)
 
-function StudioThemeProvider:render()
+  hooks.useEffect(function()
+    local themeConnection = Studio.ThemeChanged:Connect(function()
+      setTheme(Studio.Theme)
+    end)
+
+    return function()
+      themeConnection:Disconnect()
+    end
+  end, {})
+
   return Roact.createElement(Context.Provider, {
-    value = self.state.theme
-  }, self.props[Roact.Children])
+    value = theme
+  }, props[Roact.Children])
 end
 
-function StudioThemeProvider:didMount()
-  self._themeConnection = Studio.ThemeChanged:Connect(function()
-    self:setState({ theme = Studio.Theme })
-  end)
-end
-
-function StudioThemeProvider:willUnmount()
-  self._themeConnection:Disconnect()
-end
+StudioThemeProvider = Hooks.new(Roact)(StudioThemeProvider)
 
 local function withTheme(callback: (theme: StudioTheme) -> any)
   return Roact.createElement(Context.Consumer, {
@@ -37,6 +34,7 @@ local function withTheme(callback: (theme: StudioTheme) -> any)
 end
 
 return {
-  StudioProvider = StudioThemeProvider,
+  Context = Context,
+  Provider = StudioThemeProvider,
   withTheme = withTheme
 }

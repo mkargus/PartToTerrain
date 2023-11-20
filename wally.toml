@@ -6,5 +6,5 @@ realm = "shared"
 
 [dependencies]
 Roact = "roblox/roact@=1.4.4"
-RoactHook = "kampfkarren/roact-hooks@=0.5.1"
+RoactHooks = "kampfkarren/roact-hooks@=0.5.1"
 BasicState = "csqrl/basicstate@=0.2.6"
