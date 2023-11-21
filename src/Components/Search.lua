@@ -77,7 +77,7 @@ local function Search(props, hooks)
         Font = Enum.Font.Gotham,
         PlaceholderText = Localization('Plugin.Search'),
         PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
-        Position = UDim2.new(0, 24, 0, 0),
+        Position = UDim2.fromOffset(24, 0),
         Size = UDim2.new(1, -24, 1, 0),
         Text = props.Text or '',
         TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),

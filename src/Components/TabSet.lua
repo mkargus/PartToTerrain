@@ -33,7 +33,7 @@ local function CreateNextOrder(): () -> number
   end
 end
 
-local function canTextBeDisplayed(tabs, tabSize)
+local function CanTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
     for _, tab in tabs do
       local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
@@ -72,19 +72,19 @@ local function TabSet(props, hooks)
     })
   }
 
-  local textDisplayed = canTextBeDisplayed(props.Tabs, currentWidth / # props.Tabs)
+  local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
 
   for _, tab in props.Tabs do
-    children[tab.key] = Roact.createElement(Tab, {
-      Key = tab.key,
-      Active = props.CurrentTab == tab.key,
+    children[tab.Key] = Roact.createElement(Tab, {
+      Key = tab.Key,
+      Active = props.CurrentTab == tab.Key,
       WidthScale = 1 / #props.Tabs,
-      Icon = tab.icon,
+      Icon = tab.Icon,
       IsDisplayingText = textDisplayed,
       LayoutOrder = NextOrder(),
       Text = tab.Text,
       onClick = function()
-        onTabSelected(tab.key)
+        onTabSelected(tab.Key)
       end
     })
   end

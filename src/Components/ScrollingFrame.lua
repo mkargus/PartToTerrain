@@ -30,7 +30,7 @@ local function ScrollingFrame(props, hooks)
       BottomImage = 'rbxasset://textures/StudioToolbox/ScrollBarBottom.png',
       CanvasSize = props.CanvasSize or UDim2.new(),
       MidImage = 'rbxasset://textures/StudioToolbox/ScrollBarMiddle.png',
-      Position = UDim2.new(0, 0, 0, 3),
+      Position = UDim2.fromOffset(0, 3),
       ScrollBarImageColor3 = ScrollbarColor,
       ScrollBarThickness = props.ScrollBarThickness or 8,
       ScrollingDirection = props.ScrollingDirection,

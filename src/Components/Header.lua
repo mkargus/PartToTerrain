@@ -25,8 +25,8 @@ local function Header(props, hooks)
       CurrentTab = props.CurrentPanel,
       Size = UDim2.new(1, 0, 0, 28),
       Tabs = {
-        { key = 'Materials', icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
-        { key = 'Settings', icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
+        { Key = 'Materials', Icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
+        { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
       },
       onTabSelected = function(tabName)
         Store:Set('Panel', tabName)

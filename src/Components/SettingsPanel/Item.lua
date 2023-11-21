@@ -61,7 +61,7 @@ local function SettingsItem(props, hooks)
       Toggle = Roact.createElement(ToggleButton, {
         AnchorPoint = Vector2.new(1, 0),
         Position = UDim2.fromScale(1, 0),
-        isEnabled = currentSettingValue,
+        IsActive = currentSettingValue,
         onClick = function()
           Settings:Set(props.Title, not currentSettingValue)
         end

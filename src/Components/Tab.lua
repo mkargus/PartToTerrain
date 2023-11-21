@@ -79,7 +79,7 @@ local function Tab(props, hooks)
       Name = props.IsDisplayingText and Roact.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.X,
         BackgroundTransparency = 1,
-        Size = UDim2.new(0, 0, 0, 20),
+        Size = UDim2.fromOffset(0, 20),
         Text = props.Text,
         TextColor3 = color,
         TextXAlignment = Enum.TextXAlignment.Left,
