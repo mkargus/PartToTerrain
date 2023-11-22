@@ -3,19 +3,23 @@ local TextSerice = game:GetService('TextService')
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Context = Plugin.Context
 local PluginGuiWrapper = require(Context.PluginGuiWrapper)
-local StudioTheme = require(Context.StudioTheme)
 
 local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
+
+local useTheme = require(Plugin.Hooks.useTheme)
 
 local PADDING = 3
 local SHOW_DELAY_TIME = 0.5
 local OFFSET = Vector2.new(13, 5)
 
-local function Popup(props)
+local function Popup(props, hooks)
+  local theme = useTheme(hooks)
+
   local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(100, 10000))
 
   local tooltipWidth = TextSize.X + (2 * PADDING)
@@ -32,30 +36,30 @@ local function Popup(props)
     targetY = props.pluginGui.AbsoluteSize.Y - tooltipHeight
   end
 
-  return StudioTheme.withTheme(function(theme)
-    return Roact.createElement(TextLabel, {
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
-      Position = UDim2.fromOffset(targetX, targetY),
-      Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
-      Text = props.Text,
-      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
-    }, {
-      UICorner = Roact.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 3)
-      }),
-      UIPadding = Roact.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, PADDING),
-        PaddingLeft = UDim.new(0, PADDING),
-        PaddingRight = UDim.new(0, PADDING),
-        PaddingTop = UDim.new(0, PADDING)
-      }),
-      UIStroke = Roact.createElement('UIStroke', {
-        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-        Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
-      })
+  return Roact.createElement(TextLabel, {
+    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
+    Position = UDim2.fromOffset(targetX, targetY),
+    Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
+    Text = props.Text,
+    TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+  }, {
+    UICorner = Roact.createElement('UICorner', {
+      CornerRadius = UDim.new(0, 3)
+    }),
+    UIPadding = Roact.createElement('UIPadding', {
+      PaddingBottom = UDim.new(0, PADDING),
+      PaddingLeft = UDim.new(0, PADDING),
+      PaddingRight = UDim.new(0, PADDING),
+      PaddingTop = UDim.new(0, PADDING)
+    }),
+    UIStroke = Roact.createElement('UIStroke', {
+      ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+      Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
     })
-  end)
+  })
 end
+
+Popup = Hooks.new(Roact)(Popup)
 
 local Tooltip = Roact.PureComponent:extend('Tooltip')
 

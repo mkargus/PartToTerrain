@@ -25,7 +25,7 @@ local Roact = require(Plugin.Packages.Roact)
 local StudioThemeContext = require(Plugin.Context.StudioTheme)
 local PluginApp = require(Plugin.Components.PluginApp)
 
-local app = Roact.createElement(StudioThemeContext.StudioProvider, nil, {
+local app = Roact.createElement(StudioThemeContext.Provider, nil, {
   Roact.createElement(PluginApp, {
     plugin = plugin
   })

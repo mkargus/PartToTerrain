@@ -20,28 +20,9 @@ local TextService = game:GetService('TextService')
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Hooks = require(Plugin.Packages.RoactHooks)
 
 local Tab = require(Plugin.Components.Tab)
-
-local TabSet = Roact.PureComponent:extend('TabSet')
-
-function TabSet:init()
-  self.state = {
-    currentWidth = 0
-  }
-
-  function self._onAbsoluteSizeChange(rbx)
-    self:setState({
-      currentWidth = rbx.AbsoluteSize.X
-    })
-  end
-
-  function self.onTabSelected(key)
-    if self.props.onTabSelected then
-      self.props.onTabSelected(key)
-    end
-  end
-end
 
 local function CreateNextOrder(): () -> number
   local LayoutOrder = 0
@@ -52,7 +33,7 @@ local function CreateNextOrder(): () -> number
   end
 end
 
-local function canTextBeDisplayed(tabs, tabSize)
+local function CanTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
     for _, tab in tabs do
       local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
@@ -68,9 +49,18 @@ local function canTextBeDisplayed(tabs, tabSize)
   return true
 end
 
-function TabSet:render()
-  local props = self.props
-  local state = self.state
+local function TabSet(props, hooks)
+  local currentWidth, setWidth = hooks.useState(0)
+
+  local onTabSelected = hooks.useCallback(function(key: string)
+    if props.onTabSelected then
+      props.onTabSelected(key)
+    end
+  end, {})
+
+  local onAbsoluteSizeChange = hooks.useCallback(function(rbx: Frame)
+    setWidth(rbx.AbsoluteSize.X)
+  end, {})
 
   local NextOrder = CreateNextOrder()
 
@@ -82,19 +72,19 @@ function TabSet:render()
     })
   }
 
-  local textDisplayed = canTextBeDisplayed(props.Tabs, state.currentWidth / # props.Tabs)
+  local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
 
   for _, tab in props.Tabs do
-    children[tab.key] = Roact.createElement(Tab, {
-      Key = tab.key,
-      Active = props.CurrentTab == tab.key,
+    children[tab.Key] = Roact.createElement(Tab, {
+      Key = tab.Key,
+      Active = props.CurrentTab == tab.Key,
       WidthScale = 1 / #props.Tabs,
-      Icon = tab.icon,
+      Icon = tab.Icon,
       IsDisplayingText = textDisplayed,
       LayoutOrder = NextOrder(),
       Text = tab.Text,
       onClick = function()
-        self.onTabSelected(tab.key)
+        onTabSelected(tab.Key)
       end
     })
   end
@@ -102,9 +92,10 @@ function TabSet:render()
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = props.Size,
-    [Roact.Change.AbsoluteSize] = self._onAbsoluteSizeChange
+    [Roact.Change.AbsoluteSize] = onAbsoluteSizeChange
   }, children)
-
 end
+
+TabSet = Hooks.new(Roact)(TabSet)
 
 return TabSet
