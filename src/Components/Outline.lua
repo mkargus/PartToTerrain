@@ -47,8 +47,13 @@ local function CreateOutline(Part, color)
   elseif shape == TerrainEnum.Shape.Ball then
     props.Radius = math.min(size.X, size.Y, size.Z) / 2
     return 'SphereHandleAdornment', props
+  elseif shape == TerrainEnum.Shape.Cylinder then
+    props.CFrame = CFrame.Angles(math.rad(90), 0, 0)
+    props.Height = size.Y
+    props.Radius = math.min(size.X, size.Z) / 2
+    return 'CylinderHandleAdornment', props
   elseif shape == TerrainEnum.Shape.CylinderRotate then
-    props.CFrame = CFrame.new() * CFrame.Angles(0, math.rad(90), 0)
+    props.CFrame = CFrame.Angles(0, math.rad(90), 0)
     props.Height = size.X
     props.Radius = math.min(size.Y, size.Z) / 2
     return 'CylinderHandleAdornment', props
