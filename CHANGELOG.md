@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.6.2] - November 24, 2023
+This update is mostly internal UI cleanup and adoption of roact-hooks.
+### Fixed
+* Fixed missing Cylinder (Part using CylinderMesh) outline.
+
 ## [1.6.1] - July 14, 2023
 ### Added
 * Added support to `Part.Shape = Wedge`
@@ -172,7 +177,9 @@
 * All settings will now be saved and will use the same value when relaunching Studio.
 * Selection Box will now glow green or red depending if it is able to be converted the part selected or not.
 
-[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.6.0...main
+[Unreleased]: https://github.com/mkargus/PartToTerrain/compare/1.6.2...main
+[1.6.2]: https://github.com/mkargus/PartToTerrain/compare/1.6.1...1.6.2
+[1.6.1]: https://github.com/mkargus/PartToTerrain/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/mkargus/PartToTerrain/compare/1.5.4...1.6.0
 [1.5.4]: https://github.com/mkargus/PartToTerrain/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/mkargus/PartToTerrain/compare/1.5.2...1.5.3

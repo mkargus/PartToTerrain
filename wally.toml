@@ -1,8 +1,9 @@
 [package]
 name = "mkargus/parttoterrain"
-version = "1.6.1"
+version = "1.6.2"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
+private = true
 
 [dependencies]
 Roact = "roblox/roact@=1.4.4"
