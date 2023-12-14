@@ -49,7 +49,7 @@ local function Tab(props, hooks)
     [Roact.Event.MouseEnter] = onMouseEnter,
     [Roact.Event.MouseLeave] = onMouseLeave
   }, {
-    Tooltip = (not props.IsDisplayingText and isHovering) and Roact.createElement(Tooltip, {
+    Tooltip = not props.IsDisplayingText and Roact.createElement(Tooltip.Trigger, {
       Text = props.Text
     }),
 

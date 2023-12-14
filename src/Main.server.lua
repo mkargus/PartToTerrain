@@ -22,12 +22,15 @@ end
 local Plugin = script.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local StudioThemeContext = require(Plugin.Context.StudioTheme)
+local StudioTheme = require(Plugin.Context.StudioTheme)
 local PluginApp = require(Plugin.Components.PluginApp)
+local Tooltip = require(Plugin.Components.Tooltip)
 
-local app = Roact.createElement(StudioThemeContext.Provider, nil, {
-  Roact.createElement(PluginApp, {
-    plugin = plugin
+local app = Roact.createElement(StudioTheme.Provider, nil, {
+  Roact.createElement(Tooltip.Provider, nil, {
+    Roact.createElement(PluginApp, {
+      plugin = plugin
+    })
   })
 })
 

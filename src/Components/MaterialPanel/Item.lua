@@ -11,7 +11,6 @@ local Tooltip = require(Plugin.Components.Tooltip)
 local useStore = require(Plugin.Hooks.useStore)
 
 local function MaterialButton(props, hooks)
-  local isHovering, setHovering = hooks.useState(false)
   local currentMaterial = useStore(hooks, 'Material')
 
   return Roact.createElement('ImageButton', {
@@ -19,19 +18,13 @@ local function MaterialButton(props, hooks)
     Image = props.Image,
     [Roact.Event.MouseButton1Click] = function()
       Store:Set('Material', props.Id)
-    end,
-    [Roact.Event.MouseEnter] = function()
-      setHovering(true)
-    end,
-    [Roact.Event.MouseLeave] = function()
-      setHovering(false)
-    end,
+    end
   }, {
     UICorner = Roact.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3)
     }),
 
-    Tooltip = isHovering and Roact.createElement(Tooltip, {
+    Tooltip = Roact.createElement(Tooltip.Trigger, {
       Text = Localization('Materials.'..props.Id.Name)
     }),
 

@@ -15,12 +15,11 @@ local Settings = require(Util.Settings)
 local Store = require(Util.Store)
 local TerrainUtil = require(Util.TerrainUtil)
 
-local PluginGuiWrapper = require(Plugin.Context.PluginGuiWrapper)
-
 local Components = Plugin.Components
 local App = require(Components.App)
 local Outline = require(Components.Outline)
 local StudioWidget = require(Components.StudioWidget)
+local Tooltip = require(Components.Tooltip)
 
 local function GetInvisibleParts()
   local ignoreList = {}
@@ -58,7 +57,6 @@ local PluginApp = Roact.PureComponent:extend('PluginApp')
 function PluginApp:init()
   self.state = {
     guiEnabled = false,
-    pluginGui = nil,
     isOutdated = nil
   }
 
@@ -160,8 +158,6 @@ end
 function PluginApp:render()
   local state = self.state
 
-  local isPluginGuiLoaded = state.pluginGui ~= nil
-
   return not RunService:IsRunning() and Roact.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
@@ -175,14 +171,9 @@ function PluginApp:render()
 
     onClose = function()
       self.plugin:Deactivate()
-    end,
-    [Roact.Ref] = function(ref)
-      self:setState({ pluginGui = ref })
     end
   }, {
-    ShowOnTop = isPluginGuiLoaded and Roact.createElement(PluginGuiWrapper.Provider, {
-      pluginGui = state.pluginGui
-    }),
+    TooltipContainer = Roact.createElement(Tooltip.Container),
 
     App = state.guiEnabled and Roact.createElement(App, {
       IsOutdated = state.isOutdated
