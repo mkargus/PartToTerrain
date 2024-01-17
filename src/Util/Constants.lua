@@ -20,8 +20,8 @@ Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 ----------------------------------------
 -- Material related
 ----------------------------------------
-Constants.MATERIAL_GRID_PADDING = UDim2.new(0, 5, 0, 5)
-Constants.MATERIAL_GRID_SIZE = UDim2.new(0, 50, 0, 50)
+Constants.MATERIAL_GRID_PADDING = UDim2.fromOffset(5, 5)
+Constants.MATERIAL_GRID_SIZE = UDim2.fromOffset(50, 50)
 
 Constants.MATERIALS_TABLE = {
   { enum = Enum.Material.Air, img = 'rbxasset://textures/TerrainTools/mtrl_air.png' },

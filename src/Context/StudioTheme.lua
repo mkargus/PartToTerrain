@@ -5,20 +5,16 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Hooks = require(Plugin.Packages.RoactHooks)
 
-local Context = Roact.createContext()
+local useEventConnection = require(Plugin.Hooks.useEventConnection)
+
+local Context = Roact.createContext(nil)
 
 local function StudioThemeProvider(props, hooks)
   local theme, setTheme = hooks.useState(Studio.Theme)
 
-  hooks.useEffect(function()
-    local themeConnection = Studio.ThemeChanged:Connect(function()
-      setTheme(Studio.Theme)
-    end)
-
-    return function()
-      themeConnection:Disconnect()
-    end
-  end, {})
+  useEventConnection(hooks, Studio.ThemeChanged, function()
+    setTheme(Studio.Theme)
+  end)
 
   return Roact.createElement(Context.Provider, {
     value = theme

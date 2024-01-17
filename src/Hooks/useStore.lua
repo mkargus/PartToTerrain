@@ -1,17 +1,12 @@
+local useEventConnection = require(script.Parent.useEventConnection)
 local Store = require(script.Parent.Parent.Util.Store)
 
 local function useStore(hooks, key: string)
   local value, setValue = hooks.useState(Store:Get(key))
 
-  hooks.useEffect(function()
-    local connection = Store:GetChangedSignal(key):Connect(function(newValue)
-      setValue(newValue)
-    end)
-
-    return function()
-      connection:Disconnect()
-    end
-  end, {})
+  useEventConnection(hooks, Store:GetChangedSignal(key), function(newValue)
+    setValue(newValue)
+  end)
 
   return value
 end
