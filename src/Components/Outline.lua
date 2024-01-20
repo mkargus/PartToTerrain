@@ -1,3 +1,5 @@
+local CoreGui = game:GetService('CoreGui')
+
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -13,16 +15,13 @@ local useEventConnection = require(Plugin.Hooks.useEventConnection)
 
 local function IsLockedPartAllowed(Part)
   local setting = Settings:Get('IgnoreLockedParts')
-  if setting then
-    return setting == Part.Locked
-  else
-    return false
-  end
+
+  return if setting then setting == Part.Locked else false
 end
 
 local function GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
   if isConvertibleToTerrain and not isLockedPartAllowed then
-    return #Part:GetChildren() == 0 and Constants.OUTLINE_COLOR_ALLOW or Constants.OUTLINE_COLOR_WARNING
+    return if #Part:GetChildren() == 0 then Constants.OUTLINE_COLOR_ALLOW else Constants.OUTLINE_COLOR_WARNING
   else
     return Constants.OUTLINE_COLOR_ERROR
   end
@@ -71,7 +70,7 @@ local function Outline(props, hooks)
   useEventConnection(hooks, PluginMouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = PluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.raycastParams)
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.RaycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
       -- Only change the state if the part in the RaycastResults is different from the one in the state.
@@ -100,7 +99,7 @@ local function Outline(props, hooks)
   local outlineClass, outlineProps = CreateOutline(Part, color)
 
   return Roact.createElement(Roact.Portal, {
-    target = game:GetService('CoreGui')
+    target = CoreGui
   }, {
     PTT_Outline = Roact.createElement(outlineClass, outlineProps)
   })

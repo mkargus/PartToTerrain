@@ -158,7 +158,11 @@ end
 function PluginApp:render()
   local state = self.state
 
-  return not RunService:IsRunning() and Roact.createElement(StudioWidget, {
+  if RunService:IsRunning() then
+    return nil
+  end
+
+  return Roact.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
     Title = Localization('Plugin.NameVersion', { Constants.VERSION }),
@@ -181,7 +185,7 @@ function PluginApp:render()
 
     Outline = state.guiEnabled and Roact.createElement(Outline, {
       PluginMouse = self.pluginMouse,
-      raycastParams = self.raycastParams
+      RaycastParams = self.raycastParams
     })
   })
 end

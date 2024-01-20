@@ -1,6 +1,8 @@
 --!strict
+local StudioService = game:GetService('StudioService')
+
 local Table = script.LocalizationTable
-local LocaleId = game:GetService('StudioService').StudioLocaleId
+local LocaleId = StudioService.StudioLocaleId
 local Translator
 local FallbackTranslator
 
@@ -10,9 +12,6 @@ if LocaleId ~= 'en_US' then
 end
 
 local function Localization(id: string, args: {any}?): string
-  assert(typeof(id) == 'string', 'id must be a string')
-  assert(args == nil or typeof(args) == 'table', 'args must be a table or nil')
-
   local returnValue
   local success = pcall(function()
     returnValue = Translator:FormatByKey(id, args)

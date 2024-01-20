@@ -1,3 +1,5 @@
+local TERRAIN_TEXTURE_PATH = 'rbxasset://textures/TerrainTools/'
+
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -27,7 +29,7 @@ local function MaterialPanel(props, hooks)
       if string.find(string.lower(item.enum.Name), string.lower(SearchTerm), 1, true) then
         assetsToDisplay[item.enum.Name] = Roact.createElement(MaterialItem, {
           Id = item.enum,
-          Image = item.img
+          Image = TERRAIN_TEXTURE_PATH..item.img
         })
 
         numberAssets += 1

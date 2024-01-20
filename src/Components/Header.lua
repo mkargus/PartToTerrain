@@ -14,7 +14,7 @@ local useTheme = require(Plugin.Hooks.useTheme)
 
 local function Header(props, hooks)
   local theme = useTheme(hooks)
-  local Height = props.IsSearchEnabled and 60 or 28
+  local Height = if props.IsSearchEnabled then 60 else 28
 
   return Roact.createElement('Frame', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),

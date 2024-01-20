@@ -14,8 +14,8 @@ local function ScrollingFrame(props, hooks)
   end, {})
 
   local isDark = theme.Name == 'Dark'
-  local BkgColor = isDark and Color3.fromRGB(38, 38, 38) or Color3.fromRGB(245, 245, 245)
-  local ScrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245)
+  local BkgColor = if isDark then Color3.fromRGB(38, 38, 38) else Color3.fromRGB(245, 245, 245)
+  local ScrollbarColor = if isDark then Color3.fromRGB(85, 85, 85) else Color3.fromRGB(245, 245, 245)
 
   return Roact.createElement('Frame', {
     BackgroundTransparency = 1,
