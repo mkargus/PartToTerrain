@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: roblox/setup-foreman@v1
+      - uses: roblox/setup-foreman@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -27,16 +27,7 @@ jobs:
       - name: Build plugin
         run: rojo build default.project.json -o PartToTerrain.rbxm
 
-      - name: Get release info
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      # TODO: Look into plugin uploading via Open Cloud when supported.
-
       - name: Create Github release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: ${{ steps.get_version.outputs.VERSION }}
-          fail_on_unmatched_files: true
-          files: PartToTerrain.rbxm
-          draft: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create ${{ github.ref_name }} -t ${{ github.ref_name }} -d PartToTerrain.rbxm

@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - uses: roblox/setup-foreman@v1
+    - uses: roblox/setup-foreman@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: roblox/setup-foreman@v1
+      - uses: roblox/setup-foreman@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
