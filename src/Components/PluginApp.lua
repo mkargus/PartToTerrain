@@ -103,45 +103,48 @@ function PluginApp:init()
   self.raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
   self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
-    local camera = workspace.CurrentCamera.CFrame
-    local ray = self.pluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, self.raycastParams)
+    local cameraPos = workspace.CurrentCamera.CFrame.Position
+    local dir = self.pluginMouse.UnitRay.Direction
+    local RaycastResults = workspace:Raycast(cameraPos, dir * 15000, self.raycastParams)
 
-    local function isPressingAlt()
-      return UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt)
+    if not RaycastResults then
+      return
     end
 
-    if RaycastResults then
-      local obj = RaycastResults.Instance
+    local obj = RaycastResults.Instance
 
-      if isPressingAlt() then
-        if obj:IsA('Terrain') then
-          Store:Set('Material', RaycastResults.Material)
-          return
-        end
-
-      elseif not obj:IsA('Terrain') and TerrainUtil:IsConvertibleToTerrain(RaycastResults.Instance) then
-
-        if Settings:Get('IgnoreLockedParts') and obj.Locked then
-          return
-        end
-
-        local shape, cframe, size = TerrainUtil:GetPartInfo(obj)
-        local material = Store:Get('Material')
-        local preserceTerrain = Settings:Get('PreserveTerrain')
-
-        local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserceTerrain)
-        if success then
-          if Settings:Get('DeletePart') then
-            obj.Parent = nil
-          end
-          ChangeHistoryService:SetWaypoint('PartToTerrain')
-
-        end
+    -- Adds in Terrain Editor's shortcut to select material.
+    if UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or UserInputService:IsKeyDown(Enum.KeyCode.RightAlt) then
+      if obj:IsA('Terrain') then
+        Store:Set('Material', RaycastResults.Material)
       end
+      return
+    end
+
+    if not TerrainUtil:IsConvertibleToTerrain(obj) then
+      return
+    end
+
+    if Settings:Get('IgnoreLockedParts') and obj.Locked then
+      return
+    end
+
+    local shape, cframe, size = TerrainUtil:GetPartInfo(obj)
+    local material = Store:Get('Material')
+    local preserveTerrain = Settings:Get('PreserveTerrain')
+
+    local chRecording = ChangeHistoryService:TryBeginRecording('PartToTerrain')
+
+    local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserveTerrain)
+    if success then
+      if Settings:Get('DeletePart') then
+        obj.Parent = nil
+      end
+      ChangeHistoryService:FinishRecording(chRecording, Enum.FinishRecordingOperation.Commit)
+    else
+      ChangeHistoryService:FinishRecording(chRecording, Enum.FinishRecordingOperation.Cancel)
     end
   end)
-
 end
 
 function PluginApp:didUpdate()
