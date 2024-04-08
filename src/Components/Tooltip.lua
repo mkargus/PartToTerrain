@@ -163,6 +163,13 @@ function Trigger:render()
   })
 end
 
+function Trigger:willUnmount()
+  if self.showDelayThread then
+    pcall(task.cancel, self.showDelayThread)
+  end
+  self.props.context.removeTip(self.id)
+end
+
 local function TriggerConsumer(props, hooks)
   local context = hooks.useContext(TooltipContext)
 
