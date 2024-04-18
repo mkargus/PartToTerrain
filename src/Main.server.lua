@@ -20,22 +20,26 @@ if not plugin then
 end
 
 local Plugin = script.Parent
-local Roact = require(Plugin.Packages.Roact)
+
+local React = require(Plugin.Packages.React)
+local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 
 local StudioTheme = require(Plugin.Context.StudioTheme)
+
 local PluginApp = require(Plugin.Components.PluginApp)
 local Tooltip = require(Plugin.Components.Tooltip)
 
-local app = Roact.createElement(StudioTheme.Provider, nil, {
-  Roact.createElement(Tooltip.Provider, nil, {
-    Roact.createElement(PluginApp, {
+local app = React.createElement(StudioTheme.Provider, nil, {
+  React.createElement(Tooltip.Provider, nil, {
+    React.createElement(PluginApp, {
       plugin = plugin
     })
   })
 })
 
-local tree = Roact.mount(app, nil, 'PartToTerrain')
+local root = ReactRoblox.createLegacyRoot(Instance.new('Folder'))
+root:render(app)
 
 plugin.Unloading:Connect(function()
-  Roact.unmount(tree)
+  root:unmount()
 end)
