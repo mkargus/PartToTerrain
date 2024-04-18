@@ -59,13 +59,13 @@ function StudioWidget:render()
   return ReactRoblox.createPortal(self.props.children, self.pluginGui)
 end
 
-function StudioWidget:didUpdate(lastProps)
+function StudioWidget:componentDidUpdate(lastProps)
   if lastProps.Enabled ~= self.props.Enabled then
     self.pluginGui.Enabled = self.props.Enabled
   end
 end
 
-function StudioWidget:willUnmount()
+function StudioWidget:componentWillUnmount()
   self.pluginGui:Destroy()
 end
 

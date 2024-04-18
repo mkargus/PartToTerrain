@@ -147,7 +147,7 @@ function PluginApp:init()
   end)
 end
 
-function PluginApp:didUpdate()
+function PluginApp:componentDidUpdate()
   self.button:SetActive(self.state.guiEnabled)
 
   if self.state.guiEnabled then
@@ -193,7 +193,7 @@ function PluginApp:render()
   })
 end
 
-function PluginApp:didMount()
+function PluginApp:componentDidMount()
   -- Creates a seprate thread for update checking as to not block rendering thread.
   -- This is incase Roblox servers go extremely slow or if a user has a bad connection.
   task.spawn(function()
@@ -203,7 +203,7 @@ function PluginApp:didMount()
   end)
 end
 
-function PluginApp:willUnmount()
+function PluginApp:componentWillUnmount()
   self.toolbar:Destroy()
   self.button:Destroy()
 

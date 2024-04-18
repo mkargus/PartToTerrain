@@ -158,7 +158,7 @@ function Trigger:render()
   })
 end
 
-function Trigger:willUnmount()
+function Trigger:componentWillUnmount()
   if self.showDelayThread then
     pcall(task.cancel, self.showDelayThread)
   end
