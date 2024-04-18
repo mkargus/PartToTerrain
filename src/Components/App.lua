@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
@@ -15,17 +14,17 @@ local Header = require(Components.Header)
 local useStore = require(Plugin.Hooks.useStore)
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function App(props, hooks)
-  local theme = useTheme(hooks)
-  local CurrentPanel = useStore(hooks, 'Panel')
+local function App(props)
+  local theme = useTheme()
+  local CurrentPanel = useStore('Panel')
 
-  local PanelElement = hooks.useMemo(function()
+  local PanelElement = React.useMemo(function()
     if CurrentPanel == 'Materials' then
-      return Roact.createElement(MaterialPanel, {
+      return React.createElement(MaterialPanel, {
         Size = props.IsOutdated and UDim2.new(1, 0, 1, -78) or UDim2.new(1, 0, 1, -60)
       })
     elseif CurrentPanel == 'Settings' then
-      return Roact.createElement(SettingsPanel, {
+      return React.createElement(SettingsPanel, {
         Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
       })
     else
@@ -33,23 +32,23 @@ local function App(props, hooks)
     end
   end, { CurrentPanel })
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
     BorderSizePixel = 0,
     Size = UDim2.fromScale(1, 1)
   }, {
-    Header = Roact.createElement(Header, {
+    Header = React.createElement(Header, {
       CurrentPanel = CurrentPanel,
       IsSearchEnabled = CurrentPanel == 'Materials'
     }),
 
-    UIListLayout = Roact.createElement('UIListLayout', {
+    UIListLayout = React.createElement('UIListLayout', {
       SortOrder = Enum.SortOrder.LayoutOrder
     }),
 
     Body = PanelElement,
 
-    update = props.IsOutdated and Roact.createElement(TextLabel, {
+    update = props.IsOutdated and React.createElement(TextLabel, {
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
       LayoutOrder = -1,
@@ -59,14 +58,12 @@ local function App(props, hooks)
       TextWrapped = true,
       Size = UDim2.fromScale(1, 0)
     }, {
-      UIPadding = Roact.createElement('UIPadding', {
+      UIPadding = React.createElement('UIPadding', {
         PaddingBottom = UDim.new(0, 3),
         PaddingTop = UDim.new(0, 3)
       })
     })
   })
 end
-
-App = Hooks.new(Roact)(App)
 
 return App

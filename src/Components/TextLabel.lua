@@ -1,7 +1,7 @@
-local Roact = require(script.Parent.Parent.Packages.Roact)
+local React = require(script.Parent.Parent.Packages.React)
 
 local function TextLabel(props)
-  return Roact.createElement('TextLabel', {
+  return React.createElement('TextLabel', {
     AutomaticSize = props.AutomaticSize,
     BackgroundColor3 = props.BackgroundColor3,
     BackgroundTransparency = props.BackgroundTransparency,
@@ -18,7 +18,7 @@ local function TextLabel(props)
     TextSize = props.TextSize or 14,
     TextWrapped = props.TextWrapped,
     TextXAlignment = props.TextXAlignment,
-  }, props[Roact.Children])
+  }, props.children)
 end
 
 return TextLabel

@@ -1,15 +1,14 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function ScrollingFrame(props, hooks)
-  local theme = useTheme(hooks)
-  local isYAxisShowing, setYAxisShowing = hooks.useState(false)
+local function ScrollingFrame(props)
+  local theme = useTheme()
+  local isYAxisShowing, setYAxisShowing = React.useState(false)
 
-  local onCanvasSizeChange = hooks.useCallback(function(rbx: ScrollingFrame)
+  local onCanvasSizeChange = React.useCallback(function(rbx: ScrollingFrame)
     setYAxisShowing(rbx.AbsoluteWindowSize.Y < rbx.AbsoluteCanvasSize.Y)
   end, {})
 
@@ -17,13 +16,13 @@ local function ScrollingFrame(props, hooks)
   local BkgColor = if isDark then Color3.fromRGB(38, 38, 38) else Color3.fromRGB(245, 245, 245)
   local ScrollbarColor = if isDark then Color3.fromRGB(85, 85, 85) else Color3.fromRGB(245, 245, 245)
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     BackgroundTransparency = 1,
     Position = props.Position,
     LayoutOrder = props.LayoutOrder,
     Size = props.Size
   }, {
-    ScrollingFrame = Roact.createElement('ScrollingFrame', {
+    ScrollingFrame = React.createElement('ScrollingFrame', {
       AutomaticCanvasSize = props.AutomaticCanvasSize,
       BackgroundTransparency = 1,
       BorderSizePixel = 0,
@@ -38,9 +37,9 @@ local function ScrollingFrame(props, hooks)
       TopImage = 'rbxasset://textures/StudioToolbox/ScrollBarTop.png',
       VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
       ZIndex = 2,
-      [Roact.Change.AbsoluteCanvasSize] = onCanvasSizeChange
-    }, props[Roact.Children]),
-    YScrollingBackground = isYAxisShowing and Roact.createElement('Frame', {
+      [React.Change.AbsoluteCanvasSize] = onCanvasSizeChange
+    }, props.children),
+    YScrollingBackground = isYAxisShowing and React.createElement('Frame', {
       AnchorPoint = Vector2.new(1, 0),
       BackgroundColor3 = BkgColor,
       BorderSizePixel = 0,
@@ -49,7 +48,5 @@ local function ScrollingFrame(props, hooks)
     })
   })
 end
-
-ScrollingFrame = Hooks.new(Roact)(ScrollingFrame)
 
 return ScrollingFrame

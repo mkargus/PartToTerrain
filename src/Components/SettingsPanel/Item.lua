@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local Util = Plugin.Util
 local Localization = require(Util.Localization)
@@ -13,11 +12,11 @@ local ToggleButton = require(Components.ToggleButton)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function SettingsItem(props, hooks)
-  local theme = useTheme(hooks)
-  local currentSettingValue, setSettingValue = hooks.useState(Settings:Get(props.Title))
+local function SettingsItem(props)
+  local theme = useTheme()
+  local currentSettingValue, setSettingValue = React.useState(Settings:Get(props.Title))
 
-  hooks.useEffect(function()
+  React.useEffect(function()
     local updatedCleanup = Settings:onUpdate(props.Title, function(value)
       setSettingValue(value)
     end)
@@ -27,26 +26,26 @@ local function SettingsItem(props, hooks)
     end
   end, {})
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     AutomaticSize = Enum.AutomaticSize.Y,
     BackgroundTransparency = 1,
     BorderSizePixel = 0,
     LayoutOrder = props.LayoutOrder,
     Size = UDim2.fromScale(0.95, 0),
   }, {
-    UIListLayout = Roact.createElement('UIListLayout', {
+    UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Vertical,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
       SortOrder = Enum.SortOrder.LayoutOrder
     }),
 
-    Top = Roact.createElement('Frame', {
+    Top = React.createElement('Frame', {
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundTransparency = 1,
       Size = UDim2.fromScale(1, 0)
     }, {
-      Title = Roact.createElement(TextLabel, {
+      Title = React.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
         Font = Enum.Font.GothamBold,
@@ -58,7 +57,7 @@ local function SettingsItem(props, hooks)
         TextXAlignment = Enum.TextXAlignment.Left,
       }),
 
-      Toggle = Roact.createElement(ToggleButton, {
+      Toggle = React.createElement(ToggleButton, {
         AnchorPoint = Vector2.new(1, 0),
         Position = UDim2.fromScale(1, 0),
         IsActive = currentSettingValue,
@@ -68,7 +67,7 @@ local function SettingsItem(props, hooks)
       })
     }),
 
-    Description = Roact.createElement(TextLabel, {
+    Description = React.createElement(TextLabel, {
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundTransparency = 1,
       LineHeight = 1.2,
@@ -84,7 +83,5 @@ local function SettingsItem(props, hooks)
     })
   })
 end
-
-SettingsItem = Hooks.new(Roact)(SettingsItem)
 
 return SettingsItem

@@ -2,26 +2,23 @@ local Studio = settings():GetService('Studio')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local useEventConnection = require(Plugin.Hooks.useEventConnection)
 
-local Context = Roact.createContext(nil)
+local Context = React.createContext(nil)
 
-local function StudioThemeProvider(props, hooks)
-  local theme, setTheme = hooks.useState(Studio.Theme)
+local function StudioThemeProvider(props)
+  local theme, setTheme = React.useState(Studio.Theme)
 
-  useEventConnection(hooks, Studio.ThemeChanged, function()
+  useEventConnection(Studio.ThemeChanged, function()
     setTheme(Studio.Theme)
   end)
 
-  return Roact.createElement(Context.Provider, {
+  return React.createElement(Context.Provider, {
     value = theme
-  }, props[Roact.Children])
+  }, props.children)
 end
-
-StudioThemeProvider = Hooks.new(Roact)(StudioThemeProvider)
 
 return {
   Context = Context,

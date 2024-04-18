@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
+local React = require(Plugin.Packages.React)
 
 local Constants = require(Plugin.Util.Constants)
 
@@ -22,7 +22,7 @@ local function SettingsPanel(props)
   local NextOrder = CreateNextOrder()
 
   local children = {
-    UIListLayout = Roact.createElement('UIListLayout', {
+    UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Vertical,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
@@ -31,17 +31,17 @@ local function SettingsPanel(props)
   }
 
   for _, key in Constants.SETTINGS_TABLE do
-    children[key] = Roact.createElement(Item, {
+    children[key] = React.createElement(Item, {
       LayoutOrder = NextOrder(),
       Title = key
     })
 
-    children['Separator'..key] = Roact.createElement(Separator, {
+    children['Separator'..key] = React.createElement(Separator, {
       LayoutOrder = NextOrder()
     })
   end
 
-  return Roact.createElement(ScrollingFrame, {
+  return React.createElement(ScrollingFrame, {
     AutomaticCanvasSize = Enum.AutomaticSize.Y,
     ScrollingDirection = Enum.ScrollingDirection.Y,
     Size = props.Size

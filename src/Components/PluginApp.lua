@@ -6,7 +6,7 @@ local UserInputService = game:GetService('UserInputService')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
+local React = require(Plugin.Packages.React)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
@@ -52,7 +52,7 @@ local function IsUpdateAvailable()
   return false
 end
 
-local PluginApp = Roact.PureComponent:extend('PluginApp')
+local PluginApp = React.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
   self.state = {
@@ -165,7 +165,7 @@ function PluginApp:render()
     return nil
   end
 
-  return Roact.createElement(StudioWidget, {
+  return React.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
     Title = Localization('Plugin.NameVersion', { Constants.VERSION }),
@@ -180,13 +180,13 @@ function PluginApp:render()
       self.plugin:Deactivate()
     end
   }, {
-    TooltipContainer = Roact.createElement(Tooltip.Container),
+    TooltipContainer = React.createElement(Tooltip.Container),
 
-    App = state.guiEnabled and Roact.createElement(App, {
+    App = state.guiEnabled and React.createElement(App, {
       IsOutdated = state.isOutdated
     }),
 
-    Outline = state.guiEnabled and Roact.createElement(Outline, {
+    Outline = state.guiEnabled and React.createElement(Outline, {
       PluginMouse = self.pluginMouse,
       RaycastParams = self.raycastParams
     })
