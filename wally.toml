@@ -6,8 +6,6 @@ realm = "shared"
 private = true
 
 [dependencies]
-Roact = "roblox/roact@=1.4.4"
-RoactHooks = "kampfkarren/roact-hooks@=0.5.1"
 React = "jsdotlua/react@=17.1.0"
 ReactRoblox = "jsdotlua/react-roblox@=17.1.0"
 BasicState = "csqrl/basicstate@=0.2.6"
