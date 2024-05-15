@@ -37,7 +37,7 @@ local app = React.createElement(StudioTheme.Provider, nil, {
   })
 })
 
-local root = ReactRoblox.createLegacyRoot(Instance.new('Folder'))
+local root = ReactRoblox.createRoot(Instance.new('Folder'))
 root:render(app)
 
 plugin.Unloading:Connect(function()
