@@ -6,8 +6,7 @@ local TextSerice = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local Components = Plugin.Components
 local TextLabel = require(Components.TextLabel)
@@ -18,7 +17,7 @@ local PADDING = 3
 local SHOW_DELAY_TIME = 0.5
 local OFFSET = Vector2.new(13, 5)
 
-local TooltipContext = Roact.createContext({})
+local TooltipContext = React.createContext({})
 
 type PopupProp = {
   Position: Vector2,
@@ -27,8 +26,8 @@ type PopupProp = {
 }
 
 -- Popup
-local function Popup(props: PopupProp, hooks)
-  local theme = useTheme(hooks)
+local function Popup(props: PopupProp)
+  local theme = useTheme()
 
   local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(160, math.huge))
 
@@ -46,33 +45,31 @@ local function Popup(props: PopupProp, hooks)
     targetY = props.Size.Y - tooltipHeight
   end
 
-  return Roact.createElement(TextLabel, {
+  return React.createElement(TextLabel, {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
     Position = UDim2.fromOffset(targetX, targetY),
     Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
     Text = props.Text,
     TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
   }, {
-    UICorner = Roact.createElement('UICorner', {
+    UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3)
     }),
-    UIPadding = Roact.createElement('UIPadding', {
+    UIPadding = React.createElement('UIPadding', {
       PaddingBottom = UDim.new(0, PADDING),
       PaddingLeft = UDim.new(0, PADDING),
       PaddingRight = UDim.new(0, PADDING),
       PaddingTop = UDim.new(0, PADDING)
     }),
-    UIStroke = Roact.createElement('UIStroke', {
+    UIStroke = React.createElement('UIStroke', {
       ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
       Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
     })
   })
 end
 
-Popup = Hooks.new(Roact)(Popup)
-
 -- Provider
-local Provider = Roact.Component:extend('TooltipProvider')
+local Provider = React.Component:extend('TooltipProvider')
 
 function Provider:init()
   self.state = {
@@ -93,41 +90,39 @@ function Provider:init()
 end
 
 function Provider:render()
-  return Roact.createElement(TooltipContext.Provider, {
+  return React.createElement(TooltipContext.Provider, {
     value = self.state
-  }, self.props[Roact.Children])
+  }, self.props.children)
 end
 
 -- Container
-local function Container(_, hooks)
-  local context = hooks.useContext(TooltipContext)
-  local size, setSize = hooks.useState(Vector2.one)
+local function Container()
+  local context = React.useContext(TooltipContext)
+  local size, setSize = React.useState(Vector2.one)
 
   local popups = {}
   local tips = context.tips
 
   for key, value in tips do
-    popups[key] = Roact.createElement(Popup, {
+    popups[key] = React.createElement(Popup, {
       Text = value.Text or '',
       Position = value.Position or Vector2.zero,
       Size = size
     })
   end
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = UDim2.fromScale(1, 1),
     ZIndex = 1000,
-    [Roact.Change.AbsoluteSize] = function(rbx: Frame)
+    [React.Change.AbsoluteSize] = function(rbx: Frame)
       setSize(rbx.AbsoluteSize)
     end
   }, popups)
 end
 
-Container = Hooks.new(Roact)(Container)
-
 -- Trigger
-local Trigger = Roact.Component:extend('TooltipTrigger')
+local Trigger = React.Component:extend('TooltipTrigger')
 
 function Trigger:init()
   self.id = HttpService:GenerateGUID(false)
@@ -137,14 +132,14 @@ end
 function Trigger:render()
   local props = self.props
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = UDim2.fromScale(1, 1),
     ZIndex = 1000,
-    [Roact.Event.MouseMoved] = function(_, x, y)
+    [React.Event.MouseMoved] = function(_, x, y)
       self.mousePos = Vector2.new(x, y)
     end,
-    [Roact.Event.MouseEnter] = function()
+    [React.Event.MouseEnter] = function()
       self.showDelayThread = task.delay(SHOW_DELAY_TIME, function()
         props.context.addTip(self.id, {
           Text = props.Text,
@@ -153,7 +148,7 @@ function Trigger:render()
         self.showDelayThread = nil
       end)
     end,
-    [Roact.Event.MouseLeave] = function()
+    [React.Event.MouseLeave] = function()
       if self.showDelayThread then
         pcall(task.cancel, self.showDelayThread)
         self.showDelayThread = nil
@@ -163,23 +158,21 @@ function Trigger:render()
   })
 end
 
-function Trigger:willUnmount()
+function Trigger:componentWillUnmount()
   if self.showDelayThread then
     pcall(task.cancel, self.showDelayThread)
   end
   self.props.context.removeTip(self.id)
 end
 
-local function TriggerConsumer(props, hooks)
-  local context = hooks.useContext(TooltipContext)
+local function TriggerConsumer(props)
+  local context = React.useContext(TooltipContext)
 
   local innerProps = table.clone(props)
   innerProps.context = context
 
-  return Roact.createElement(Trigger, innerProps)
+  return React.createElement(Trigger, innerProps)
 end
-
-TriggerConsumer = Hooks.new(Roact)(TriggerConsumer)
 
 return {
   Provider = Provider,

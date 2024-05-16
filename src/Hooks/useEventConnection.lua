@@ -1,5 +1,7 @@
-local function useEventConnection(hooks, event: RBXScriptSignal, callback: (...any) -> ())
-  hooks.useEffect(function()
+local React = require(script.Parent.Parent.Packages.React)
+
+local function useEventConnection(event: RBXScriptSignal, callback: (...any) -> ())
+  React.useEffect(function()
     local connection = event:Connect(callback)
 
     return function()

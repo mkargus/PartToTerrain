@@ -2,8 +2,8 @@ local CoreGui = game:GetService('CoreGui')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
+local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 
 local Util = Plugin.Util
 local Constants = require(Util.Constants)
@@ -63,11 +63,11 @@ local function CreateOutline(Part, color)
   end
 end
 
-local function Outline(props, hooks)
-  local Part, setPart = hooks.useState()
+local function Outline(props)
+  local Part, setPart = React.useState(nil)
   local PluginMouse = props.PluginMouse :: PluginMouse
 
-  useEventConnection(hooks, PluginMouse.Move, function()
+  useEventConnection(PluginMouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = PluginMouse.UnitRay
     local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.RaycastParams)
@@ -98,13 +98,9 @@ local function Outline(props, hooks)
   local color = GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
   local outlineClass, outlineProps = CreateOutline(Part, color)
 
-  return Roact.createElement(Roact.Portal, {
-    target = CoreGui
-  }, {
-    PTT_Outline = Roact.createElement(outlineClass, outlineProps)
-  })
+  return ReactRoblox.createPortal({
+    PTT_Outline = React.createElement(outlineClass, outlineProps)
+  }, CoreGui)
 end
-
-Outline = Hooks.new(Roact)(Outline)
 
 return Outline

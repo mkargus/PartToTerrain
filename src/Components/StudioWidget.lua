@@ -12,9 +12,10 @@
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
+local React = require(Plugin.Packages.React)
+local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 
-local StudioWidget = Roact.PureComponent:extend('StudioWidget')
+local StudioWidget = React.PureComponent:extend('StudioWidget')
 
 StudioWidget.defaultProps = {
   InitialDockState = Enum.InitialDockState.Float,
@@ -55,18 +56,16 @@ function StudioWidget:init()
 end
 
 function StudioWidget:render()
-  return Roact.createElement(Roact.Portal, {
-    target = self.pluginGui
-  }, self.props[Roact.Children])
+  return ReactRoblox.createPortal(self.props.children, self.pluginGui)
 end
 
-function StudioWidget:didUpdate(lastProps)
+function StudioWidget:componentDidUpdate(lastProps)
   if lastProps.Enabled ~= self.props.Enabled then
     self.pluginGui.Enabled = self.props.Enabled
   end
 end
 
-function StudioWidget:willUnmount()
+function StudioWidget:componentWillUnmount()
   self.pluginGui:Destroy()
 end
 

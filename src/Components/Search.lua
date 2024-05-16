@@ -1,35 +1,34 @@
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local Localization = require(Plugin.Util.Localization)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function Search(props, hooks)
-  local theme = useTheme(hooks)
-  local TextBoxRef = hooks.useValue(Roact.createRef())
-  local isFocus, setFocus = hooks.useState(false)
-  local isHover, setHover = hooks.useState(false)
+local function Search(props)
+  local theme = useTheme()
+  local TextBoxRef = React.useRef(nil)
+  local isFocus, setFocus = React.useState(false)
+  local isHover, setHover = React.useState(false)
 
-  local onMouseButton1Click = hooks.useCallback(function()
-    TextBoxRef.value:getValue():CaptureFocus()
+  local onMouseButton1Click = React.useCallback(function()
+    TextBoxRef.current:CaptureFocus()
   end, {})
 
-  local onMouseEnter = hooks.useCallback(function()
+  local onMouseEnter = React.useCallback(function()
     setHover(true)
   end, {})
 
-  local onMouseLeave = hooks.useCallback(function()
+  local onMouseLeave = React.useCallback(function()
     setHover(false)
   end, {})
 
-  local onFocused = hooks.useCallback(function()
+  local onFocused = React.useCallback(function()
     setFocus(true)
   end, {})
 
-  local onFocusLost = hooks.useCallback(function()
+  local onFocusLost = React.useCallback(function()
     setFocus(false)
   end, {})
 
@@ -40,30 +39,30 @@ local function Search(props, hooks)
     Modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
-  return Roact.createElement('ImageButton', {
+  return React.createElement('ImageButton', {
     AutoButtonColor = false,
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
     BorderSizePixel = 0,
     Position = props.Position,
     Size = UDim2.new(1, -7, 0, 26),
-    [Roact.Event.MouseButton1Click] = onMouseButton1Click,
-    [Roact.Event.MouseEnter] = onMouseEnter,
-    [Roact.Event.MouseLeave] = onMouseLeave
+    [React.Event.MouseButton1Click] = onMouseButton1Click,
+    [React.Event.MouseEnter] = onMouseEnter,
+    [React.Event.MouseLeave] = onMouseLeave
   }, {
-    UICorner = Roact.createElement('UICorner', {
+    UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3)
     }),
 
-    Container = Roact.createElement('Frame', {
+    Container = React.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, Modifier),
       Position = UDim2.fromOffset(1, 1),
       Size = UDim2.new(1, -2, 1, -2)
     }, {
-      UICorner = Roact.createElement('UICorner', {
+      UICorner = React.createElement('UICorner', {
         CornerRadius = UDim.new(0, 3)
       }),
 
-      Icon = Roact.createElement('ImageLabel', {
+      Icon = React.createElement('ImageLabel', {
         BackgroundTransparency = 1,
         ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
         Image = 'rbxassetid://5927945389',
@@ -71,7 +70,7 @@ local function Search(props, hooks)
         Size = UDim2.fromOffset(24, 24)
       }),
 
-      Input = Roact.createElement('TextBox', {
+      Input = React.createElement('TextBox', {
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         Font = Enum.Font.Gotham,
@@ -84,15 +83,13 @@ local function Search(props, hooks)
         TextSize = 14,
         TextTruncate = Enum.TextTruncate.AtEnd,
         TextXAlignment = Enum.TextXAlignment.Left,
-        [Roact.Ref] = TextBoxRef.value,
-        [Roact.Event.Focused] = onFocused,
-        [Roact.Event.FocusLost] = onFocusLost,
-        [Roact.Change.Text] = props.onTextChange
+        ref = TextBoxRef,
+        [React.Event.Focused] = onFocused,
+        [React.Event.FocusLost] = onFocusLost,
+        [React.Change.Text] = props.onTextChange
       })
     })
   })
 end
-
-Search = Hooks.new(Roact)(Search)
 
 return Search

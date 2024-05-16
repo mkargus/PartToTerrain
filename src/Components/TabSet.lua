@@ -19,8 +19,7 @@ local TextService = game:GetService('TextService')
 
 local Plugin = script.Parent.Parent
 
-local Roact = require(Plugin.Packages.Roact)
-local Hooks = require(Plugin.Packages.RoactHooks)
+local React = require(Plugin.Packages.React)
 
 local Tab = require(Plugin.Components.Tab)
 
@@ -49,23 +48,23 @@ local function CanTextBeDisplayed(tabs, tabSize)
   return true
 end
 
-local function TabSet(props, hooks)
-  local currentWidth, setWidth = hooks.useState(0)
+local function TabSet(props)
+  local currentWidth, setWidth = React.useState(0)
 
-  local onTabSelected = hooks.useCallback(function(key: string)
+  local onTabSelected = React.useCallback(function(key: string)
     if props.onTabSelected then
       props.onTabSelected(key)
     end
   end, {})
 
-  local onAbsoluteSizeChange = hooks.useCallback(function(rbx: Frame)
+  local onAbsoluteSizeChange = React.useCallback(function(rbx: Frame)
     setWidth(rbx.AbsoluteSize.X)
   end, {})
 
   local NextOrder = CreateNextOrder()
 
   local children = {
-    UIListLayout = Roact.createElement('UIListLayout', {
+    UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Horizontal,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       SortOrder = Enum.SortOrder.LayoutOrder
@@ -75,7 +74,7 @@ local function TabSet(props, hooks)
   local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
 
   for _, tab in props.Tabs do
-    children[tab.Key] = Roact.createElement(Tab, {
+    children[tab.Key] = React.createElement(Tab, {
       Key = tab.Key,
       Active = props.CurrentTab == tab.Key,
       WidthScale = 1 / #props.Tabs,
@@ -89,13 +88,11 @@ local function TabSet(props, hooks)
     })
   end
 
-  return Roact.createElement('Frame', {
+  return React.createElement('Frame', {
     BackgroundTransparency = 1,
     Size = props.Size,
-    [Roact.Change.AbsoluteSize] = onAbsoluteSizeChange
+    [React.Change.AbsoluteSize] = onAbsoluteSizeChange
   }, children)
 end
-
-TabSet = Hooks.new(Roact)(TabSet)
 
 return TabSet
