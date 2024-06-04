@@ -42,7 +42,7 @@ function TerrainUtil:GetPartInfo(part: BasePart): (string, CFrame, Vector3)
   -- If the part has a mesh parented to it, then use the mesh shape instead
   if obj then
     cframe += part.CFrame:VectorToWorldSpace(obj.Offset)
-    size *= obj.Scale
+    size *= obj.Scale:Abs()
 
     if obj:IsA('SpecialMesh') then
       if obj.MeshType == Enum.MeshType.Cylinder then
