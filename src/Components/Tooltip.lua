@@ -1,4 +1,3 @@
---!strict
 -- Based off of the Rojo's tooltip.
 -- https://github.com/rojo-rbx/rojo/blob/master/plugin/src/App/Components/Tooltip.lua
 local HttpService = game:GetService('HttpService')
@@ -19,14 +18,8 @@ local OFFSET = Vector2.new(13, 5)
 
 local TooltipContext = React.createContext({})
 
-type PopupProp = {
-  Position: Vector2,
-  Size: Vector2,
-  Text: string
-}
-
 -- Popup
-local function Popup(props: PopupProp)
+local function Popup(props)
   local theme = useTheme()
 
   local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(160, math.huge))
