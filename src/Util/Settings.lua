@@ -12,7 +12,7 @@ local Settings = {}
 Settings._values = DEFAULT_SETTINGS
 Settings._updateListeners = {}
 
-for key, defaultValue in pairs(Settings._values) do
+for key, defaultValue in Settings._values do
   local savedValue = plugin:GetSetting(key)
 
   if savedValue == nil then
@@ -36,7 +36,7 @@ function Settings:Set(key: string, value: any)
   plugin:SetSetting(key, value)
 
   if self._updateListeners[key] then
-    for callback in pairs(self._updateListeners[key]) do
+    for callback in self._updateListeners[key] do
       task.spawn(callback, value)
     end
   end

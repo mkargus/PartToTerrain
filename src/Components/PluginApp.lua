@@ -24,7 +24,7 @@ local Tooltip = require(Components.Tooltip)
 local function GetInvisibleParts()
   local ignoreList = {}
 
-  for _, descendant in ipairs(workspace:GetDescendants()) do
+  for _, descendant in workspace:GetDescendants() do
     if descendant:IsA('BasePart') and descendant.Transparency == 1 then
       table.insert(ignoreList, descendant)
     end
