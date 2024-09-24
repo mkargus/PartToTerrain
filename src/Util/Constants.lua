@@ -5,9 +5,9 @@ local Constants = {}
 ----------------------------------------
 Constants.PLUGIN_BUTTON_ICON = 'rbxassetid://5768049797'
 
-Constants.OUTLINE_COLOR_ALLOW = Color3.fromRGB(67, 160, 71)
-Constants.OUTLINE_COLOR_WARNING = Color3.fromRGB(255, 235, 59)
-Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(229, 57, 53)
+Constants.OUTLINE_COLOR_ALLOW = Color3.fromRGB(56, 142, 60)
+Constants.OUTLINE_COLOR_WARNING = Color3.fromRGB(245, 124, 0)
+Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(211, 47, 47)
 
 ----------------------------------------
 -- Update Checking
@@ -25,7 +25,7 @@ Constants.MATERIAL_GRID_SIZE = UDim2.fromOffset(50, 50)
 
 Constants.MATERIALS_TABLE = {
   { enum = Enum.Material.Air, img = 'mtrl_air.png' },
-  { enum = Enum.Material.Asphalt, img = '/mtrl_asphalt.png' },
+  { enum = Enum.Material.Asphalt, img = 'mtrl_asphalt.png' },
   { enum = Enum.Material.Basalt, img = 'mtrl_basalt.png' },
   { enum = Enum.Material.Brick, img = 'mtrl_brick.png' },
   { enum = Enum.Material.Cobblestone, img = 'mtrl_cobblestone.png' },
