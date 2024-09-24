@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+* Added Deutsch and Vietnamese localization
+### Changed
+* Switched UI frame from Roact to React
+* Allow parts with meshes to have negative scale to still be converted
+* Moved version number at the bottom of settings.
 
 ## [1.6.2] - November 24, 2023
 This update is mostly internal UI cleanup and adoption of roact-hooks.
