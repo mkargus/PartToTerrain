@@ -1,6 +1,6 @@
 [package]
 name = "mkargus/parttoterrain"
-version = "1.6.2"
+version = "1.7.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 private = true
