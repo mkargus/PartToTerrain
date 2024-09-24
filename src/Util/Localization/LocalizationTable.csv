@@ -1,8 +1,7 @@
 Key,en_US,zh_CN,ko_KR,ja_JP,es_ES,pt_BR,fr_FR,it_IT,zh_TW,de_DE,vi_VN
 Plugin.Name,Part to Terrain,部件至地形,파트를 지형으로,地形のパーツ,Parte en Terreno,Parte para terreno,Partie du terrrain,Parte in terreno,零件到地形,Teil zu Gelände,Chuyển đổi Bộ Phận thành Địa Hình
-Plugin.NameDev,Part to Terrain [DEV],部件至地形 [DEV],파트를 지형으로 [DEV],地形のパーツ [DEV],Parte en Terreno [DEV],Parte para terreno [DEV],Partie du terrrain [DEV],Parte in terreno [DEV],零件到地形 [DEV],Teil zu Gelände [DEV],Chuyển đổi Bộ Phận thành Địa Hình [DEV]
 Plugin.Desc,Convert parts into terrain with ease.,,,,,,,,,,
-Plugin.NameVersion,Part to Terrain {1},部件至地形 {1},파트를 지형으로 {1},地形のパーツ {1},Parte en Terreno {1},Parte para terreno {1},Partie du terrrain {1},Parte in terreno {1},零件到地形 {1},Teil zu Gelände {1},Chuyển đổi Bộ Phận thành Địa Hình {1}
+Plugin.Version,Version {1},版本 {1},버전 {1},バージョン {1},Versión {1},Versão {1},Version {1},Versione {1},版本 {1},Version {1},Phiên Bản {1}
 Plugin.Search,Search,搜索,검색,サーチ,Buscar,Pesquisar,Rechercher,Cerca,搜尋,Suchen,Tìm Kiếm
 Button.Materials,Materials,物料,기재,材料,Materiales,Materiais,Matériel,Materiale,材質,Materialen,Vật Liệu
 Button.Settings,Settings,设置,설정,設定,Config,Config,Paramètres,Impostazioni,設定,Einstellungen,Cài Đặt
@@ -17,9 +16,6 @@ Settings.PreserveTerrainDesc,Existing terrain will not be overwritten.<br/><br/>
 Settings.IgnoreInvisibleParts,Ignore Invisible Parts,,,,,,,,,,
 Settings.IgnoreInvisiblePartsDesc,Parts that are invisible will converted and will not be highlighted when hover,,,,,,,,,,
 Notice.Outdated,A new update is available.,,,,,,,,,,
-Notice.IgnoreLockedPart,Ignoring locked part due to settings.,,,,,,,,,,
-Notice.ShapeNotSupported,Part shape is not supported.,,,,,,,,,,
-Notice.ClassNotSupport,Part class is not supported.,,,,,,,,,,
 Notice.NoResultsFound,No results found,未找到结果,결과 없음,結果が見つかりませんでした,No se encontraron resultados,Nenhum resultado encontrado,Pas de résultats trouvés,Nessun risultato trovato,找不到結果,Keine Ergebnisse gefunden,Không tìm thấy kết quả
 Materials.Air,Air,天空,공기,空気,Aire,Ar,Air,Aria,空氣,Luft,Không Khí
 Materials.Asphalt,Asphalt,沥青,아스팔트,アスファルト,Asfalto,Asfalto,Asphalte,Asfalto,瀝青,Asphalt,Nhựa Đường

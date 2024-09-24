@@ -2,12 +2,17 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Constants = require(Plugin.Util.Constants)
+local Util = Plugin.Util
+local Constants = require(Util.Constants)
+local Localization = require(Util.Localization)
+
+local useTheme = require(Plugin.Hooks.useTheme)
 
 local Components = Plugin.Components
 local Item = require(script.Item)
 local ScrollingFrame = require(Components.ScrollingFrame)
 local Separator = require(script.Separator)
+local TextLabel = require(Components.TextLabel)
 
 local function CreateNextOrder(): () -> number
   local LayoutOrder = 0
@@ -19,6 +24,7 @@ local function CreateNextOrder(): () -> number
 end
 
 local function SettingsPanel(props)
+  local theme = useTheme()
   local NextOrder = CreateNextOrder()
 
   local children = {
@@ -27,6 +33,13 @@ local function SettingsPanel(props)
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
       SortOrder = Enum.SortOrder.LayoutOrder
+    }),
+    VersionText = React.createElement(TextLabel, {
+      BackgroundTransparency = 1,
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
+      Text = Localization('Plugin.Version', { Constants.VERSION }),
+      Size = UDim2.new(1, 0, 0, 14),
+      LayoutOrder = 1000
     })
   }
 

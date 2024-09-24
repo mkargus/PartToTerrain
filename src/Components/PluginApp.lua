@@ -78,7 +78,7 @@ function PluginApp:init()
   self.toolbar = self.plugin:CreateToolbar('mkargus')
 
   self.button = self.toolbar:CreateButton(
-    Localization(Constants.IS_DEV_CHANNEL and 'Plugin.NameDev' or 'Plugin.Name'),
+    Localization('Plugin.Name') .. if Constants.IS_DEV_CHANNEL then '[DEV]' else '',
     Localization('Plugin.Desc'),
     Constants.PLUGIN_BUTTON_ICON
   )
@@ -168,7 +168,7 @@ function PluginApp:render()
   return React.createElement(StudioWidget, {
     plugin = self.plugin,
     Id = 'PartToTerrain',
-    Title = Localization('Plugin.NameVersion', { Constants.VERSION }),
+    Title = Localization('Plugin.Name') .. if Constants.IS_DEV_CHANNEL then '[DEV]' else '',
 
     Enabled = state.guiEnabled,
 
