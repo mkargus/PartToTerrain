@@ -13,7 +13,7 @@ Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(211, 47, 47)
 -- Update Checking
 ----------------------------------------
 Constants.IS_DEV_CHANNEL = false
-Constants.VERSION = '1.6.2'
+Constants.VERSION = '1.7.0'
 Constants.UPDATE_CHECKER_ID = 261634767
 Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 
