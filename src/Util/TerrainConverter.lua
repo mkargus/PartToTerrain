@@ -101,12 +101,7 @@ function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, siz
 
   local regionSize = materialVoxels.Size
 
-  local sizeCellClamped = size / RESOLUTION
-  sizeCellClamped = Vector3.new(
-    math.min(1, sizeCellClamped.X),
-    math.min(1, sizeCellClamped.Y),
-    math.min(1, sizeCellClamped.Z))
-
+  local sizeCellClamped = (size / RESOLUTION):Min(Vector3.one)
   local sizeCellsHalfOffset = size * (0.5 / RESOLUTION) + Vector3.new(0.5, 0.5, 0.5)
 
   for x = 1, regionSize.X do
