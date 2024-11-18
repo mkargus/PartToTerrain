@@ -1,5 +1,7 @@
 local Constants = {}
 
+Constants.VOXEL_RESOLUTION = 4
+
 Constants.RAYCAST_LENGTH = 15000
 
 ----------------------------------------
