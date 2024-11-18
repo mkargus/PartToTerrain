@@ -1,6 +1,5 @@
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local MarketplaceService = game:GetService('MarketplaceService')
-local RunService = game:GetService('RunService')
 local Selection = game:GetService('Selection')
 local UserInputService = game:GetService('UserInputService')
 
@@ -34,17 +33,14 @@ local function GetInvisibleParts()
 end
 
 local function IsUpdateAvailable()
-  if not RunService:IsRunning() then
-    local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
-    local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
+  local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
+  local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
 
-    if success then
-      local LatestVersion = string.match(info.Description, '([0-9]+%.[0-9]+%.[0-9]+)')
+  if success then
+    local LatestVersion = string.match(info.Description, '([0-9]+%.[0-9]+%.[0-9]+)')
 
-      if LatestVersion and LatestVersion ~= Constants.VERSION then
-        return true
-      end
-
+    if LatestVersion and LatestVersion ~= Constants.VERSION then
+      return true
     end
   end
 
@@ -82,7 +78,6 @@ function PluginApp:init()
     Localization('Plugin.Desc'),
     Constants.PLUGIN_BUTTON_ICON
   )
-  self.button.Enabled = RunService:IsRunning() ~= true
 
   self.button.Click:Connect(function()
     if not self.state.guiEnabled then
@@ -160,10 +155,6 @@ end
 
 function PluginApp:render()
   local state = self.state
-
-  if RunService:IsRunning() then
-    return nil
-  end
 
   return React.createElement(StudioWidget, {
     plugin = self.plugin,
