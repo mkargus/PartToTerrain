@@ -2,11 +2,11 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Search = require(Plugin.Components.Search)
+local Materials = require(Plugin.Views.Materials)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function App(props)
+local function App()
   local theme = useTheme()
 
   return React.createElement(React.Fragment, nil, {
@@ -16,10 +16,7 @@ local function App(props)
       ZIndex = 0
     }),
 
-    Search = React.createElement(Search, {
-      PlaceholderText = 'Search',
-      Position = UDim2.fromOffset(3, 3)
-    })
+    Body = React.createElement(Materials)
   })
 end
 
