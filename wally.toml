@@ -6,6 +6,6 @@ realm = "shared"
 private = true
 
 [dependencies]
-React = "jsdotlua/react@=17.1.0"
-ReactRoblox = "jsdotlua/react-roblox@=17.1.0"
+React = "jsdotlua/react@=17.2.1"
+ReactRoblox = "jsdotlua/react-roblox@=17.2.1"
 BasicState = "csqrl/basicstate@=0.2.6"
