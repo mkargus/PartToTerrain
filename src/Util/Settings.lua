@@ -9,17 +9,19 @@ local DEFAULT_SETTINGS = {
 }
 
 local Settings = {}
-Settings._values = DEFAULT_SETTINGS
+Settings._values = table.clone(DEFAULT_SETTINGS)
 Settings._updateListeners = {}
 
-for key, defaultValue in Settings._values do
-  local savedValue = plugin:GetSetting(key)
+if plugin then
+  for key, defaultValue in Settings._values do
+    local savedValue = plugin:GetSetting(key)
 
-  if savedValue == nil then
-    Settings._values[key] = defaultValue
-    plugin:SetSetting(key, defaultValue)
-  else
-    Settings._values[key] = savedValue
+    if savedValue == nil then
+      Settings._values[key] = defaultValue
+      plugin:SetSetting(key, defaultValue)
+    else
+      Settings._values[key] = savedValue
+    end
   end
 end
 
@@ -33,7 +35,10 @@ end
 
 function Settings:Set(key: string, value: any)
   self._values[key] = value
-  plugin:SetSetting(key, value)
+
+  if plugin then
+    plugin:SetSetting(key, value)
+  end
 
   if self._updateListeners[key] then
     for callback in self._updateListeners[key] do
