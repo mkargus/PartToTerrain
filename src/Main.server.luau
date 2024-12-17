@@ -15,6 +15,12 @@ https://github.com/mkargus/PartToTerrain/blob/main/LICENSE.txt
 
 ]]
 
+local RunService = game:GetService('RunService')
+
+if RunService:IsRunning() then
+  return
+end
+
 if not plugin then
   error('Part to Terrain has to be ran as a plugin.')
 end
