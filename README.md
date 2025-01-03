@@ -17,7 +17,8 @@ The plugin uses some third-party tools while developing:
 - [Wally](https://github.com/UpliftGames/wally) - Package manager for Roblox projects
 
 ## Building the plugin
-1. Make sure you have installed Git, Wally, and Rojo in order to build the plugin. *(If you want to use toolchains like Foreman, run `foreman install`)*
+1. Make sure you have installed Git, Wally, and Rojo in order to build the plugin.
+*(If you want to use toolchains like [Rokit](https://github.com/rojo-rbx/rokit), run `rokit install`)*
 
 2. Clone the repo:
 ```
