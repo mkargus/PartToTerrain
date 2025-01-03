@@ -14,18 +14,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: roblox/setup-foreman@v2
+    - uses: CompeyDev/setup-rokit@v0.1.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: List installed foreman tools
-      run: foreman list
-
-    - name: Generate Roblox standards
-      run: selene generate-roblox-std
-
     - name: Run Selene
-      run: selene ./src
+      run: |
+        selene generate-roblox-std
+        selene ./src
 
   build:
     name: Build
@@ -34,12 +30,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: roblox/setup-foreman@v2
+      - uses: CompeyDev/setup-rokit@v0.1.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: List installed foreman tools
-        run: foreman list
 
       - name: Install Wally packages
         run: wally install
