@@ -60,8 +60,8 @@ local function SettingsItem(props)
       Toggle = React.createElement(ToggleButton, {
         AnchorPoint = Vector2.new(1, 0),
         Position = UDim2.fromScale(1, 0),
-        IsActive = currentSettingValue,
-        onClick = function()
+        Selected = currentSettingValue,
+        OnClick = function()
           Settings:Set(props.Title, not currentSettingValue)
         end
       })
