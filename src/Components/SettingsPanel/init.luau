@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent
 local React = require(Plugin.Packages.React)
 
 local Util = Plugin.Util
+local createNextOrder = require(Util.createNextOrder)
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 
@@ -14,18 +15,9 @@ local ScrollingFrame = require(Components.ScrollingFrame)
 local Separator = require(script.Separator)
 local TextLabel = require(Components.TextLabel)
 
-local function CreateNextOrder(): () -> number
-  local LayoutOrder = 0
-
-  return function()
-    LayoutOrder += 1
-    return LayoutOrder
-  end
-end
-
 local function SettingsPanel(props)
   local theme = useTheme()
-  local NextOrder = CreateNextOrder()
+  local NextOrder = createNextOrder()
 
   local children = {
     UIListLayout = React.createElement('UIListLayout', {

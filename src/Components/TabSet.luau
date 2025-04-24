@@ -23,14 +23,7 @@ local React = require(Plugin.Packages.React)
 
 local Tab = require(Plugin.Components.Tab)
 
-local function CreateNextOrder(): () -> number
-  local LayoutOrder = 0
-
-  return function()
-    LayoutOrder += 1
-    return LayoutOrder
-  end
-end
+local createNextOrder = require(Plugin.Util.createNextOrder)
 
 local function CanTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then
@@ -61,7 +54,7 @@ local function TabSet(props)
     setWidth(rbx.AbsoluteSize.X)
   end, {})
 
-  local NextOrder = CreateNextOrder()
+  local NextOrder = createNextOrder()
 
   local children = {
     UIListLayout = React.createElement('UIListLayout', {
