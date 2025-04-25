@@ -1,26 +1,30 @@
-local Studio = settings():GetService('Studio')
+local StudioSettings = settings().Studio
 
 local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local useEventConnection = require(Plugin.Hooks.useEventConnection)
-
-local Context = React.createContext(nil)
+local StudioThemeContext = React.createContext(StudioSettings.Theme)
 
 local function StudioThemeProvider(props)
-  local theme, setTheme = React.useState(Studio.Theme)
+  local theme, setTheme = React.useState(StudioSettings.Theme)
 
-  useEventConnection(Studio.ThemeChanged, function()
-    setTheme(Studio.Theme)
-  end)
+  React.useEffect(function()
+    local connection = StudioSettings.ThemeChanged:Connect(function()
+      setTheme(StudioSettings.Theme)
+    end)
 
-  return React.createElement(Context.Provider, {
+    return function()
+      connection:Disconnect()
+    end
+  end, {})
+
+  return React.createElement(StudioThemeContext.Provider, {
     value = theme
   }, props.children)
 end
 
 return {
-  Context = Context,
+  Context = StudioThemeContext,
   Provider = StudioThemeProvider
 }
