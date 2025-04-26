@@ -49,7 +49,7 @@ local function SettingsPanel(props)
   return React.createElement(ScrollingFrame, {
     AutomaticCanvasSize = Enum.AutomaticSize.Y,
     ScrollingDirection = Enum.ScrollingDirection.Y,
-    Size = props.Size
+    Size = UDim2.fromScale(1, 1)
   }, children)
 end
 

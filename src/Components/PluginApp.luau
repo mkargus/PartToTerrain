@@ -171,11 +171,7 @@ function PluginApp:render()
       self.plugin:Deactivate()
     end
   }, {
-    TooltipContainer = React.createElement(Tooltip.Container),
-
-    App = React.createElement(App, {
-      IsOutdated = state.isOutdated
-    }),
+    App = React.createElement(App),
 
     Outline = state.guiEnabled and React.createElement(Outline, {
       PluginMouse = self.pluginMouse,

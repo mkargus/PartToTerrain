@@ -24,7 +24,7 @@ local React = require(Plugin.Packages.React)
 
 local Tab = require('./Tab')
 
-local createNextOrder = require(Plugin.Util.createNextOrder)
+local createNextOrder = require('../Util/createNextOrder')
 
 local function CanTextBeDisplayed(tabs, tabSize)
   if #tabs > 0 then

@@ -43,7 +43,7 @@ local function MaterialPanel(props)
   return React.createElement('Frame', {
     BackgroundTransparency = 1,
     LayoutOrder = 2,
-    Size = props.Size
+    Size = UDim2.fromScale(1, 1)
   }, {
     MaterialGrid = hasAssets and React.createElement(ScrollingFrame, {
       AutomaticCanvasSize = Enum.AutomaticSize.Y,
