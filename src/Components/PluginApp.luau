@@ -173,7 +173,7 @@ function PluginApp:render()
   }, {
     TooltipContainer = React.createElement(Tooltip.Container),
 
-    App = state.guiEnabled and React.createElement(App, {
+    App = React.createElement(App, {
       IsOutdated = state.isOutdated
     }),
 

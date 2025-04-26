@@ -28,7 +28,10 @@ local function App(props)
         Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
       })
     else
-      error('Requested unknown panel.')
+      return React.createElement('TextLabel', {
+        Size = UDim2.fromScale(1, 1),
+        Text = "You shouldn't be able to see this."
+      })
     end
   end, { CurrentPanel })
 

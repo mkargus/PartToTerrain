@@ -13,16 +13,18 @@ local useTheme = require(Plugin.Hooks.useTheme)
 
 local function Header(props)
   local theme = useTheme()
-  local Height = if props.IsSearchEnabled then 60 else 28
 
   return React.createElement('Frame', {
+    AutomaticSize = Enum.AutomaticSize.Y,
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
+    BorderSizePixel = 0,
     BorderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Border),
-    Size = UDim2.new(1, 0, 0, Height)
+    Size = UDim2.new(1, 0, 0, 0)
   }, {
     Navbar = React.createElement(TabSet, {
+      AutomaticSize = Enum.AutomaticSize.Y,
       CurrentTab = props.CurrentPanel,
-      Size = UDim2.new(1, 0, 0, 28),
+      Size = UDim2.new(1, 0, 0, 0),
       Tabs = {
         { Key = 'Materials', Icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
         { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
