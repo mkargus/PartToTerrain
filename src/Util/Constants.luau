@@ -12,7 +12,7 @@ Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(211, 47, 47)
 ----------------------------------------
 -- Update Checking
 ----------------------------------------
-Constants.IS_DEV_CHANNEL = false
+Constants.IS_DEV_CHANNEL = true
 Constants.VERSION = '1.7.0'
 Constants.UPDATE_CHECKER_ID = 261634767
 Constants.DEV_UPDATE_CHECKER_ID = 4685764627
@@ -20,7 +20,7 @@ Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 ----------------------------------------
 -- Material related
 ----------------------------------------
-Constants.MATERIAL_GRID_PADDING = UDim2.fromOffset(5, 5)
+Constants.MATERIAL_GRID_PADDING = UDim2.fromOffset(3, 3)
 Constants.MATERIAL_GRID_SIZE = UDim2.fromOffset(50, 50)
 
 Constants.MATERIALS_TABLE = {
@@ -47,6 +47,32 @@ Constants.MATERIALS_TABLE = {
   { enum = Enum.Material.Snow, img = 'mtrl_snow.png' },
   { enum = Enum.Material.Water, img = 'mtrl_water.png' },
   { enum = Enum.Material.WoodPlanks, img = 'mtrl_woodplanks.png' }
+}
+
+Constants.MATERIALS = {
+  Enum.Material.Air,
+  Enum.Material.Asphalt,
+  Enum.Material.Basalt,
+  Enum.Material.Brick,
+  Enum.Material.Cobblestone,
+  Enum.Material.Concrete,
+  Enum.Material.CrackedLava,
+  Enum.Material.Glacier,
+  Enum.Material.Grass,
+  Enum.Material.Ground,
+  Enum.Material.Ice,
+  Enum.Material.LeafyGrass,
+  Enum.Material.Limestone,
+  Enum.Material.Mud,
+  Enum.Material.Pavement,
+  Enum.Material.Rock,
+  Enum.Material.Salt,
+  Enum.Material.Sand,
+  Enum.Material.Sandstone,
+  Enum.Material.Slate,
+  Enum.Material.Snow,
+  Enum.Material.Water,
+  Enum.Material.WoodPlanks,
 }
 
 ----------------------------------------

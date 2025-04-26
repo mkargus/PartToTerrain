@@ -84,6 +84,7 @@ local function TabSet(props)
   return React.createElement('Frame', {
     AutomaticSize = props.AutomaticSize,
     BackgroundTransparency = 1,
+    LayoutOrder = props.LayoutOrder,
     Size = props.Size,
     [React.Change.AbsoluteSize] = onAbsoluteSizeChange
   }, children)

@@ -30,12 +30,12 @@ local Plugin = script.Parent
 local React = require(Plugin.Packages.React)
 local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 
-local StudioTheme = require(Plugin.Context.StudioTheme)
+local StudioThemeContext = require('./Context/StudioTheme')
 
-local PluginApp = require(Plugin.Components.PluginApp)
-local Tooltip = require(Plugin.Components.Tooltip)
+local PluginApp = require('./Components/PluginApp')
+local Tooltip = require('./Components/Tooltip')
 
-local app = React.createElement(StudioTheme.Provider, nil, {
+local app = React.createElement(StudioThemeContext.Provider, nil, {
   React.createElement(Tooltip.Provider, nil, {
     React.createElement(PluginApp, {
       plugin = plugin

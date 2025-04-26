@@ -1,10 +1,14 @@
 local React = require(script.Parent.Parent.Packages.React)
 
-local Header = require('./Header')
+local Localization = require('../Util/Localization')
+local Store = require('../Util/Store')
+
 local Tooltip = require('./Tooltip')
+local TabSet = require('./TabSet')
+local UpdateNotice = require('./UpdateNotice')
 
 -- TODO: Put these in a separate folder
-local MaterialPanel = require('./MaterialPanel')
+local MaterialPanel = require('./MaterialPanel2')
 local SettingsPanel = require('./SettingsPanel')
 
 local useStore = require('../Hooks/useStore')
@@ -41,14 +45,25 @@ local function App(props)
       UIListLayout = React.createElement('UIListLayout', {
         SortOrder = Enum.SortOrder.LayoutOrder
       }),
+      -- UpdateNotice = React.createElement(UpdateNotice),
 
-      Header = React.createElement(Header, {
-        CurrentPanel = CurrentPanel,
-        IsSearchEnabled = false
+      Navbar = React.createElement(TabSet, {
+        AutomaticSize = Enum.AutomaticSize.Y,
+        CurrentTab = CurrentPanel,
+        LayoutOrder = 2,
+        Size = UDim2.new(1, 0, 0, 0),
+        Tabs = {
+          { Key = 'Materials', Icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
+          { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
+        },
+        onTabSelected = function(tabName)
+          Store:Set('Panel', tabName)
+        end
       }),
 
       Body = React.createElement('Frame', {
         BackgroundTransparency = 1,
+        LayoutOrder = 3,
         Size = UDim2.fromScale(1, 1)
       }, {
         UIFlexItem =  React.createElement("UIFlexItem", {

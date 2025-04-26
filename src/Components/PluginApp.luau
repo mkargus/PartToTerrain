@@ -18,7 +18,6 @@ local Components = Plugin.Components
 local App = require(Components.App)
 local Outline = require(Components.Outline)
 local StudioWidget = require(Components.StudioWidget)
-local Tooltip = require(Components.Tooltip)
 
 local function GetInvisibleParts()
   local ignoreList = {}
