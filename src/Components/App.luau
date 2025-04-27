@@ -26,7 +26,7 @@ local function App(props)
     else
       return React.createElement('TextLabel', {
         Size = UDim2.fromScale(1, 1),
-        Text = "You shouldn't be able to see this."
+        Text = "You shouldn't be able to see this.",
       })
     end
   end, { CurrentPanel })
@@ -34,16 +34,16 @@ local function App(props)
   return React.createElement('Frame', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
     BorderSizePixel = 0,
-    Size = UDim2.fromScale(1, 1)
+    Size = UDim2.fromScale(1, 1),
   }, {
     TooltipContainer = React.createElement(Tooltip.Container),
 
     Content = React.createElement('Frame', {
       BackgroundTransparency = 1,
-      Size = UDim2.fromScale(1, 1)
+      Size = UDim2.fromScale(1, 1),
     }, {
       UIListLayout = React.createElement('UIListLayout', {
-        SortOrder = Enum.SortOrder.LayoutOrder
+        SortOrder = Enum.SortOrder.LayoutOrder,
       }),
       -- UpdateNotice = React.createElement(UpdateNotice),
 
@@ -58,20 +58,20 @@ local function App(props)
         },
         onTabSelected = function(tabName)
           Store:Set('Panel', tabName)
-        end
+        end,
       }),
 
       Body = React.createElement('Frame', {
         BackgroundTransparency = 1,
         LayoutOrder = 3,
-        Size = UDim2.fromScale(1, 1)
+        Size = UDim2.fromScale(1, 1),
       }, {
-        UIFlexItem =  React.createElement("UIFlexItem", {
+        UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Fill,
         }),
-        PanelElement
-      })
-    })
+        PanelElement,
+      }),
+    }),
   })
 end
 

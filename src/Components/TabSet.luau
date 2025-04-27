@@ -35,7 +35,6 @@ local function CanTextBeDisplayed(tabs, tabSize)
       if totalWidth >= tabSize then
         return false
       end
-
     end
   end
 
@@ -61,8 +60,8 @@ local function TabSet(props)
     UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Horizontal,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
-      SortOrder = Enum.SortOrder.LayoutOrder
-    })
+      SortOrder = Enum.SortOrder.LayoutOrder,
+    }),
   }
 
   local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
@@ -77,7 +76,7 @@ local function TabSet(props)
       Text = tab.Text,
       OnClick = function()
         onTabSelected(tab.Key)
-      end
+      end,
     })
   end
 
@@ -86,7 +85,7 @@ local function TabSet(props)
     BackgroundTransparency = 1,
     LayoutOrder = props.LayoutOrder,
     Size = props.Size,
-    [React.Change.AbsoluteSize] = onAbsoluteSizeChange
+    [React.Change.AbsoluteSize] = onAbsoluteSizeChange,
   }, children)
 end
 

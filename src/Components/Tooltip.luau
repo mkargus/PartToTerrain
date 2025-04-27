@@ -43,21 +43,21 @@ local function Popup(props)
     Position = UDim2.fromOffset(targetX, targetY),
     Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
     Text = props.Text,
-    TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+    TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
   }, {
     UICorner = React.createElement('UICorner', {
-      CornerRadius = UDim.new(0, 3)
+      CornerRadius = UDim.new(0, 3),
     }),
     UIPadding = React.createElement('UIPadding', {
       PaddingBottom = UDim.new(0, PADDING),
       PaddingLeft = UDim.new(0, PADDING),
       PaddingRight = UDim.new(0, PADDING),
-      PaddingTop = UDim.new(0, PADDING)
+      PaddingTop = UDim.new(0, PADDING),
     }),
     UIStroke = React.createElement('UIStroke', {
       ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-      Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
-    })
+      Color = theme:GetColor(Enum.StudioStyleGuideColor.Border),
+    }),
   })
 end
 
@@ -78,13 +78,13 @@ function Provider:init()
         state.tips[id] = nil
         return state
       end)
-    end
+    end,
   }
 end
 
 function Provider:render()
   return React.createElement(TooltipContext.Provider, {
-    value = self.state
+    value = self.state,
   }, self.props.children)
 end
 
@@ -100,7 +100,7 @@ local function Container()
     popups[key] = React.createElement(Popup, {
       Text = value.Text or '',
       Position = value.Position or Vector2.zero,
-      Size = size
+      Size = size,
     })
   end
 
@@ -110,7 +110,7 @@ local function Container()
     ZIndex = 1000,
     [React.Change.AbsoluteSize] = function(rbx: Frame)
       setSize(rbx.AbsoluteSize)
-    end
+    end,
   }, popups)
 end
 
@@ -136,7 +136,7 @@ function Trigger:render()
       self.showDelayThread = task.delay(SHOW_DELAY_TIME, function()
         props.context.addTip(self.id, {
           Text = props.Text,
-          Position = self.mousePos
+          Position = self.mousePos,
         })
         self.showDelayThread = nil
       end)
@@ -147,7 +147,7 @@ function Trigger:render()
         self.showDelayThread = nil
       end
       props.context.removeTip(self.id)
-    end
+    end,
   })
 end
 
@@ -170,5 +170,5 @@ end
 return {
   Provider = Provider,
   Container = Container,
-  Trigger = TriggerConsumer
+  Trigger = TriggerConsumer,
 }

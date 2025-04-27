@@ -24,32 +24,32 @@ local function SettingsPanel(props)
       FillDirection = Enum.FillDirection.Vertical,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
-      SortOrder = Enum.SortOrder.LayoutOrder
+      SortOrder = Enum.SortOrder.LayoutOrder,
     }),
     VersionText = React.createElement(TextLabel, {
       BackgroundTransparency = 1,
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
       Text = Localization('Plugin.Version', { Constants.VERSION }),
       Size = UDim2.new(1, 0, 0, 14),
-      LayoutOrder = 1000
-    })
+      LayoutOrder = 1000,
+    }),
   }
 
   for _, key in Constants.SETTINGS_TABLE do
     children[key] = React.createElement(Item, {
       LayoutOrder = NextOrder(),
-      Title = key
+      Title = key,
     })
 
-    children['Separator'..key] = React.createElement(Separator, {
-      LayoutOrder = NextOrder()
+    children['Separator' .. key] = React.createElement(Separator, {
+      LayoutOrder = NextOrder(),
     })
   end
 
   return React.createElement(ScrollingFrame, {
     AutomaticCanvasSize = Enum.AutomaticSize.Y,
     ScrollingDirection = Enum.ScrollingDirection.Y,
-    Size = UDim2.fromScale(1, 1)
+    Size = UDim2.fromScale(1, 1),
   }, children)
 end
 

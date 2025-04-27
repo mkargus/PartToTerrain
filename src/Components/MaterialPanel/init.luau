@@ -26,7 +26,7 @@ local function MaterialPanel(props)
           Selected = currentMaterial == material,
           OnClick = function()
             Store:Set('Material', material)
-          end
+          end,
         })
 
         numberAssets += 1
@@ -39,7 +39,7 @@ local function MaterialPanel(props)
   local hasAssets = assetCount ~= 0
 
   return React.createElement(React.Fragment, nil, {
-    UIListLayout = React.createElement("UIListLayout", {
+    UIListLayout = React.createElement('UIListLayout', {
       SortOrder = Enum.SortOrder.LayoutOrder,
     }),
 
@@ -47,9 +47,9 @@ local function MaterialPanel(props)
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundTransparency = 1,
       LayoutOrder = 1,
-      Size = UDim2.fromScale(1, 0)
+      Size = UDim2.fromScale(1, 0),
     }, {
-      UIPadding = React.createElement("UIPadding", {
+      UIPadding = React.createElement('UIPadding', {
         PaddingBottom = UDim.new(0, 3),
         PaddingLeft = UDim.new(0, 3),
         PaddingRight = UDim.new(0, 3),
@@ -59,30 +59,30 @@ local function MaterialPanel(props)
         Text = Store:Get('SearchTerm'),
         OnTextChange = function(rbx)
           Store:Set('SearchTerm', rbx.Text)
-        end
-      })
+        end,
+      }),
     }),
 
     MaterialSelector = hasAssets and React.createElement(ScrollingFrame, {
       AutomaticCanvasSize = Enum.AutomaticSize.Y,
       LayoutOrder = 3,
-      Size = UDim2.fromScale(1, 1)
+      Size = UDim2.fromScale(1, 1),
     }, {
       UIGridLayout = React.createElement('UIGridLayout', {
         CellPadding = Constants.MATERIAL_GRID_PADDING,
         CellSize = Constants.MATERIAL_GRID_SIZE,
         FillDirectionMaxCells = 5,
-        HorizontalAlignment = Enum.HorizontalAlignment.Center
+        HorizontalAlignment = Enum.HorizontalAlignment.Center,
       }),
-      UIFlexItem = React.createElement("UIFlexItem", {
+      UIFlexItem = React.createElement('UIFlexItem', {
         FlexMode = Enum.UIFlexMode.Shrink,
       }),
-      UIPadding = React.createElement("UIPadding", {
+      UIPadding = React.createElement('UIPadding', {
         PaddingLeft = UDim.new(0, 3),
         PaddingRight = UDim.new(0, 3),
       }),
-      Items = React.createElement(React.Fragment, nil, content)
-    })
+      Items = React.createElement(React.Fragment, nil, content),
+    }),
   })
 end
 

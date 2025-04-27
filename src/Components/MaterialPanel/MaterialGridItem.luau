@@ -9,7 +9,7 @@ local useTheme = require(Plugin.Hooks.useTheme)
 type Props = {
   Material: Enum.Material,
   Selected: boolean?,
-  OnClick: () -> ()?
+  OnClick: () -> ()?,
 }
 
 local function MaterialGridItem(props: Props)
@@ -69,7 +69,7 @@ local function MaterialGridItem(props: Props)
       MaterialImage = React.createElement(MaterialImage, {
         Material = props.Material,
         Size = UDim2.fromScale(1, 1),
-        Use2022Materials = true
+        Use2022Materials = true,
       }),
 
       UIPadding = React.createElement('UIPadding', {

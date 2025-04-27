@@ -13,7 +13,7 @@ type Props = {
   Position: UDim2?,
   Selected: boolean?,
 
-  OnClick: (value: boolean) -> ()?
+  OnClick: (value: boolean) -> ()?,
 }
 
 local function ToggleButton(props: Props)
@@ -43,7 +43,7 @@ local function ToggleButton(props: Props)
     LayoutOrder = props.LayoutOrder,
     Position = props.Position,
     Size = UDim2.fromOffset(40, 24),
-    [React.Event.MouseButton1Click] = onClick
+    [React.Event.MouseButton1Click] = onClick,
   })
 end
 

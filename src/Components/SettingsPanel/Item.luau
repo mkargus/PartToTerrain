@@ -37,20 +37,20 @@ local function SettingsItem(props)
       FillDirection = Enum.FillDirection.Vertical,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       Padding = UDim.new(0, 3),
-      SortOrder = Enum.SortOrder.LayoutOrder
+      SortOrder = Enum.SortOrder.LayoutOrder,
     }),
 
     Top = React.createElement('Frame', {
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundTransparency = 1,
-      Size = UDim2.fromScale(1, 0)
+      Size = UDim2.fromScale(1, 0),
     }, {
       Title = React.createElement(TextLabel, {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
         Font = Enum.Font.GothamBold,
         Size = UDim2.new(1, -43, 0, 24),
-        Text = Localization('Settings.'..props.Title),
+        Text = Localization('Settings.' .. props.Title),
         TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
         TextSize = 16,
         TextWrapped = true,
@@ -63,8 +63,8 @@ local function SettingsItem(props)
         Selected = currentSettingValue,
         OnClick = function()
           Settings:Set(props.Title, not currentSettingValue)
-        end
-      })
+        end,
+      }),
     }),
 
     Description = React.createElement(TextLabel, {
@@ -74,13 +74,13 @@ local function SettingsItem(props)
       LayoutOrder = 1,
       Position = UDim2.fromOffset(0, 30),
       Size = UDim2.fromScale(1, 0),
-      Text = Localization('Settings.'..props.Title..'Desc'),
+      Text = Localization('Settings.' .. props.Title .. 'Desc'),
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
       TextSize = 14,
       TextWrapped = true,
       TextXAlignment = Enum.TextXAlignment.Left,
-      RichText = true
-    })
+      RichText = true,
+    }),
   })
 end
 

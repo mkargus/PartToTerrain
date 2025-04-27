@@ -52,7 +52,7 @@ local PluginApp = React.PureComponent:extend('PluginApp')
 function PluginApp:init()
   self.state = {
     guiEnabled = false,
-    isOutdated = nil
+    isOutdated = nil,
   }
 
   -- This is a fix for a unintended side effect when undoing,
@@ -149,7 +149,6 @@ function PluginApp:componentDidUpdate()
       self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
     end)
   end
-
 end
 
 function PluginApp:render()
@@ -168,14 +167,14 @@ function PluginApp:render()
 
     onClose = function()
       self.plugin:Deactivate()
-    end
+    end,
   }, {
     App = React.createElement(App),
 
     Outline = state.guiEnabled and React.createElement(Outline, {
       PluginMouse = self.pluginMouse,
-      RaycastParams = self.raycastParams
-    })
+      RaycastParams = self.raycastParams,
+    }),
   })
 end
 

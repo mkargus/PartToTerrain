@@ -23,7 +23,7 @@ StudioWidget.defaultProps = {
   OverridePreviousState = false,
   FloatingSize = Vector2.zero,
   MinimumSize = Vector2.zero,
-  ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 }
 
 function StudioWidget:init()

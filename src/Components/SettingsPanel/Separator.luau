@@ -11,16 +11,16 @@ local function Separator(props)
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Separator),
     BorderSizePixel = 0,
     Size = UDim2.new(1, 0, 0, 1),
-    LayoutOrder = props.LayoutOrder
+    LayoutOrder = props.LayoutOrder,
   }, {
     UIGradient = React.createElement('UIGradient', {
       Transparency = NumberSequence.new({
         NumberSequenceKeypoint.new(0, 1),
         NumberSequenceKeypoint.new(0.1, 0),
         NumberSequenceKeypoint.new(0.9, 0),
-        NumberSequenceKeypoint.new(1, 1)
-      })
-    })
+        NumberSequenceKeypoint.new(1, 1),
+      }),
+    }),
   })
 end
 
