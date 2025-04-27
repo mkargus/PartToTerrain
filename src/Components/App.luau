@@ -5,10 +5,10 @@ local Store = require('../Util/Store')
 
 local Tooltip = require('./Tooltip')
 local TabSet = require('./TabSet')
-local UpdateNotice = require('./UpdateNotice')
+-- local UpdateNotice = require('./UpdateNotice')
 
 -- TODO: Put these in a separate folder
-local MaterialPanel = require('./MaterialPanel2')
+local MaterialPanel = require('./MaterialPanel')
 local SettingsPanel = require('./SettingsPanel')
 
 local useStore = require('../Hooks/useStore')
@@ -70,12 +70,8 @@ local function App(props)
           FlexMode = Enum.UIFlexMode.Fill,
         }),
         PanelElement
-
       })
-
-      -- Body = PanelElement
-    }),
-
+    })
   })
 end
 

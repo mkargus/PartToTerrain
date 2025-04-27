@@ -14,11 +14,7 @@ type Props = {
 
 local function MaterialGridItem(props: Props)
   local theme = useTheme()
-
-  local borderColor = Enum.StudioStyleGuideColor.Border
-  if props.Selected then
-    borderColor = Enum.StudioStyleGuideColor.LinkText
-  end
+  local isHover, setHover = React.useState(false)
 
   local onClick = React.useCallback(function()
     if props.OnClick then
@@ -26,10 +22,30 @@ local function MaterialGridItem(props: Props)
     end
   end, { props.OnClick })
 
+  local onMouseEnter = React.useCallback(function()
+    setHover(true)
+  end, {})
+
+  local onMouseLeave = React.useCallback(function()
+    setHover(false)
+  end, {})
+
+  local borderColor = Enum.StudioStyleGuideColor.Border
+  if props.Selected then
+    borderColor = Enum.StudioStyleGuideColor.LinkText
+  end
+
+  local modifier = Enum.StudioStyleGuideModifier.Default
+  if isHover then
+    modifier = Enum.StudioStyleGuideModifier.Hover
+  end
+
   return React.createElement('ImageButton', {
     AutoButtonColor = false,
-    BackgroundColor3 = theme:GetColor(borderColor),
-    [React.Event.MouseButton1Click] = onClick
+    BackgroundColor3 = theme:GetColor(borderColor, modifier),
+    [React.Event.MouseButton1Click] = onClick,
+    [React.Event.MouseEnter] = onMouseEnter,
+    [React.Event.MouseLeave] = onMouseLeave,
   }, {
     UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3),
@@ -43,7 +59,7 @@ local function MaterialGridItem(props: Props)
     }),
 
     Frame = React.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Button),
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Button, modifier),
       Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
@@ -52,7 +68,8 @@ local function MaterialGridItem(props: Props)
 
       MaterialImage = React.createElement(MaterialImage, {
         Material = props.Material,
-        Size = UDim2.fromScale(1, 1)
+        Size = UDim2.fromScale(1, 1),
+        Use2022Materials = true
       }),
 
       UIPadding = React.createElement('UIPadding', {
