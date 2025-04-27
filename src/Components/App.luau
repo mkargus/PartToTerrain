@@ -1,20 +1,22 @@
-local React = require(script.Parent.Parent.Packages.React)
+local Plugin = script.Parent.Parent
 
-local Localization = require('../Util/Localization')
-local Store = require('../Util/Store')
+local React = require(Plugin.Packages.React)
 
-local Tooltip = require('./Tooltip')
-local TabSet = require('./TabSet')
--- local UpdateNotice = require('./UpdateNotice')
+local Localization = require(Plugin.Util.Localization)
+local Store = require(Plugin.Util.Store)
+
+local Tooltip = require(Plugin.Components.Tooltip)
+local TabSet = require(Plugin.Components.TabSet)
+-- local UpdateNotice = require(Plugin.Components.UpdateNotice)
 
 -- TODO: Put these in a separate folder
-local MaterialPanel = require('./MaterialPanel')
-local SettingsPanel = require('./SettingsPanel')
+local MaterialPanel = require(Plugin.Components.MaterialPanel)
+local SettingsPanel = require(Plugin.Components.SettingsPanel)
 
-local useStore = require('../Hooks/useStore')
-local useTheme = require('../Hooks/useTheme')
+local useStore = require(Plugin.Hooks.useStore)
+local useTheme = require(Plugin.Hooks.useTheme)
 
-local function App(props)
+local function App()
   local theme = useTheme()
   local CurrentPanel = useStore('Panel')
 

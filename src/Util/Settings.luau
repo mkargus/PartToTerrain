@@ -1,3 +1,4 @@
+--!nonstrict
 local plugin = plugin or script:FindFirstAncestorWhichIsA('Plugin')
 
 local DEFAULT_SETTINGS = {

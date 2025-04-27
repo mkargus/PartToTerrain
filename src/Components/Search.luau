@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Localization = require('../Util/Localization')
+local Localization = require(Plugin.Util.Localization)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 

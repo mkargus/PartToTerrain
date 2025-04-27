@@ -15,7 +15,7 @@ local ScrollingFrame = require(Components.ScrollingFrame)
 local Separator = require(script.Separator)
 local TextLabel = require(Components.TextLabel)
 
-local function SettingsPanel(props)
+local function SettingsPanel(_props)
   local theme = useTheme()
   local NextOrder = createNextOrder()
 

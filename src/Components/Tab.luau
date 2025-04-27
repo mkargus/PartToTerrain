@@ -1,6 +1,8 @@
-local React = require(script.Parent.Parent.Packages.React)
+local Plugin = script.Parent.Parent
 
-local useTheme = require('../Hooks/useTheme')
+local React = require(Plugin.Packages.React)
+
+local useTheme = require(Plugin.Hooks.useTheme)
 
 type Props = {
   Disabled: boolean?,

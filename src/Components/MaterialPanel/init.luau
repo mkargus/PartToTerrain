@@ -11,7 +11,7 @@ local Search = require(Plugin.Components.Search)
 
 local useStore = require(Plugin.Hooks.useStore)
 
-local function MaterialPanel(props)
+local function MaterialPanel(_props)
   local currentMaterial: Enum.Material = useStore('Material')
   local searchTerm: string = useStore('SearchTerm')
 
