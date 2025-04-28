@@ -47,6 +47,9 @@ local function Search(props: Props)
     modifier = Enum.StudioStyleGuideModifier.Disabled
   elseif isFocus then
     modifier = Enum.StudioStyleGuideModifier.Selected
+    if theme.Name == 'Light' then
+      modifier = Enum.StudioStyleGuideModifier.Default
+    end
   elseif isHover then
     modifier = Enum.StudioStyleGuideModifier.Hover
   end
