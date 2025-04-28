@@ -2,7 +2,10 @@ local Plugin = script.Parent.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
+local Localization = require(Plugin.Util.Localization)
+
 local MaterialImage = require(script.Parent.MaterialImage)
+local Tooltip = require(Plugin.Components.Tooltip)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
@@ -58,6 +61,10 @@ local function MaterialGridItem(props: Props)
       PaddingTop = UDim.new(0, 1),
     }),
 
+    Tooltip = React.createElement(Tooltip.Trigger, {
+      Text = Localization('Materials.'..props.Material.Name)
+    }),
+
     Frame = React.createElement('Frame', {
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Button, modifier),
       Size = UDim2.fromScale(1, 1),
@@ -73,10 +80,10 @@ local function MaterialGridItem(props: Props)
       }),
 
       UIPadding = React.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, 2),
-        PaddingLeft = UDim.new(0, 2),
-        PaddingRight = UDim.new(0, 2),
-        PaddingTop = UDim.new(0, 2),
+        PaddingBottom = UDim.new(0, 3),
+        PaddingLeft = UDim.new(0, 3),
+        PaddingRight = UDim.new(0, 3),
+        PaddingTop = UDim.new(0, 3),
       }),
     }),
   })

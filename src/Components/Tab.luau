@@ -2,6 +2,8 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
+local Tooltip = require(Plugin.Components.Tooltip)
+
 local useTheme = require(Plugin.Hooks.useTheme)
 
 type Props = {
@@ -89,6 +91,10 @@ local function Tab(props: Props)
     }),
 
     Borders = React.createElement('Folder', nil, {
+      Tooltip = not props.DisplayText and React.createElement(Tooltip.Trigger, {
+        Text = props.Text
+      }),
+
       Selected = props.Selected and React.createElement('Frame', {
         AnchorPoint = Vector2.new(1, 1),
         BackgroundTransparency = 1,
