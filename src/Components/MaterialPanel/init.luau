@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent
 local React = require(Plugin.Packages.React)
 
 local Constants = require(Plugin.Util.Constants)
+local Localization = require(Plugin.Util.Localization)
 local Store = require(Plugin.Util.Store)
 
 local MaterialGridItem = require(script.MaterialGridItem)
@@ -10,8 +11,10 @@ local ScrollingFrame = require(Plugin.Components.ScrollingFrame)
 local Search = require(Plugin.Components.Search)
 
 local useStore = require(Plugin.Hooks.useStore)
+local useTheme = require(Plugin.Hooks.useTheme)
 
 local function MaterialPanel(_props)
+  local theme = useTheme()
   local currentMaterial: Enum.Material = useStore('Material')
   local searchTerm: string = useStore('SearchTerm')
 
@@ -78,11 +81,25 @@ local function MaterialPanel(_props)
         FlexMode = Enum.UIFlexMode.Shrink,
       }),
       UIPadding = React.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, 3),
         PaddingLeft = UDim.new(0, 3),
         PaddingRight = UDim.new(0, 3),
       }),
       Items = React.createElement(React.Fragment, nil, content),
     }),
+
+    NoResultsFound = not hasAssets and React.createElement('TextLabel', {
+      AutomaticSize = Enum.AutomaticSize.Y,
+      BackgroundTransparency = 1,
+      FontFace = Font.fromEnum(Enum.Font.BuilderSans),
+      LayoutOrder = 3,
+      Size = UDim2.new(1, 0, 0, 30),
+      Text = Localization('Notice.NoResultsFound'),
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+      TextSize = 16,
+      TextWrapped = true,
+    })
+
   })
 end
 

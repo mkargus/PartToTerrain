@@ -12,6 +12,7 @@ local useTheme = require(Plugin.Hooks.useTheme)
 type Props = {
   Material: Enum.Material,
   Selected: boolean?,
+
   OnClick: () -> ()?,
 }
 

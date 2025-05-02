@@ -26,6 +26,12 @@ local function Search(props: Props)
     end
   end, {})
 
+  local onTextChange = React.useCallback(function()
+    if textBoxRef.current and props.OnTextChange then
+      props.OnTextChange(textBoxRef.current)
+    end
+  end, { props.OnTextChange })
+
   local onMouseEnter = React.useCallback(function()
     setHover(true)
   end, {})
@@ -126,7 +132,7 @@ local function Search(props: Props)
         ref = textBoxRef,
         [React.Event.Focused] = onFocused,
         [React.Event.FocusLost] = onFocusLost,
-        [React.Change.Text] = props.OnTextChange,
+        [React.Change.Text] = onTextChange,
       }, {
         UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Shrink,
