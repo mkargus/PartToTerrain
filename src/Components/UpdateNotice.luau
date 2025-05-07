@@ -11,7 +11,7 @@ local useTheme = require(Plugin.Hooks.useTheme)
 
 local function UpdateNotice()
   local theme = useTheme()
-  local isUpdated, setUpdate = React.useState(false)
+  local isOutdated, setOutdated = React.useState(false)
 
   React.useEffect(function()
     local pluginId = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
@@ -22,7 +22,7 @@ local function UpdateNotice()
       if success then
         local latestVersion = string.match(info.Description, '([0-9]+%.[0-9]+%.[0-9]+)')
         if latestVersion and latestVersion ~= Constants.VERSION then
-          setUpdate(true)
+          setOutdated(true)
         end
       end
     end)
@@ -32,7 +32,7 @@ local function UpdateNotice()
     end
   end, {})
 
-  return isUpdated and React.createElement('Frame', {
+  return isOutdated and React.createElement('Frame', {
     AutomaticSize = Enum.AutomaticSize.Y,
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
     BorderSizePixel = 0,
