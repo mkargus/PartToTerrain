@@ -41,10 +41,6 @@ local function Tab(props: Props)
   end
 
   local font = Enum.Font.BuilderSans
-  if props.Selected then
-    font = Enum.Font.BuilderSansBold
-  end
-
   local textColor = Enum.StudioStyleGuideColor.MainText
   local borderColor = Enum.StudioStyleGuideColor.Border
 
@@ -53,6 +49,7 @@ local function Tab(props: Props)
     modifier = Enum.StudioStyleGuideModifier.Disabled
   elseif props.Selected then
     modifier = Enum.StudioStyleGuideModifier.Selected
+    font = Enum.Font.BuilderSansBold
     if theme.Name == 'Light' then
       textColor = Enum.StudioStyleGuideColor.BrightText
     end

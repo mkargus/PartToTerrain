@@ -1,18 +1,4 @@
---[[
-  A collective set of Tabs for navigation
-
-  Props:
-    string CurrentTab
-    table Tabs = {
-      string Key,
-      ContentId icon
-      string Text
-    }
-
-    function onTabSelected = A callback for when a Tab is selected.
-]]
-
-local TAB_ICON_SIZE = 24
+local TAB_ICON_SIZE = 20
 local TAB_INNER_PADDING = 6
 local TAB_OUTER_PADDING = 2
 
@@ -26,7 +12,22 @@ local Tab = require(Plugin.Components.Tab)
 
 local createNextOrder = require(Plugin.Util.createNextOrder)
 
-local function CanTextBeDisplayed(tabs, tabSize)
+type Props = {
+  AutomaticSize: Enum.AutomaticSize?,
+  LayoutOrder: number?,
+  SelectedTab: string?,
+  Size: UDim2?,
+  Tabs: {{
+    Disabled: boolean?,
+    Key: string,
+    Icon: string,
+    Text: string,
+  }},
+
+  OnTabSelected: (tab: string) -> ()?
+}
+
+local function canTextBeDisplayed(tabs, tabSize): boolean
   if #tabs > 0 then
     for _, tab in tabs do
       local textWidth = TextService:GetTextSize(tab.Text, 16, Enum.Font.BuilderSansBold, Vector2.new(100000, 20)).X
@@ -41,12 +42,12 @@ local function CanTextBeDisplayed(tabs, tabSize)
   return true
 end
 
-local function TabSet(props)
+local function TabSet(props: Props)
   local currentWidth, setWidth = React.useState(0)
 
   local onTabSelected = React.useCallback(function(key: string)
-    if props.onTabSelected then
-      props.onTabSelected(key)
+    if props.OnTabSelected then
+      props.OnTabSelected(key)
     end
   end, {})
 
@@ -62,17 +63,17 @@ local function TabSet(props)
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
       SortOrder = Enum.SortOrder.LayoutOrder,
     }),
-  }
+  } :: any
 
-  local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
+  local textDisplayed = canTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
 
   for _, tab in props.Tabs do
     children[tab.Key] = React.createElement(Tab, {
       Disabled = tab.Disabled,
-      Selected = props.CurrentTab == tab.Key,
-      Icon = tab.Icon,
       DisplayText = textDisplayed,
+      Icon = tab.Icon,
       LayoutOrder = nextOrder(),
+      Selected = props.SelectedTab == tab.Key,
       Text = tab.Text,
       OnClick = function()
         onTabSelected(tab.Key)
@@ -86,7 +87,9 @@ local function TabSet(props)
     LayoutOrder = props.LayoutOrder,
     Size = props.Size,
     [React.Change.AbsoluteSize] = onAbsoluteSizeChange,
-  }, children)
+  }, {
+    Elements = React.createElement(React.Fragment, nil, children)
+  })
 end
 
 return TabSet

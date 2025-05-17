@@ -52,9 +52,10 @@ local function Search(props: Props)
   if props.Disabled then
     modifier = Enum.StudioStyleGuideModifier.Disabled
   elseif isFocus then
-    modifier = Enum.StudioStyleGuideModifier.Selected
     if theme.Name == 'Light' then
       modifier = Enum.StudioStyleGuideModifier.Default
+    else
+      modifier = Enum.StudioStyleGuideModifier.Selected
     end
   elseif isHover then
     modifier = Enum.StudioStyleGuideModifier.Hover
@@ -100,7 +101,7 @@ local function Search(props: Props)
 
       UIListLayout = React.createElement('UIListLayout', {
         FillDirection = Enum.FillDirection.Horizontal,
-        Padding = UDim.new(0, 6),
+        Padding = UDim.new(0, 3),
         SortOrder = Enum.SortOrder.LayoutOrder,
         VerticalAlignment = Enum.VerticalAlignment.Center,
       }),
