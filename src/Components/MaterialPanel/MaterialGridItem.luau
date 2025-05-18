@@ -19,6 +19,7 @@ type Props = {
 local function MaterialGridItem(props: Props)
   local theme = useTheme()
   local isHover, setHover = React.useState(false)
+  local isPress, setPress = React.useState(false)
 
   local onClick = React.useCallback(function()
     if props.OnClick then
@@ -32,6 +33,15 @@ local function MaterialGridItem(props: Props)
 
   local onMouseLeave = React.useCallback(function()
     setHover(false)
+    setPress(false)
+  end, {})
+
+  local onMouseButton1Down = React.useCallback(function()
+    setPress(true)
+  end, {})
+
+  local onMouseButton1Up = React.useCallback(function()
+    setPress(false)
   end, {})
 
   local borderColor = Enum.StudioStyleGuideColor.Border
@@ -40,7 +50,9 @@ local function MaterialGridItem(props: Props)
   end
 
   local modifier = Enum.StudioStyleGuideModifier.Default
-  if isHover then
+  if isPress then
+    modifier = Enum.StudioStyleGuideModifier.Pressed
+  elseif isHover then
     modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
@@ -50,6 +62,8 @@ local function MaterialGridItem(props: Props)
     [React.Event.MouseButton1Click] = onClick,
     [React.Event.MouseEnter] = onMouseEnter,
     [React.Event.MouseLeave] = onMouseLeave,
+    [React.Event.MouseButton1Down] = onMouseButton1Down,
+    [React.Event.MouseButton1Up] = onMouseButton1Up,
   }, {
     UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3),
