@@ -89,7 +89,7 @@ local function Search(props: Props)
       Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 3),
+        CornerRadius = UDim.new(0, 2),
       }),
 
       UIPadding = React.createElement('UIPadding', {

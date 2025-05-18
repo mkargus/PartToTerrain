@@ -85,7 +85,7 @@ local function MaterialGridItem(props: Props)
       Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 3),
+        CornerRadius = UDim.new(0, 2),
       }),
 
       MaterialImage = React.createElement(MaterialImage, {
