@@ -4,7 +4,7 @@ local React = require(Plugin.Packages.React)
 
 local Localization = require(Plugin.Util.Localization)
 
-local MaterialImage = require(script.Parent.MaterialImage)
+local MaterialPreviewImage = require(script.Parent.MaterialPreviewImage)
 local Tooltip = require(Plugin.Components.Tooltip)
 
 local useTheme = require(Plugin.Hooks.useTheme)
@@ -88,7 +88,7 @@ local function MaterialGridItem(props: Props)
         CornerRadius = UDim.new(0, 2),
       }),
 
-      MaterialImage = React.createElement(MaterialImage, {
+      MaterialImage = React.createElement(MaterialPreviewImage, {
         Material = props.Material,
         Size = UDim2.fromScale(1, 1),
         Use2022Materials = true,

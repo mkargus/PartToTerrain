@@ -13,14 +13,14 @@ local Search = require(Plugin.Components.Search)
 local useStore = require(Plugin.Hooks.useStore)
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function MaterialPanel(_props)
+local function MaterialPanel()
   local theme = useTheme()
   local currentMaterial: Enum.Material = useStore('Material')
   local searchTerm: string = useStore('SearchTerm')
 
   local content, assetCount = React.useMemo(function()
     local numberAssets = 0
-    local assetsToDisplay = {}
+    local assetsToDisplay = {} :: any
 
     for _, material in Constants.MATERIALS do
       if string.find(string.lower(material.Name), string.lower(searchTerm), 1, true) then
@@ -59,6 +59,7 @@ local function MaterialPanel(_props)
         PaddingTop = UDim.new(0, 3),
       }),
       Search = React.createElement(Search, {
+        PlaceholderText = Localization('Plugin.Search'),
         Text = Store:Get('SearchTerm'),
         OnTextChange = function(rbx)
           Store:Set('SearchTerm', rbx.Text)
@@ -77,14 +78,17 @@ local function MaterialPanel(_props)
         FillDirectionMaxCells = 5,
         HorizontalAlignment = Enum.HorizontalAlignment.Center,
       }),
+
       UIFlexItem = React.createElement('UIFlexItem', {
         FlexMode = Enum.UIFlexMode.Shrink,
       }),
+
       UIPadding = React.createElement('UIPadding', {
         PaddingBottom = UDim.new(0, 3),
         PaddingLeft = UDim.new(0, 3),
         PaddingRight = UDim.new(0, 3),
       }),
+
       Items = React.createElement(React.Fragment, nil, content),
     }),
 

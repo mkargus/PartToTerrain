@@ -9,7 +9,7 @@ type Props = {
   Use2022Materials: boolean?,
 }
 
-local function MaterialImage(props: Props)
+local function MaterialPreviewImage(props: Props)
   local materialKey = string.lower(props.Material.Name)
 
   if props.Use2022Materials and props.Material ~= Enum.Material.Air then
@@ -28,4 +28,4 @@ local function MaterialImage(props: Props)
   })
 end
 
-return MaterialImage
+return MaterialPreviewImage
