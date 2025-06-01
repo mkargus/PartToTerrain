@@ -7,7 +7,7 @@ local Store = require(Plugin.Util.Store)
 
 local Tooltip = require(Plugin.Components.Tooltip)
 local TabSet = require(Plugin.Components.TabSet)
--- local UpdateNotice = require(Plugin.Components.UpdateNotice)
+local UpdateNotice = require(Plugin.Components.UpdateNotice)
 
 -- TODO: Put these in a separate folder
 local MaterialPanel = require(Plugin.Components.MaterialPanel)
@@ -18,12 +18,12 @@ local useTheme = require(Plugin.Hooks.useTheme)
 
 local function App()
   local theme = useTheme()
-  local CurrentPanel = useStore('Panel')
+  local selectedPanel: string = useStore('Panel')
 
-  local PanelElement = React.useMemo(function()
-    if CurrentPanel == 'Materials' then
+  local panelElement = React.useMemo(function()
+    if selectedPanel == 'Materials' then
       return React.createElement(MaterialPanel)
-    elseif CurrentPanel == 'Settings' then
+    elseif selectedPanel == 'Settings' then
       return React.createElement(SettingsPanel)
     else
       return React.createElement('TextLabel', {
@@ -31,7 +31,7 @@ local function App()
         Text = "You shouldn't be able to see this.",
       })
     end
-  end, { CurrentPanel })
+  end, { selectedPanel })
 
   return React.createElement('Frame', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
@@ -47,18 +47,19 @@ local function App()
       UIListLayout = React.createElement('UIListLayout', {
         SortOrder = Enum.SortOrder.LayoutOrder,
       }),
-      -- UpdateNotice = React.createElement(UpdateNotice),
+
+      UpdateNotice = React.createElement(UpdateNotice),
 
       Navbar = React.createElement(TabSet, {
         AutomaticSize = Enum.AutomaticSize.Y,
-        CurrentTab = CurrentPanel,
+        SelectedTab = selectedPanel,
         LayoutOrder = 2,
-        Size = UDim2.new(1, 0, 0, 0),
+        Size = UDim2.fromScale(1, 0),
         Tabs = {
           { Key = 'Materials', Icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
           { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
         },
-        onTabSelected = function(tabName)
+        OnTabSelected = function(tabName)
           Store:Set('Panel', tabName)
         end,
       }),
@@ -71,7 +72,7 @@ local function App()
         UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Fill,
         }),
-        PanelElement,
+        PanelContent = React.createElement(React.Fragment, nil, panelElement),
       }),
     }),
   })

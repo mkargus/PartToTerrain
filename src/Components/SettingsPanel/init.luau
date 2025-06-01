@@ -14,7 +14,7 @@ local ScrollingFrame = require(Components.ScrollingFrame)
 
 local SettingsToggleItem = require(script.SettingsToggleItem)
 
-local function SettingsPanel(_props)
+local function SettingsPanel()
   local theme = useTheme()
   local nextOrder = createNextOrder()
 

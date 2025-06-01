@@ -2,12 +2,11 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Localization = require(Plugin.Util.Localization)
-
 local useTheme = require(Plugin.Hooks.useTheme)
 
 type Props = {
   Disabled: boolean?,
+  PlaceholderText: string?,
   Position: UDim2?,
   Text: string?,
 
@@ -121,7 +120,7 @@ local function Search(props: Props)
         ClearTextOnFocus = false,
         LayoutOrder = 2,
         Font = Enum.Font.BuilderSans,
-        PlaceholderText = Localization('Plugin.Search'),
+        PlaceholderText = props.PlaceholderText or 'Search',
         PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
         Size = UDim2.new(1, 0, 0, 20),
         Text = props.Text or '',
@@ -138,16 +137,8 @@ local function Search(props: Props)
         UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Shrink,
         }),
-      }),
-
-      -- Clear = React.createElement('ImageButton', {
-      --   BackgroundTransparency = 1,
-      --   Image = 'http://www.roblox.com/asset/?id=74430943943008',
-      --   ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
-      --   LayoutOrder = 3,
-      --   Size = UDim2.fromOffset(20, 20),
-      -- })
-    }),
+      })
+    })
   })
 end
 
