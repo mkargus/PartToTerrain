@@ -7,9 +7,6 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Components = Plugin.Components
-local TextLabel = require(Components.TextLabel)
-
 local useTheme = require(Plugin.Hooks.useTheme)
 
 local PADDING = 3
@@ -22,7 +19,7 @@ local TooltipContext = React.createContext({})
 local function Popup(props)
   local theme = useTheme()
 
-  local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(160, math.huge))
+  local TextSize = TextSerice:GetTextSize(props.Text, 16, Enum.Font.BuilderSans, Vector2.new(160, math.huge))
 
   local tooltipWidth = TextSize.X + (2 * PADDING)
   local tooltipHeight = TextSize.Y + (2 * PADDING)
@@ -38,12 +35,14 @@ local function Popup(props)
     targetY = props.Size.Y - tooltipHeight
   end
 
-  return React.createElement(TextLabel, {
+  return React.createElement('TextLabel', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
+    FontFace = Font.fromEnum(Enum.Font.BuilderSans),
     Position = UDim2.fromOffset(targetX, targetY),
     Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
     Text = props.Text,
     TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+    TextSize = 16
   }, {
     UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3),
