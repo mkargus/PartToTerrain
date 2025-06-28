@@ -80,7 +80,7 @@ local function SettingsToggleItem(props: Props)
           TextYAlignment = Enum.TextYAlignment.Top,
         }),
 
-        Description = React.createElement('TextLabel', {
+        Description = props.Description and React.createElement('TextLabel', {
           AutomaticSize = Enum.AutomaticSize.Y,
           BackgroundTransparency = 1,
           FontFace = Font.fromEnum(Enum.Font.BuilderSans),

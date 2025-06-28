@@ -13,7 +13,7 @@ Constants.OUTLINE_COLOR_ERROR = Color3.fromRGB(211, 47, 47)
 -- Update Checking
 ----------------------------------------
 Constants.IS_DEV_CHANNEL = true
-Constants.VERSION = '1.7.0'
+Constants.VERSION = '2025.06.01'
 Constants.UPDATE_CHECKER_ID = 261634767
 Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 
@@ -21,7 +21,7 @@ Constants.DEV_UPDATE_CHECKER_ID = 4685764627
 -- Material related
 ----------------------------------------
 Constants.MATERIAL_GRID_PADDING = UDim2.fromOffset(3, 3)
-Constants.MATERIAL_GRID_SIZE = UDim2.fromOffset(50, 50)
+Constants.MATERIAL_GRID_SIZE = UDim2.fromOffset(55, 55)
 
 Constants.MATERIALS = {
   Enum.Material.Air,
@@ -47,17 +47,6 @@ Constants.MATERIALS = {
   Enum.Material.Snow,
   Enum.Material.Water,
   Enum.Material.WoodPlanks,
-}
-
-----------------------------------------
--- Settings related
-----------------------------------------
-Constants.SETTINGS_TABLE = {
-  'PreserveTerrain',
-  'IgnoreLockedParts',
-  'IgnoreInvisibleParts',
-  'DeletePart',
-  'EnabledSelectionBox',
 }
 
 return table.freeze(Constants)

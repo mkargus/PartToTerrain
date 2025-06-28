@@ -82,6 +82,10 @@ local function Search(props: Props)
       PaddingTop = UDim.new(0, 1),
     }),
 
+    UIFlexItem = React.createElement("UIFlexItem", {
+      FlexMode = Enum.UIFlexMode.Fill,
+    }),
+
     Container = React.createElement('Frame', {
       AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, modifier),
@@ -119,7 +123,7 @@ local function Search(props: Props)
         BorderSizePixel = 0,
         ClearTextOnFocus = false,
         LayoutOrder = 2,
-        Font = Enum.Font.BuilderSans,
+        FontFace = Font.fromEnum(Enum.Font.BuilderSans),
         PlaceholderText = props.PlaceholderText or 'Search',
         PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
         Size = UDim2.new(1, 0, 0, 20),
