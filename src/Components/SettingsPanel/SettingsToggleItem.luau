@@ -31,6 +31,9 @@ local function SettingsToggleItem(props: Props)
     LayoutOrder = props.LayoutOrder,
     Size = UDim2.fromScale(1, 0),
   }, {
+    UIListLayout = React.createElement('UIListLayout', {
+      SortOrder = Enum.SortOrder.LayoutOrder,
+    }),
 
     Container = React.createElement('Frame', {
       AutomaticSize = Enum.AutomaticSize.Y,
@@ -41,6 +44,24 @@ local function SettingsToggleItem(props: Props)
         FillDirection = Enum.FillDirection.Horizontal,
         Padding = UDim.new(0, 3),
         SortOrder = Enum.SortOrder.LayoutOrder,
+        VerticalAlignment = Enum.VerticalAlignment.Center,
+      }),
+
+      HeaderText = React.createElement('TextLabel', {
+        AutomaticSize = Enum.AutomaticSize.Y,
+        BackgroundTransparency = 1,
+        FontFace = Font.fromEnum(Enum.Font.BuilderSansBold),
+        LayoutOrder = 0,
+        Size = UDim2.new(1, 0, 0, 20),
+        Text = props.Title,
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
+        TextSize = 16,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Left,
+      }, {
+        UIFlexItem = React.createElement('UIFlexItem', {
+          FlexMode = Enum.UIFlexMode.Fill,
+        })
       }),
 
       Toggle = React.createElement(ToggleButton, {
@@ -52,48 +73,20 @@ local function SettingsToggleItem(props: Props)
           setSettingValue(newState)
         end
       }),
+    }),
 
-      TextContainer = React.createElement('Frame', {
-        AutomaticSize = Enum.AutomaticSize.Y,
-        BackgroundTransparency = 1,
-      }, {
-        UIListLayout = React.createElement('UIListLayout', {
-          Padding = UDim.new(0, 3),
-          SortOrder = Enum.SortOrder.LayoutOrder,
-        }),
-
-        UIFlexItem = React.createElement('UIFlexItem', {
-          FlexMode = Enum.UIFlexMode.Fill,
-        }),
-
-        Header = React.createElement('TextLabel', {
-          AutomaticSize = Enum.AutomaticSize.Y,
-          BackgroundTransparency = 1,
-          FontFace = Font.fromEnum(Enum.Font.BuilderSansBold),
-          LayoutOrder = 1,
-          Size = UDim2.new(1, 0, 0, 18),
-          Text = props.Title,
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
-          TextSize = 16,
-          TextWrapped = true,
-          TextXAlignment = Enum.TextXAlignment.Left,
-          TextYAlignment = Enum.TextYAlignment.Top,
-        }),
-
-        Description = props.Description and React.createElement('TextLabel', {
-          AutomaticSize = Enum.AutomaticSize.Y,
-          BackgroundTransparency = 1,
-          FontFace = Font.fromEnum(Enum.Font.BuilderSans),
-          LayoutOrder = 2,
-          RichText = true,
-          Size = UDim2.new(1, 0, 0, 20),
-          Text = props.Description,
-          TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText, modifier),
-          TextSize = 16,
-          TextWrapped = true,
-          TextXAlignment = Enum.TextXAlignment.Left,
-        }),
-      }),
+    Description = props.Description and React.createElement('TextLabel', {
+      AutomaticSize = Enum.AutomaticSize.Y,
+      BackgroundTransparency = 1,
+      FontFace = Font.fromEnum(Enum.Font.BuilderSans),
+      LayoutOrder = 2,
+      RichText = true,
+      Size = UDim2.new(1, 0, 0, 20),
+      Text = props.Description,
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText, modifier),
+      TextSize = 16,
+      TextWrapped = true,
+      TextXAlignment = Enum.TextXAlignment.Left,
     }),
   })
 end
