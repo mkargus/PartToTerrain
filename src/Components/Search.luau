@@ -82,7 +82,7 @@ local function Search(props: Props)
       PaddingTop = UDim.new(0, 1),
     }),
 
-    UIFlexItem = React.createElement("UIFlexItem", {
+    UIFlexItem = React.createElement('UIFlexItem', {
       FlexMode = Enum.UIFlexMode.Fill,
     }),
 
@@ -141,8 +141,8 @@ local function Search(props: Props)
         UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Shrink,
         }),
-      })
-    })
+      }),
+    }),
   })
 end
 

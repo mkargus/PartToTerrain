@@ -77,7 +77,7 @@ local function MaterialGridItem(props: Props)
     }),
 
     Tooltip = React.createElement(Tooltip.Trigger, {
-      Text = Localization('Materials.'..props.Material.Name)
+      Text = Localization('Materials.' .. props.Material.Name),
     }),
 
     Frame = React.createElement('Frame', {

@@ -40,35 +40,35 @@ local function SettingsPanel()
       Title = Localization('Settings.PreserveTerrain'),
       LayoutOrder = nextOrder(),
       Description = Localization('Settings.PreserveTerrainDesc'),
-      SettingKey = 'PreserveTerrain'
+      SettingKey = 'PreserveTerrain',
     }),
 
     DeletePart = React.createElement(SettingsToggleItem, {
       Title = Localization('Settings.DeletePart'),
       LayoutOrder = nextOrder(),
       Description = Localization('Settings.DeletePartDesc'),
-      SettingKey = 'DeletePart'
+      SettingKey = 'DeletePart',
     }),
 
     EnabledSelectionBox = React.createElement(SettingsToggleItem, {
       Title = Localization('Settings.EnabledSelectionBox'),
       LayoutOrder = nextOrder(),
       Description = Localization('Settings.EnabledSelectionBoxDesc'),
-      SettingKey = 'EnabledSelectionBox'
+      SettingKey = 'EnabledSelectionBox',
     }),
 
     IgnoreLockedParts = React.createElement(SettingsToggleItem, {
       Title = Localization('Settings.IgnoreLockedParts'),
       LayoutOrder = nextOrder(),
       Description = Localization('Settings.IgnoreLockedPartsDesc'),
-      SettingKey = 'IgnoreLockedParts'
+      SettingKey = 'IgnoreLockedParts',
     }),
 
     IgnoreInvisibleParts = React.createElement(SettingsToggleItem, {
       Title = Localization('Settings.IgnoreInvisibleParts'),
       LayoutOrder = nextOrder(),
       Description = Localization('Settings.IgnoreInvisiblePartsDesc'),
-      SettingKey = 'IgnoreInvisibleParts'
+      SettingKey = 'IgnoreInvisibleParts',
     }),
 
     VersionText = React.createElement('TextLabel', {

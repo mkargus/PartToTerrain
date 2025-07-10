@@ -42,7 +42,7 @@ local function Popup(props)
     Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
     Text = props.Text,
     TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-    TextSize = 16
+    TextSize = 16,
   }, {
     UICorner = React.createElement('UICorner', {
       CornerRadius = UDim.new(0, 3),

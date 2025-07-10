@@ -17,14 +17,16 @@ type Props = {
   LayoutOrder: number?,
   SelectedTab: string?,
   Size: UDim2?,
-  Tabs: {{
-    Disabled: boolean?,
-    Key: string,
-    Icon: string,
-    Text: string,
-  }},
+  Tabs: {
+    {
+      Disabled: boolean?,
+      Key: string,
+      Icon: string,
+      Text: string,
+    }
+  },
 
-  OnTabSelected: (tab: string) -> ()?
+  OnTabSelected: (tab: string) -> ()?,
 }
 
 local function canTextBeDisplayed(tabs, tabSize): boolean
@@ -88,7 +90,7 @@ local function TabSet(props: Props)
     Size = props.Size,
     [React.Change.AbsoluteSize] = onAbsoluteSizeChange,
   }, {
-    Elements = React.createElement(React.Fragment, nil, children)
+    Elements = React.createElement(React.Fragment, nil, children),
   })
 end
 

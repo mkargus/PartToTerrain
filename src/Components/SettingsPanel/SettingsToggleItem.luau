@@ -61,7 +61,7 @@ local function SettingsToggleItem(props: Props)
       }, {
         UIFlexItem = React.createElement('UIFlexItem', {
           FlexMode = Enum.UIFlexMode.Fill,
-        })
+        }),
       }),
 
       Toggle = React.createElement(ToggleButton, {
@@ -71,7 +71,7 @@ local function SettingsToggleItem(props: Props)
         OnClick = function(newState)
           Settings:Set(props.SettingKey, newState)
           setSettingValue(newState)
-        end
+        end,
       }),
     }),
 
@@ -81,7 +81,7 @@ local function SettingsToggleItem(props: Props)
       FontFace = Font.fromEnum(Enum.Font.BuilderSans),
       LayoutOrder = 2,
       RichText = true,
-      Size = UDim2.new(1, 0, 0, 20),
+      Size = UDim2.fromScale(1, 0),
       Text = props.Description,
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText, modifier),
       TextSize = 16,

@@ -20,11 +20,11 @@ local function StudioThemeProvider(props)
   end, {})
 
   return React.createElement(StudioThemeContext.Provider, {
-    value = theme
+    value = theme,
   }, props.children)
 end
 
 return {
   Context = StudioThemeContext,
-  Provider = StudioThemeProvider
+  Provider = StudioThemeProvider,
 }

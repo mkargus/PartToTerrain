@@ -102,8 +102,7 @@ local function MaterialPanel()
       TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
       TextSize = 16,
       TextWrapped = true,
-    })
-
+    }),
   })
 end
 

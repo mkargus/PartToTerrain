@@ -89,7 +89,7 @@ local function Tab(props: Props)
 
     Borders = React.createElement('Folder', nil, {
       Tooltip = not props.DisplayText and React.createElement(Tooltip.Trigger, {
-        Text = props.Text
+        Text = props.Text,
       }),
 
       Selected = props.Selected and React.createElement('Frame', {
