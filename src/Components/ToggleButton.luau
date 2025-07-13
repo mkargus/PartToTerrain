@@ -23,10 +23,10 @@ local function ToggleButton(props: Props)
   local modiferKey = 'off'
   if props.Disabled and props.Selected then
     modiferKey = 'on_disable'
-  elseif props.Disabled then
-    modiferKey = 'disable'
   elseif props.Selected then
     modiferKey = 'on'
+  elseif props.Disabled then
+    modiferKey = 'disable'
   end
 
   local onClick = React.useCallback(function()
