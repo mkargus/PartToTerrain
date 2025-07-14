@@ -55,7 +55,7 @@ local function SettingsToggleItem(props: Props)
         Size = UDim2.new(1, 0, 0, 20),
         Text = props.Title,
         TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
-        TextSize = 16,
+        TextSize = 18,
         TextWrapped = true,
         TextXAlignment = Enum.TextXAlignment.Left,
       }, {
