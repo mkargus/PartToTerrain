@@ -45,12 +45,7 @@ function StudioWidget:init()
   pluginGui.Title = props.Title
   pluginGui.ZIndexBehavior = props.ZIndexBehavior
 
-  pluginGui:BindToClose(function()
-    pluginGui.Enabled = false
-    if props.onClose then
-      props.onClose()
-    end
-  end)
+  pluginGui:BindToClose(props.onClose)
 
   self.pluginGui = pluginGui
 end
