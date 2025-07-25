@@ -1,19 +1,6 @@
---[[
-  A collective set of Tabs for navigation
-
-  Props:
-    string CurrentTab
-    table Tabs = {
-      string Key,
-      ContentId icon
-      string Text
-    }
-
-    function onTabSelected = A callback for when a Tab is selected.
-]]
-
-local TAB_ICON_SIZE = 24
-local TAB_INNER_PADDING = 3
+local TAB_ICON_SIZE = 20
+local TAB_INNER_PADDING = 6
+local TAB_OUTER_PADDING = 2
 
 local TextService = game:GetService('TextService')
 
@@ -23,37 +10,46 @@ local React = require(Plugin.Packages.React)
 
 local Tab = require(Plugin.Components.Tab)
 
-local function CreateNextOrder(): () -> number
-  local LayoutOrder = 0
+local createNextOrder = require(Plugin.Util.createNextOrder)
 
-  return function()
-    LayoutOrder += 1
-    return LayoutOrder
-  end
-end
+type Props = {
+  AutomaticSize: Enum.AutomaticSize?,
+  LayoutOrder: number?,
+  SelectedTab: string?,
+  Size: UDim2?,
+  Tabs: {
+    {
+      Disabled: boolean?,
+      Key: string,
+      Icon: string,
+      Text: string,
+    }
+  },
 
-local function CanTextBeDisplayed(tabs, tabSize)
+  OnTabSelected: (tab: string) -> ()?,
+}
+
+local function canTextBeDisplayed(tabs, tabSize): boolean
   if #tabs > 0 then
     for _, tab in tabs do
-      local textWidth = TextService:GetTextSize(tab.Text, 14, Enum.Font.Gotham, Vector2.new(100000, 20)).X
-      local totalWidth = TAB_ICON_SIZE + TAB_INNER_PADDING + textWidth
+      local textWidth = TextService:GetTextSize(tab.Text, 16, Enum.Font.BuilderSansBold, Vector2.new(100000, 20)).X
+      local totalWidth = TAB_ICON_SIZE + TAB_INNER_PADDING + textWidth + (TAB_OUTER_PADDING * 2)
 
       if totalWidth >= tabSize then
         return false
       end
-
     end
   end
 
   return true
 end
 
-local function TabSet(props)
+local function TabSet(props: Props)
   local currentWidth, setWidth = React.useState(0)
 
   local onTabSelected = React.useCallback(function(key: string)
-    if props.onTabSelected then
-      props.onTabSelected(key)
+    if props.OnTabSelected then
+      props.OnTabSelected(key)
     end
   end, {})
 
@@ -61,38 +57,41 @@ local function TabSet(props)
     setWidth(rbx.AbsoluteSize.X)
   end, {})
 
-  local NextOrder = CreateNextOrder()
+  local nextOrder = createNextOrder()
 
   local children = {
     UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Horizontal,
       HorizontalAlignment = Enum.HorizontalAlignment.Center,
-      SortOrder = Enum.SortOrder.LayoutOrder
-    })
-  }
+      SortOrder = Enum.SortOrder.LayoutOrder,
+    }),
+  } :: any
 
-  local textDisplayed = CanTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
+  local textDisplayed = canTextBeDisplayed(props.Tabs, currentWidth / #props.Tabs)
 
   for _, tab in props.Tabs do
     children[tab.Key] = React.createElement(Tab, {
-      Key = tab.Key,
-      Active = props.CurrentTab == tab.Key,
-      WidthScale = 1 / #props.Tabs,
+      Disabled = tab.Disabled,
+      DisplayText = textDisplayed,
       Icon = tab.Icon,
-      IsDisplayingText = textDisplayed,
-      LayoutOrder = NextOrder(),
+      LayoutOrder = nextOrder(),
+      Selected = props.SelectedTab == tab.Key,
       Text = tab.Text,
-      onClick = function()
+      OnClick = function()
         onTabSelected(tab.Key)
-      end
+      end,
     })
   end
 
   return React.createElement('Frame', {
+    AutomaticSize = props.AutomaticSize,
     BackgroundTransparency = 1,
+    LayoutOrder = props.LayoutOrder,
     Size = props.Size,
-    [React.Change.AbsoluteSize] = onAbsoluteSizeChange
-  }, children)
+    [React.Change.AbsoluteSize] = onAbsoluteSizeChange,
+  }, {
+    Elements = React.createElement(React.Fragment, nil, children),
+  })
 end
 
 return TabSet

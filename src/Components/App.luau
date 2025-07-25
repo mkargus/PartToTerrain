@@ -2,67 +2,79 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Util = Plugin.Util
-local Localization = require(Util.Localization)
+local Localization = require(Plugin.Util.Localization)
+local Store = require(Plugin.Util.Store)
 
-local Components = Plugin.Components
-local MaterialPanel = require(Components.MaterialPanel)
-local SettingsPanel = require(Components.SettingsPanel)
-local TextLabel = require(Components.TextLabel)
-local Header = require(Components.Header)
+local Tooltip = require(Plugin.Components.Tooltip)
+local TabSet = require(Plugin.Components.TabSet)
+local UpdateNotice = require(Plugin.Components.UpdateNotice)
+
+-- TODO: Put these in a separate folder
+local MaterialPanel = require(Plugin.Components.MaterialPanel)
+local SettingsPanel = require(Plugin.Components.SettingsPanel)
 
 local useStore = require(Plugin.Hooks.useStore)
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function App(props)
+local function App()
   local theme = useTheme()
-  local CurrentPanel = useStore('Panel')
+  local selectedPanel: string = useStore('Panel')
 
-  local PanelElement = React.useMemo(function()
-    if CurrentPanel == 'Materials' then
-      return React.createElement(MaterialPanel, {
-        Size = props.IsOutdated and UDim2.new(1, 0, 1, -78) or UDim2.new(1, 0, 1, -60)
-      })
-    elseif CurrentPanel == 'Settings' then
-      return React.createElement(SettingsPanel, {
-        Size = props.IsOutdated and UDim2.new(1, 0, 1, -53) or UDim2.new(1, 0, 1, -28)
-      })
+  local panelElement = React.useMemo(function()
+    if selectedPanel == 'Materials' then
+      return React.createElement(MaterialPanel)
+    elseif selectedPanel == 'Settings' then
+      return React.createElement(SettingsPanel)
     else
-      error('Requested unknown panel.')
+      return React.createElement('TextLabel', {
+        Size = UDim2.fromScale(1, 1),
+        Text = "You shouldn't be able to see this.",
+      })
     end
-  end, { CurrentPanel })
+  end, { selectedPanel })
 
   return React.createElement('Frame', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
     BorderSizePixel = 0,
-    Size = UDim2.fromScale(1, 1)
+    Size = UDim2.fromScale(1, 1),
   }, {
-    Header = React.createElement(Header, {
-      CurrentPanel = CurrentPanel,
-      IsSearchEnabled = CurrentPanel == 'Materials'
-    }),
+    TooltipContainer = React.createElement(Tooltip.Container),
 
-    UIListLayout = React.createElement('UIListLayout', {
-      SortOrder = Enum.SortOrder.LayoutOrder
-    }),
-
-    Body = PanelElement,
-
-    update = props.IsOutdated and React.createElement(TextLabel, {
-      AutomaticSize = Enum.AutomaticSize.Y,
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Titlebar),
-      LayoutOrder = -1,
-      Text = Localization('Notice.Outdated'),
-      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-      TextSize = 12,
-      TextWrapped = true,
-      Size = UDim2.fromScale(1, 0)
+    Content = React.createElement('Frame', {
+      BackgroundTransparency = 1,
+      Size = UDim2.fromScale(1, 1),
     }, {
-      UIPadding = React.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, 3),
-        PaddingTop = UDim.new(0, 3)
-      })
-    })
+      UIListLayout = React.createElement('UIListLayout', {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+      }),
+
+      UpdateNotice = React.createElement(UpdateNotice),
+
+      Navbar = React.createElement(TabSet, {
+        AutomaticSize = Enum.AutomaticSize.Y,
+        SelectedTab = selectedPanel,
+        LayoutOrder = 2,
+        Size = UDim2.fromScale(1, 0),
+        Tabs = {
+          { Key = 'Materials', Icon = 'rbxassetid://5741677639', Text = Localization('Button.Materials') },
+          { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
+        },
+        OnTabSelected = function(tabName)
+          Store:Set('Panel', tabName)
+        end,
+      }),
+
+      Body = React.createElement('Frame', {
+        BackgroundTransparency = 1,
+        LayoutOrder = 3,
+        Size = UDim2.fromScale(1, 1),
+      }, {
+        UIFlexItem = React.createElement('UIFlexItem', {
+          FlexMode = Enum.UIFlexMode.Fill,
+        }),
+        PanelContent = React.createElement(React.Fragment, nil, panelElement),
+      }),
+    }),
   })
 end
 

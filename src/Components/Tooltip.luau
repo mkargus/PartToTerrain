@@ -7,9 +7,6 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Components = Plugin.Components
-local TextLabel = require(Components.TextLabel)
-
 local useTheme = require(Plugin.Hooks.useTheme)
 
 local PADDING = 3
@@ -22,7 +19,7 @@ local TooltipContext = React.createContext({})
 local function Popup(props)
   local theme = useTheme()
 
-  local TextSize = TextSerice:GetTextSize(props.Text, 14, Enum.Font.Gotham, Vector2.new(160, math.huge))
+  local TextSize = TextSerice:GetTextSize(props.Text, 16, Enum.Font.BuilderSans, Vector2.new(160, math.huge))
 
   local tooltipWidth = TextSize.X + (2 * PADDING)
   local tooltipHeight = TextSize.Y + (2 * PADDING)
@@ -38,26 +35,28 @@ local function Popup(props)
     targetY = props.Size.Y - tooltipHeight
   end
 
-  return React.createElement(TextLabel, {
+  return React.createElement('TextLabel', {
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Tooltip),
+    FontFace = Font.fromEnum(Enum.Font.BuilderSans),
     Position = UDim2.fromOffset(targetX, targetY),
     Size = UDim2.fromOffset(tooltipWidth, tooltipHeight),
     Text = props.Text,
-    TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText)
+    TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+    TextSize = 16,
   }, {
     UICorner = React.createElement('UICorner', {
-      CornerRadius = UDim.new(0, 3)
+      CornerRadius = UDim.new(0, 3),
     }),
     UIPadding = React.createElement('UIPadding', {
       PaddingBottom = UDim.new(0, PADDING),
       PaddingLeft = UDim.new(0, PADDING),
       PaddingRight = UDim.new(0, PADDING),
-      PaddingTop = UDim.new(0, PADDING)
+      PaddingTop = UDim.new(0, PADDING),
     }),
     UIStroke = React.createElement('UIStroke', {
       ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-      Color = theme:GetColor(Enum.StudioStyleGuideColor.Border)
-    })
+      Color = theme:GetColor(Enum.StudioStyleGuideColor.Border),
+    }),
   })
 end
 
@@ -78,13 +77,13 @@ function Provider:init()
         state.tips[id] = nil
         return state
       end)
-    end
+    end,
   }
 end
 
 function Provider:render()
   return React.createElement(TooltipContext.Provider, {
-    value = self.state
+    value = self.state,
   }, self.props.children)
 end
 
@@ -100,7 +99,7 @@ local function Container()
     popups[key] = React.createElement(Popup, {
       Text = value.Text or '',
       Position = value.Position or Vector2.zero,
-      Size = size
+      Size = size,
     })
   end
 
@@ -110,7 +109,7 @@ local function Container()
     ZIndex = 1000,
     [React.Change.AbsoluteSize] = function(rbx: Frame)
       setSize(rbx.AbsoluteSize)
-    end
+    end,
   }, popups)
 end
 
@@ -136,7 +135,7 @@ function Trigger:render()
       self.showDelayThread = task.delay(SHOW_DELAY_TIME, function()
         props.context.addTip(self.id, {
           Text = props.Text,
-          Position = self.mousePos
+          Position = self.mousePos,
         })
         self.showDelayThread = nil
       end)
@@ -147,7 +146,7 @@ function Trigger:render()
         self.showDelayThread = nil
       end
       props.context.removeTip(self.id)
-    end
+    end,
   })
 end
 
@@ -170,5 +169,5 @@ end
 return {
   Provider = Provider,
   Container = Container,
-  Trigger = TriggerConsumer
+  Trigger = TriggerConsumer,
 }

@@ -35,7 +35,7 @@ local function CreateOutline(Part, color)
     AlwaysOnTop = true,
     Color3 = color,
     Transparency = 0.3,
-    ZIndex = 1
+    ZIndex = 1,
   }
 
   local props = table.clone(DEFAULT_OUTLINE_PROPS)
@@ -93,13 +93,15 @@ local function Outline(props)
   PluginMouse.Icon = (isConvertibleToTerrain and not isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
 
   -- If the setting is disabled, then no need to do anymore work.
-  if not Settings:Get('EnabledSelectionBox') then return nil end
+  if not Settings:Get('EnabledSelectionBox') then
+    return nil
+  end
 
   local color = GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
   local outlineClass, outlineProps = CreateOutline(Part, color)
 
   return ReactRoblox.createPortal({
-    PTT_Outline = React.createElement(outlineClass, outlineProps)
+    PTT_Outline = React.createElement(outlineClass, outlineProps),
   }, CoreGui)
 end
 

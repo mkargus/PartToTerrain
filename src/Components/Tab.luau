@@ -1,90 +1,153 @@
---[[
-  Props:
-    string Key
-    boolean Active
-    number WidthScale
-    ContentId Icon
-    boolean IsDisplayingText
-    int LayoutOrder
-
-    function onClick = A callback when the user clicks this Tab.
-]]
-
-local TAB_ICON_SIZE = 24
-local TAB_INNER_PADDING = 3
-
 local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Components = Plugin.Components
-local TextLabel = require(Components.TextLabel)
-local Tooltip = require(Components.Tooltip)
+local Tooltip = require(Plugin.Components.Tooltip)
 
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function Tab(props)
+type Props = {
+  Disabled: boolean?,
+  DisplayText: boolean?,
+  Icon: string?,
+  LayoutOrder: number?,
+  Selected: boolean?,
+  Text: string?,
+
+  OnClick: () -> ()?,
+}
+
+local function Tab(props: Props)
   local theme = useTheme()
-  local isHovering, setHovering = React.useState(false)
+  local isHover, setHover = React.useState(false)
 
   local onMouseEnter = React.useCallback(function()
-    setHovering(true)
+    setHover(true)
   end, {})
 
   local onMouseLeave = React.useCallback(function()
-    setHovering(false)
+    setHover(false)
   end, {})
 
-  local color = theme:GetColor((props.Active or isHovering) and Enum.StudioStyleGuideColor.MainText or Enum.StudioStyleGuideColor.DimmedText)
+  local onClick = React.useCallback(function()
+    if not props.Disabled and props.OnClick then
+      props.OnClick()
+    end
+  end, { props.OnClick, props.Disabled } :: { unknown })
 
-  return React.createElement('TextButton', {
+  local iconSize = 20
+  if not props.DisplayText then
+    iconSize = 24
+  end
+
+  local font = Enum.Font.BuilderSans
+  local textColor = Enum.StudioStyleGuideColor.MainText
+  local borderColor = Enum.StudioStyleGuideColor.Border
+
+  local modifier = Enum.StudioStyleGuideModifier.Default
+  if props.Disabled then
+    modifier = Enum.StudioStyleGuideModifier.Disabled
+  elseif props.Selected then
+    modifier = Enum.StudioStyleGuideModifier.Selected
+    font = Enum.Font.BuilderSansBold
+    if theme.Name == 'Light' then
+      textColor = Enum.StudioStyleGuideColor.BrightText
+    end
+  elseif isHover then
+    modifier = Enum.StudioStyleGuideModifier.Hover
+  end
+
+  return React.createElement('ImageButton', {
     AutoButtonColor = false,
-    BackgroundColor3 = theme:GetColor(props.Active and Enum.StudioStyleGuideColor.Titlebar or Enum.StudioStyleGuideColor.Dark),
+    AutomaticSize = Enum.AutomaticSize.Y,
+    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.RibbonTab, modifier),
     BorderSizePixel = 0,
     LayoutOrder = props.LayoutOrder,
-    Size = UDim2.fromScale(props.WidthScale, 1),
-    Text = '',
-    [React.Event.MouseButton1Click] = props.onClick,
+    [React.Event.MouseButton1Click] = onClick,
     [React.Event.MouseEnter] = onMouseEnter,
-    [React.Event.MouseLeave] = onMouseLeave
+    [React.Event.MouseLeave] = onMouseLeave,
   }, {
-    Tooltip = not props.IsDisplayingText and React.createElement(Tooltip.Trigger, {
-      Text = props.Text
+    UIPadding = React.createElement('UIPadding', {
+      PaddingBottom = UDim.new(0, 3),
+      PaddingLeft = UDim.new(0, 3),
+      PaddingRight = UDim.new(0, 3),
+      PaddingTop = UDim.new(0, 3),
     }),
 
-    UpperBorder = props.Active and React.createElement('Frame', {
-      BackgroundColor3 = Color3.fromRGB(0, 162, 255),
-      BorderSizePixel = 0,
-      Size = UDim2.new(1, 0, 0, 2)
+    UIFlexItem = React.createElement('UIFlexItem', {
+      FlexMode = Enum.UIFlexMode.Fill,
+      ItemLineAlignment = Enum.ItemLineAlignment.Stretch,
     }),
 
-    Container = React.createElement('Frame', {
-      BackgroundTransparency = 1,
-      Size = UDim2.fromScale(1, 1)
-    }, {
-      UIListLayout = React.createElement('UIListLayout', {
-        FillDirection = Enum.FillDirection.Horizontal,
-        HorizontalAlignment = Enum.HorizontalAlignment.Center,
-        VerticalAlignment = Enum.VerticalAlignment.Center,
-        Padding = UDim.new(0, TAB_INNER_PADDING),
-        SortOrder = Enum.SortOrder.LayoutOrder
-      }),
-      Icon = React.createElement('ImageLabel', {
-        BackgroundTransparency = 1,
-        Image = props.Icon,
-        Size = UDim2.fromOffset(TAB_ICON_SIZE, TAB_ICON_SIZE),
-        ImageColor3 = color
-      }),
-      Name = props.IsDisplayingText and React.createElement(TextLabel, {
-        AutomaticSize = Enum.AutomaticSize.X,
-        BackgroundTransparency = 1,
-        Size = UDim2.fromOffset(0, 20),
+    UIListLayout = React.createElement('UIListLayout', {
+      FillDirection = Enum.FillDirection.Horizontal,
+      HorizontalAlignment = Enum.HorizontalAlignment.Center,
+      Padding = UDim.new(0, 6),
+      SortOrder = Enum.SortOrder.LayoutOrder,
+      VerticalAlignment = Enum.VerticalAlignment.Center,
+    }),
+
+    Borders = React.createElement('Folder', nil, {
+      Tooltip = not props.DisplayText and React.createElement(Tooltip.Trigger, {
         Text = props.Text,
-        TextColor3 = color,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        LayoutOrder = 1
-      })
-    })
+      }),
+
+      Selected = props.Selected and React.createElement('Frame', {
+        AnchorPoint = Vector2.one,
+        BackgroundTransparency = 1,
+        Position = UDim2.new(1, 3, 1, 3),
+        Size = UDim2.new(1, 6, 1, 6),
+      }, {
+        Top = React.createElement('Frame', {
+          BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.LinkText),
+          BorderSizePixel = 0,
+          Size = UDim2.new(1, 0, 0, 2),
+        }),
+
+        Right = React.createElement('Frame', {
+          AnchorPoint = Vector2.one,
+          BackgroundColor3 = theme:GetColor(borderColor),
+          BorderSizePixel = 0,
+          Position = UDim2.fromScale(1, 1),
+          Size = UDim2.new(0, 1, 1, -2),
+        }),
+
+        Left = React.createElement('Frame', {
+          AnchorPoint = Vector2.yAxis,
+          BackgroundColor3 = theme:GetColor(borderColor),
+          BorderSizePixel = 0,
+          Position = UDim2.fromScale(0, 1),
+          Size = UDim2.new(0, 1, 1, -2),
+        }),
+      }),
+
+      Bottom = not props.Selected and React.createElement('Frame', {
+        AnchorPoint = Vector2.yAxis,
+        BackgroundColor3 = theme:GetColor(borderColor),
+        BorderSizePixel = 0,
+        Position = UDim2.new(0, -3, 1, 3),
+        Size = UDim2.new(1, 6, 0, 1),
+      }),
+    }),
+
+    ImageLabel = React.createElement('ImageLabel', {
+      BackgroundTransparency = 1,
+      Image = props.Icon,
+      ImageColor3 = theme:GetColor(textColor, modifier),
+      LayoutOrder = 1,
+      Size = UDim2.fromOffset(iconSize, iconSize),
+    }),
+
+    TextLabel = props.DisplayText and React.createElement('TextLabel', {
+      AutomaticSize = Enum.AutomaticSize.X,
+      BackgroundTransparency = 1,
+      FontFace = Font.fromEnum(font),
+      LayoutOrder = 2,
+      Size = UDim2.fromOffset(0, 24),
+      Text = props.Text,
+      TextColor3 = theme:GetColor(textColor, modifier),
+      TextSize = 16,
+    }),
   })
 end
 

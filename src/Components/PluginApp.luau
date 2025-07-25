@@ -1,5 +1,4 @@
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
-local MarketplaceService = game:GetService('MarketplaceService')
 local Selection = game:GetService('Selection')
 local UserInputService = game:GetService('UserInputService')
 
@@ -18,7 +17,6 @@ local Components = Plugin.Components
 local App = require(Components.App)
 local Outline = require(Components.Outline)
 local StudioWidget = require(Components.StudioWidget)
-local Tooltip = require(Components.Tooltip)
 
 local function GetInvisibleParts()
   local ignoreList = {}
@@ -32,28 +30,11 @@ local function GetInvisibleParts()
   return ignoreList
 end
 
-local function IsUpdateAvailable()
-  local CheckerID = Constants.IS_DEV_CHANNEL and Constants.DEV_UPDATE_CHECKER_ID or Constants.UPDATE_CHECKER_ID
-  local success, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, CheckerID)
-
-  if success then
-    local LatestVersion = string.match(info.Description, '([0-9]+%.[0-9]+%.[0-9]+)')
-
-    if LatestVersion and LatestVersion ~= Constants.VERSION then
-      return true
-    end
-  end
-
-  -- Fallback
-  return false
-end
-
 local PluginApp = React.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
   self.state = {
     guiEnabled = false,
-    isOutdated = nil
   }
 
   -- This is a fix for a unintended side effect when undoing,
@@ -150,7 +131,6 @@ function PluginApp:componentDidUpdate()
       self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
     end)
   end
-
 end
 
 function PluginApp:render()
@@ -169,29 +149,15 @@ function PluginApp:render()
 
     onClose = function()
       self.plugin:Deactivate()
-    end
+    end,
   }, {
-    TooltipContainer = React.createElement(Tooltip.Container),
-
-    App = state.guiEnabled and React.createElement(App, {
-      IsOutdated = state.isOutdated
-    }),
+    App = React.createElement(App),
 
     Outline = state.guiEnabled and React.createElement(Outline, {
       PluginMouse = self.pluginMouse,
-      RaycastParams = self.raycastParams
-    })
+      RaycastParams = self.raycastParams,
+    }),
   })
-end
-
-function PluginApp:componentDidMount()
-  -- Creates a seprate thread for update checking as to not block rendering thread.
-  -- This is incase Roblox servers go extremely slow or if a user has a bad connection.
-  task.spawn(function()
-    if IsUpdateAvailable() then
-      self:setState({ isOutdated = true })
-    end
-  end)
 end
 
 function PluginApp:componentWillUnmount()

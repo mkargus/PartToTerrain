@@ -2,19 +2,34 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Localization = require(Plugin.Util.Localization)
-
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function Search(props)
+type Props = {
+  Disabled: boolean?,
+  PlaceholderText: string?,
+  Position: UDim2?,
+  Text: string?,
+
+  OnTextChange: (rbx: TextBox) -> ()?,
+}
+
+local function Search(props: Props)
   local theme = useTheme()
-  local TextBoxRef = React.useRef(nil)
+  local textBoxRef = React.useRef(nil :: TextBox?)
   local isFocus, setFocus = React.useState(false)
   local isHover, setHover = React.useState(false)
 
   local onMouseButton1Click = React.useCallback(function()
-    TextBoxRef.current:CaptureFocus()
+    if textBoxRef.current then
+      textBoxRef.current:CaptureFocus()
+    end
   end, {})
+
+  local onTextChange = React.useCallback(function()
+    if textBoxRef.current and props.OnTextChange then
+      props.OnTextChange(textBoxRef.current)
+    end
+  end, { props.OnTextChange })
 
   local onMouseEnter = React.useCallback(function()
     setHover(true)
@@ -32,63 +47,102 @@ local function Search(props)
     setFocus(false)
   end, {})
 
-  local Modifier = Enum.StudioStyleGuideModifier.Default
-  if isFocus then
-    Modifier = Enum.StudioStyleGuideModifier.Selected
+  local modifier = Enum.StudioStyleGuideModifier.Default
+  if props.Disabled then
+    modifier = Enum.StudioStyleGuideModifier.Disabled
+  elseif isFocus then
+    if theme.Name == 'Light' then
+      modifier = Enum.StudioStyleGuideModifier.Default
+    else
+      modifier = Enum.StudioStyleGuideModifier.Selected
+    end
   elseif isHover then
-    Modifier = Enum.StudioStyleGuideModifier.Hover
+    modifier = Enum.StudioStyleGuideModifier.Hover
   end
 
   return React.createElement('ImageButton', {
     AutoButtonColor = false,
-    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, Modifier),
+    AutomaticSize = Enum.AutomaticSize.Y,
+    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, modifier),
     BorderSizePixel = 0,
     Position = props.Position,
-    Size = UDim2.new(1, -7, 0, 26),
+    Size = UDim2.fromScale(1, 0),
     [React.Event.MouseButton1Click] = onMouseButton1Click,
     [React.Event.MouseEnter] = onMouseEnter,
-    [React.Event.MouseLeave] = onMouseLeave
+    [React.Event.MouseLeave] = onMouseLeave,
   }, {
     UICorner = React.createElement('UICorner', {
-      CornerRadius = UDim.new(0, 3)
+      CornerRadius = UDim.new(0, 3),
+    }),
+
+    UIPadding = React.createElement('UIPadding', {
+      PaddingBottom = UDim.new(0, 1),
+      PaddingLeft = UDim.new(0, 1),
+      PaddingRight = UDim.new(0, 1),
+      PaddingTop = UDim.new(0, 1),
+    }),
+
+    UIFlexItem = React.createElement('UIFlexItem', {
+      FlexMode = Enum.UIFlexMode.Fill,
     }),
 
     Container = React.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, Modifier),
-      Position = UDim2.fromOffset(1, 1),
-      Size = UDim2.new(1, -2, 1, -2)
+      AutomaticSize = Enum.AutomaticSize.Y,
+      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, modifier),
+      Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 3)
+        CornerRadius = UDim.new(0, 2),
+      }),
+
+      UIPadding = React.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, 3),
+        PaddingLeft = UDim.new(0, 3),
+        PaddingRight = UDim.new(0, 3),
+        PaddingTop = UDim.new(0, 3),
+      }),
+
+      UIListLayout = React.createElement('UIListLayout', {
+        FillDirection = Enum.FillDirection.Horizontal,
+        Padding = UDim.new(0, 3),
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        VerticalAlignment = Enum.VerticalAlignment.Center,
       }),
 
       Icon = React.createElement('ImageLabel', {
         BackgroundTransparency = 1,
-        ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
+        ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
         Image = 'rbxassetid://5927945389',
         ImageRectSize = Vector2.new(96, 96),
-        Size = UDim2.fromOffset(24, 24)
+        LayoutOrder = 1,
+        Size = UDim2.fromOffset(18, 18),
       }),
 
       Input = React.createElement('TextBox', {
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-        Font = Enum.Font.Gotham,
-        PlaceholderText = Localization('Plugin.Search'),
-        PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText),
-        Position = UDim2.fromOffset(24, 0),
-        Size = UDim2.new(1, -24, 1, 0),
+        ClearTextOnFocus = false,
+        LayoutOrder = 2,
+        FontFace = Font.fromEnum(Enum.Font.BuilderSans),
+        PlaceholderText = props.PlaceholderText or 'Search',
+        PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
+        Size = UDim2.new(1, 0, 0, 20),
         Text = props.Text or '',
-        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
-        TextSize = 14,
+        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
+        TextEditable = not props.Disabled,
+        TextSize = 16,
         TextTruncate = Enum.TextTruncate.AtEnd,
         TextXAlignment = Enum.TextXAlignment.Left,
-        ref = TextBoxRef,
+        ref = textBoxRef,
         [React.Event.Focused] = onFocused,
         [React.Event.FocusLost] = onFocusLost,
-        [React.Change.Text] = props.onTextChange
-      })
-    })
+        [React.Change.Text] = onTextChange,
+      }, {
+        UIFlexItem = React.createElement('UIFlexItem', {
+          FlexMode = Enum.UIFlexMode.Shrink,
+        }),
+      }),
+    }),
   })
 end
 

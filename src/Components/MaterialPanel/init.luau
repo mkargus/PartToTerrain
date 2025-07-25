@@ -1,34 +1,35 @@
-local TERRAIN_TEXTURE_PATH = 'rbxasset://textures/TerrainTools/'
-
 local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Util = Plugin.Util
-local Constants = require(Util.Constants)
-local Localization = require(Util.Localization)
+local Constants = require(Plugin.Util.Constants)
+local Localization = require(Plugin.Util.Localization)
+local Store = require(Plugin.Util.Store)
 
-local Components = Plugin.Components
-local MaterialItem = require(Components.MaterialPanel.Item)
-local ScrollingFrame = require(Components.ScrollingFrame)
-local TextLabel = require(Components.TextLabel)
+local MaterialGridItem = require(script.MaterialGridItem)
+local ScrollingFrame = require(Plugin.Components.ScrollingFrame)
+local Search = require(Plugin.Components.Search)
 
 local useStore = require(Plugin.Hooks.useStore)
 local useTheme = require(Plugin.Hooks.useTheme)
 
-local function MaterialPanel(props)
+local function MaterialPanel()
   local theme = useTheme()
-  local SearchTerm = useStore('SearchTerm')
+  local currentMaterial: Enum.Material = useStore('Material')
+  local searchTerm: string = useStore('SearchTerm')
 
   local content, assetCount = React.useMemo(function()
     local numberAssets = 0
-    local assetsToDisplay = {}
+    local assetsToDisplay = {} :: any
 
-    for _, item in Constants.MATERIALS_TABLE do
-      if string.find(string.lower(item.enum.Name), string.lower(SearchTerm), 1, true) then
-        assetsToDisplay[item.enum.Name] = React.createElement(MaterialItem, {
-          Id = item.enum,
-          Image = TERRAIN_TEXTURE_PATH..item.img
+    for _, material in Constants.MATERIALS do
+      if string.find(string.lower(material.Name), string.lower(searchTerm), 1, true) then
+        assetsToDisplay[material.Name] = React.createElement(MaterialGridItem, {
+          Material = material,
+          Selected = currentMaterial == material,
+          OnClick = function()
+            Store:Set('Material', material)
+          end,
         })
 
         numberAssets += 1
@@ -36,34 +37,72 @@ local function MaterialPanel(props)
     end
 
     return assetsToDisplay, numberAssets
-  end, { SearchTerm })
+  end, { currentMaterial, searchTerm } :: { unknown })
 
   local hasAssets = assetCount ~= 0
 
-  return React.createElement('Frame', {
-    BackgroundTransparency = 1,
-    LayoutOrder = 2,
-    Size = props.Size
-  }, {
-    MaterialGrid = hasAssets and React.createElement(ScrollingFrame, {
+  return React.createElement(React.Fragment, nil, {
+    UIListLayout = React.createElement('UIListLayout', {
+      SortOrder = Enum.SortOrder.LayoutOrder,
+    }),
+
+    Header = React.createElement('Frame', {
+      AutomaticSize = Enum.AutomaticSize.Y,
+      BackgroundTransparency = 1,
+      LayoutOrder = 1,
+      Size = UDim2.fromScale(1, 0),
+    }, {
+      UIPadding = React.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, 3),
+        PaddingLeft = UDim.new(0, 3),
+        PaddingRight = UDim.new(0, 3),
+        PaddingTop = UDim.new(0, 3),
+      }),
+      Search = React.createElement(Search, {
+        PlaceholderText = Localization('Plugin.Search'),
+        Text = Store:Get('SearchTerm'),
+        OnTextChange = function(rbx)
+          Store:Set('SearchTerm', rbx.Text)
+        end,
+      }),
+    }),
+
+    MaterialSelector = hasAssets and React.createElement(ScrollingFrame, {
       AutomaticCanvasSize = Enum.AutomaticSize.Y,
-      ScrollingDirection = Enum.ScrollingDirection.Y,
-      Size = UDim2.fromScale(1, 1)
+      LayoutOrder = 3,
+      Size = UDim2.fromScale(1, 1),
     }, {
       UIGridLayout = React.createElement('UIGridLayout', {
         CellPadding = Constants.MATERIAL_GRID_PADDING,
         CellSize = Constants.MATERIAL_GRID_SIZE,
-        FillDirectionMaxCells = 6,
-        HorizontalAlignment = Enum.HorizontalAlignment.Center
+        FillDirectionMaxCells = 5,
+        HorizontalAlignment = Enum.HorizontalAlignment.Center,
       }),
-      Items = React.createElement(React.Fragment, nil, content)
+
+      UIFlexItem = React.createElement('UIFlexItem', {
+        FlexMode = Enum.UIFlexMode.Shrink,
+      }),
+
+      UIPadding = React.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, 3),
+        PaddingLeft = UDim.new(0, 3),
+        PaddingRight = UDim.new(0, 3),
+      }),
+
+      Items = React.createElement(React.Fragment, nil, content),
     }),
-    NoResults = not hasAssets and React.createElement(TextLabel, {
+
+    NoResultsFound = not hasAssets and React.createElement('TextLabel', {
+      AutomaticSize = Enum.AutomaticSize.Y,
       BackgroundTransparency = 1,
+      FontFace = Font.fromEnum(Enum.Font.BuilderSans),
+      LayoutOrder = 3,
       Size = UDim2.new(1, 0, 0, 30),
       Text = Localization('Notice.NoResultsFound'),
-      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText)
-    })
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+      TextSize = 16,
+      TextWrapped = true,
+    }),
   })
 end
 
