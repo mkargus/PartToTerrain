@@ -4,7 +4,7 @@ local React = require(Plugin.Packages.React)
 
 local ToolbarContext = require(Plugin.Context.Toolbar)
 
-type Props = {
+export type Props = {
   Id: string,
 
   Tooltip: string?,

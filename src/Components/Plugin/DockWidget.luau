@@ -11,7 +11,7 @@ export type Props = {
 
   InitialDockState: Enum.InitialDockState?,
   Enabled: boolean?,
-  OverridePreviousState: boolean,
+  OverridePreviousState: boolean?,
   FloatingSize: Vector2?,
   MinSize: Vector2?,
   ZIndexBehavior: Enum.ZIndexBehavior?,

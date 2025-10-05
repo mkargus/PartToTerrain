@@ -5,7 +5,7 @@ local React = require(Plugin.Packages.React)
 local PluginContext = require(Plugin.Context.Plugin)
 local ToolbarContext = require(Plugin.Context.Toolbar)
 
-type Props = {
+export type Props = {
   Name: string,
   children: React.ReactNode,
 }
