@@ -14,7 +14,7 @@ GNU General Public License v3.0 license:
 https://github.com/mkargus/PartToTerrain/blob/main/LICENSE.txt
 
 ]]
-_G.__DEV__ = true
+_G.__DEV__ = false
 
 local RunService = game:GetService('RunService')
 
@@ -34,15 +34,11 @@ local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 local StudioThemeContext = require(Plugin.Context.StudioTheme)
 
 local MainPlugin = require(script.Parent.MainPlugin)
--- local PluginApp = require(Plugin.Components.PluginApp)
 local Tooltip = require(Plugin.Components.Tooltip)
 
 local app = React.createElement(StudioThemeContext.Provider, nil, {
   Tooltip = React.createElement(Tooltip.Provider, nil, {
     MainPlugin = React.createElement(MainPlugin),
-    -- PluginApp = React.createElement(PluginApp, {
-    --   plugin = plugin
-    -- })
   })
 })
 

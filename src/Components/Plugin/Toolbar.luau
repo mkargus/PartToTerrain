@@ -24,12 +24,14 @@ local function Toolbar(props: Props)
   end, {})
 
   React.useEffect(function()
-    if toolbar ~= nil and toolbar.Name ~= props.Name then
+    if toolbar and toolbar.Name ~= props.Name then
       toolbar.Name = props.Name
     end
   end, { props.Name })
 
-  return React.createElement(ToolbarContext.Provider, { value = toolbar }, if toolbar then props.children else nil)
+  return React.createElement(ToolbarContext.Provider, {
+    value = toolbar
+  }, if toolbar then props.children else nil)
 end
 
 return Toolbar

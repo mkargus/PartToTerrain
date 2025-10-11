@@ -15,10 +15,13 @@ local SettingsPanel = require(Plugin.Components.SettingsPanel)
 
 local useStore = require(Plugin.Hooks.useStore)
 local useTheme = require(Plugin.Hooks.useTheme)
+local usePlugin = require(Plugin.Hooks.usePlugin)
 
 local function App()
   local theme = useTheme()
   local selectedPanel: string = useStore('Panel')
+  local plugin = usePlugin()
+  print(plugin)
 
   local panelElement = React.useMemo(function()
     if selectedPanel == 'Materials' then

@@ -36,7 +36,7 @@ local function MainPlugin()
         Icon = 'rbxassetid://5768049797',
         Active = enabled,
 
-        OnClick = function()
+        onClick = function()
           toggleEnabled()
         end
       })
