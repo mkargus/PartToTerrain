@@ -14,8 +14,8 @@ local Localization = require(Utils.Localization)
 local function MainPlugin()
   local enabled, setEnabled = React.useState(false)
   local function toggleEnabled()
-    setEnabled(function(enabled)
-      return not enabled
+    setEnabled(function(currentlyEnabled)
+      return not currentlyEnabled
     end)
   end
 
@@ -34,6 +34,7 @@ local function MainPlugin()
         Text = pluginName,
         Tooltip = tooltip,
         Icon = 'rbxassetid://5768049797',
+        Active = enabled,
 
         OnClick = function()
           toggleEnabled()
