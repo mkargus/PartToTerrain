@@ -81,7 +81,7 @@ function PluginApp:init()
   self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
     local cameraPos = workspace.CurrentCamera.CFrame.Position
     local dir = self.pluginMouse.UnitRay.Direction
-    local RaycastResults = workspace:Raycast(cameraPos, dir * 15000, self.raycastParams)
+    local RaycastResults = workspace:Raycast(cameraPos, dir * Constants.RAYCAST_LENGTH, self.raycastParams)
 
     if not RaycastResults then
       return

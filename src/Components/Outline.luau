@@ -70,7 +70,7 @@ local function Outline(props)
   useEventConnection(PluginMouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = PluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * 15000, props.RaycastParams)
+    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
       -- Only change the state if the part in the RaycastResults is different from the one in the state.

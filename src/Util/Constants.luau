@@ -1,5 +1,7 @@
 local Constants = {}
 
+Constants.RAYCAST_LENGTH = 15000
+
 ----------------------------------------
 -- Meta settings
 ----------------------------------------
