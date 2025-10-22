@@ -1,6 +1,7 @@
 local Constants = {}
 
 Constants.RAYCAST_LENGTH = 15000
+Constants.VOXEL_RESOLUTION = 4
 
 ----------------------------------------
 -- Meta settings

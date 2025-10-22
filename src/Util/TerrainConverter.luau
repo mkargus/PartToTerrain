@@ -1,7 +1,7 @@
---!strict
+local Constants = require(script.Parent.Constants)
 local TerrainEnum = require(script.Parent.TerrainEnum)
 
-local RESOLUTION = 4
+local RESOLUTION = Constants.VOXEL_RESOLUTION
 local MAX_VOXEL_LIMIT_READWRITE = 4194304
 local MAX_VOXEL_LIMIT_FILLAPIS = 67108864
 
