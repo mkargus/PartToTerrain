@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/14226603/50402248-1828e200-0763-11e9-9b84-7e34f0bd8ef2.png">
 
-  [![](https://github.com/mkargus/PartToTerrain/workflows/CI/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
+  [![](https://github.com/mkargus/PartToTerrain/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/mkargus/PartToTerrain/actions)
   [![](https://img.shields.io/github/release/mkargus/PartToTerrain.svg?style=flat-square)](https://github.com/mkargus/PartToTerrain/releases)
   [![](https://img.shields.io/github/license/mkargus/PartToTerrain.svg?style=flat-square)](LICENSE.txt)
 </div>
@@ -29,9 +29,9 @@ git clone https://github.com/mkargus/PartToTerrain.git
 wally install
 ```
 
-4. To compile the plugin without the test scripts, run Rojo with this command:
+4. To compile the plugin, run Rojo with this command:
 ```
-rojo build -o PartToTerrain.rbxmx
+rojo build -p PartToTerrain.rbxm
 ```
 
 ## Credits
