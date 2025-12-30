@@ -17,9 +17,6 @@ type Props = {
 
 local function ScrollingFrame(props: Props)
   local theme = useTheme()
-  local isDark = theme.Name == 'Dark'
-
-  local scrollbarColor = if isDark then Color3.fromRGB(85, 85, 85) else Color3.fromRGB(204, 204, 204)
 
   return React.createElement('ScrollingFrame', {
     AutomaticCanvasSize = props.AutomaticCanvasSize,
@@ -30,7 +27,8 @@ local function ScrollingFrame(props: Props)
     LayoutOrder = props.LayoutOrder,
     MidImage = 'rbxasset://textures/StudioSharedUI/ScrollBarMiddle.png',
     Position = props.Position,
-    ScrollBarImageColor3 = scrollbarColor,
+    ScrollBarImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText),
+    ScrollBarImageTransparency = 0.8,
     ScrollBarThickness = props.ScrollBarThickness or 8,
     ScrollingDirection = props.ScrollingDirection,
     Size = props.Size,
