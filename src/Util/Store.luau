@@ -1,9 +1,10 @@
+--!nonstrict
 local BasicState = require(script.Parent.Parent.Packages.BasicState)
 
 local State = BasicState.new({
   Material = Enum.Material.Grass,
   Panel = 'Materials',
-  SearchTerm = ''
+  SearchTerm = '',
 })
 
 State.ProtectType = true

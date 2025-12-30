@@ -1,3 +1,4 @@
+--!nonstrict
 -- Based off of the Rojo's tooltip.
 -- https://github.com/rojo-rbx/rojo/blob/master/plugin/src/App/Components/Tooltip.lua
 local HttpService = game:GetService('HttpService')

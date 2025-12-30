@@ -1,3 +1,4 @@
+--!native
 local Constants = require(script.Parent.Constants)
 local GetAABBRegion = require(script.Parent.GetAABBRegion)
 local TerrainEnum = require(script.Parent.TerrainEnum)
