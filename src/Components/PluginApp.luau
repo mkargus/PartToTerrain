@@ -18,18 +18,6 @@ local App = require(Components.App)
 local Outline = require(Components.Outline)
 local StudioWidget = require(Components.StudioWidget)
 
-local function GetInvisibleParts()
-  local ignoreList = {}
-
-  for _, descendant in workspace:GetDescendants() do
-    if descendant:IsA('BasePart') and descendant.Transparency == 1 then
-      table.insert(ignoreList, descendant)
-    end
-  end
-
-  return ignoreList
-end
-
 local raycastParams = RaycastParams.new()
 raycastParams.IgnoreWater = true
 
@@ -127,7 +115,8 @@ function PluginApp:componentDidUpdate()
 
   if self.state.guiEnabled then
     task.spawn(function()
-      raycastParams.ExcludeInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
+      -- stylua: ignore
+      raycastParams.ExcludeInstances = Settings:Get('IgnoreInvisibleParts') and workspace:QueryDescendants('BasePart [Transparency = 1]') or {}
     end)
   end
 end
