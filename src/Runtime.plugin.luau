@@ -21,10 +21,6 @@ if RunService:IsRunning() then
   return
 end
 
-if not plugin then
-  error('Part to Terrain has to be ran as a plugin.')
-end
-
 local Plugin = script.Parent
 
 local React = require(Plugin.Packages.React)
