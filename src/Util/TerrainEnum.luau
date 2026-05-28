@@ -11,18 +11,13 @@ TerrainEnum.Shape = {
   Cylinder = 'Cylinder',
   CylinderRotate = 'CylinderRotate',
 
-  Wedge = 'Wedge'
-}
-
-TerrainEnum.ConvertWarning = {
-  HasOtherInstance = 'HasOtherInstance',
-  TooSmall = 'TooSmall'
+  Wedge = 'Wedge',
 }
 
 TerrainEnum.ConvertError = {
   RegionTooLarge = 'RegionTooLarge',
   UnknownShape = 'UnknownShape',
-  InvalidSize = 'InvalidSize'
+  InvalidSize = 'InvalidSize',
 }
 
 return TerrainEnum
