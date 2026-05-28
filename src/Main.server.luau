@@ -30,7 +30,7 @@ local Plugin = script.Parent
 local React = require(Plugin.Packages.React)
 local ReactRoblox = require(Plugin.Packages.ReactRoblox)
 
-local StudioThemeContext = require(Plugin.Context.StudioTheme)
+local StudioThemeContext = require(Plugin.Contexts.StudioTheme)
 
 local PluginApp = require(Plugin.Components.PluginApp)
 local Tooltip = require(Plugin.Components.Tooltip)
@@ -38,9 +38,9 @@ local Tooltip = require(Plugin.Components.Tooltip)
 local app = React.createElement(StudioThemeContext.Provider, nil, {
   React.createElement(Tooltip.Provider, nil, {
     React.createElement(PluginApp, {
-      plugin = plugin
-    })
-  })
+      plugin = plugin,
+    }),
+  }),
 })
 
 local root = ReactRoblox.createRoot(Instance.new('Folder'))
