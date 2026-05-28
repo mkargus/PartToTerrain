@@ -30,6 +30,9 @@ local function GetInvisibleParts()
   return ignoreList
 end
 
+local raycastParams = RaycastParams.new()
+raycastParams.IgnoreWater = true
+
 local PluginApp = React.PureComponent:extend('PluginApp')
 
 function PluginApp:init()
@@ -74,14 +77,10 @@ function PluginApp:init()
   ----------------------------------------
   self.pluginMouse = self.plugin:GetMouse()
 
-  self.raycastParams = RaycastParams.new()
-  self.raycastParams.IgnoreWater = true
-  self.raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-
   self.PluginMouseClickConnection = self.pluginMouse.Button1Down:Connect(function()
     local cameraPos = workspace.CurrentCamera.CFrame.Position
     local dir = self.pluginMouse.UnitRay.Direction
-    local RaycastResults = workspace:Raycast(cameraPos, dir * Constants.RAYCAST_LENGTH, self.raycastParams)
+    local RaycastResults = workspace:Raycast(cameraPos, dir * Constants.RAYCAST_LENGTH, raycastParams)
 
     if not RaycastResults then
       return
@@ -128,7 +127,7 @@ function PluginApp:componentDidUpdate()
 
   if self.state.guiEnabled then
     task.spawn(function()
-      self.raycastParams.FilterDescendantsInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
+      raycastParams.ExcludeInstances = Settings:Get('IgnoreInvisibleParts') and GetInvisibleParts() or {}
     end)
   end
 end
@@ -155,7 +154,7 @@ function PluginApp:render()
 
     Outline = state.guiEnabled and React.createElement(Outline, {
       PluginMouse = self.pluginMouse,
-      RaycastParams = self.raycastParams,
+      RaycastParams = raycastParams,
     }),
   })
 end
