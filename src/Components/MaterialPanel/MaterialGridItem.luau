@@ -7,7 +7,7 @@ local Localization = require(Plugin.Util.Localization)
 local MaterialPreviewImage = require(script.Parent.MaterialPreviewImage)
 local Tooltip = require(Plugin.Components.Tooltip)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 type Props = {
   Material: Enum.Material,

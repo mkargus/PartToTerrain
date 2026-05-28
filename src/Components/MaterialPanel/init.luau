@@ -11,7 +11,7 @@ local ScrollingFrame = require(Plugin.Components.ScrollingFrame)
 local Search = require(Plugin.Components.Search)
 
 local useStore = require(Plugin.Hooks.useStore)
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local function MaterialPanel()
   local theme = useTheme()

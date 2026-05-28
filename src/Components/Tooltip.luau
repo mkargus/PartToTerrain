@@ -8,7 +8,7 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local PADDING = 3
 local SHOW_DELAY_TIME = 0.5

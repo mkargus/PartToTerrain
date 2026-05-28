@@ -1,10 +1,9 @@
 local StudioSettings = settings().Studio
 
-local Plugin = script.Parent.Parent
-
-local React = require(Plugin.Packages.React)
+local React = require(script.Parent.Parent.Packages.React)
 
 local StudioThemeContext = React.createContext(StudioSettings.Theme)
+StudioThemeContext.displayName = 'StudioThemeContext'
 
 local function StudioThemeProvider(props)
   local theme, setTheme = React.useState(StudioSettings.Theme)
@@ -24,7 +23,11 @@ local function StudioThemeProvider(props)
   }, props.children)
 end
 
+local function useTheme(): StudioTheme
+  return React.useContext(StudioThemeContext)
+end
+
 return {
-  Context = StudioThemeContext,
   Provider = StudioThemeProvider,
+  useTheme = useTheme,
 }

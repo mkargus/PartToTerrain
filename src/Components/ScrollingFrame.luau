@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 type Props = {
   AutomaticCanvasSize: Enum.AutomaticSize?,

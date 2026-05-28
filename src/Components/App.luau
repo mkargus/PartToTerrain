@@ -14,7 +14,7 @@ local MaterialPanel = require(Plugin.Components.MaterialPanel)
 local SettingsPanel = require(Plugin.Components.SettingsPanel)
 
 local useStore = require(Plugin.Hooks.useStore)
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local function App()
   local theme = useTheme()

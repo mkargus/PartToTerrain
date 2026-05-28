@@ -6,7 +6,7 @@ local Settings = require(Plugin.Util.Settings)
 
 local ToggleButton = require(Plugin.Components.ToggleButton)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 type Props = {
   Title: string,

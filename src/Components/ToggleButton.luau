@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local IMAGE_BASE = 'rbxasset://textures/RoactStudioWidgets/toggle_%s_%s.png'
 

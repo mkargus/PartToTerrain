@@ -7,7 +7,7 @@ local createNextOrder = require(Util.createNextOrder)
 local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 
-local useTheme = require(Plugin.Hooks.useTheme)
+local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local Components = Plugin.Components
 local ScrollingFrame = require(Components.ScrollingFrame)
