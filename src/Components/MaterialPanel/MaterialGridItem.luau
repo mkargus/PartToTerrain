@@ -4,10 +4,15 @@ local React = require(Plugin.Packages.React)
 
 local Localization = require(Plugin.Util.Localization)
 
-local MaterialPreviewImage = require(script.Parent.MaterialPreviewImage)
+local MaterialViewport = require(script.Parent.MaterialViewport)
 local Tooltip = require(Plugin.Components.Tooltip)
 
 local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
+
+local OVERRIDE_MATERIALS = {
+  [Enum.Material.Air] = true,
+  [Enum.Material.Water] = true,
+}
 
 type Props = {
   Material: Enum.Material,
@@ -20,6 +25,8 @@ local function MaterialGridItem(props: Props)
   local theme = useTheme()
   local isHover, setHover = React.useState(false)
   local isPress, setPress = React.useState(false)
+
+  local shouldUseMaterialImage = OVERRIDE_MATERIALS[props.Material]
 
   local onClick = React.useCallback(function()
     if props.OnClick then
@@ -66,7 +73,7 @@ local function MaterialGridItem(props: Props)
     [React.Event.MouseButton1Up] = onMouseButton1Up,
   }, {
     UICorner = React.createElement('UICorner', {
-      CornerRadius = UDim.new(0, 3),
+      CornerRadius = UDim.new(0, 8),
     }),
 
     UIPadding = React.createElement('UIPadding', {
@@ -85,20 +92,25 @@ local function MaterialGridItem(props: Props)
       Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 2),
+        CornerRadius = UDim.new(0, 7),
       }),
 
-      MaterialImage = React.createElement(MaterialPreviewImage, {
+      MaterialViewport = not shouldUseMaterialImage and React.createElement(MaterialViewport, {
         Material = props.Material,
         Size = UDim2.fromScale(1, 1),
-        Use2022Materials = true,
       }),
 
-      UIPadding = React.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, 3),
-        PaddingLeft = UDim.new(0, 3),
-        PaddingRight = UDim.new(0, 3),
-        PaddingTop = UDim.new(0, 3),
+      MaterialImage = shouldUseMaterialImage and React.createElement('ImageLabel', {
+        Image = `rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/{props.Material.Name}.png`,
+        BackgroundTransparency = 1,
+        Size = UDim2.fromScale(1, 1),
+      }),
+
+      UIPadding = shouldUseMaterialImage and React.createElement('UIPadding', {
+        PaddingBottom = UDim.new(0, 2),
+        PaddingLeft = UDim.new(0, 2),
+        PaddingRight = UDim.new(0, 2),
+        PaddingTop = UDim.new(0, 2),
       }),
     }),
   })
