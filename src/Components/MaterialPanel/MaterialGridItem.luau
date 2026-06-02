@@ -51,9 +51,16 @@ local function MaterialGridItem(props: Props)
     setPress(false)
   end, {})
 
-  local borderColor = Enum.StudioStyleGuideColor.Border
+  local backgroundColor = Enum.StudioStyleGuideColor.Tab
+  local borderColor = Enum.StudioStyleGuideColor.Button
+
+  if theme.Name == 'Light' then
+    backgroundColor = Enum.StudioStyleGuideColor.Button
+    borderColor = Enum.StudioStyleGuideColor.ButtonBorder
+  end
+
   if props.Selected then
-    borderColor = Enum.StudioStyleGuideColor.LinkText
+    borderColor = Enum.StudioStyleGuideColor.DialogMainButton
   end
 
   local modifier = Enum.StudioStyleGuideModifier.Default
@@ -65,7 +72,7 @@ local function MaterialGridItem(props: Props)
 
   return React.createElement('ImageButton', {
     AutoButtonColor = false,
-    BackgroundColor3 = theme:GetColor(borderColor, modifier),
+    BackgroundColor3 = theme:GetColor(borderColor),
     [React.Event.MouseButton1Click] = onClick,
     [React.Event.MouseEnter] = onMouseEnter,
     [React.Event.MouseLeave] = onMouseLeave,
@@ -88,7 +95,7 @@ local function MaterialGridItem(props: Props)
     }),
 
     Frame = React.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.Button, modifier),
+      BackgroundColor3 = theme:GetColor(backgroundColor, modifier),
       Size = UDim2.fromScale(1, 1),
     }, {
       UICorner = React.createElement('UICorner', {
@@ -101,7 +108,7 @@ local function MaterialGridItem(props: Props)
       }),
 
       MaterialImage = shouldUseMaterialImage and React.createElement('ImageLabel', {
-        Image = `rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/{props.Material.Name}.png`,
+        Image = `rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/{props.Material.Name}@2x.png`,
         BackgroundTransparency = 1,
         Size = UDim2.fromScale(1, 1),
       }),
