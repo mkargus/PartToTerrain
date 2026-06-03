@@ -13,14 +13,18 @@ local TerrainUtil = require(Util.TerrainUtil)
 
 local useEventConnection = require(Plugin.Hooks.useEventConnection)
 
-local function IsLockedPartAllowed(Part)
-  local setting = Settings:Get('IgnoreLockedParts')
+local function IsLockedPartAllowed(part: BasePart): boolean
+  local ignoreLocked = Settings:Get('IgnoreLockedParts')
 
-  return if setting then setting == Part.Locked else false
+  if ignoreLocked and part.Locked then
+    return false
+  end
+
+  return true
 end
 
 local function GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
-  if isConvertibleToTerrain and not isLockedPartAllowed then
+  if isConvertibleToTerrain and isLockedPartAllowed then
     return if #Part:GetChildren() == 0 then Constants.OUTLINE_COLOR_ALLOW else Constants.OUTLINE_COLOR_WARNING
   else
     return Constants.OUTLINE_COLOR_ERROR
@@ -70,7 +74,8 @@ local function Outline(props)
   useEventConnection(PluginMouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = PluginMouse.UnitRay
-    local RaycastResults = workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
+    local RaycastResults =
+      workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
 
     if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
       -- Only change the state if the part in the RaycastResults is different from the one in the state.
@@ -90,7 +95,7 @@ local function Outline(props)
   local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(Part)
   local isLockedPartAllowed = IsLockedPartAllowed(Part)
 
-  PluginMouse.Icon = (isConvertibleToTerrain and not isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
+  PluginMouse.Icon = (isConvertibleToTerrain and isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
 
   -- If the setting is disabled, then no need to do anymore work.
   if not Settings:Get('EnabledSelectionBox') then
