@@ -3,7 +3,6 @@ local Plugin = script.Parent.Parent
 local React = require(Plugin.Packages.React)
 
 local Localization = require(Plugin.Util.Localization)
-local Store = require(Plugin.Util.Store)
 
 local Tooltip = require(Plugin.Components.Tooltip)
 local TabSet = require(Plugin.Components.TabSet)
@@ -18,7 +17,7 @@ local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local function App()
   local theme = useTheme()
-  local selectedPanel: string = useStore('Panel')
+  local selectedPanel: string, setSelectedPanel = useStore('Panel')
 
   local panelElement = React.useMemo(function()
     if selectedPanel == 'Materials' then
@@ -60,7 +59,7 @@ local function App()
           { Key = 'Settings', Icon = 'rbxassetid://5747147099', Text = Localization('Button.Settings') },
         },
         OnTabSelected = function(tabName)
-          Store:Set('Panel', tabName)
+          setSelectedPanel(tabName)
         end,
       }),
 

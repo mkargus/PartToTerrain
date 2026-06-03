@@ -4,7 +4,6 @@ local React = require(Plugin.Packages.React)
 
 local Constants = require(Plugin.Util.Constants)
 local Localization = require(Plugin.Util.Localization)
-local Store = require(Plugin.Util.Store)
 
 local MaterialGridItem = require(script.MaterialGridItem)
 local ScrollingFrame = require(Plugin.Components.ScrollingFrame)
@@ -15,8 +14,8 @@ local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 local function MaterialPanel()
   local theme = useTheme()
-  local currentMaterial: Enum.Material = useStore('Material')
-  local searchTerm: string = useStore('SearchTerm')
+  local currentMaterial: Enum.Material, setCurrentMaterial = useStore('Material')
+  local searchTerm, setSearchTerm = useStore('SearchTerm')
 
   local content, assetCount = React.useMemo(function()
     local numberAssets = 0
@@ -28,7 +27,7 @@ local function MaterialPanel()
           Material = material,
           Selected = currentMaterial == material,
           OnClick = function()
-            Store:Set('Material', material)
+            setCurrentMaterial(material)
           end,
         })
 
@@ -60,9 +59,9 @@ local function MaterialPanel()
       }),
       Search = React.createElement(Search, {
         PlaceholderText = Localization('Plugin.Search'),
-        Text = Store:Get('SearchTerm'),
+        Text = searchTerm,
         OnTextChange = function(rbx)
-          Store:Set('SearchTerm', rbx.Text)
+          setSearchTerm(rbx.Text)
         end,
       }),
     }),

@@ -9,7 +9,11 @@ local function useStore(key: string)
     setValue(newValue)
   end)
 
-  return value
+  local function setKeyStore(newValue)
+    Store:Set(key, newValue)
+  end
+
+  return value, setKeyStore
 end
 
 return useStore
