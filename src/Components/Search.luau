@@ -63,7 +63,7 @@ local function Search(props: Props)
   return React.createElement('ImageButton', {
     AutoButtonColor = false,
     AutomaticSize = Enum.AutomaticSize.Y,
-    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, modifier),
+    BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, modifier),
     BorderSizePixel = 0,
     Position = props.Position,
     Size = UDim2.fromScale(1, 0),
@@ -76,71 +76,60 @@ local function Search(props: Props)
     }),
 
     UIPadding = React.createElement('UIPadding', {
-      PaddingBottom = UDim.new(0, 1),
-      PaddingLeft = UDim.new(0, 1),
-      PaddingRight = UDim.new(0, 1),
-      PaddingTop = UDim.new(0, 1),
+      PaddingBottom = UDim.new(0, 3),
+      PaddingLeft = UDim.new(0, 3),
+      PaddingRight = UDim.new(0, 3),
+      PaddingTop = UDim.new(0, 3),
     }),
 
     UIFlexItem = React.createElement('UIFlexItem', {
       FlexMode = Enum.UIFlexMode.Fill,
     }),
 
-    Container = React.createElement('Frame', {
+    UIListLayout = React.createElement('UIListLayout', {
+      FillDirection = Enum.FillDirection.Horizontal,
+      Padding = UDim.new(0, 3),
+      SortOrder = Enum.SortOrder.LayoutOrder,
+      VerticalAlignment = Enum.VerticalAlignment.Center,
+    }),
+
+    UIStroke = React.createElement('UIStroke', {
+      ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+      BorderStrokePosition = Enum.BorderStrokePosition.Inner,
+      Color = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBorder, modifier),
+    }),
+
+    Icon = React.createElement('ImageLabel', {
+      BackgroundTransparency = 1,
+      ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
+      Image = 'rbxassetid://5927945389',
+      ImageRectSize = Vector2.new(96, 96),
+      LayoutOrder = 1,
+      Size = UDim2.fromOffset(18, 18),
+    }),
+
+    Input = React.createElement('TextBox', {
       AutomaticSize = Enum.AutomaticSize.Y,
-      BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, modifier),
-      Size = UDim2.fromScale(1, 1),
+      BackgroundTransparency = 1,
+      BorderSizePixel = 0,
+      ClearTextOnFocus = false,
+      LayoutOrder = 2,
+      FontFace = Font.fromEnum(Enum.Font.BuilderSans),
+      PlaceholderText = props.PlaceholderText or 'Search',
+      PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
+      Text = props.Text or '',
+      TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
+      TextEditable = not props.Disabled,
+      TextSize = 16,
+      TextTruncate = Enum.TextTruncate.AtEnd,
+      TextXAlignment = Enum.TextXAlignment.Left,
+      ref = textBoxRef,
+      [React.Event.Focused] = onFocused,
+      [React.Event.FocusLost] = onFocusLost,
+      [React.Change.Text] = onTextChange,
     }, {
-      UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 2),
-      }),
-
-      UIPadding = React.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, 3),
-        PaddingLeft = UDim.new(0, 3),
-        PaddingRight = UDim.new(0, 3),
-        PaddingTop = UDim.new(0, 3),
-      }),
-
-      UIListLayout = React.createElement('UIListLayout', {
-        FillDirection = Enum.FillDirection.Horizontal,
-        Padding = UDim.new(0, 3),
-        SortOrder = Enum.SortOrder.LayoutOrder,
-        VerticalAlignment = Enum.VerticalAlignment.Center,
-      }),
-
-      Icon = React.createElement('ImageLabel', {
-        BackgroundTransparency = 1,
-        ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
-        Image = 'rbxassetid://5927945389',
-        ImageRectSize = Vector2.new(96, 96),
-        LayoutOrder = 1,
-        Size = UDim2.fromOffset(18, 18),
-      }),
-
-      Input = React.createElement('TextBox', {
-        BackgroundTransparency = 1,
-        BorderSizePixel = 0,
-        ClearTextOnFocus = false,
-        LayoutOrder = 2,
-        FontFace = Font.fromEnum(Enum.Font.BuilderSans),
-        PlaceholderText = props.PlaceholderText or 'Search',
-        PlaceholderColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
-        Size = UDim2.new(1, 0, 0, 20),
-        Text = props.Text or '',
-        TextColor3 = theme:GetColor(Enum.StudioStyleGuideColor.MainText, modifier),
-        TextEditable = not props.Disabled,
-        TextSize = 16,
-        TextTruncate = Enum.TextTruncate.AtEnd,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        ref = textBoxRef,
-        [React.Event.Focused] = onFocused,
-        [React.Event.FocusLost] = onFocusLost,
-        [React.Change.Text] = onTextChange,
-      }, {
-        UIFlexItem = React.createElement('UIFlexItem', {
-          FlexMode = Enum.UIFlexMode.Shrink,
-        }),
+      UIFlexItem = React.createElement('UIFlexItem', {
+        FlexMode = Enum.UIFlexMode.Fill,
       }),
     }),
   })

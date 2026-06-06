@@ -72,7 +72,7 @@ local function MaterialGridItem(props: Props)
 
   return React.createElement('ImageButton', {
     AutoButtonColor = false,
-    BackgroundColor3 = theme:GetColor(borderColor),
+    BackgroundColor3 = theme:GetColor(backgroundColor, modifier),
     [React.Event.MouseButton1Click] = onClick,
     [React.Event.MouseEnter] = onMouseEnter,
     [React.Event.MouseLeave] = onMouseLeave,
@@ -83,42 +83,32 @@ local function MaterialGridItem(props: Props)
       CornerRadius = UDim.new(0, 8),
     }),
 
-    UIPadding = React.createElement('UIPadding', {
-      PaddingBottom = UDim.new(0, 1),
-      PaddingLeft = UDim.new(0, 1),
-      PaddingRight = UDim.new(0, 1),
-      PaddingTop = UDim.new(0, 1),
+    UIStroke = React.createElement('UIStroke', {
+      ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+      BorderStrokePosition = Enum.BorderStrokePosition.Inner,
+      Color = theme:GetColor(borderColor),
     }),
 
     Tooltip = React.createElement(Tooltip.Trigger, {
       Text = Localization('Materials.' .. props.Material.Name),
     }),
 
-    Frame = React.createElement('Frame', {
-      BackgroundColor3 = theme:GetColor(backgroundColor, modifier),
+    MaterialViewport = not shouldUseMaterialImage and React.createElement(MaterialViewport, {
+      Material = props.Material,
       Size = UDim2.fromScale(1, 1),
-    }, {
-      UICorner = React.createElement('UICorner', {
-        CornerRadius = UDim.new(0, 7),
-      }),
+    }),
 
-      MaterialViewport = not shouldUseMaterialImage and React.createElement(MaterialViewport, {
-        Material = props.Material,
-        Size = UDim2.fromScale(1, 1),
-      }),
+    MaterialImage = shouldUseMaterialImage and React.createElement('ImageLabel', {
+      Image = `rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/{props.Material.Name}@2x.png`,
+      BackgroundTransparency = 1,
+      Size = UDim2.fromScale(1, 1),
+    }),
 
-      MaterialImage = shouldUseMaterialImage and React.createElement('ImageLabel', {
-        Image = `rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/{props.Material.Name}@2x.png`,
-        BackgroundTransparency = 1,
-        Size = UDim2.fromScale(1, 1),
-      }),
-
-      UIPadding = shouldUseMaterialImage and React.createElement('UIPadding', {
-        PaddingBottom = UDim.new(0, 2),
-        PaddingLeft = UDim.new(0, 2),
-        PaddingRight = UDim.new(0, 2),
-        PaddingTop = UDim.new(0, 2),
-      }),
+    UIPadding = shouldUseMaterialImage and React.createElement('UIPadding', {
+      PaddingBottom = UDim.new(0, 2),
+      PaddingLeft = UDim.new(0, 2),
+      PaddingRight = UDim.new(0, 2),
+      PaddingTop = UDim.new(0, 2),
     }),
   })
 end
