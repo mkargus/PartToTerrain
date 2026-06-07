@@ -98,20 +98,30 @@ local function Outline(props: OutlineProps)
     setPart(hitPart)
   end)
 
-  if not part then
-    mouse.Icon = 'rbxasset://SystemCursors/Arrow'
+  -- Handles changing the mouse icon
+  React.useEffect(function()
+    if not part then
+      mouse.Icon = 'rbxasset://SystemCursors/Arrow'
+      return
+    end
+
+    local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(part)
+    local isLockedPartAllowed = IsLockedPartAllowed(part)
+
+    if not isConvertibleToTerrain or not isLockedPartAllowed then
+      mouse.Icon = 'rbxasset://SystemCursors/Forbidden'
+    else
+      mouse.Icon = '' -- Roblox defaults to a pointing arrow.
+    end
+  end, { part })
+
+  -- Bail early if the there is no part or the setting is off.
+  if not part or not Settings:Get('EnabledSelectionBox') then
     return nil
   end
 
   local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(part)
   local isLockedPartAllowed = IsLockedPartAllowed(part)
-
-  mouse.Icon = (isConvertibleToTerrain and isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
-
-  -- If the setting is disabled, then no need to do anymore work.
-  if not Settings:Get('EnabledSelectionBox') then
-    return nil
-  end
 
   local color = GetColor(part, isConvertibleToTerrain, isLockedPartAllowed)
   local outlineClass, outlineProps = CreateOutline(part, color)
