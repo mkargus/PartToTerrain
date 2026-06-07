@@ -78,20 +78,24 @@ local function Outline(props: OutlineProps)
   local mouse = props.PluginMouse
 
   local part, setPart = React.useState(nil :: BasePart?)
+  local lastDispatchedPart = React.useRef(nil :: BasePart?)
 
   useEventConnection(mouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
     local ray = mouse.UnitRay
     local results = workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
 
+    local hitPart = nil
     if results and not results.Instance:IsA('Terrain') then
-      -- Only change the state if the part in the RaycastResults is different from the one in the state.
-      if results.Instance ~= part then
-        setPart(results.Instance)
-      end
-    else
-      setPart(nil)
+      hitPart = results.Instance
     end
+
+    if hitPart == lastDispatchedPart.current then
+      return
+    end
+
+    lastDispatchedPart.current = hitPart
+    setPart(hitPart)
   end)
 
   if not part then
