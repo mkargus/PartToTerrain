@@ -13,6 +13,11 @@ local TerrainUtil = require(Util.TerrainUtil)
 
 local useEventConnection = require(Plugin.Hooks.useEventConnection)
 
+type OutlineProps = {
+  PluginMouse: PluginMouse,
+  RaycastParams: RaycastParams?,
+}
+
 local function IsLockedPartAllowed(part: BasePart): boolean
   local ignoreLocked = Settings:Get('IgnoreLockedParts')
 
@@ -23,26 +28,28 @@ local function IsLockedPartAllowed(part: BasePart): boolean
   return true
 end
 
-local function GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
-  if isConvertibleToTerrain and isLockedPartAllowed then
-    return if #Part:GetChildren() == 0 then Constants.OUTLINE_COLOR_ALLOW else Constants.OUTLINE_COLOR_WARNING
-  else
+local function GetColor(part: BasePart, isConvertible: boolean, isLockedAllowed: boolean): Color3
+  if not isConvertible or not isLockedAllowed then
     return Constants.OUTLINE_COLOR_ERROR
   end
+
+  if #part:GetChildren() ~= 0 then
+    return Constants.OUTLINE_COLOR_WARNING
+  end
+
+  return Constants.OUTLINE_COLOR_ALLOW
 end
 
-local function CreateOutline(Part, color)
-  local shape, _, size = TerrainUtil:GetPartInfo(Part)
+local function CreateOutline(part: BasePart, color: Color3): (string, { any })
+  local shape, _, size = TerrainUtil:GetPartInfo(part)
 
-  local DEFAULT_OUTLINE_PROPS = {
-    Adornee = Part,
+  local props = {
+    Adornee = part,
     AlwaysOnTop = true,
     Color3 = color,
     Transparency = 0.3,
     ZIndex = 1,
   }
-
-  local props = table.clone(DEFAULT_OUTLINE_PROPS)
 
   if shape == TerrainEnum.Shape.Block or shape == TerrainEnum.Shape.Wedge then
     props.Size = size
@@ -61,49 +68,49 @@ local function CreateOutline(Part, color)
     props.Radius = math.min(size.Y, size.Z) / 2
     return 'CylinderHandleAdornment', props
   else
-    print('Unknown Shape outline requested. Returning Block shape.')
+    warn('Unknown Shape outline requested. Returning Block shape.')
     props.Size = size
     return 'BoxHandleAdornment', props
   end
 end
 
-local function Outline(props)
-  local Part, setPart = React.useState(nil)
-  local PluginMouse = props.PluginMouse :: PluginMouse
+local function Outline(props: OutlineProps)
+  local mouse = props.PluginMouse
 
-  useEventConnection(PluginMouse.Move, function()
+  local part, setPart = React.useState(nil :: BasePart?)
+
+  useEventConnection(mouse.Move, function()
     local camera = workspace.CurrentCamera.CFrame
-    local ray = PluginMouse.UnitRay
-    local RaycastResults =
-      workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
+    local ray = mouse.UnitRay
+    local results = workspace:Raycast(camera.Position, ray.Direction * Constants.RAYCAST_LENGTH, props.RaycastParams)
 
-    if RaycastResults and not RaycastResults.Instance:IsA('Terrain') then
+    if results and not results.Instance:IsA('Terrain') then
       -- Only change the state if the part in the RaycastResults is different from the one in the state.
-      if RaycastResults.Instance ~= Part then
-        setPart(RaycastResults.Instance)
+      if results.Instance ~= part then
+        setPart(results.Instance)
       end
     else
       setPart(nil)
     end
   end)
 
-  if not Part then
-    PluginMouse.Icon = 'rbxasset://SystemCursors/Arrow'
+  if not part then
+    mouse.Icon = 'rbxasset://SystemCursors/Arrow'
     return nil
   end
 
-  local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(Part)
-  local isLockedPartAllowed = IsLockedPartAllowed(Part)
+  local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(part)
+  local isLockedPartAllowed = IsLockedPartAllowed(part)
 
-  PluginMouse.Icon = (isConvertibleToTerrain and isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
+  mouse.Icon = (isConvertibleToTerrain and isLockedPartAllowed) and '' or 'rbxasset://SystemCursors/Forbidden'
 
   -- If the setting is disabled, then no need to do anymore work.
   if not Settings:Get('EnabledSelectionBox') then
     return nil
   end
 
-  local color = GetColor(Part, isConvertibleToTerrain, isLockedPartAllowed)
-  local outlineClass, outlineProps = CreateOutline(Part, color)
+  local color = GetColor(part, isConvertibleToTerrain, isLockedPartAllowed)
+  local outlineClass, outlineProps = CreateOutline(part, color)
 
   return ReactRoblox.createPortal({
     PTT_Outline = React.createElement(outlineClass, outlineProps),
