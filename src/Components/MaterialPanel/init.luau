@@ -60,8 +60,8 @@ local function MaterialPanel()
       Search = React.createElement(Search, {
         PlaceholderText = Localization('Plugin.Search'),
         Text = searchTerm,
-        OnTextChange = function(rbx)
-          setSearchTerm(rbx.Text)
+        OnTextChange = function(text)
+          setSearchTerm(text)
         end,
       }),
     }),

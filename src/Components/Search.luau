@@ -10,12 +10,16 @@ type Props = {
   Position: UDim2?,
   Text: string?,
 
-  OnTextChange: (rbx: TextBox) -> ()?,
+  OnTextChange: (string) -> ()?,
 }
 
 local function Search(props: Props)
   local theme = useTheme()
+
   local textBoxRef = React.useRef(nil :: TextBox?)
+  local lastDispatchedText = React.useRef(props.Text)
+  local textBind, setTextBind = React.useBinding(props.Text)
+
   local isFocus, setFocus = React.useState(false)
   local isHover, setHover = React.useState(false)
 
@@ -25,9 +29,26 @@ local function Search(props: Props)
     end
   end, {})
 
-  local onTextChange = React.useCallback(function()
-    if textBoxRef.current and props.OnTextChange then
-      props.OnTextChange(textBoxRef.current)
+  local clearText = React.useCallback(function()
+    if textBoxRef.current then
+      textBoxRef.current.Text = ''
+    end
+  end, {})
+
+  local onTextChange = React.useCallback(function(textBox: TextBox)
+    if not textBox then
+      return
+    end
+
+    local newText = textBox.Text
+    if newText == lastDispatchedText.current then
+      return
+    end
+    lastDispatchedText.current = newText
+    setTextBind(newText)
+
+    if props.OnTextChange then
+      props.OnTextChange(newText)
     end
   end, { props.OnTextChange })
 
@@ -131,6 +152,19 @@ local function Search(props: Props)
       UIFlexItem = React.createElement('UIFlexItem', {
         FlexMode = Enum.UIFlexMode.Fill,
       }),
+    }),
+
+    Clear = React.createElement('ImageButton', {
+      AutoButtonColor = false,
+      BackgroundTransparency = 1,
+      ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText),
+      Image = 'rbxassetid://100511933585955',
+      LayoutOrder = 3,
+      Size = UDim2.fromOffset(18, 18),
+      Visible = textBind:map(function(text)
+        return text ~= ''
+      end),
+      [React.Event.MouseButton1Click] = clearText,
     }),
   })
 end
