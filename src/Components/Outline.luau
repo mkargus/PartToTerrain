@@ -98,15 +98,15 @@ local function Outline(props: OutlineProps)
     setPart(hitPart)
   end)
 
+  local isConvertibleToTerrain = if part then TerrainUtil:IsConvertibleToTerrain(part) else false
+  local isLockedPartAllowed = if part then IsLockedPartAllowed(part) else false
+
   -- Handles changing the mouse icon
   React.useEffect(function()
     if not part then
       mouse.Icon = 'rbxasset://SystemCursors/Arrow'
       return
     end
-
-    local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(part)
-    local isLockedPartAllowed = IsLockedPartAllowed(part)
 
     if not isConvertibleToTerrain or not isLockedPartAllowed then
       mouse.Icon = 'rbxasset://SystemCursors/Forbidden'
@@ -119,9 +119,6 @@ local function Outline(props: OutlineProps)
   if not part or not Settings:Get('EnabledSelectionBox') then
     return nil
   end
-
-  local isConvertibleToTerrain = TerrainUtil:IsConvertibleToTerrain(part)
-  local isLockedPartAllowed = IsLockedPartAllowed(part)
 
   local color = GetColor(part, isConvertibleToTerrain, isLockedPartAllowed)
   local outlineClass, outlineProps = CreateOutline(part, color)
