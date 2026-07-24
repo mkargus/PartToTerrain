@@ -6,6 +6,6 @@ realm = "shared"
 private = true
 
 [dependencies]
-React = "haedrix/react@=17.3.8"
-ReactRoblox = "haedrix/react-roblox@=17.3.8"
+React = "haedrix/react@=17.3.10"
+ReactRoblox = "haedrix/react-roblox@=17.3.10"
 BasicState = "csqrl/basicstate@=0.2.6"
