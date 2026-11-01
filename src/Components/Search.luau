@@ -6,6 +6,7 @@ local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
 
 type Props = {
   Disabled: boolean?,
+  LayoutOrder: number?,
   PlaceholderText: string?,
   Position: UDim2?,
   Text: string?,
@@ -23,7 +24,7 @@ local function Search(props: Props)
   local isFocus, setFocus = React.useState(false)
   local isHover, setHover = React.useState(false)
 
-  local onMouseButton1Click = React.useCallback(function()
+  local focusTextBox = React.useCallback(function()
     if textBoxRef.current then
       textBoxRef.current:CaptureFocus()
     end
@@ -72,11 +73,7 @@ local function Search(props: Props)
   if props.Disabled then
     modifier = Enum.StudioStyleGuideModifier.Disabled
   elseif isFocus then
-    if theme.Name == 'Light' then
-      modifier = Enum.StudioStyleGuideModifier.Default
-    else
-      modifier = Enum.StudioStyleGuideModifier.Selected
-    end
+    modifier = Enum.StudioStyleGuideModifier.Selected
   elseif isHover then
     modifier = Enum.StudioStyleGuideModifier.Hover
   end
@@ -86,21 +83,22 @@ local function Search(props: Props)
     AutomaticSize = Enum.AutomaticSize.Y,
     BackgroundColor3 = theme:GetColor(Enum.StudioStyleGuideColor.InputFieldBackground, modifier),
     BorderSizePixel = 0,
+    LayoutOrder = props.LayoutOrder,
     Position = props.Position,
     Size = UDim2.fromScale(1, 0),
-    [React.Event.MouseButton1Click] = onMouseButton1Click,
+    [React.Event.MouseButton1Click] = focusTextBox,
     [React.Event.MouseEnter] = onMouseEnter,
     [React.Event.MouseLeave] = onMouseLeave,
   }, {
     UICorner = React.createElement('UICorner', {
-      CornerRadius = UDim.new(0, 3),
+      CornerRadius = UDim.new(1, 0),
     }),
 
     UIPadding = React.createElement('UIPadding', {
-      PaddingBottom = UDim.new(0, 3),
-      PaddingLeft = UDim.new(0, 3),
-      PaddingRight = UDim.new(0, 3),
-      PaddingTop = UDim.new(0, 3),
+      PaddingBottom = UDim.new(0, 4),
+      PaddingLeft = UDim.new(0, 8),
+      PaddingRight = UDim.new(0, 8),
+      PaddingTop = UDim.new(0, 4),
     }),
 
     UIFlexItem = React.createElement('UIFlexItem', {
@@ -109,7 +107,7 @@ local function Search(props: Props)
 
     UIListLayout = React.createElement('UIListLayout', {
       FillDirection = Enum.FillDirection.Horizontal,
-      Padding = UDim.new(0, 3),
+      Padding = UDim.new(0, 4),
       SortOrder = Enum.SortOrder.LayoutOrder,
       VerticalAlignment = Enum.VerticalAlignment.Center,
     }),
@@ -122,7 +120,7 @@ local function Search(props: Props)
 
     Icon = React.createElement('ImageLabel', {
       BackgroundTransparency = 1,
-      ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.DimmedText, modifier),
+      ImageColor3 = theme:GetColor(Enum.StudioStyleGuideColor.SubText, modifier),
       Image = 'rbxassetid://5927945389',
       ImageRectSize = Vector2.new(96, 96),
       LayoutOrder = 1,
