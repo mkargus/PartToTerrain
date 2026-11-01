@@ -33,7 +33,7 @@ local DEFAULT_MODEL = Instance.new('Model')
 
 local templateCache = {}
 
-type MaterialViewportProps = {
+type MaterialPreviewProps = {
   LayoutOrder: number?,
   Material: Enum.Material,
   Size: UDim2?,
@@ -62,7 +62,7 @@ local function getMeshPartAsync(assetId: string)
   return meshPart
 end
 
-local function MaterialViewport(props: MaterialViewportProps)
+local function MaterialPreview(props: MaterialPreviewProps)
   local viewportRef = React.useRef(nil :: ViewportFrame?)
   local cameraRef = React.useRef(Instance.new('Camera'))
   local model, setModel = React.useState(DEFAULT_MODEL :: Model)
@@ -137,4 +137,4 @@ local function MaterialViewport(props: MaterialViewportProps)
   })
 end
 
-return MaterialViewport
+return MaterialPreview

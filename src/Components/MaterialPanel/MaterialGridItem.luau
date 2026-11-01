@@ -4,7 +4,7 @@ local React = require(Plugin.Packages.React)
 
 local Localization = require(Plugin.Util.Localization)
 
-local MaterialViewport = require(script.Parent.MaterialViewport)
+local MaterialPreview = require(script.Parent.MaterialPreview)
 local Tooltip = require(Plugin.Components.Tooltip)
 
 local useTheme = require(Plugin.Contexts.StudioTheme).useTheme
@@ -93,7 +93,7 @@ local function MaterialGridItem(props: Props)
       Text = Localization('Materials.' .. props.Material.Name),
     }),
 
-    MaterialViewport = not shouldUseMaterialImage and React.createElement(MaterialViewport, {
+    MaterialPreview = not shouldUseMaterialImage and React.createElement(MaterialPreview, {
       Material = props.Material,
       Size = UDim2.fromScale(1, 1),
     }),
