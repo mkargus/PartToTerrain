@@ -1,7 +1,7 @@
 local TerrainConverter = require(script.Parent.TerrainConverter)
 local TerrainEnum = require(script.Parent.TerrainEnum)
 
-local Shape = TerrainEnum.Shape
+local TerrainShape = TerrainEnum.Shape
 local ConvertError = TerrainEnum.ConvertError
 
 local TerrainUtil = {}
@@ -33,53 +33,44 @@ function TerrainUtil:IsConvertibleToTerrain(instance: Instance): boolean
   return true
 end
 
+local MESH_TYPE_MAP = {
+  [Enum.MeshType.Cylinder] = TerrainShape.CylinderRotate,
+  [Enum.MeshType.Head] = TerrainShape.Cylinder,
+  [Enum.MeshType.Sphere] = TerrainShape.Ball,
+  [Enum.MeshType.Wedge] = TerrainShape.Wedge,
+}
+
+local PART_SHAPE_MAP = {
+  [Enum.PartType.Cylinder] = TerrainShape.CylinderRotate,
+  [Enum.PartType.Ball] = TerrainShape.Ball,
+  [Enum.PartType.Wedge] = TerrainShape.Ball,
+}
+
 --[[
   Returns info about the part such as what shape it is, cframe and size.
 ]]
 function TerrainUtil:GetPartInfo(part: BasePart): (string, CFrame, Vector3)
+  local shape = TerrainShape.Block
   local cframe = part.CFrame
   local size = part.Size
 
-  local obj = part:FindFirstChildWhichIsA('DataModelMesh')
+  local mesh = part:FindFirstChildWhichIsA('DataModelMesh')
+  if mesh then
+    cframe += part.CFrame:VectorToWorldSpace(mesh.Offset)
+    size *= mesh.Scale:Abs()
 
-  -- If the part has a mesh parented to it, then use the mesh shape instead
-  if obj then
-    cframe += part.CFrame:VectorToWorldSpace(obj.Offset)
-    size *= obj.Scale:Abs()
-
-    if obj:IsA('SpecialMesh') then
-      if obj.MeshType == Enum.MeshType.Cylinder then
-        return Shape.CylinderRotate, cframe, size
-      elseif obj.MeshType == Enum.MeshType.Head then
-        return Shape.Cylinder, cframe, size
-      elseif obj.MeshType == Enum.MeshType.Sphere then
-        return Shape.Ball, cframe, size
-      elseif obj.MeshType == Enum.MeshType.Wedge then
-        return Shape.Wedge, cframe, size
-      end
-    elseif obj:IsA('CylinderMesh') then
-      return Shape.Cylinder, cframe, size
+    if mesh:IsA('SpecialMesh') then
+      shape = MESH_TYPE_MAP[mesh.MeshType] or TerrainShape.Block
+    elseif mesh:IsA('CylinderMesh') then
+      shape = TerrainShape.Cylinder
     end
-
-    -- Fallback to a block
-    return Shape.Block, cframe, size
-  end
-
-  if part:IsA('Part') then
-    if part.Shape == Enum.PartType.Cylinder then
-      return Shape.CylinderRotate, cframe, size
-    elseif part.Shape == Enum.PartType.Ball then
-      return Shape.Ball, cframe, size
-    elseif part.Shape == Enum.PartType.Wedge then
-      return Shape.Wedge, cframe, size
-    else
-      return Shape.Block, cframe, size
-    end
+  elseif part:IsA('Part') then
+    shape = PART_SHAPE_MAP[part.Shape] or TerrainShape.Block
   elseif part:IsA('WedgePart') then
-    return Shape.Wedge, cframe, size
+    shape = TerrainShape.Wedge
   end
 
-  return Shape.Block, cframe, size
+  return shape, cframe, size
 end
 
 function TerrainUtil:ConvertToTerrain(
@@ -94,25 +85,27 @@ function TerrainUtil:ConvertToTerrain(
   end
 
   local success, errorCode = xpcall(function()
-    if shape == Shape.Ball then
+    if shape == TerrainShape.Ball then
       local radius = math.min(size.X, size.Y, size.Z) / 2
       TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
-    elseif shape == Shape.Block then
+    elseif shape == TerrainShape.Block then
       TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
-    elseif shape == Shape.Cylinder then
+    elseif shape == TerrainShape.Cylinder then
       local height = size.Y
       local radius = math.min(size.X, size.Z) / 2
       TerrainConverter:FillCylinder(material, cframe, height, radius)
-    elseif shape == Shape.CylinderRotate then
+    elseif shape == TerrainShape.CylinderRotate then
       cframe *= CFrame.Angles(0, 0, math.rad(90))
       local height = size.X
       local radius = math.min(size.Y, size.Z) / 2
       TerrainConverter:FillCylinder(material, cframe, height, radius)
-    elseif shape == Shape.Wedge then
+    elseif shape == TerrainShape.Wedge then
       TerrainConverter:FillWedge(material, cframe, size)
     else
       error(ConvertError.UnknownShape, 0)
     end
+
+    return nil
   end, function(err)
     if string.find(err, 'too large') then
       return ConvertError.RegionTooLarge
