@@ -1,30 +1,19 @@
 --!native
 local Constants = require(script.Parent.Constants)
 local GetAABBRegion = require(script.Parent.GetAABBRegion)
-local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local RESOLUTION = Constants.VOXEL_RESOLUTION
-local MAX_VOXEL_LIMIT_READWRITE = 4194304
-local MAX_VOXEL_LIMIT_FILLAPIS = 67108864
 
 local TerrainConverter = {}
 
-function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radius: number, preserveTerrain: boolean?): (boolean, string?)
+function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radius: number, preserveTerrain: boolean?)
   local center = cframe.Position
   local diameter3 = Vector3.new(radius, radius, radius) * 2
-  local region, regionVolume = GetAABBRegion(cframe, diameter3)
+  local region = GetAABBRegion(cframe, diameter3)
 
   if not preserveTerrain or material == Enum.Material.Air then
-    if MAX_VOXEL_LIMIT_FILLAPIS < regionVolume then
-      return false, TerrainEnum.ConvertError.RegionTooLarge
-    end
-
     workspace.Terrain:FillBall(center, radius, material)
-    return true
-  end
-
-  if MAX_VOXEL_LIMIT_READWRITE < regionVolume then
-    return false, TerrainEnum.ConvertError.RegionTooLarge
+    return
   end
 
   local materialVoxels, occupancyVoxels = workspace.Terrain:ReadVoxels(region, RESOLUTION)
@@ -54,29 +43,19 @@ function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radi
         if brushOcc >= 0.1 and cellMaterial == Enum.Material.Air then
           materialVoxels[x][y][z] = material
         end
-
       end
     end
   end
 
   workspace.Terrain:WriteVoxels(region, RESOLUTION, materialVoxels, occupancyVoxels)
-  return true
 end
 
-function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?): (boolean, string?)
-  local region, regionVolume = GetAABBRegion(cframe, size)
+function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?)
+  local region = GetAABBRegion(cframe, size)
 
   if not preserveTerrain or material == Enum.Material.Air then
-    if MAX_VOXEL_LIMIT_FILLAPIS < regionVolume then
-      return false, TerrainEnum.ConvertError.RegionTooLarge
-    end
-
     workspace.Terrain:FillBlock(cframe, size, material)
-    return true
-  end
-
-  if MAX_VOXEL_LIMIT_READWRITE < regionVolume then
-    return false, TerrainEnum.ConvertError.RegionTooLarge
+    return
   end
 
   local min = region.CFrame.Position - region.Size / 2
@@ -119,23 +98,19 @@ function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, siz
         if brushOcc >= 0.1 and cellMaterial == Enum.Material.Air then
           materialVoxels[x][y][z] = material
         end
-
       end
     end
   end
 
   workspace.Terrain:WriteVoxels(region, RESOLUTION, materialVoxels, occupancyVoxels)
-  return true
 end
 
-function TerrainConverter:FillCylinder(material: Enum.Material, cframe: CFrame, height: number, radius: number): boolean
+function TerrainConverter:FillCylinder(material: Enum.Material, cframe: CFrame, height: number, radius: number)
   workspace.Terrain:FillCylinder(cframe, height, radius, material)
-  return true
 end
 
-function TerrainConverter:FillWedge(material: Enum.Material, cframe: CFrame, size: Vector3): boolean
+function TerrainConverter:FillWedge(material: Enum.Material, cframe: CFrame, size: Vector3)
   workspace.Terrain:FillWedge(cframe, size, material)
-  return true
 end
 
 return TerrainConverter

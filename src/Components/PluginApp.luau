@@ -11,12 +11,20 @@ local Constants = require(Util.Constants)
 local Localization = require(Util.Localization)
 local Settings = require(Util.Settings)
 local Store = require(Util.Store)
+local TerrainEnum = require(Util.TerrainEnum)
 local TerrainUtil = require(Util.TerrainUtil)
 
 local Components = Plugin.Components
 local App = require(Components.App)
 local Outline = require(Components.Outline)
 local StudioWidget = require(Components.StudioWidget)
+
+local ERROR_CODE_MESSAGES = {
+  [TerrainEnum.ConvertError.RegionTooLarge] = Localization('ErrorCode.RegionTooLarge'),
+  [TerrainEnum.ConvertError.UnknownShape] = Localization('ErrorCode.UnknownShape'),
+  [TerrainEnum.ConvertError.InvalidSize] = Localization('ErrorCode.InvalidSize'),
+  [TerrainEnum.ConvertError.UnknownError] = Localization('ErrorCode.UnknownError'),
+}
 
 local raycastParams = RaycastParams.new()
 raycastParams.IgnoreWater = true
@@ -98,7 +106,7 @@ function PluginApp:init()
 
     local chRecording = ChangeHistoryService:TryBeginRecording('PartToTerrain')
 
-    local success = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserveTerrain)
+    local success, errorCode = TerrainUtil:ConvertToTerrain(shape, material, cframe, size, preserveTerrain)
     if success then
       if Settings:Get('DeletePart') then
         obj.Parent = nil
@@ -106,6 +114,7 @@ function PluginApp:init()
       ChangeHistoryService:FinishRecording(chRecording, Enum.FinishRecordingOperation.Commit)
     else
       ChangeHistoryService:FinishRecording(chRecording, Enum.FinishRecordingOperation.Cancel)
+      warn('[Part to Terrain]', ERROR_CODE_MESSAGES[errorCode] or errorCode)
     end
   end)
 end

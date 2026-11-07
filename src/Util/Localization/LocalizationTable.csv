@@ -40,3 +40,7 @@ Materials.Slate,Slate,石板,슬레이트,スレート,Pizarra,Ardósia,Ardoise,
 Materials.Snow,Snow,雪,눈,雪,Nieve,Neve,Neige,Neve,雪,Schnee,Tuyết
 Materials.Water,Water,水域,물,水,Agua,Água,Eau,Acqua,水域,Wasser,Nước
 Materials.WoodPlanks,Wood Planks,木板,나무 판자,木の板,Tablones de madera,Tábuas,Planches de bois,Assi di legno,木板,Holzbohlen,Ván Gỗ
+ErrorCode.RegionTooLarge,"The part size is too large to convert. Try making the part smaller or check the Preserve Terrain settings.",,,,,,,,,,
+ErrorCode.UnknownShape,"The shape you're trying to convert is invalid.",,,,,,,,,,
+ErrorCode.InvalidSize,"The part's size is invalid. Check to see if the part has any meshes and check it's Scale value.",,,,,,,,,,
+ErrorCode.UnknownError,"An error has occurred, use the trace above to see the error.",,,,,,,,,,

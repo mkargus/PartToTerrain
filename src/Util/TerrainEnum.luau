@@ -1,6 +1,6 @@
 local TerrainEnum = {}
 
-TerrainEnum.Shape = {
+TerrainEnum.Shape = table.freeze({
   Ball = 'Ball',
   Block = 'Block',
 
@@ -12,12 +12,13 @@ TerrainEnum.Shape = {
   CylinderRotate = 'CylinderRotate',
 
   Wedge = 'Wedge',
-}
+})
 
-TerrainEnum.ConvertError = {
+TerrainEnum.ConvertError = table.freeze({
   RegionTooLarge = 'RegionTooLarge',
   UnknownShape = 'UnknownShape',
   InvalidSize = 'InvalidSize',
-}
+  UnknownError = 'UnknownError',
+})
 
 return TerrainEnum

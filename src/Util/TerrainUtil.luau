@@ -2,6 +2,7 @@ local TerrainConverter = require(script.Parent.TerrainConverter)
 local TerrainEnum = require(script.Parent.TerrainEnum)
 
 local Shape = TerrainEnum.Shape
+local ConvertError = TerrainEnum.ConvertError
 
 local TerrainUtil = {}
 
@@ -89,30 +90,41 @@ function TerrainUtil:ConvertToTerrain(
   preserveTerrain: boolean?
 ): (boolean, string?)
   if size.X <= 0 or size.Y <= 0 or size.Z <= 0 then
-    return false, TerrainEnum.ConvertError.InvalidSize
+    return false, ConvertError.InvalidSize
   end
 
-  local success, errorCode = (function()
+  local success, errorCode = xpcall(function()
     if shape == Shape.Ball then
       local radius = math.min(size.X, size.Y, size.Z) / 2
-      return TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
+      TerrainConverter:FillBall(material, cframe, radius, preserveTerrain)
     elseif shape == Shape.Block then
-      return TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
+      TerrainConverter:FillBlock(material, cframe, size, preserveTerrain)
     elseif shape == Shape.Cylinder then
       local height = size.Y
       local radius = math.min(size.X, size.Z) / 2
-      return TerrainConverter:FillCylinder(material, cframe, height, radius)
+      TerrainConverter:FillCylinder(material, cframe, height, radius)
     elseif shape == Shape.CylinderRotate then
-      local cframe_fix = cframe * CFrame.Angles(0, 0, math.rad(90))
+      cframe *= CFrame.Angles(0, 0, math.rad(90))
       local height = size.X
       local radius = math.min(size.Y, size.Z) / 2
-      return TerrainConverter:FillCylinder(material, cframe_fix, height, radius)
+      TerrainConverter:FillCylinder(material, cframe, height, radius)
     elseif shape == Shape.Wedge then
-      return TerrainConverter:FillWedge(material, cframe, size)
+      TerrainConverter:FillWedge(material, cframe, size)
+    else
+      error(ConvertError.UnknownShape, 0)
+    end
+  end, function(err)
+    if string.find(err, 'too large') then
+      return ConvertError.RegionTooLarge
     end
 
-    return false, TerrainEnum.ConvertError.UnknownShape
-  end)()
+    if err == ConvertError.UnknownShape then
+      return ConvertError.UnknownShape
+    end
+
+    warn(debug.traceback(err, 2))
+    return ConvertError.UnknownError
+  end)
 
   return success, errorCode
 end
