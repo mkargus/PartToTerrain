@@ -6,6 +6,47 @@ local RESOLUTION = Constants.VOXEL_RESOLUTION
 
 local TerrainConverter = {}
 
+local function processVoxelRegion(
+  cframe: CFrame,
+  size: Vector3,
+  material: Enum.Material,
+  occCallback: (cellPosition: Vector3) -> number
+)
+  local region = GetAABBRegion(cframe, size)
+  local min = region.CFrame.Position - region.Size / 2
+
+  local materialVoxels, occVoxels = workspace.Terrain:ReadVoxels(region, RESOLUTION)
+  local regionSize = materialVoxels.Size
+
+  for x = 1, regionSize.X do
+    local cellPosX = min.X + (x - 0.5) * RESOLUTION
+
+    for y = 1, regionSize.Y do
+      local cellPosY = min.Y + (y - 0.5) * RESOLUTION
+
+      for z = 1, regionSize.Z do
+        local cellPosZ = min.Z + (z - 0.5) * RESOLUTION
+
+        local cellPosition = Vector3.new(cellPosX, cellPosY, cellPosZ)
+        local targetOcc = occCallback(cellPosition)
+
+        local cellMaterial = materialVoxels[x][y][z]
+        local cellOccupancy = occVoxels[x][y][z]
+
+        if targetOcc > cellOccupancy then
+          occVoxels[x][y][z] = targetOcc
+        end
+
+        if targetOcc >= 0.1 and cellMaterial == Enum.Material.Air then
+          materialVoxels[x][y][z] = material
+        end
+      end
+    end
+  end
+
+  workspace.Terrain:WriteVoxels(region, RESOLUTION, materialVoxels, occVoxels)
+end
+
 function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radius: number, preserveTerrain: boolean?)
   local center = cframe.Position
   local diameter3 = Vector3.new(radius, radius, radius) * 2
@@ -51,58 +92,27 @@ function TerrainConverter:FillBall(material: Enum.Material, cframe: CFrame, radi
 end
 
 function TerrainConverter:FillBlock(material: Enum.Material, cframe: CFrame, size: Vector3, preserveTerrain: boolean?)
-  local region = GetAABBRegion(cframe, size)
-
   if not preserveTerrain or material == Enum.Material.Air then
     workspace.Terrain:FillBlock(cframe, size, material)
     return
   end
 
-  local min = region.CFrame.Position - region.Size / 2
-  local materialVoxels, occupancyVoxels = workspace.Terrain:ReadVoxels(region, RESOLUTION)
-
-  local regionSize = materialVoxels.Size
-
   local sizeCellClamped = (size / RESOLUTION):Min(Vector3.one)
   local sizeCellsHalfOffset = size * (0.5 / RESOLUTION) + Vector3.new(0.5, 0.5, 0.5)
 
-  for x = 1, regionSize.X do
-    local cellPosX = min.X + (x - 0.5) * RESOLUTION
+  processVoxelRegion(cframe, size, material, function(cellPosition)
+    local offset = cframe:PointToObjectSpace(cellPosition) / RESOLUTION
 
-    for y = 1, regionSize.Y do
-      local cellPosY = min.Y + (y - 0.5) * RESOLUTION
+    local distX = sizeCellsHalfOffset.X - math.abs(offset.X)
+    local distY = sizeCellsHalfOffset.Y - math.abs(offset.Y)
+    local distZ = sizeCellsHalfOffset.Z - math.abs(offset.Z)
 
-      for z = 1, regionSize.Z do
-        local cellPosZ = min.Z + (z - 0.5) * RESOLUTION
+    local factorX = math.max(0, math.min(distX, sizeCellClamped.X))
+    local factorY = math.max(0, math.min(distY, sizeCellClamped.Y))
+    local factorZ = math.max(0, math.min(distZ, sizeCellClamped.Z))
 
-        local cellPosition = Vector3.new(cellPosX, cellPosY, cellPosZ)
-        local offset = cframe:PointToObjectSpace(cellPosition) / RESOLUTION
-
-        local distX = sizeCellsHalfOffset.X - math.abs(offset.X)
-        local distY = sizeCellsHalfOffset.Y - math.abs(offset.Y)
-        local distZ = sizeCellsHalfOffset.Z - math.abs(offset.Z)
-
-        local factorX = math.max(0, math.min(distX, sizeCellClamped.X))
-        local factorY = math.max(0, math.min(distY, sizeCellClamped.Y))
-        local factorZ = math.max(0, math.min(distZ, sizeCellClamped.Z))
-
-        local brushOcc = math.min(factorX, factorY, factorZ)
-
-        local cellMaterial = materialVoxels[x][y][z]
-        local cellOccupancy = occupancyVoxels[x][y][z]
-
-        if brushOcc > cellOccupancy then
-          occupancyVoxels[x][y][z] = brushOcc
-        end
-
-        if brushOcc >= 0.1 and cellMaterial == Enum.Material.Air then
-          materialVoxels[x][y][z] = material
-        end
-      end
-    end
-  end
-
-  workspace.Terrain:WriteVoxels(region, RESOLUTION, materialVoxels, occupancyVoxels)
+    return math.min(factorX, factorY, factorZ)
+  end)
 end
 
 function TerrainConverter:FillCylinder(material: Enum.Material, cframe: CFrame, height: number, radius: number)
