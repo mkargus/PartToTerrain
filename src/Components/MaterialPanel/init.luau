@@ -17,28 +17,36 @@ local function MaterialPanel()
   local currentMaterial: Enum.Material, setCurrentMaterial = useStore('Material')
   local searchTerm, setSearchTerm = useStore('SearchTerm')
 
-  local content, assetCount = React.useMemo(function()
-    local numberAssets = 0
-    local assetsToDisplay = {} :: any
+  local filteredMaterials = React.useMemo(function()
+    local results = {}
+    local normalizedSearch = string.lower(searchTerm)
 
     for _, material in Constants.MATERIALS do
-      if string.find(string.lower(material.Name), string.lower(searchTerm), 1, true) then
-        assetsToDisplay[material.Name] = React.createElement(MaterialGridItem, {
-          Material = material,
-          Selected = currentMaterial == material,
-          OnClick = function()
-            setCurrentMaterial(material)
-          end,
-        })
-
-        numberAssets += 1
+      if normalizedSearch == '' or string.find(string.lower(material.Name), normalizedSearch, 1, true) then
+        table.insert(results, material)
       end
     end
 
-    return assetsToDisplay, numberAssets
-  end, { currentMaterial, searchTerm } :: { unknown })
+    return results
+  end, { searchTerm })
 
-  local hasAssets = assetCount ~= 0
+  local items = React.useMemo(function()
+    local assetsToDisplay: { [string]: React.ReactNode } = {}
+
+    for _, material in filteredMaterials do
+      assetsToDisplay[material.Name] = React.createElement(MaterialGridItem, {
+        Material = material,
+        Selected = currentMaterial == material,
+        OnClick = function()
+          setCurrentMaterial(material)
+        end,
+      })
+    end
+
+    return assetsToDisplay
+  end, { currentMaterial, filteredMaterials } :: { unknown })
+
+  local hasAssets = #filteredMaterials ~= 0
 
   return React.createElement(React.Fragment, nil, {
     UIListLayout = React.createElement('UIListLayout', {
@@ -88,7 +96,7 @@ local function MaterialPanel()
         PaddingRight = UDim.new(0, 3),
       }),
 
-      Items = React.createElement(React.Fragment, nil, content),
+      Items = React.createElement(React.Fragment, nil, items),
     }),
 
     NoResultsFound = not hasAssets and React.createElement('TextLabel', {
