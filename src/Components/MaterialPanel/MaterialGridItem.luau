@@ -2,8 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local React = require(Plugin.Packages.React)
 
-local Localization = require(Plugin.Util.Localization)
-
 local MaterialPreview = require(script.Parent.MaterialPreview)
 local Tooltip = require(Plugin.Components.Tooltip)
 
@@ -15,8 +13,11 @@ local OVERRIDE_MATERIALS = {
 }
 
 type Props = {
+  MaterialName: string,
   Material: Enum.Material,
-  Selected: boolean?,
+  Variant: string?,
+  Color: Color3?,
+  IsSelected: boolean?,
 
   OnClick: () -> ()?,
 }
@@ -59,7 +60,7 @@ local function MaterialGridItem(props: Props)
     borderColor = Enum.StudioStyleGuideColor.ButtonBorder
   end
 
-  if props.Selected then
+  if props.IsSelected then
     borderColor = Enum.StudioStyleGuideColor.DialogMainButton
   end
 
@@ -90,11 +91,13 @@ local function MaterialGridItem(props: Props)
     }),
 
     Tooltip = React.createElement(Tooltip.Trigger, {
-      Text = Localization('Materials.' .. props.Material.Name),
+      Text = props.MaterialName,
     }),
 
     MaterialPreview = not shouldUseMaterialImage and React.createElement(MaterialPreview, {
       Material = props.Material,
+      Variant = props.Variant,
+      Color = props.Color,
       Size = UDim2.fromScale(1, 1),
     }),
 

@@ -35,8 +35,10 @@ local function MaterialPanel()
 
     for _, material in filteredMaterials do
       assetsToDisplay[material.Name] = React.createElement(MaterialGridItem, {
+        MaterialName = Localization(`Materials.'{material.Name}`),
         Material = material,
-        Selected = currentMaterial == material,
+        Color = Constants.MATERIAL_COLORS[material],
+        IsSelected = currentMaterial == material,
         OnClick = function()
           setCurrentMaterial(material)
         end,

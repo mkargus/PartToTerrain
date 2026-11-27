@@ -52,4 +52,28 @@ Constants.MATERIALS = {
   Enum.Material.WoodPlanks,
 }
 
+Constants.MATERIAL_COLORS = {
+  [Enum.Material.Asphalt] = Color3.fromRGB(80, 84, 84),
+  [Enum.Material.Basalt] = Color3.fromRGB(75, 74, 74),
+  [Enum.Material.Brick] = Color3.fromRGB(138, 97, 73),
+  [Enum.Material.Cobblestone] = Color3.fromRGB(134, 134, 118),
+  [Enum.Material.Concrete] = Color3.fromRGB(152, 152, 152),
+  [Enum.Material.CrackedLava] = Color3.fromRGB(255, 24, 67),
+  [Enum.Material.Glacier] = Color3.fromRGB(221, 228, 229),
+  [Enum.Material.Grass] = Color3.fromRGB(111, 126, 62),
+  [Enum.Material.Ground] = Color3.fromRGB(140, 130, 104),
+  [Enum.Material.Ice] = Color3.fromRGB(204, 210, 223),
+  [Enum.Material.LeafyGrass] = Color3.fromRGB(106, 134, 64),
+  [Enum.Material.Limestone] = Color3.fromRGB(255, 243, 192),
+  [Enum.Material.Mud] = Color3.fromRGB(121, 112, 98),
+  [Enum.Material.Pavement] = Color3.fromRGB(143, 144, 135),
+  [Enum.Material.Rock] = Color3.fromRGB(99, 100, 102),
+  [Enum.Material.Salt] = Color3.fromRGB(255, 255, 254),
+  [Enum.Material.Sand] = Color3.fromRGB(207, 203, 167),
+  [Enum.Material.Sandstone] = Color3.fromRGB(148, 124, 95),
+  [Enum.Material.Slate] = Color3.fromRGB(88, 89, 86),
+  [Enum.Material.Snow] = Color3.fromRGB(235, 253, 255),
+  [Enum.Material.WoodPlanks] = Color3.fromRGB(172, 148, 108),
+}
+
 return table.freeze(Constants)
